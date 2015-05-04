@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Alumno" table="alumno">
+    <indexes>
+      <index name="padre2_fk_alumno" columns="id_usuario_padre2"/>
+      <index name="usuarior_fk_alumno" columns="id_usuario_alumno"/>
+      <index name="padre1_fk_alumno" columns="id_usuario_padre1"/>
+    </indexes>
+    <id name="idAlumno" type="integer" column="id_alumno">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreAlumno" type="string" column="nombre_alumno" length="45" nullable="false"/>
+    <many-to-one field="idUsuarioAlumno" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_alumno" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUsuarioPadre1" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_padre1" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUsuarioPadre2" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_padre2" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

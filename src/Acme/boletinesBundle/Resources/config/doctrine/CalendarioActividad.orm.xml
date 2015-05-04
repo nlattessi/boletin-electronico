@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\CalendarioActividad" table="calendario_actividad">
+    <indexes>
+      <index name="calendario_fk_actividad" columns="id_calendario"/>
+      <index name="actividad_fk_calendario" columns="id_actividad"/>
+    </indexes>
+    <id name="idCalendarioActividad" type="integer" column="id_calendario_actividad">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="idCalendario" target-entity="Calendario">
+      <join-columns>
+        <join-column name="id_calendario" referenced-column-name="id_calendario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idActividad" target-entity="Actividad">
+      <join-columns>
+        <join-column name="id_actividad" referenced-column-name="id_actividad"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

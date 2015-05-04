@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\ExamenArchivo" table="examen_archivo">
+    <indexes>
+      <index name="examen_fk_archivo" columns="id_examen"/>
+      <index name="archivo_fk_examen" columns="id_archivo"/>
+    </indexes>
+    <id name="idExamenArchivo" type="integer" column="id_examen_archivo">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="idExamen" target-entity="Examen">
+      <join-columns>
+        <join-column name="id_examen" referenced-column-name="id_examen"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idArchivo" target-entity="Archivo">
+      <join-columns>
+        <join-column name="id_archivo" referenced-column-name="id_archivo"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

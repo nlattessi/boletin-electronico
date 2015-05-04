@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Justificacion" table="justificacion">
+    <indexes>
+      <index name="usuario_fk_justificacion" columns="id_usuario_carga"/>
+      <index name="archivo_fk_justificacion" columns="id_archivo"/>
+    </indexes>
+    <id name="idJustificacion" type="integer" column="id_justificacion">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechaCarga" type="datetime" column="fecha_carga" nullable="false"/>
+    <field name="justificacion" type="string" column="justificacion" length="255" nullable="false"/>
+    <many-to-one field="idUsuarioCarga" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_carga" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idArchivo" target-entity="Archivo">
+      <join-columns>
+        <join-column name="id_archivo" referenced-column-name="id_archivo"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

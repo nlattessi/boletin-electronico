@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Rol" table="rol">
+    <id name="idRol" type="integer" column="id_rol">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreRol" type="string" column="nombre_rol" length="45" nullable="false"/>
+  </entity>
+</doctrine-mapping>

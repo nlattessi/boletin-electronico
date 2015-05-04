@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\MateriaDiaHorario" table="materia_dia_horario">
+    <indexes>
+      <index name="materia_fk_dia_hora" columns="id_materia"/>
+    </indexes>
+    <id name="idMateriaDiaHorario" type="integer" column="id_materia_dia_horario">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="dia" type="string" column="dia" length="10" nullable="false"/>
+    <field name="horaCatedraInicio" type="integer" column="hora_catedra_inicio" nullable="false"/>
+    <field name="horaCatedraFin" type="integer" column="hora_catedra_fin" nullable="false"/>
+    <many-to-one field="idMateria" target-entity="Materia">
+      <join-columns>
+        <join-column name="id_materia" referenced-column-name="id_materia"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

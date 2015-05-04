@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Establecimiento" table="establecimiento">
+    <indexes>
+      <index name="institucion_fk_establecimiento" columns="id_institucion"/>
+    </indexes>
+    <id name="idEstablecimiento" type="integer" column="id_establecimiento">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreEstablecimiento" type="string" column="nombre_establecimiento" length="45" nullable="false"/>
+    <field name="direccionEstablecimiento" type="string" column="direccion_establecimiento" length="45" nullable="true"/>
+    <field name="telefonoEstablecimiento" type="string" column="telefono_establecimiento" length="45" nullable="true"/>
+    <field name="emailEstablecimiento" type="string" column="email_establecimiento" length="45" nullable="true"/>
+    <many-to-one field="idInstitucion" target-entity="Institucion">
+      <join-columns>
+        <join-column name="id_institucion" referenced-column-name="id_institucion"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

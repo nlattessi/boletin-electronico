@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\GrupoUsuario" table="grupo_usuario">
+    <indexes>
+      <index name="usuario_carga_fk_grupo_usuario" columns="id_usuario_carga"/>
+    </indexes>
+    <id name="idGrupoUsuario" type="integer" column="id_grupo_usuario">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreGrupoUsuario" type="string" column="nombre_grupo_usuario" length="45" nullable="false"/>
+    <field name="esPrivado" type="boolean" column="es_privado" nullable="false"/>
+    <many-to-one field="idUsuarioCarga" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_carga" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

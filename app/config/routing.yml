@@ -1,3 +1,7 @@
+boletines:
+    resource: "@BoletinesBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Docente" table="docente">
+    <indexes>
+      <index name="usuario_fk_docente" columns="id_usuario"/>
+    </indexes>
+    <id name="idDocente" type="integer" column="id_docente">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreDocente" type="string" column="nombre_docente" length="45" nullable="false"/>
+    <field name="emailDocente" type="string" column="email_docente" length="45" nullable="false"/>
+    <field name="telefonoDocente" type="string" column="telefono_docente" length="45" nullable="false"/>
+    <many-to-one field="idUsuario" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario" referenced-column-name="id_usuario"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
