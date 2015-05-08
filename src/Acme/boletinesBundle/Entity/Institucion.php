@@ -49,5 +49,85 @@ class Institucion
      */
     private $idInstitucion;
 
+    /**
+     * @param string $direccionInstitucion
+     */
+    public function setDireccionInstitucion($direccionInstitucion)
+    {
+        $this->direccionInstitucion = $direccionInstitucion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDireccionInstitucion()
+    {
+        return $this->direccionInstitucion;
+    }
+
+    /**
+     * @param string $emailInstitucion
+     */
+    public function setEmailInstitucion($emailInstitucion)
+    {
+        $this->emailInstitucion = $emailInstitucion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailInstitucion()
+    {
+        return $this->emailInstitucion;
+    }
+
+    /**
+     * @param int $idInstitucion
+     */
+    public function setIdInstitucion($idInstitucion)
+    {
+        $this->idInstitucion = $idInstitucion;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdInstitucion()
+    {
+        return $this->idInstitucion;
+    }
+
+    /**
+     * @param string $nombreInstitucion
+     */
+    public function setNombreInstitucion($nombreInstitucion)
+    {
+        $this->nombreInstitucion = $nombreInstitucion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombreInstitucion()
+    {
+        return $this->nombreInstitucion;
+    }
+
+    /**
+     * @param string $telefonoInstitucion
+     */
+    public function setTelefonoInstitucion($telefonoInstitucion)
+    {
+        $this->telefonoInstitucion = $telefonoInstitucion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelefonoInstitucion()
+    {
+        return $this->telefonoInstitucion;
+    }
+
 
 }

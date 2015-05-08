@@ -30,15 +30,15 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('institucion') }}">
+        <a href="{{ path('boletines_instituciones') }}">
             Back to the list
         </a>
     </li>
-    <li>
-        <a href="{{ path('institucion_edit', { 'id': entity.idInstitucion }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    {#<li>#}
+        {#<a href="{{ path('institucion_edit', { 'id': entity.idInstitucion }) }}">#}
+            {#Edit#}
+        {#</a>#}
+    {#</li>#}
+    {#<li>{{ form(delete_form) }}</li>#}
 </ul>
 {% endblock %}
