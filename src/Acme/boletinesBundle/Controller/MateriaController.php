@@ -64,12 +64,12 @@ class MateriaController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
 			
-    	 $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
-		  $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
-		 $calendario = new Calendario();
-		 $calendario ->setIdUsuarioPropietario($usuario);
-		 $calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
-		  $em->persist($calendario);
+    	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
+        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
+		$calendario = new Calendario();
+		$calendario ->setIdUsuarioPropietario($usuario);
+		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
+		$em->persist($calendario);
         $em->flush();
         $entidad = new Materia();
         $entidad->setNombreMateria($data->request->get('nombreMateria'));
