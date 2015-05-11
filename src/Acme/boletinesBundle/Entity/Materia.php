@@ -82,8 +82,7 @@ class Materia
 	public function setIdCalendarioMateria($idCalendarioMateria){
 		$this->idCalendarioMateria = $idCalendarioMateria;
 	}
-	
-		public function __toString() {  
+    public function _toString() {
      return $this->nombreMateria;  
    } 
 }
