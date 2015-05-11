@@ -28,7 +28,41 @@ class TipoMateria
      */
     private $idTipoMateria;
 
-    public function __toString() {
+    /**
+     * @return string
+     */
+    public function getNombreTipoMateria()
+    {
+        return $this->nombreTipoMateria;
+    }
+
+    /**
+     * @param string $nombreTipoMateria
+     */
+    public function setNombreTipoMateria($nombreTipoMateria)
+    {
+        $this->nombreTipoMateria = $nombreTipoMateria;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdTipoMateria()
+    {
+        return $this->idTipoMateria;
+    }
+
+    /**
+     * @param int $idTipoMateria
+     */
+    public function setIdTipoMateria($idTipoMateria)
+    {
+        $this->idTipoMateria = $idTipoMateria;
+    }
+
+
+
+    public function _toString() {
         return $this->nombreTipoMateria;
    } 
 

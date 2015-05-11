@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Nueva TipoMateria</h1>
+
+
+
+
+    <form action="{{ path('tipoMateria_new') }}" method="post">
+
+        <input type="text" placeholder="Nombre Tipo Materia" name="nombre"><br/>
+
+        <button type="submit" >Crear Tipo Materia</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('tipoMateria') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
