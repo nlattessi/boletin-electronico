@@ -56,5 +56,55 @@ class Usuario
      */
     private $idUsuario;
 
+	public function getNombreUsuario(){
+		return $this->nombreUsuario;
+	}
+
+	public function setNombreUsuario($nombreUsuario){
+		$this->nombreUsuario = $nombreUsuario;
+	}
+
+	public function getPassword(){
+		return $this->password;
+	}
+
+	public function setPassword($password){
+		$this->password = $password;
+	}
+
+	public function getNombreUsuarioParaMostrar(){
+		return $this->nombreUsuarioParaMostrar;
+	}
+
+	public function setNombreUsuarioParaMostrar($nombreUsuarioParaMostrar){
+		$this->nombreUsuarioParaMostrar = $nombreUsuarioParaMostrar;
+	}
+
+	public function getNombreReal(){
+		return $this->nombreReal;
+	}
+
+	public function setNombreReal($nombreReal){
+		$this->nombreReal = $nombreReal;
+	}
+
+	public function getTelefonoUsuario(){
+		return $this->telefonoUsuario;
+	}
+
+	public function setTelefonoUsuario($telefonoUsuario){
+		$this->telefonoUsuario = $telefonoUsuario;
+	}
+
+	public function getIdUsuario(){
+		return $this->idUsuario;
+	}
+	public function getId(){
+		return $this->idUsuario;
+	}
+
+	public function setIdUsuario($idUsuario){
+		$this->idUsuario = $idUsuario;
+	}
 
 }

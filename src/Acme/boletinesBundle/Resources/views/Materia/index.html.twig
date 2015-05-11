@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Materia list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Idmateria</th>
+                <th>Nombre materia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.idMateria }}</td>
+                <td><a href="{{ path('materia_show', { 'id': entity.idMateria }) }}">{{ entity.nombreMateria }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('materia_show', { 'id': entity.idMateria }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('materia_edit', { 'id': entity.idMateria }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('materia_delete', { 'id': entity.idMateria }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('materia_new') }}">
+                Crear Nueva Materia
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
