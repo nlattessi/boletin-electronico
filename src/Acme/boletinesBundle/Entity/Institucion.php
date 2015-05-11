@@ -129,5 +129,10 @@ class Institucion
         return $this->telefonoInstitucion;
     }
 
+    public function _toString()
+    {
+        return $this->getNombreInstitucion();
+    }
+
 
 }

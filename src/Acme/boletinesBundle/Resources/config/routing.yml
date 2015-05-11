@@ -2,20 +2,8 @@ boletines_materia:
     resource: "@BoletinesBundle/Resources/config/routing/materia.yml"
     prefix:   /materia
 
+boletines_materia:
+    resource: "@BoletinesBundle/Resources/config/routing/institucion.yml"
+    prefix:   /institucion
 
-boletines_instituciones:
-    path:     /instituciones
-    defaults: { _controller: BoletinesBundle:Institucion:index }
-
-boletines_nueva_institucion:
-    path:     /institucion/new
-    defaults: { _controller: BoletinesBundle:Institucion:new }
-
-boletines_delete:
-    path:     /institucion/delete/{id}
-    defaults: { _controller: BoletinesBundle:Institucion:delete }
-
-boletines_institucion:
-    path:     /institucion/{id}
-    defaults: { _controller: BoletinesBundle:Institucion:getOne }
 

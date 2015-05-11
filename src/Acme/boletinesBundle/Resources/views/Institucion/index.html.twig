@@ -2,34 +2,43 @@
 
 {% block body -%}
     <h1>Institucion list</h1>
-    <a href={{ path('boletines_nueva_institucion') }}>agregar</a>
+    <a href={{ path('institucion_new') }}>agregar</a>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Nombreinstitucion</th>
-                <th>Direccioninstitucion</th>
-                <th>Telefonoinstitucion</th>
-                <th>Emailinstitucion</th>
-                <th>Idinstitucion</th>
+                <th>id Institucion</th>
+                <th>Institucion</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href={{ path('boletines_institucion', {'id':entity.idInstitucion }) }}>{{ entity.nombreInstitucion}}</a></td>
-                <td>{{ entity.direccionInstitucion }}</td>
-                <td>{{ entity.telefonoInstitucion }}</td>
-                <td>{{ entity.emailInstitucion }}</td>
                 <td>{{ entity.idInstitucion }}</td>
+                <td><a href={{ path('institucion_show', {'id':entity.idInstitucion }) }}>{{ entity._toString()}}</a></td>
+
                 <td>
-1                <td><a href={{ path('boletines_delete', {'id':entity.idInstitucion }) }}>borrar</a></td>
+                <ul>
+                        <li>
+                            <a href="{{ path('institucion_show', { 'id': entity.idInstitucion }) }}">Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('institucion_edit', { 'id': entity.idInstitucion }) }}">Editar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('institucion_delete', { 'id': entity.idInstitucion }) }}">Borrar</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
+    <ul>
+        <li>
+            <a href="{{ path('institucion_new') }}">
+                Crear Nueva Institucion
+            </a>
+        </li>
     </ul>
     {% endblock %}
