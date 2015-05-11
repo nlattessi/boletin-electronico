@@ -1,3 +1,7 @@
+boletines_materia:
+    resource: "@BoletinesBundle/Resources/config/routing/materia.yml"
+    prefix:   /materia
+
 
 boletines_instituciones:
     path:     /instituciones

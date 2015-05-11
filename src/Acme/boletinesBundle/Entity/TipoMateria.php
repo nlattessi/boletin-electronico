@@ -29,4 +29,8 @@ class TipoMateria
     private $idTipoMateria;
 
 
+	public function __toString() {  
+     return $this->nombreTipoMateria;  
+   } 
+
 }

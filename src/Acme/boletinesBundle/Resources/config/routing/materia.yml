@@ -1,0 +1,20 @@
+materia:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Materia:index }
+
+materia_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Materia:new }
+
+materia_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Materia:delete }
+
+materia_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Materia:getOne }
+
+materia_edit:
+    path:     /edit/{id}
+    defaults: { _controller: "BoletinesBundle:Materia:edit" }
+

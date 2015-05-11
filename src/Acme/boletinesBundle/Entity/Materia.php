@@ -48,5 +48,42 @@ class Materia
      */
     private $idCalendarioMateria;
 
+	public function getNombreMateria(){
+		return $this->nombreMateria;
+	}
 
+	public function setNombreMateria($nombreMateria){
+		$this->nombreMateria = $nombreMateria;
+	}
+
+	public function getIdMateria(){
+		return $this->idMateria;
+	}
+	public function getId(){
+		return $this->idMateria;
+	}
+
+	public function setIdMateria($idMateria){
+		$this->idMateria = $idMateria;
+	}
+
+	public function getIdTipoMateria(){
+		return $this->idTipoMateria;
+	}
+
+	public function setIdTipoMateria($idTipoMateria){
+		$this->idTipoMateria = $idTipoMateria;
+	}
+
+	public function getIdCalendarioMateria(){
+		return $this->idCalendarioMateria;
+	}
+
+	public function setIdCalendarioMateria($idCalendarioMateria){
+		$this->idCalendarioMateria = $idCalendarioMateria;
+	}
+	
+		public function __toString() {  
+     return $this->nombreMateria;  
+   } 
 }
