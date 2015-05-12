@@ -16,5 +16,5 @@ materia_show:
 
 materia_edit:
     path:     /edit/{id}
-    defaults: { _controller: "BoletinesBundle:Materia:edit" }
+    defaults: { _controller: BoletinesBundle:Materia:edit }
 

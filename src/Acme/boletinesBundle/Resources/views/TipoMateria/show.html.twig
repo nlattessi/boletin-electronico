@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>TipoMateria</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>ID TipoMateria</th>
+            <td>{{ entity.idTipoMateria }}</td>
+        </tr>
+        <tr>
+            <th>TipoMateria</th>
+            <td>{{ entity.nombreTipoMateria }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('tipoMateria') }}">
+                Volver a la lista
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('tipoMateria_edit', { 'id': entity.idTipoMateria }) }}">
+                Editar
+            </a>
+        </li>
+        <li> <a href="{{ path('tipoMateria_delete', { 'id': entity.idTipoMateria }) }}">Borrar</a></li>
+    </ul>
+{% endblock %}
