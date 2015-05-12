@@ -2,7 +2,7 @@ boletines_materia:
     resource: "@BoletinesBundle/Resources/config/routing/materia.yml"
     prefix:   /materia
 
-boletines_materia:
+boletines_institucion:
     resource: "@BoletinesBundle/Resources/config/routing/institucion.yml"
     prefix:   /institucion
 
