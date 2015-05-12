@@ -5,7 +5,7 @@
 
 <h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('boletines_nueva_institucion') }}" method="post">
+    <form action="{{ path('institucion_new') }}" method="post">
         <input type="text" placeholder="nombre" name="name"><br/>
         <input type="text" placeholder="direccion" name="direccion"><br/>
         <input type="text" placeholder="Telefono" name="telefono"><br/>
@@ -14,8 +14,8 @@
     </form>
         <ul class="record_actions">
     <li>
-        <a href="{{ path('boletines_instituciones') }}">
-            Back to the list
+        <a href="{{ path('institucion') }}">
+            Volver a la lista
         </a>
     </li>
 </ul>

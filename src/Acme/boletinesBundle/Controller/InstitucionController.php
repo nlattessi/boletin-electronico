@@ -35,8 +35,10 @@ class InstitucionController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            if($this->createInstitucion($request)) {
-                $message = "Institicion agragada";
+            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
+            $entidad = $this->createEntity($request);
+            if($entidad != null) {
+                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('entity' => $entidad));
             } else {
                 $message = "Errores";
             }
@@ -57,7 +59,7 @@ class InstitucionController extends Controller
         return $this->indexAction();
     }
 
-    private function createInstitucion($data)
+    private function createEntity($data)
     {
         $institucion = new Institucion();
         $institucion->setNombreInstitucion($data->request->get('name'));
@@ -69,6 +71,6 @@ class InstitucionController extends Controller
         $em->persist($institucion);
         $em->flush();
 
-        return $institucion->getIdInstitucion();
+        return $institucion;
     }
 }
