@@ -59,5 +59,104 @@ class Establecimiento
      */
     private $idInstitucion;
 
+    /**
+     * @return string
+     */
+    public function getNombreEstablecimiento()
+    {
+        return $this->nombreEstablecimiento;
+    }
 
+    /**
+     * @param string $nombreEstablecimiento
+     */
+    public function setNombreEstablecimiento($nombreEstablecimiento)
+    {
+        $this->nombreEstablecimiento = $nombreEstablecimiento;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDireccionEstablecimiento()
+    {
+        return $this->direccionEstablecimiento;
+    }
+
+    /**
+     * @param string $direccionEstablecimiento
+     */
+    public function setDireccionEstablecimiento($direccionEstablecimiento)
+    {
+        $this->direccionEstablecimiento = $direccionEstablecimiento;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelefonoEstablecimiento()
+    {
+        return $this->telefonoEstablecimiento;
+    }
+
+    /**
+     * @param string $telefonoEstablecimiento
+     */
+    public function setTelefonoEstablecimiento($telefonoEstablecimiento)
+    {
+        $this->telefonoEstablecimiento = $telefonoEstablecimiento;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailEstablecimiento()
+    {
+        return $this->emailEstablecimiento;
+    }
+
+    /**
+     * @param string $emailEstablecimiento
+     */
+    public function setEmailEstablecimiento($emailEstablecimiento)
+    {
+        $this->emailEstablecimiento = $emailEstablecimiento;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * @param int $idEstablecimiento
+     */
+    public function setIdEstablecimiento($idEstablecimiento)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+    }
+
+    /**
+     * @return Institucion
+     */
+    public function getIdInstitucion()
+    {
+        return $this->idInstitucion;
+    }
+
+    /**
+     * @param Institucion $idInstitucion
+     */
+    public function setIdInstitucion($idInstitucion)
+    {
+        $this->idInstitucion = $idInstitucion;
+    }
+
+
+    public function _toString(){
+        return $this->getNombreEstablecimiento();
+    }
 }

@@ -6,29 +6,26 @@
     <table class="records_list">
         <thead>
             <tr>
-                <th>Nombreestablecimiento</th>
-                <th>Direccionestablecimiento</th>
-                <th>Telefonoestablecimiento</th>
-                <th>Emailestablecimiento</th>
                 <th>Idestablecimiento</th>
-                <th>Actions</th>
+                <th>Nombre establecimiento</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('establecimiento_show', { 'id': entity.idEstablecimiento }) }}">{{ entity.nombreEstablecimiento }}</a></td>
-                <td>{{ entity.direccionEstablecimiento }}</td>
-                <td>{{ entity.telefonoEstablecimiento }}</td>
-                <td>{{ entity.emailEstablecimiento }}</td>
                 <td>{{ entity.idEstablecimiento }}</td>
+                <td><a href="{{ path('establecimiento_show', { 'id': entity.idEstablecimiento }) }}">{{ entity._toString() }}</a></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('establecimiento_show', { 'id': entity.idEstablecimiento }) }}">show</a>
+                        <a href="{{ path('establecimiento_show', { 'id': entity.idEstablecimiento }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('establecimiento_edit', { 'id': entity.idEstablecimiento }) }}">edit</a>
+                        <a href="{{ path('establecimiento_edit', { 'id': entity.idEstablecimiento }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('establecimiento_delete', { 'id': entity.idEstablecimiento }) }}">Borrar</a>
                     </li>
                 </ul>
                 </td>
@@ -40,7 +37,7 @@
         <ul>
         <li>
             <a href="{{ path('establecimiento_new') }}">
-                Create a new entry
+                Crear Nueva Establecimiento
             </a>
         </li>
     </ul>

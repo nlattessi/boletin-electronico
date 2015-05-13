@@ -8,240 +8,95 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Establecimiento;
+use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\EstablecimientoType;
 
-/**
- * Establecimiento controller.
- *
- * @Route("/establecimiento")
- */
 class EstablecimientoController extends Controller
 {
 
-    /**
-     * Lists all Establecimiento entities.
-     *
-     * @Route("/", name="establecimiento")
-     * @Method("GET")
-     * @Template()
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BoletinesBundle:Establecimiento')->findAll();
 
-        return array(
-            'entities' => $entities,
-        );
-    }
-    /**
-     * Creates a new Establecimiento entity.
-     *
-     * @Route("/", name="establecimiento_create")
-     * @Method("POST")
-     * @Template("BoletinesBundle:Establecimiento:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Establecimiento();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('establecimiento_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return $this->render('BoletinesBundle:Establecimiento:index.html.twig', array('entities' => $entities));
     }
 
-    /**
-     * Creates a form to create a Establecimiento entity.
-     *
-     * @param Establecimiento $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Establecimiento $entity)
-    {
-        $form = $this->createForm(new EstablecimientoType(), $entity, array(
-            'action' => $this->generateUrl('establecimiento_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new Establecimiento entity.
-     *
-     * @Route("/new", name="establecimiento_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Establecimiento();
-        $form   = $this->createCreateForm($entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Finds and displays a Establecimiento entity.
-     *
-     * @Route("/{id}", name="establecimiento_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
+    public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BoletinesBundle:Establecimiento')->find($id);
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('idEstablecimiento' => $id));
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Establecimiento entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('entity' => $establecimiento));
     }
 
-    /**
-     * Displays a form to edit an existing Establecimiento entity.
-     *
-     * @Route("/{id}/edit", name="establecimiento_edit")
-     * @Method("GET")
-     * @Template()
-     */
+    public function newAction(Request $request)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
+            $establecimiento = $this->createEntity($request);
+            if($establecimiento != null) {
+                return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('entity' => $establecimiento));
+            } else {
+                $message = "Errores";
+            }
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $instituciones = $em->getRepository('BoletinesBundle:Institucion')->findAll();
+        }
+
+        return $this->render('BoletinesBundle:Establecimiento:new.html.twig', array('instituciones' => $instituciones));
+    }
+
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('idEstablecimiento' => $id));
+
+        if($establecimiento instanceof Establecimiento) {
+            $em->remove($establecimiento);
+            $em->flush();
+        }
+        return $this->indexAction();
+    }
+
+    private function createEntity($data)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $establecimiento = new Establecimiento();
+        $establecimiento->setNombreEstablecimiento($data->request->get('nombreEstablecimiento'));
+        $establecimiento->setDireccionEstablecimiento($data->request->get('direccionEstablecimiento'));
+        $establecimiento->setEmailEstablecimiento($data->request->get('emailEstablecimiento'));
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $data->request->get('idInstitucion')));
+        $establecimiento->setIdInstitucion($institucion);
+
+        $em->persist($establecimiento);
+        $em->flush();
+
+        return $establecimiento;
+    }
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BoletinesBundle:Establecimiento')->find($id);
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->find($id);
 
-        if (!$entity) {
+        if (!$establecimiento) {
             throw $this->createNotFoundException('Unable to find Establecimiento entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($establecimiento);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
+        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
+            'entity'      => $establecimiento,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-    * Creates a form to edit a Establecimiento entity.
-    *
-    * @param Establecimiento $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Establecimiento $entity)
-    {
-        $form = $this->createForm(new EstablecimientoType(), $entity, array(
-            'action' => $this->generateUrl('establecimiento_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing Establecimiento entity.
-     *
-     * @Route("/{id}", name="establecimiento_update")
-     * @Method("PUT")
-     * @Template("BoletinesBundle:Establecimiento:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('BoletinesBundle:Establecimiento')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Establecimiento entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('establecimiento_edit', array('id' => $id)));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Deletes a Establecimiento entity.
-     *
-     * @Route("/{id}", name="establecimiento_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BoletinesBundle:Establecimiento')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Establecimiento entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('establecimiento'));
-    }
-
-    /**
-     * Creates a form to delete a Establecimiento entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('establecimiento_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }
+
