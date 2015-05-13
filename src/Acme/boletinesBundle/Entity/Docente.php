@@ -52,5 +52,87 @@ class Docente
      */
     private $idUsuario;
 
+    /**
+     * @return string
+     */
+    public function getNombreDocente()
+    {
+        return $this->nombreDocente;
+    }
 
+    /**
+     * @param string $nombreDocente
+     */
+    public function setNombreDocente($nombreDocente)
+    {
+        $this->nombreDocente = $nombreDocente;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailDocente()
+    {
+        return $this->emailDocente;
+    }
+
+    /**
+     * @param string $emailDocente
+     */
+    public function setEmailDocente($emailDocente)
+    {
+        $this->emailDocente = $emailDocente;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelefonoDocente()
+    {
+        return $this->telefonoDocente;
+    }
+
+    /**
+     * @param string $telefonoDocente
+     */
+    public function setTelefonoDocente($telefonoDocente)
+    {
+        $this->telefonoDocente = $telefonoDocente;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * @param int $idDocente
+     */
+    public function setIdDocente($idDocente)
+    {
+        $this->idDocente = $idDocente;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @param Usuario $idUsuario
+     */
+    public function setUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public  function _toString(){
+        return $this->getNombreDocente();
+    }
 }

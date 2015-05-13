@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Docente</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Iddocente</th>
+            <td>{{ entity.idDocente }}</td>
+        </tr>
+        <tr>
+                <th>Docente</th>
+                <td>{{ entity.nombreDocente }}</td>
+            </tr>
+        <tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.emailDocente }}</td>
+        </tr>
+        <tr>
+        <tr>
+            <th>Telefono</th>
+            <td>{{ entity.telefonoDocente }}</td>
+        </tr>
+        <tr>
+            <th>Usuario Asociado</th>
+            <td>{{ entity.usuario._toString() }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('docente') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('docente_edit', { 'id': entity.idDocente }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('docente_delete', { 'id': entity.idDocente }) }}">Borrar</a></li>
+</ul>
+{% endblock %}
