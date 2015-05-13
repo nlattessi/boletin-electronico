@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -11,7 +12,7 @@ use Acme\boletinesBundle\Entity\Entidad;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\EntidadType;
 
-class EntidadController extends Controller
+class UsuarioController extends Controller
 {
 
     public function indexAction()
@@ -96,5 +97,20 @@ class EntidadController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    public function crearUsuarioDocente($nombreReal, $email){
+       // $em = $this->getDoctrine()->getManager();
+
+        $usuario = new Usuario();
+        $usuario->setNombreReal($nombreReal);
+        $usuario->setPassword('12345');
+        $usuario->setNombreUsuario($email);
+        $usuario->setNombreUsuarioParaMostrar($nombreReal);
+
+       // $em->persist($usuario);
+       // $em->flush();
+
+        return $usuario;
+    }
+
 }
 

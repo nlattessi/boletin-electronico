@@ -1,0 +1,19 @@
+docente:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Docente:index }
+
+docente_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Docente:new }
+
+docente_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Docente:delete }
+
+docente_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Docente:getOne }
+
+docente_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Docente:edit }

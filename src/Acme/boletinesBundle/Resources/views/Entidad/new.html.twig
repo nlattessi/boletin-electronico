@@ -9,7 +9,7 @@
     <form action="{{ path('entidad_new') }}" method="post">
 
         <input type="text" placeholder="nombre" name="nombreEntidad"><br/>
-        <input type="text" placeholder="idTipoEntidad" name="idTipoEntidad"><br/>
+
         <select name="idEntityRelacionada">
             {% for entity in entitiesRelacionadas %}
 

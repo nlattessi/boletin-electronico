@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Docente creation</h1>
+
+
+
+
+    <form action="{{ path('docente_new') }}" method="post">
+
+        <input type="text" placeholder="Nombre" name="nombreDocente"><br/>
+        <input type="text" placeholder="Email" name="emailDocente"><br/>
+        <input type="text" placeholder="Telefono" name="telefonoDocente"><br/>
+        <select name="idUsuario">
+            {% for entity in entitiesRelacionadas %}
+
+                <option value="{{entity.idUsuario}}">{{entity._toString()}}</option>
+
+            {% endfor %}
+                <option value="-1" selected="selected">Seleccione un usuario creado</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Docente</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('docente') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
