@@ -3,14 +3,21 @@
 {% block body -%}
     <h1>Institucion edit</h1>
 
-    {{ form(edit_form) }}
+    <h2>{{ mensaje }}</h2>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('institucion') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <form action="{{ path('institucion_edit', {'id':entity.idInstitucion }) }}" method="post">
+        <input type="text" value="{{ entity.idInstitucion }}" hidden="hidden" name="id"><br/>
+        <input type="text" value="{{ entity.nombreInstitucion }}" placeholder="nombre" name="name"><br/>
+        <input type="text" value="{{ entity.direccionInstitucion }}" placeholder="direccion" name="direccion"><br/>
+        <input type="text" value="{{ entity.telefonoInstitucion }}" placeholder="Telefono" name="telefono"><br/>
+        <input type="text" value="{{ entity.emailInstitucion }}" placeholder="email" name="email"><br/>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('institucion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
 {% endblock %}
