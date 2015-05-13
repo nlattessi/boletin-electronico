@@ -28,7 +28,8 @@ class EstablecimientoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('idEstablecimiento' => $id));
-
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $establecimiento->getIdInstitucion()));
+        $establecimiento->setIdInstitucion($institucion);
         return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('entity' => $establecimiento));
     }
 

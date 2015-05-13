@@ -15,7 +15,7 @@
            <select name="idInstitucion">
                {% for entity in instituciones %}
 
-               <option value="{{entity.idInstitucion}}">{{entity.nombreInstitucion}}</option>
+               <option value="{{entity.idInstitucion}}">{{entity._toString()}}</option>
 
                {% endfor %}
 
