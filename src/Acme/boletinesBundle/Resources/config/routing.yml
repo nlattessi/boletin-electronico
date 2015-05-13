@@ -6,6 +6,10 @@ boletines_institucion:
     resource: "@BoletinesBundle/Resources/config/routing/institucion.yml"
     prefix:   /institucion
 
+boletines_establecimiento:
+    resource: "@BoletinesBundle/Resources/config/routing/establecimiento.yml"
+    prefix:   /establecimiento
+
 boletines_tipoMaeria:
     resource: "@BoletinesBundle/Resources/config/routing/tipoMateria.yml"
     prefix:   /tipomateria

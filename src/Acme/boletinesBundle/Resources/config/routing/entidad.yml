@@ -1,0 +1,19 @@
+entidad:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Entidad:index }
+
+entidad_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Entidad:new }
+
+entidad_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Entidad:delete }
+
+entidad_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Entidad:getOne }
+
+entidad_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Entidad:edit }

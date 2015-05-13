@@ -5,40 +5,33 @@
 
     <table class="record_properties">
         <tbody>
+        <tr>
+            <th>Idestablecimiento</th>
+            <td>{{ entity.idEstablecimiento }}</td>
+        </tr>
             <tr>
-                <th>Nombreestablecimiento</th>
+                <th>Establecimiento</th>
                 <td>{{ entity.nombreEstablecimiento }}</td>
             </tr>
-            <tr>
-                <th>Direccionestablecimiento</th>
-                <td>{{ entity.direccionEstablecimiento }}</td>
-            </tr>
-            <tr>
-                <th>Telefonoestablecimiento</th>
-                <td>{{ entity.telefonoEstablecimiento }}</td>
-            </tr>
-            <tr>
-                <th>Emailestablecimiento</th>
-                <td>{{ entity.emailEstablecimiento }}</td>
-            </tr>
-            <tr>
-                <th>Idestablecimiento</th>
-                <td>{{ entity.idEstablecimiento }}</td>
-            </tr>
+        <tr>
+            <th>Institucion</th>
+            <td>{{ entity.idInstitucion._toString() }}</td>
+        </tr>
+
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('establecimiento') }}">
-            Back to the list
+           Volver a la lista
         </a>
     </li>
     <li>
         <a href="{{ path('establecimiento_edit', { 'id': entity.idEstablecimiento }) }}">
-            Edit
+            Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li> <a href="{{ path('establecimiento_delete', { 'id': entity.idEstablecimiento }) }}">Borrar</a></li>
 </ul>
 {% endblock %}

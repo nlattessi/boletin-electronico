@@ -1,0 +1,19 @@
+establecimiento:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Establecimiento:index }
+
+establecimiento_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Establecimiento:new }
+
+establecimiento_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Establecimiento:delete }
+
+establecimiento_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Establecimiento:getOne }
+
+establecimiento_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Establecimiento:edit }

@@ -3,12 +3,34 @@
 {% block body -%}
     <h1>Establecimiento creation</h1>
 
-    {{ form(form) }}
+   
+  
+  
+       <form action="{{ path('establecimiento_new') }}" method="post">
+
+          <input type="text" placeholder="nombre" name="nombreEstablecimiento"><br/>
+        <input type="text" placeholder="direccion" name="direccionEstablecimiento"><br/>
+           <input type="text" placeholder="email" name="emailEstablecimiento"><br/>
+           <input type="text" placeholder="telefono" name="telefonoEstablecimiento"><br/>
+           <select name="idInstitucion">
+               {% for entity in instituciones %}
+
+               <option value="{{entity.idInstitucion}}">{{entity._toString()}}</option>
+
+               {% endfor %}
+
+           </select>
+           <br/><br/><br/>
+      <button type="submit" >Crear Establecimiento</button>
+        
+        
+        <br/>
+    </form>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('establecimiento') }}">
-            Back to the list
+            Volver a la lista
         </a>
     </li>
 </ul>

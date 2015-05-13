@@ -34,6 +34,7 @@ class InstitucionController extends Controller
     public function newAction(Request $request)
     {
         $message = "";
+
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $entidad = $this->createEntity($request);
