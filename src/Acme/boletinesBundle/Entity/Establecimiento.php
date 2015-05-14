@@ -156,7 +156,7 @@ class Establecimiento
     }
 
 
-    public function _toString(){
+    public function __toString(){
         return $this->getNombreEstablecimiento();
     }
 }

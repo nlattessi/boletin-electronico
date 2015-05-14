@@ -15,7 +15,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.idEntidad }}</td>
-                <td><a href="{{ path('entidad_show', { 'id': entity.idEntidad }) }}">{{ entity._toString() }}</a></td>
+                <td><a href="{{ path('entidad_show', { 'id': entity.idEntidad }) }}">{{ entity.__toString() }}</a></td>
                 <td>
                 <ul>
                     <li>

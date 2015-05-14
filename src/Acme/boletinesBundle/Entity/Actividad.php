@@ -43,7 +43,7 @@ class Actividad
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_creacion", type="datetime", nullable=false)
+     * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)
      */
     private $fechaCreacion;
 
@@ -76,5 +76,137 @@ class Actividad
      */
     private $idArchivo;
 
+    /**
+     * @return string
+     */
+    public function getNombreActividad()
+    {
+        return $this->nombreActividad;
+    }
+
+    /**
+     * @param string $nombreActividad
+     */
+    public function setNombreActividad($nombreActividad)
+    {
+        $this->nombreActividad = $nombreActividad;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescripcionActividad()
+    {
+        return $this->descripcionActividad;
+    }
+
+    /**
+     * @param string $descripcionActividad
+     */
+    public function setDescripcionActividad($descripcionActividad)
+    {
+        $this->descripcionActividad = $descripcionActividad;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaDesde()
+    {
+        return $this->fechaDesde;
+    }
+
+    /**
+     * @param \DateTime $fechaDesde
+     */
+    public function setFechaDesde($fechaDesde)
+    {
+        $this->fechaDesde = $fechaDesde;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaHasta()
+    {
+        return $this->fechaHasta;
+    }
+
+    /**
+     * @param \DateTime $fechaHasta
+     */
+    public function setFechaHasta($fechaHasta)
+    {
+        $this->fechaHasta = $fechaHasta;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * @param \DateTime $fechaCreacion
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdActividad()
+    {
+        return $this->idActividad;
+    }
+
+    /**
+     * @param int $idActividad
+     */
+    public function setIdActividad($idActividad)
+    {
+        $this->idActividad = $idActividad;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioCreador()
+    {
+        return $this->idUsuarioCreador;
+    }
+
+    /**
+     * @param Usuario $idUsuarioCreador
+     */
+    public function setUsuarioCreador($idUsuarioCreador)
+    {
+        $this->idUsuarioCreador = $idUsuarioCreador;
+    }
+
+    /**
+     * @return Archivo
+     */
+    public function getArchivo()
+    {
+        return $this->idArchivo;
+    }
+
+    /**
+     * @param Archivo $idArchivo
+     */
+    public function setArchivo($idArchivo)
+    {
+        $this->idArchivo = $idArchivo;
+    }
+
+    public function __toString(){
+
+        return $this->getNombreActividad();
+    }
 
 }

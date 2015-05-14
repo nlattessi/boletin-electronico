@@ -62,7 +62,7 @@ class TipoMateria
 
 
 
-    public function _toString() {
+    public function __toString() {
         return $this->nombreTipoMateria;
    } 
 

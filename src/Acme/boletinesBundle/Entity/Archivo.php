@@ -36,7 +36,7 @@ class Archivo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_subida", type="datetime", nullable=false)
+     * @ORM\Column(name="fecha_subida", type="datetime")
      */
     private $fechaSubida;
 
@@ -59,5 +59,104 @@ class Archivo
      */
     private $idUsuarioCarga;
 
+    /**
+     * @return string
+     */
+    public function getNombreParaMostrar()
+    {
+        return $this->nombreParaMostrar;
+    }
+
+    /**
+     * @param string $nombreParaMostrar
+     */
+    public function setNombreParaMostrar($nombreParaMostrar)
+    {
+        $this->nombreParaMostrar = $nombreParaMostrar;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombreArchivo()
+    {
+        return $this->nombreArchivo;
+    }
+
+    /**
+     * @param string $nombreArchivo
+     */
+    public function setNombreArchivo($nombreArchivo)
+    {
+        $this->nombreArchivo = $nombreArchivo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRutaArchivo()
+    {
+        return $this->rutaArchivo;
+    }
+
+    /**
+     * @param string $rutaArchivo
+     */
+    public function setRutaArchivo($rutaArchivo)
+    {
+        $this->rutaArchivo = $rutaArchivo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaSubida()
+    {
+        return $this->fechaSubida;
+    }
+
+    /**
+     * @param \DateTime $fechaSubida
+     */
+    public function setFechaSubida($fechaSubida)
+    {
+        $this->fechaSubida = $fechaSubida;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdArchivo()
+    {
+        return $this->idArchivo;
+    }
+
+    /**
+     * @param int $idArchivo
+     */
+    public function setIdArchivo($idArchivo)
+    {
+        $this->idArchivo = $idArchivo;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getIdUsuarioCarga()
+    {
+        return $this->idUsuarioCarga;
+    }
+
+    /**
+     * @param Usuario $idUsuarioCarga
+     */
+    public function setIdUsuarioCarga($idUsuarioCarga)
+    {
+        $this->idUsuarioCarga = $idUsuarioCarga;
+    }
+
+    public function __toString(){
+        return $this->getNombreArchivo();
+    }
 
 }
