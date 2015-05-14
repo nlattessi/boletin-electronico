@@ -28,8 +28,11 @@ class ActividadController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
-
-        $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findBy(array('idArchivo' => $actividad->getArchivo()));
+        if($actividad->getArchivo() != null){
+            $entitiesRelacionadas = array($actividad->getArchivo());
+        }else{
+            $entitiesRelacionadas = array();
+        }
         return $this->render('BoletinesBundle:Actividad:show.html.twig', array('entity' => $actividad, 'archivos' => $entitiesRelacionadas));
     }
 
