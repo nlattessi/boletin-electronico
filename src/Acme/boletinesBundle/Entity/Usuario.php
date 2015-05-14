@@ -107,7 +107,7 @@ class Usuario
 		$this->idUsuario = $idUsuario;
 	}
 
-    public function _toString(){
+    public function __toString(){
         return $this->getNombreUsuarioParaMostrar();
     }
 

@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Actividad</th>
+                <th>Nombre actividad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.idActividad }}</td>
+                <td><a href="{{ path('actividad_show', { 'id': entity.idActividad }) }}">{{ entity.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('actividad_show', { 'id': entity.idActividad }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('actividad_edit', { 'id': entity.idActividad }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('actividad_delete', { 'id': entity.idActividad }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('actividad_new') }}">
+                Crear Nueva Actividad
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

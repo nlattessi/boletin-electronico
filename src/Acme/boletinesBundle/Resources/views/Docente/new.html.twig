@@ -14,7 +14,7 @@
         <select name="idUsuario">
             {% for entity in entitiesRelacionadas %}
 
-                <option value="{{entity.idUsuario}}">{{entity._toString()}}</option>
+                <option value="{{entity.idUsuario}}">{{entity.__toString()}}</option>
 
             {% endfor %}
                 <option value="-1" selected="selected">Seleccione un usuario creado</option>

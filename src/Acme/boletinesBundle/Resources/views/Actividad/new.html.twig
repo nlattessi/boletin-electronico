@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad creation</h1>
+
+
+
+
+    <form action="{{ path('actividad_new') }}" method="post">
+
+        <input type="text" placeholder="nombre" name="nombreActividad"><br/>
+        <input type="text" placeholder="descripcion" name="descripcionActividad"><br/>
+        <input type="datetime" placeholder="fecha desde" name="fechaDesdeActividad"><br/>
+        <input type="datetime" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
+
+        <select name="idArchivo">
+            {% for archivo in archivos %}
+
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione un archivo creado para asociar</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Actividad</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('actividad') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

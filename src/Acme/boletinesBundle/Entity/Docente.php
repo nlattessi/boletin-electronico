@@ -132,7 +132,7 @@ class Docente
         $this->idUsuario = $idUsuario;
     }
 
-    public  function _toString(){
+    public  function __toString(){
         return $this->getNombreDocente();
     }
 }

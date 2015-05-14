@@ -1,0 +1,19 @@
+actividad:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Actividad:index }
+
+actividad_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Actividad:new }
+
+actividad_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Actividad:delete }
+
+actividad_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Actividad:getOne }
+
+actividad_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Actividad:edit }

@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Idactividad</th>
+            <td>{{ entity.idActividad }}</td>
+        </tr>
+            <tr>
+                <th>Actividad</th>
+                <td>{{ entity.nombreActividad }}</td>
+            </tr>
+        <tr>
+            <th>Usuario Creador Relacionada</th>
+            <td>{{ entity.usuarioCreador.__toString() }}</td>
+        </tr>
+        {% for archivo in archivos %}
+            <tr>
+                <th>Archivo Relacionado Relacionada</th>
+                <td>{{ archivo.__toString() }}</td>
+            </tr>
+
+        {% endfor %}
+        
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('actividad') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('actividad_edit', { 'id': entity.idActividad }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('actividad_delete', { 'id': entity.idActividad }) }}">Borrar</a></li>
+</ul>
+{% endblock %}
