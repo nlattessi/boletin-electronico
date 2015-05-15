@@ -6,17 +6,19 @@
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>Identidad</th>
-            <td>{{ entity.idEntidad }}</td>
+            <th>Id Entidad</th>
+            <td>{{ entidad.idEntidad }}</td>
         </tr>
-            <tr>
-                <th>Entidad</th>
-                <td>{{ entity.nombreEntidad }}</td>
-            </tr>
         <tr>
-            <th>Entity Relacionada</th>
-            <td>{{ entity.idEntityRelacionada.__toString() }}</td>
+            <th>Entidad</th>
+            <td>{{ entidad.nombreEntidad }}</td>
         </tr>
+        {% if entidad.entityRelacionada != null %}
+        <tr>
+            <th>EntityRelacionada Asociado</th>
+            <td>{{ entidad.entityRelacionada.__toString() }}</td>
+        </tr>
+        {% endif %}
 
         </tbody>
     </table>
@@ -28,10 +30,10 @@
         </a>
     </li>
     <li>
-        <a href="{{ path('entidad_edit', { 'id': entity.idEntidad }) }}">
+        <a href="{{ path('entidad_edit', { 'id': entidad.idEntidad }) }}">
             Editar
         </a>
     </li>
-    <li> <a href="{{ path('entidad_delete', { 'id': entity.idEntidad }) }}">Borrar</a></li>
+    <li> <a href="{{ path('entidad_delete', { 'id': entidad.idEntidad }) }}">Borrar</a></li>
 </ul>
 {% endblock %}

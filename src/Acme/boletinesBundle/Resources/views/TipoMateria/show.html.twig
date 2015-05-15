@@ -6,12 +6,12 @@
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>ID TipoMateria</th>
-            <td>{{ entity.idTipoMateria }}</td>
+            <th>Id TipoMateria</th>
+            <td>{{ tipoMateria.idTipoMateria }}</td>
         </tr>
         <tr>
             <th>TipoMateria</th>
-            <td>{{ entity.nombreTipoMateria }}</td>
+            <td>{{ tipoMateria.nombreTipoMateria }}</td>
         </tr>
         </tbody>
     </table>
@@ -23,10 +23,10 @@
             </a>
         </li>
         <li>
-            <a href="{{ path('tipoMateria_edit', { 'id': entity.idTipoMateria }) }}">
+            <a href="{{ path('tipoMateria_edit', { 'id': tipoMateria.idTipoMateria }) }}">
                 Editar
             </a>
         </li>
-        <li> <a href="{{ path('tipoMateria_delete', { 'id': entity.idTipoMateria }) }}">Borrar</a></li>
+        <li> <a href="{{ path('tipoMateria_delete', { 'id': tipoMateria.idTipoMateria }) }}">Borrar</a></li>
     </ul>
 {% endblock %}

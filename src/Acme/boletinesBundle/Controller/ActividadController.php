@@ -33,7 +33,7 @@ class ActividadController extends Controller
         }else{
             $entitiesRelacionadas = array();
         }
-        return $this->render('BoletinesBundle:Actividad:show.html.twig', array('entity' => $actividad, 'archivos' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Actividad:show.html.twig', array('actividad' => $actividad, 'entitiesRelacionadas' => $entitiesRelacionadas));
     }
 
     public function newAction(Request $request)
@@ -44,8 +44,7 @@ class ActividadController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $actividad = $this->createEntity($request);
             if($actividad != null) {
-                $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findBy(array('idArchivo' => $actividad->getArchivo()));
-                return $this->render('BoletinesBundle:Actividad:show.html.twig', array('entity' => $actividad,'archivos' => $entitiesRelacionadas ));
+                return $this->render('BoletinesBundle:Actividad:show.html.twig', array('actividad' => $actividad ));
             } else {
                 $message = "Errores";
             }
@@ -54,21 +53,8 @@ class ActividadController extends Controller
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Actividad:new.html.twig', array('archivos' => $entitiesRelacionadas, 'mensaje' => $message));
+        return $this->render('BoletinesBundle:Actividad:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'mensaje' => $message));
     }
-
-    public function deleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
-
-        if($actividad instanceof Actividad) {
-            $em->remove($actividad);
-            $em->flush();
-        }
-        return $this->indexAction();
-    }
-
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
@@ -76,8 +62,8 @@ class ActividadController extends Controller
         $actividad = new Actividad();
         $actividad->setNombreActividad($data->request->get('nombreActividad'));
         $actividad->setDescripcionActividad($data->request->get('descripcionActividad'));
-   /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
-        $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
+        /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
+             $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
         $actividad->setFechaDesde(new \DateTime('now'));
         $actividad->setFechaHasta(new \DateTime('now'));
         $actividad->setFechaCreacion(new \DateTime('now'));
@@ -95,30 +81,69 @@ class ActividadController extends Controller
         return $actividad;
     }
 
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
+
+        if($actividad instanceof Actividad) {
+            $em->remove($actividad);
+            $em->flush();
+        }
+        return $this->indexAction();
+    }
+
+
+
     private function obtenerUsuario($em){
         //TODO: sacar una vez que tengaos login
        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
        return $usuario;
     }
 
-    public function editAction($id)
+    public function editAction($id = null, Request $request = null)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $actividad = $em->getRepository('BoletinesBundle:Actividad')->find($id);
-
-        if (!$actividad) {
-            throw $this->createNotFoundException('Unable to find Actividad entity.');
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $actividad = $this->editEntity($request, $id);
+            if($actividad != null) {
+                return $this->render('BoletinesBundle:Actividad:show.html.twig', array('actividad' => $actividad));
+            } else {
+                $message = "Errores";
+            }
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findAll();
+            $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
         }
 
-        $editForm = $this->createEditForm($actividad);
-        $deleteForm = $this->createDeleteForm($id);
+        return $this->render('BoletinesBundle:Actividad:edit.html.twig', array('actividad' => $actividad, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+    }
+    private function editEntity($data, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
 
-        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
-            'entity'      => $actividad,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $actividad->setNombreActividad($data->request->get('nombreActividad'));
+        $actividad->setDescripcionActividad($data->request->get('descripcionActividad'));
+        /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
+             $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
+     //   $actividad->setFechaDesde(new \DateTime('now'));
+     //   $actividad->setFechaHasta(new \DateTime('now'));
+        $actividad->setFechaCreacion(new \DateTime('now'));
+
+        $idArchivo = $data->request->get('idArchivo');
+        if( $idArchivo > 1){
+            //no eligio ninguno
+            //Selecciono otro Archivo, hay que buscarla y persistirla
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
+            $actividad->setArchivo($entityRelacionada);
+        }
+
+        $em->persist($actividad);
+        $em->flush();
+
+        return $actividad;
     }
 }
 

@@ -27,9 +27,9 @@ class MateriaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entidad = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
 
-        return $this->render('BoletinesBundle:Materia:show.html.twig', array('entity' => $entidad));
+        return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
     }
 
     public function newAction(Request $request)
@@ -37,24 +37,27 @@ class MateriaController extends Controller
         $message = "";
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
-            $entidad = $this->createEntity($request);
-            if($entidad != null) {
-                return $this->render('BoletinesBundle:Materia:show.html.twig', array('entity' => $entidad));
+            $materia = $this->createEntity($request);
+            if($materia != null) {
+                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
             } else {
                 $message = "Errores";
             }
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Materia:new.html.twig', array('mensaje' => $message));
+        return $this->render('BoletinesBundle:Materia:new.html.twig', array('mensaje' => $message, 'entitiesRelacionadas' => $entitiesRelacionadas));
     }
 
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entidad = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
 
-       if($entidad instanceof Materia) {
-           $em->remove($entidad);
+       if($materia instanceof Materia) {
+           $em->remove($materia);
            $em->flush();
        }
         return $this->indexAction();
@@ -67,39 +70,57 @@ class MateriaController extends Controller
     	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
 		$calendario = new Calendario();
-		$calendario ->setIdUsuarioPropietario($usuario);
+		$calendario ->setUsuarioPropietario($usuario);
 		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
 		$em->persist($calendario);
         $em->flush();
-        $entidad = new Materia();
-        $entidad->setNombreMateria($data->request->get('nombreMateria'));
+        $materia = new Materia();
+        $materia->setNombreMateria($data->request->get('nombreMateria'));
     //    $materia->setIdTipoMateria($data->request->get('idTipoMateria'));
-        $entidad->setIdTipoMateria($tipoMateria);
-        $entidad->setIdCalendarioMateria($calendario);
+        $materia->setTipoMateria($tipoMateria);
+        $materia->setCalendarioMateria($calendario);
 
    
-        $em->persist($entidad);
+        $em->persist($materia);
         $em->flush();
 
-        return $entidad;
+        return $materia;
     }
-    public function editAction($id)
+    public function editAction($id = null, Request $request = null)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entidad = $em->getRepository('BoletinesBundle:Materia')->find($id);
-
-        if (!$entidad) {
-            throw $this->createNotFoundException('Unable to find Materia entity.');
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $materia = $this->editEntity($request, $id);
+            if($materia != null) {
+                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
+            } else {
+                $message = "Errores";
+            }
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
+            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
         }
 
-        $editForm = $this->createEditForm($entidad);
-        $deleteForm = $this->createDeleteForm($id);
+        return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+    }
+    private function editEntity($data, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
 
-        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
-            'entity'      => $entidad,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $materia->setNombreMateria($data->request->get('nombreMateria'));
+
+        $idTipoMateria = $data->request->get('idTipoMateria');
+        if($idTipoMateria > 1){
+            //Selecciono otro TipoMateria, hay que buscarla y persistirla
+            $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $idTipoMateria));
+            $materia->setTipoMateria($tipoMateria);
+        }
+
+        $em->persist($materia);
+        $em->flush();
+
+        return $materia;
     }
 }

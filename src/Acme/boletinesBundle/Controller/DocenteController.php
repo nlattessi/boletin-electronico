@@ -30,7 +30,7 @@ class DocenteController extends Controller
 
         $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
 
-        return $this->render('BoletinesBundle:Docente:show.html.twig', array('entity' => $docente));
+        return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
     }
 
     public function newAction(Request $request)
@@ -40,7 +40,7 @@ class DocenteController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $docente = $this->createEntity($request);
             if($docente != null) {
-                return $this->render('BoletinesBundle:Docente:show.html.twig', array('entity' => $docente));
+                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
             } else {
                 $message = "Errores";
             }
@@ -51,19 +51,6 @@ class DocenteController extends Controller
 
         return $this->render('BoletinesBundle:Docente:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
     }
-
-    public function deleteAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
-
-        if($docente instanceof Docente) {
-            $em->remove($docente);
-            $em->flush();
-        }
-        return $this->indexAction();
-    }
-
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
@@ -89,39 +76,68 @@ class DocenteController extends Controller
 
         return $docente;
     }
-    private function crearUsuarioDocente($nombreReal, $email){
-        $em = $this->getDoctrine()->getManager();
 
-        $usuario = new Usuario();
-        $usuario->setNombreReal($nombreReal);
-        $usuario->setPassword('12345');
-        $usuario->setNombreUsuario($email);
-        $usuario->setNombreUsuarioParaMostrar($nombreReal);
-
-        $em->persist($usuario);
-        $em->flush();
-
-        return $usuario;
-    }
-
-    public function editAction($id)
+    
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
 
-        $docente = $em->getRepository('BoletinesBundle:Docente')->find($id);
+        if($docente instanceof Docente) {
+            $em->remove($docente);
+            $em->flush();
+        }
+        return $this->indexAction();
+    }
 
-        if (!$docente) {
-            throw $this->createNotFoundException('Unable to find Docente entity.');
+
+    public function editAction($id = null, Request $request = null)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $docente = $this->editEntity($request, $id);
+            if($docente != null) {
+                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
+            } else {
+                $message = "Errores";
+            }
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
+            $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
         }
 
-        $editForm = $this->createEditForm($docente);
-        $deleteForm = $this->createDeleteForm($id);
+        return $this->render('BoletinesBundle:Docente:edit.html.twig', array('docente' => $docente, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+    }
 
-        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
-            'entity'      => $docente,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+    private function editEntity($data, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+
+        $docente->setNombreDocente($data->request->get('nombreDocente'));
+        $docente->setEmailDocente($data->request->get('emailDocente'));
+        $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
+        $idUsuario = $data->request->get('idUsuario');
+        if($idUsuario > 1){
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' =>$idUsuario ));
+            $docente->setUsuario($usuario);
+        }else{
+            //no seleccionó ninguno
+            if($docente->getUsuario() == null) {
+                //no tenia ninguno
+                $controllerUsuario = new UsuarioController();
+                $usuario = $controllerUsuario->crearUsuarioDocente($docente->getNombreDocente(), $docente->getEmailDocente());
+                $em->persist($usuario);
+                $docente->setUsuario($usuario);
+            }
+        }
+
+
+        $em->persist($docente);
+        $em->flush();
+
+        return $docente;
     }
 }
 

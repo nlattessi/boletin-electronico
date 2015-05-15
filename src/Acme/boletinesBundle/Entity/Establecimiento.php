@@ -142,7 +142,7 @@ class Establecimiento
     /**
      * @return Institucion
      */
-    public function getIdInstitucion()
+    public function getInstitucion()
     {
         return $this->idInstitucion;
     }
@@ -150,7 +150,7 @@ class Establecimiento
     /**
      * @param Institucion $idInstitucion
      */
-    public function setIdInstitucion($idInstitucion)
+    public function setInstitucion($idInstitucion)
     {
         $this->idInstitucion = $idInstitucion;
     }
