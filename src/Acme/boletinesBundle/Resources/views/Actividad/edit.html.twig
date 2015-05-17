@@ -3,14 +3,35 @@
 {% block body -%}
     <h1>Actividad edit</h1>
 
-    {{ form(edit_form) }}
+    <h2>{{ mensaje }}</h2>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('actividad') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <form action="{{ path('actividad_edit', {'id':actividad.idActividad }) }}" method="post">
+        <input type="text" value="{{ actividad.idActividad }}" hidden="hidden" name="idActividad"><br/>
+        <input type="text" value="{{ actividad.nombreActividad }}" placeholder="nombre" name="nombreActividad"><br/>
+        <input type="text" value="{{ actividad.descripcionActividad }}"placeholder="descripcion" name="descripcionActividad"><br/>
+        <input type="text" value="{{ actividad.fechaDesde|date('d-m-Y') }}" placeholder="fecha desde" name="fechaDesdeActividad"><br/>
+        <input type="text" value="{{ actividad.fechaHasta|date('d-m-Y') }}" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
+
+        {% if actividad.archivo != null %}
+            <p>Archivo Asociado</p>
+            <p>{{ actividad.archivo.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idArchivo">
+            {% for archivo in entitiesRelacionadas %}
+
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('actividad') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
 {% endblock %}

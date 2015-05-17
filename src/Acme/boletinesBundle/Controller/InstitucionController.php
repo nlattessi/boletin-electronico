@@ -26,9 +26,9 @@ class InstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
 
-        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('entity' => $entity));
+        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
     }
 
     public function newAction(Request $request)
@@ -37,9 +37,9 @@ class InstitucionController extends Controller
 
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
-            $entidad = $this->createEntity($request);
-            if($entidad != null) {
-                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('entity' => $entidad));
+            $institucion = $this->createEntity($request);
+            if($institucion != null) {
+                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
             } else {
                 $message = "Errores";
             }
@@ -48,24 +48,20 @@ class InstitucionController extends Controller
         return $this->render('BoletinesBundle:Institucion:new.html.twig', array('mensaje' => $message));
     }
 
-    public function editAction($id = null, Request $request = null)
+    private function createEntity($data)
     {
-        $message = "";
-        if ($request->getMethod() == 'POST') {
-            $entity = $this->editEntity($request, $id);
-            if($entity != null) {
-                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('entity' => $entity));
-            } else {
-                $message = "Errores";
-            }
-        } else {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
-        }
+        $institucion = new Institucion();
+        $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
+        $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
+        $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
+        $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
 
-        return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('entity' => $entity, 'mensaje' => $message));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($institucion);
+        $em->flush();
+
+        return $institucion;
     }
-
 
     public function deleteAction($id)
     {
@@ -79,19 +75,23 @@ class InstitucionController extends Controller
         return $this->indexAction();
     }
 
-    private function createEntity($data)
+
+    public function editAction($id = null, Request $request = null)
     {
-        $institucion = new Institucion();
-        $institucion->setNombreInstitucion($data->request->get('name'));
-        $institucion->setDireccionInstitucion($data->request->get('direccion'));
-        $institucion->setEmailInstitucion($data->request->get('email'));
-        $institucion->setTelefonoInstitucion($data->request->get('telefono'));
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $institucion = $this->editEntity($request, $id);
+            if($institucion != null) {
+                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+            } else {
+                $message = "Errores";
+            }
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+        }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($institucion);
-        $em->flush();
-
-        return $institucion;
+        return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion, 'mensaje' => $message));
     }
 
     private function editEntity($data, $id)
@@ -99,10 +99,10 @@ class InstitucionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
 
-        $institucion->setNombreInstitucion($data->request->get('name'));
-        $institucion->setDireccionInstitucion($data->request->get('direccion'));
-        $institucion->setEmailInstitucion($data->request->get('email'));
-        $institucion->setTelefonoInstitucion($data->request->get('telefono'));
+        $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
+        $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
+        $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
+        $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
 
         $em->persist($institucion);
         $em->flush();

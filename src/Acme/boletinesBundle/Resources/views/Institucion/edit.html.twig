@@ -5,12 +5,12 @@
 
     <h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('institucion_edit', {'id':entity.idInstitucion }) }}" method="post">
-        <input type="text" value="{{ entity.idInstitucion }}" hidden="hidden" name="id"><br/>
-        <input type="text" value="{{ entity.nombreInstitucion }}" placeholder="nombre" name="name"><br/>
-        <input type="text" value="{{ entity.direccionInstitucion }}" placeholder="direccion" name="direccion"><br/>
-        <input type="text" value="{{ entity.telefonoInstitucion }}" placeholder="Telefono" name="telefono"><br/>
-        <input type="text" value="{{ entity.emailInstitucion }}" placeholder="email" name="email"><br/>
+    <form action="{{ path('institucion_edit', {'id':institucion.idInstitucion }) }}" method="post">
+        <input type="text" value="{{ institucion.idInstitucion }}" hidden="hidden" name="id"><br/>
+        <input type="text" value="{{ institucion.nombreInstitucion }}" placeholder="nombre" name="nombreInstitucion"><br/>
+        <input type="text" value="{{ institucion.direccionInstitucion }}" placeholder="direccion" name="direccionInstitucion"><br/>
+        <input type="text" value="{{ institucion.telefonoInstitucion }}" placeholder="Telefono" name="telefonoInstitucion"><br/>
+        <input type="text" value="{{ institucion.emailInstitucion }}" placeholder="email" name="emailInstitucion"><br/>
         <input type="submit" /><br/>
     </form>
     <ul class="record_actions">

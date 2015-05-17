@@ -6,26 +6,26 @@
     <table class="records_list">
         <thead>
             <tr>
-                <th>Identidad</th>
+                <th>Id Entidad</th>
                 <th>Nombre entidad</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for entidad in entities %}
             <tr>
-                <td>{{ entity.idEntidad }}</td>
-                <td><a href="{{ path('entidad_show', { 'id': entity.idEntidad }) }}">{{ entity.__toString() }}</a></td>
+                <td>{{ entidad.idEntidad }}</td>
+                <td><a href="{{ path('entidad_show', { 'id': entidad.idEntidad }) }}">{{ entidad.__toString() }}</a></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('entidad_show', { 'id': entity.idEntidad }) }}">Ver</a>
+                        <a href="{{ path('entidad_show', { 'id': entidad.idEntidad }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('entidad_edit', { 'id': entity.idEntidad }) }}">Editar</a>
+                        <a href="{{ path('entidad_edit', { 'id': entidad.idEntidad }) }}">Editar</a>
                     </li>
                     <li>
-                        <a href="{{ path('entidad_delete', { 'id': entity.idEntidad }) }}">Borrar</a>
+                        <a href="{{ path('entidad_delete', { 'id': entidad.idEntidad }) }}">Borrar</a>
                     </li>
                 </ul>
                 </td>

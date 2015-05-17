@@ -1,16 +1,21 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Materia edit</h1>
+    <h1>TipoMateria edit</h1>
 
-    {{ form(edit_form) }}
+    <h2>{{ mensaje }}</h2>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('materia') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <form action="{{ path('tipoMateria_edit', {'id':tipoMateria.idTipoMateria }) }}" method="post">
+        <input type="text" value="{{ tipoMateria.idTipoMateria }}" hidden="hidden" name="id"><br/>
+        <input type="text" value="{{ tipoMateria.nombreTipoMateria }}" placeholder="nombre" name="nombreTipoMateria"><br/>
+
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('tipoMateria') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
 {% endblock %}

@@ -57,11 +57,11 @@ public function getNombreCalendario(){
 		$this->idCalendario = $idCalendario;
 	}
 
-	public function getIdUsuarioPropietario(){
+	public function getUsuarioPropietario(){
 		return $this->idUsuarioPropietario;
 	}
 
-	public function setIdUsuarioPropietario($idUsuarioPropietario){
+	public function setUsuarioPropietario($idUsuarioPropietario){
 		$this->idUsuarioPropietario = $idUsuarioPropietario;
 	}
 

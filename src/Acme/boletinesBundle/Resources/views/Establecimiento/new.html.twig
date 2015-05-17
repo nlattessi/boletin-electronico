@@ -13,12 +13,12 @@
            <input type="text" placeholder="email" name="emailEstablecimiento"><br/>
            <input type="text" placeholder="telefono" name="telefonoEstablecimiento"><br/>
            <select name="idInstitucion">
-               {% for entity in instituciones %}
+               {% for institucion in entitiesRelacionadas %}
 
-               <option value="{{entity.idInstitucion}}">{{entity.__toString()}}</option>
+               <option value="{{institucion.idInstitucion}}">{{institucion.__toString()}}</option>
 
                {% endfor %}
-
+               <option value="-1" selected="selected">Seleccione una Institucion creada</option>
            </select>
            <br/><br/><br/>
       <button type="submit" >Crear Establecimiento</button>

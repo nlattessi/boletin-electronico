@@ -29,7 +29,7 @@ class EntidadController extends Controller
 
         $entidad = $em->getRepository('BoletinesBundle:Entidad')->findOneBy(array('idEntidad' => $id));
 
-        return $this->render('BoletinesBundle:Entidad:show.html.twig', array('entity' => $entidad));
+        return $this->render('BoletinesBundle:Entidad:show.html.twig', array('entidad' => $entidad));
     }
 
     public function newAction(Request $request)
@@ -39,7 +39,7 @@ class EntidadController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $entidad = $this->createEntity($request);
             if($entidad != null) {
-                return $this->render('BoletinesBundle:Entidad:show.html.twig', array('entity' => $entidad));
+                return $this->render('BoletinesBundle:Entidad:show.html.twig', array('entidad' => $entidad));
             } else {
                 $message = "Errores";
             }
@@ -50,6 +50,26 @@ class EntidadController extends Controller
 
         return $this->render('BoletinesBundle:Entidad:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
     }
+    private function createEntity($data)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entidad = new Entidad();
+        $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
+        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
+        if($idEntityRelacionada > 1){
+            //Selecciono una EntityRelacionada
+            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
+            $entidad->setEntityRelacionada($entityRelacionada);
+        }
+
+        $em->persist($entidad);
+        $em->flush();
+
+        return $entidad;
+    }
+
+
 
     public function deleteAction($id)
     {
@@ -63,38 +83,43 @@ class EntidadController extends Controller
         return $this->indexAction();
     }
 
-    private function createEntity($data)
+
+    public function editAction($id = null, Request $request = null)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $entidad = $this->editEntity($request, $id);
+            if($entidad != null) {
+                return $this->render('BoletinesBundle:Entidad:show.html.twig', array('entidad' => $entidad));
+            } else {
+                $message = "Errores";
+            }
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entidad = $em->getRepository('BoletinesBundle:Entidad')->findOneBy(array('idEntidad' => $id));
+        }
+
+        return $this->render('BoletinesBundle:Entidad:edit.html.twig', array('entidad' => $entidad, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+    }
+    private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $entidad = $em->getRepository('BoletinesBundle:Entidad')->findOneBy(array('idEntidad' => $id));
 
-        $entidad = new Entidad();
-        $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
-        $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $data->request->get('idEntityRelacionada')));
-        $entidad->setIdEntityRelacionada($entityRelacionada);
+        $entidad->setNombreEntidad($data->request->get('name'));
+
+        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
+        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
+            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
+            $entidad->setEntityRelacionada($entityRelacionada);
+        }
 
         $em->persist($entidad);
         $em->flush();
 
         return $entidad;
-    }
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entidad = $em->getRepository('BoletinesBundle:Entidad')->find($id);
-
-        if (!$entidad) {
-            throw $this->createNotFoundException('Unable to find Entidad entity.');
-        }
-
-        $editForm = $this->createEditForm($entidad);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
-            'entity'      => $entidad,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 }
 

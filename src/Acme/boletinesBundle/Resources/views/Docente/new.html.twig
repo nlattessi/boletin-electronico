@@ -12,12 +12,12 @@
         <input type="text" placeholder="Email" name="emailDocente"><br/>
         <input type="text" placeholder="Telefono" name="telefonoDocente"><br/>
         <select name="idUsuario">
-            {% for entity in entitiesRelacionadas %}
+            {% for usuario in entitiesRelacionadas %}
 
-                <option value="{{entity.idUsuario}}">{{entity.__toString()}}</option>
+                <option value="{{usuario.idUsuario}}">{{usuario.__toString()}}</option>
 
             {% endfor %}
-                <option value="-1" selected="selected">Seleccione un usuario creado</option>
+                <option value="-1" selected="selected">Seleccione un Usuario creado</option>
         </select>
         <br/><br/><br/>
 
