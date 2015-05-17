@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Usuario</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Usuario</th>
+            <td>{{ usuario.idUsuario }}</td>
+        </tr>
+        <tr>
+            <th>Usuario</th>
+            <td>{{ usuario.nombreUsuario }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('usuario') }}">
+                Volver a la lista
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('usuario_edit', { 'id': usuario.idUsuario }) }}">
+                Editar
+            </a>
+        </li>
+        <li> <a href="{{ path('usuario_delete', { 'id': usuario.idUsuario }) }}">Borrar</a></li>
+    </ul>
+{% endblock %}

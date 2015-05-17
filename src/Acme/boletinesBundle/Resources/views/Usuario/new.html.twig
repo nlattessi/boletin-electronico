@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Usuario creation</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('usuario_new') }}" method="post">
+        <input type="text" placeholder="nombre" name="nombreUsuario"><br/>
+        <input type="text" placeholder="nombre_usuario_para_mostrar" name="nombreUsuarioParaMostrar"><br/>
+        <input type="password" placeholder="password" name="password"><br/>
+        <button type="submit" >Crear Usuario</button>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('usuario') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
