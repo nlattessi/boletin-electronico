@@ -6,14 +6,19 @@
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>Idmateria</th>
-            <td>{{ entity.idMateria }}</td>
+            <th>Id Materia</th>
+            <td>{{ materia.idMateria }}</td>
         </tr>
+        <tr>
+            <th>Materia</th>
+            <td>{{ materia.nombreMateria }}</td>
+        </tr>
+        {% if materia.tipoMateria != null %}
             <tr>
-                <th>Materia</th>
-                <td>{{ entity.nombreMateria }}</td>
+                <th>TipoMateria Asociado</th>
+                <td>{{ materia.tipoMateria.__toString() }}</td>
             </tr>
-
+        {% endif %}
         </tbody>
     </table>
 
@@ -24,10 +29,10 @@
         </a>
     </li>
     <li>
-        <a href="{{ path('materia_edit', { 'id': entity.idMateria }) }}">
+        <a href="{{ path('materia_edit', { 'id': materia.idMateria }) }}">
             Editar
         </a>
     </li>
-    <li> <a href="{{ path('materia_delete', { 'id': entity.idMateria }) }}">Borrar</a></li>
+    <li> <a href="{{ path('materia_delete', { 'id': materia.idMateria }) }}">Borrar</a></li>
 </ul>
 {% endblock %}

@@ -29,7 +29,7 @@ class TipoMateriaController extends Controller
 
         $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $id));
 
-        return $this->render('BoletinesBundle:TipoMateria:show.html.twig', array('entity' => $tipoMateria));
+        return $this->render('BoletinesBundle:TipoMateria:show.html.twig', array('tipoMateria' => $tipoMateria));
     }
 
     public function newAction(Request $request)
@@ -39,13 +39,26 @@ class TipoMateriaController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $tipoMateria = $this->createEntity($request);
             if($tipoMateria != null) {
-                return $this->render('BoletinesBundle:TipoMateria:show.html.twig', array('entity' => $tipoMateria));
+                return $this->render('BoletinesBundle:TipoMateria:show.html.twig', array('tipoMateria' => $tipoMateria));
             } else {
                 $message = "Errores";
             }
         }
 
         return $this->render('BoletinesBundle:TipoMateria:new.html.twig', array('mensaje' => $message));
+    }
+    private function createEntity($data)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+        $tipoMateria = new TipoMateria();
+        $tipoMateria->setNombreTipoMateria($data->request->get('nombreTipoMateria'));
+
+        $em->persist($tipoMateria);
+        $em->flush();
+
+        return $tipoMateria;
     }
 
     public function deleteAction($id)
@@ -60,36 +73,34 @@ class TipoMateriaController extends Controller
         return $this->indexAction();
     }
 
-    private function createEntity($data)
+
+    public function editAction($id = null, Request $request = null)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $tipoMateria = $this->editEntity($request, $id);
+            if($tipoMateria != null) {
+                return $this->render('BoletinesBundle:TipoMateria:show.html.twig', array('tipoMateria' => $tipoMateria));
+            } else {
+                $message = "Errores";
+            }
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $id));
+        }
+
+        return $this->render('BoletinesBundle:TipoMateria:edit.html.twig', array('tipoMateria' => $tipoMateria, 'mensaje' => $message));
+    }
+    private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $id));
 
-
-        $tipoMateria = new TipoMateria();
-        $tipoMateria->setNombreTipoMateria($data->request->get('nombre'));
+        $tipoMateria->setNombreTipoMateria($data->request->get('nombreTipoMateria'));
 
         $em->persist($tipoMateria);
         $em->flush();
 
         return $tipoMateria;
-    }
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->find($id);
-
-        if (!$tipoMateria) {
-            throw $this->createNotFoundException('Unable to find TipoMateria entity.');
-        }
-
-        $editForm = $this->createEditForm($tipoMateria);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
-            'entity'      => $tipoMateria,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 }

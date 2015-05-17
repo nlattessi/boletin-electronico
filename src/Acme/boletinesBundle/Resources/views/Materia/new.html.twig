@@ -2,14 +2,20 @@
 
 {% block body -%}
     <h1>Materia creation</h1>
-
-   
   
   
        <form action="{{ path('materia_new') }}" method="post">
 
           <input type="text" placeholder="nombre" name="nombreMateria"><br/>
-        <input type="text" placeholder="idTipoMateria" name="idTipoMateria"><br/>
+           <select name="idTipoMateria">
+               {% for tipoMateria in entitiesRelacionadas %}
+
+                   <option value="{{tipoMateria.idTipoMateria}}">{{tipoMateria.__toString()}}</option>
+
+               {% endfor %}
+               <option value="-1" selected="selected">Seleccione un Tipo de Materia creada</option>
+           </select>
+           <br/><br/><br/>
 
      
       <button type="submit" >Crear Materia</button>

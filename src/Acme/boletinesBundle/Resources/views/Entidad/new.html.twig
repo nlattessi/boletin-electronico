@@ -4,19 +4,17 @@
     <h1>Entidad creation</h1>
 
 
-
-
     <form action="{{ path('entidad_new') }}" method="post">
 
         <input type="text" placeholder="nombre" name="nombreEntidad"><br/>
 
         <select name="idEntityRelacionada">
-            {% for entity in entitiesRelacionadas %}
+            {% for entityRelacionada in entitiesRelacionadas %}
 
-                <option value="{{entity.idEntityRelacionada}}">{{entity.__toString()}}</option>
+                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
 
             {% endfor %}
-
+            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
         </select>
         <br/><br/><br/>
 

@@ -14,12 +14,12 @@
         <input type="datetime" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
 
         <select name="idArchivo">
-            {% for archivo in archivos %}
+            {% for archivo in entitiesRelacionadas %}
 
                 <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione un archivo creado para asociar</option>
+            <option value="-1" selected="selected">Seleccione un Archivo creado para asociar</option>
         </select>
         <br/><br/><br/>
 

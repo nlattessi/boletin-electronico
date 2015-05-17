@@ -67,19 +67,19 @@ class Materia
 		$this->idMateria = $idMateria;
 	}
 
-	public function getIdTipoMateria(){
+	public function getTipoMateria(){
 		return $this->idTipoMateria;
 	}
 
-	public function setIdTipoMateria($idTipoMateria){
+	public function setTipoMateria($idTipoMateria){
 		$this->idTipoMateria = $idTipoMateria;
 	}
 
-	public function getIdCalendarioMateria(){
+	public function getCalendarioMateria(){
 		return $this->idCalendarioMateria;
 	}
 
-	public function setIdCalendarioMateria($idCalendarioMateria){
+	public function setCalendarioMateria($idCalendarioMateria){
 		$this->idCalendarioMateria = $idCalendarioMateria;
 	}
     public function __toString() {
