@@ -1,0 +1,19 @@
+calificacion:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Calificacion:index }
+
+calificacion_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Calificacion:new }
+
+calificacion_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Calificacion:delete }
+
+calificacion_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Calificacion:getOne }
+
+calificacion_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Calificacion:edit }

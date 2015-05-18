@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Mensaje edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('mensaje_edit', {'id':mensaje.idMensaje }) }}" method="post">
+        <input type="text" value="{{ mensaje.idMensaje }}" hidden="hidden" name="idMensaje"><br/>
+        <input type="text" value="{{ mensaje.nombreMensaje }}" placeholder="nombre" name="nombreMensaje"><br/>
+        {% if mensaje.entityRelacionada != null %}
+            <p>EntityRelacionada Asociado</p>
+            <p>{{ mensaje.entityRelacionada.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idEntityRelacionada">
+            {% for entityRelacionada in entitiesRelacionadas %}
+
+                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('mensaje') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

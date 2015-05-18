@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Justificacion</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Justificacion</th>
+            <td>{{ justificacion.idJustificacion }}</td>
+        </tr>
+        <tr>
+            <th>Justificacion</th>
+            <td>{{ justificacion.nombreJustificacion }}</td>
+        </tr>
+        {% if justificacion.entityRelacionada != null %}
+        <tr>
+            <th>EntityRelacionada Asociado</th>
+            <td>{{ justificacion.entityRelacionada.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('justificacion') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('justificacion_edit', { 'id': justificacion.idJustificacion }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('justificacion_delete', { 'id': justificacion.idJustificacion }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

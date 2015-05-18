@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Notificacion edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('notificacion_edit', {'id':notificacion.idNotificacion }) }}" method="post">
+        <input type="text" value="{{ notificacion.idNotificacion }}" hidden="hidden" name="idNotificacion"><br/>
+        <input type="text" value="{{ notificacion.nombreNotificacion }}" placeholder="nombre" name="nombreNotificacion"><br/>
+        {% if notificacion.entityRelacionada != null %}
+            <p>EntityRelacionada Asociado</p>
+            <p>{{ notificacion.entityRelacionada.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idEntityRelacionada">
+            {% for entityRelacionada in entitiesRelacionadas %}
+
+                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('notificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
