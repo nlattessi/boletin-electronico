@@ -9,8 +9,8 @@
         <input type="text" value="{{ actividad.idActividad }}" hidden="hidden" name="idActividad"><br/>
         <input type="text" value="{{ actividad.nombreActividad }}" placeholder="nombre" name="nombreActividad"><br/>
         <input type="text" value="{{ actividad.descripcionActividad }}"placeholder="descripcion" name="descripcionActividad"><br/>
-        <input type="text" value="{{ actividad.fechaDesde|date('d-m-Y') }}" placeholder="fecha desde" name="fechaDesdeActividad"><br/>
-        <input type="text" value="{{ actividad.fechaHasta|date('d-m-Y') }}" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
+        <input type="text" value="{{ actividad.fechaDesde|date('d-m-Y H:i') }}" placeholder="fecha desde" name="fechaDesdeActividad"><br/>
+        <input type="text" value="{{ actividad.fechaHasta|date('d-m-Y H:i') }}" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
 
         {% if actividad.archivo != null %}
             <p>Archivo Asociado</p>

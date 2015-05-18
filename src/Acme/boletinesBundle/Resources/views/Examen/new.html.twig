@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Examen creation</h1>
+
+
+    <form action="{{ path('examen_new') }}" method="post">
+
+        <input type="text" placeholder="nombre" name="nombreExamen"><br/>
+        <input type="datetime" placeholder="fecha" name="fechaExamen"><br/>
+
+        <select name="idMateria">
+            {% for materia in entitiesRelacionadas %}
+
+                <option value="{{materia.idMateria}}">{{materia.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione una materia creada</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Examen</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('examen') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

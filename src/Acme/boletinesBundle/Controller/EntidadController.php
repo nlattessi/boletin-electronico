@@ -107,7 +107,7 @@ class EntidadController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entidad = $em->getRepository('BoletinesBundle:Entidad')->findOneBy(array('idEntidad' => $id));
 
-        $entidad->setNombreEntidad($data->request->get('name'));
+        $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
         if($idEntityRelacionada != null || $idEntityRelacionada > 1){
