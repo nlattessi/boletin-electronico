@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>GrupoAlumno list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id GrupoAlumno</th>
+                <th>Nombre grupoAlumno</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grupoAlumno in entities %}
+            <tr>
+                <td>{{ grupoAlumno.idGrupoAlumno }}</td>
+                <td><a href="{{ path('grupoAlumno_show', { 'id': grupoAlumno.idGrupoAlumno }) }}">{{ grupoAlumno.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('grupoAlumno_show', { 'id': grupoAlumno.idGrupoAlumno }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('grupoAlumno_edit', { 'id': grupoAlumno.idGrupoAlumno }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('grupoAlumno_delete', { 'id': grupoAlumno.idGrupoAlumno }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('grupoAlumno_new') }}">
+                Crear Nueva GrupoAlumno
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

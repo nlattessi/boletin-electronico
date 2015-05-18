@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Justificacion list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Justificacion</th>
+                <th>Nombre justificacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for justificacion in entities %}
+            <tr>
+                <td>{{ justificacion.idJustificacion }}</td>
+                <td><a href="{{ path('justificacion_show', { 'id': justificacion.idJustificacion }) }}">{{ justificacion.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('justificacion_show', { 'id': justificacion.idJustificacion }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('justificacion_edit', { 'id': justificacion.idJustificacion }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('justificacion_delete', { 'id': justificacion.idJustificacion }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('justificacion_new') }}">
+                Crear Nueva Justificacion
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

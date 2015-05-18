@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Calificacion edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('calificacion_edit', {'id':calificacion.idCalificacion }) }}" method="post">
+        <input type="text" value="{{ calificacion.idCalificacion }}" hidden="hidden" name="idCalificacion"><br/>
+        <input type="text" value="{{ calificacion.nombreCalificacion }}" placeholder="nombre" name="nombreCalificacion"><br/>
+        {% if calificacion.entityRelacionada != null %}
+            <p>EntityRelacionada Asociado</p>
+            <p>{{ calificacion.entityRelacionada.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idEntityRelacionada">
+            {% for entityRelacionada in entitiesRelacionadas %}
+
+                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('calificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

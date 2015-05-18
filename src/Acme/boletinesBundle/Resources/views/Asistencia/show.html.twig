@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Asistencia</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Asistencia</th>
+            <td>{{ asistencia.idAsistencia }}</td>
+        </tr>
+        <tr>
+            <th>Asistencia</th>
+            <td>{{ asistencia.nombreAsistencia }}</td>
+        </tr>
+        {% if asistencia.entityRelacionada != null %}
+        <tr>
+            <th>EntityRelacionada Asociado</th>
+            <td>{{ asistencia.entityRelacionada.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('asistencia') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('asistencia_edit', { 'id': asistencia.idAsistencia }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('asistencia_delete', { 'id': asistencia.idAsistencia }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

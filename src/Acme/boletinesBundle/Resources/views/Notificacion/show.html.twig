@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Notificacion</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Notificacion</th>
+            <td>{{ notificacion.idNotificacion }}</td>
+        </tr>
+        <tr>
+            <th>Notificacion</th>
+            <td>{{ notificacion.nombreNotificacion }}</td>
+        </tr>
+        {% if notificacion.entityRelacionada != null %}
+        <tr>
+            <th>EntityRelacionada Asociado</th>
+            <td>{{ notificacion.entityRelacionada.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('notificacion') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('notificacion_edit', { 'id': notificacion.idNotificacion }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('notificacion_delete', { 'id': notificacion.idNotificacion }) }}">Borrar</a></li>
+</ul>
+{% endblock %}
