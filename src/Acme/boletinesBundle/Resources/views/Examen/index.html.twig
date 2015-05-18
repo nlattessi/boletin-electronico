@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Examen list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Examen</th>
+                <th>Nombre examen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examen in entities %}
+            <tr>
+                <td>{{ examen.idExamen }}</td>
+                <td><a href="{{ path('examen_show', { 'id': examen.idExamen }) }}">{{ examen.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('examen_show', { 'id': examen.idExamen }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('examen_edit', { 'id': examen.idExamen }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('examen_delete', { 'id': examen.idExamen }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('examen_new') }}">
+                Crear Nueva Examen
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

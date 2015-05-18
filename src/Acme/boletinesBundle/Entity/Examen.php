@@ -65,5 +65,105 @@ class Examen
      */
     private $idActividad;
 
+    /**
+     * @return string
+     */
+    public function getNombreExamen()
+    {
+        return $this->nombreExamen;
+    }
+
+    /**
+     * @param string $nombreExamen
+     */
+    public function setNombreExamen($nombreExamen)
+    {
+        $this->nombreExamen = $nombreExamen;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaExamen()
+    {
+        return $this->fechaExamen;
+    }
+
+    /**
+     * @param \DateTime $fechaExamen
+     */
+    public function setFechaExamen($fechaExamen)
+    {
+        $this->fechaExamen = $fechaExamen;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * @param int $idExamen
+     */
+    public function setIdExamen($idExamen)
+    {
+        $this->idExamen = $idExamen;
+    }
+
+    /**
+     * @return Materia
+     */
+    public function getMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * @param Materia $idMateria
+     */
+    public function setMateria($idMateria)
+    {
+        $this->idMateria = $idMateria;
+    }
+
+    /**
+     * @return Docente
+     */
+    public function getDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * @param Docente $idDocente
+     */
+    public function setDocente($idDocente)
+    {
+        $this->idDocente = $idDocente;
+    }
+
+    /**
+     * @return Actividad
+     */
+    public function getActividad()
+    {
+        return $this->idActividad;
+    }
+
+    /**
+     * @param Actividad $idActividad
+     */
+    public function setActividad($idActividad)
+    {
+        $this->idActividad = $idActividad;
+    }
+
+    public function __toString(){
+      return  $this->getNombreExamen();
+    }
+
 
 }

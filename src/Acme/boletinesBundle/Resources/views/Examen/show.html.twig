@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Examen</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Examen</th>
+            <td>{{ examen.idExamen }}</td>
+        </tr>
+        <tr>
+            <th>Examen</th>
+            <td>{{ examen.nombreExamen }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ examen.fechaExamen|date('d-m-Y H:i') }}</td>
+        </tr>
+        <tr>
+            <th>Docente creador</th>
+            <td>{{ examen.docente.__toString }}</td>
+        </tr>
+        {% if examen.materia != null %}
+        <tr>
+            <th>Materia Asociado</th>
+            <td>{{ examen.materia.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('examen') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('examen_edit', { 'id': examen.idExamen }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('examen_delete', { 'id': examen.idExamen }) }}">Borrar</a></li>
+</ul>
+{% endblock %}
