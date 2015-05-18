@@ -45,5 +45,72 @@ class GrupoUsuario
      */
     private $idUsuarioCarga;
 
+    /**
+     * @return string
+     */
+    public function getNombreGrupoUsuario()
+    {
+        return $this->nombreGrupoUsuario;
+    }
+
+    /**
+     * @param string $nombreGrupoUsuario
+     */
+    public function setNombreGrupoUsuario($nombreGrupoUsuario)
+    {
+        $this->nombreGrupoUsuario = $nombreGrupoUsuario;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEsPrivado()
+    {
+        return $this->esPrivado;
+    }
+
+    /**
+     * @param boolean $esPrivado
+     */
+    public function setEsPrivado($esPrivado)
+    {
+        $this->esPrivado = $esPrivado;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdGrupoUsuario()
+    {
+        return $this->idGrupoUsuario;
+    }
+
+    /**
+     * @param int $idGrupoUsuario
+     */
+    public function setIdGrupoUsuario($idGrupoUsuario)
+    {
+        $this->idGrupoUsuario = $idGrupoUsuario;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->idUsuarioCarga;
+    }
+
+    /**
+     * @param Usuario $idUsuarioCarga
+     */
+    public function setUsuarioCarga($idUsuarioCarga)
+    {
+        $this->idUsuarioCarga = $idUsuarioCarga;
+    }
+
+    public function __toString(){
+        return  $this->getNombreGrupoUsuario();
+    }
 
 }

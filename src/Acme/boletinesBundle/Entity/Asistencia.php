@@ -55,5 +55,87 @@ class Asistencia
      */
     private $idMateria;
 
+    /**
+     * @return \DateTime
+     */
+    public function getFechaAsistencia()
+    {
+        return $this->fechaAsistencia;
+    }
 
+    /**
+     * @param \DateTime $fechaAsistencia
+     */
+    public function setFechaAsistencia($fechaAsistencia)
+    {
+        $this->fechaAsistencia = $fechaAsistencia;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaCarga()
+    {
+        return $this->fechaCarga;
+    }
+
+    /**
+     * @param \DateTime $fechaCarga
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fechaCarga = $fechaCarga;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdAsistencia()
+    {
+        return $this->idAsistencia;
+    }
+
+    /**
+     * @param int $idAsistencia
+     */
+    public function setIdAsistencia($idAsistencia)
+    {
+        $this->idAsistencia = $idAsistencia;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getIdUsuarioCargador()
+    {
+        return $this->idUsuarioCargador;
+    }
+
+    /**
+     * @param Usuario $idUsuarioCargador
+     */
+    public function setIdUsuarioCargador($idUsuarioCargador)
+    {
+        $this->idUsuarioCargador = $idUsuarioCargador;
+    }
+
+    /**
+     * @return Materia
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * @param Materia $idMateria
+     */
+    public function setIdMateria($idMateria)
+    {
+        $this->idMateria = $idMateria;
+    }
+
+    public function __toString(){
+       return "Asistencia del: " . $this->getFechaAsistencia()->format("d-m-Y");
+    }
 }

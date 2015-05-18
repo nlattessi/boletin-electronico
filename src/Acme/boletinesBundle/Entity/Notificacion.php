@@ -62,5 +62,104 @@ class Notificacion
      */
     private $idGrupoUsuarioRecibe;
 
+    /**
+     * @return string
+     */
+    public function getTituloNotificacion()
+    {
+        return $this->tituloNotificacion;
+    }
+
+    /**
+     * @param string $tituloNotificacion
+     */
+    public function setTituloNotificacion($tituloNotificacion)
+    {
+        $this->tituloNotificacion = $tituloNotificacion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextoNotificacion()
+    {
+        return $this->textoNotificacion;
+    }
+
+    /**
+     * @param string $textoNotificacion
+     */
+    public function setTextoNotificacion($textoNotificacion)
+    {
+        $this->textoNotificacion = $textoNotificacion;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaEnvio()
+    {
+        return $this->fechaEnvio;
+    }
+
+    /**
+     * @param \DateTime $fechaEnvio
+     */
+    public function setFechaEnvio($fechaEnvio)
+    {
+        $this->fechaEnvio = $fechaEnvio;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdNotificacion()
+    {
+        return $this->idNotificacion;
+    }
+
+    /**
+     * @param int $idNotificacion
+     */
+    public function setIdNotificacion($idNotificacion)
+    {
+        $this->idNotificacion = $idNotificacion;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioEnvia()
+    {
+        return $this->idUsuarioEnvia;
+    }
+
+    /**
+     * @param Usuario $idUsuarioEnvia
+     */
+    public function setUsuarioEnvia($idUsuarioEnvia)
+    {
+        $this->idUsuarioEnvia = $idUsuarioEnvia;
+    }
+
+    /**
+     * @return GrupoUsuario
+     */
+    public function getGrupoUsuarioRecibe()
+    {
+        return $this->idGrupoUsuarioRecibe;
+    }
+
+    /**
+     * @param GrupoUsuario $idGrupoUsuarioRecibe
+     */
+    public function setGrupoUsuarioRecibe($idGrupoUsuarioRecibe)
+    {
+        $this->idGrupoUsuarioRecibe = $idGrupoUsuarioRecibe;
+    }
+
+    public function __toString(){
+        return  $this->getTituloNotificacion();
+    }
 
 }

@@ -76,5 +76,135 @@ class Disciplina
      */
     private $idAlumno;
 
+    /**
+     * @return string
+     */
+    public function getComentarioDocente()
+    {
+        return $this->comentarioDocente;
+    }
+
+    /**
+     * @param string $comentarioDocente
+     */
+    public function setComentarioDocente($comentarioDocente)
+    {
+        $this->comentarioDocente = $comentarioDocente;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescargoAlumno()
+    {
+        return $this->descargoAlumno;
+    }
+
+    /**
+     * @param string $descargoAlumno
+     */
+    public function setDescargoAlumno($descargoAlumno)
+    {
+        $this->descargoAlumno = $descargoAlumno;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaSuceso()
+    {
+        return $this->fechaSuceso;
+    }
+
+    /**
+     * @param \DateTime $fechaSuceso
+     */
+    public function setFechaSuceso($fechaSuceso)
+    {
+        $this->fechaSuceso = $fechaSuceso;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaCarga()
+    {
+        return $this->fechaCarga;
+    }
+
+    /**
+     * @param \DateTime $fechaCarga
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fechaCarga = $fechaCarga;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isValidado()
+    {
+        return $this->validado;
+    }
+
+    /**
+     * @param boolean $validado
+     */
+    public function setValidado($validado)
+    {
+        $this->validado = $validado;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdDisciplina()
+    {
+        return $this->idDisciplina;
+    }
+
+    /**
+     * @param int $idDisciplina
+     */
+    public function setIdDisciplina($idDisciplina)
+    {
+        $this->idDisciplina = $idDisciplina;
+    }
+
+    /**
+     * @return Docente
+     */
+    public function getDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * @param Docente $idDocente
+     */
+    public function setDocente($idDocente)
+    {
+        $this->idDocente = $idDocente;
+    }
+
+    /**
+     * @return Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param Alumno $idAlumno
+     */
+    public function setAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+    public function __toString(){
+      return  $this->getComentarioDocente();
+    }
 
 }

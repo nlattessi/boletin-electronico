@@ -69,5 +69,120 @@ class Mensaje
      */
     private $idUsuarioEnvia;
 
+    /**
+     * @return string
+     */
+    public function getTituloMensaje()
+    {
+        return $this->tituloMensaje;
+    }
+
+    /**
+     * @param string $tituloMensaje
+     */
+    public function setTituloMensaje($tituloMensaje)
+    {
+        $this->tituloMensaje = $tituloMensaje;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextoMensaje()
+    {
+        return $this->textoMensaje;
+    }
+
+    /**
+     * @param string $textoMensaje
+     */
+    public function setTextoMensaje($textoMensaje)
+    {
+        $this->textoMensaje = $textoMensaje;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaEnvio()
+    {
+        return $this->fechaEnvio;
+    }
+
+    /**
+     * @param \DateTime $fechaEnvio
+     */
+    public function setFechaEnvio($fechaEnvio)
+    {
+        $this->fechaEnvio = $fechaEnvio;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBorrado()
+    {
+        return $this->borrado;
+    }
+
+    /**
+     * @param boolean $borrado
+     */
+    public function setBorrado($borrado)
+    {
+        $this->borrado = $borrado;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdMensaje()
+    {
+        return $this->idMensaje;
+    }
+
+    /**
+     * @param int $idMensaje
+     */
+    public function setIdMensaje($idMensaje)
+    {
+        $this->idMensaje = $idMensaje;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioRecibe()
+    {
+        return $this->idUsuarioRecibe;
+    }
+
+    /**
+     * @param Usuario $idUsuarioRecibe
+     */
+    public function setUsuarioRecibe($idUsuarioRecibe)
+    {
+        $this->idUsuarioRecibe = $idUsuarioRecibe;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioEnvia()
+    {
+        return $this->idUsuarioEnvia;
+    }
+
+    /**
+     * @param Usuario $idUsuarioEnvia
+     */
+    public function setUsuarioEnvia($idUsuarioEnvia)
+    {
+        $this->idUsuarioEnvia = $idUsuarioEnvia;
+    }
+
+    public function __toString(){
+        return  $this->getTituloMensaje();
+    }
 
 }
