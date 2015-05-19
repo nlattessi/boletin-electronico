@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
-use Acme\boletinesBundle\Form\InstitucionType;
 
 class InstitucionController extends Controller
 {
@@ -56,6 +55,12 @@ class InstitucionController extends Controller
         $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
         $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
 
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($institucion);
+        if (count($errors) > 0) {
+            return false;
+        }
         $em = $this->getDoctrine()->getManager();
         $em->persist($institucion);
         $em->flush();
