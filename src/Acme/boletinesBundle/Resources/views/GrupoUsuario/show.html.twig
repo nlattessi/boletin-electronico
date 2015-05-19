@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>GrupoUsuario</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id GrupoUsuario</th>
+            <td>{{ grupoUsuario.idGrupoUsuario }}</td>
+        </tr>
+        <tr>
+            <th>GrupoUsuario</th>
+            <td>{{ grupoUsuario.nombreGrupoUsuario }}</td>
+        </tr>
+        {% if grupoUsuario.entityRelacionada != null %}
+        <tr>
+            <th>EntityRelacionada Asociado</th>
+            <td>{{ grupoUsuario.entityRelacionada.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('grupoUsuario') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('grupoUsuario_edit', { 'id': grupoUsuario.idGrupoUsuario }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('grupoUsuario_delete', { 'id': grupoUsuario.idGrupoUsuario }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

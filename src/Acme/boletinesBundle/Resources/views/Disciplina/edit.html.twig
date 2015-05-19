@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Disciplina edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('disciplina_edit', {'id':disciplina.idDisciplina }) }}" method="post">
+        <input type="text" value="{{ disciplina.idDisciplina }}" hidden="hidden" name="idDisciplina"><br/>
+        <input type="text" value="{{ disciplina.nombreDisciplina }}" placeholder="nombre" name="nombreDisciplina"><br/>
+        {% if disciplina.entityRelacionada != null %}
+            <p>EntityRelacionada Asociado</p>
+            <p>{{ disciplina.entityRelacionada.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idEntityRelacionada">
+            {% for entityRelacionada in entitiesRelacionadas %}
+
+                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('disciplina') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Disciplina list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Disciplina</th>
+                <th>Nombre disciplina</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for disciplina in entities %}
+            <tr>
+                <td>{{ disciplina.idDisciplina }}</td>
+                <td><a href="{{ path('disciplina_show', { 'id': disciplina.idDisciplina }) }}">{{ disciplina.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('disciplina_show', { 'id': disciplina.idDisciplina }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('disciplina_edit', { 'id': disciplina.idDisciplina }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('disciplina_delete', { 'id': disciplina.idDisciplina }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('disciplina_new') }}">
+                Crear Nueva Disciplina
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
