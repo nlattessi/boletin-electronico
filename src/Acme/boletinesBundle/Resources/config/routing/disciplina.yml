@@ -1,0 +1,19 @@
+disciplina:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Disciplina:index }
+
+disciplina_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Disciplina:new }
+
+disciplina_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Disciplina:delete }
+
+disciplina_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Disciplina:getOne }
+
+disciplina_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Disciplina:edit }
