@@ -57,7 +57,7 @@ class AsistenciaController extends Controller
         $asistencia = new Asistencia();
         $asistencia->setNombreAsistencia($data->request->get('nombreAsistencia'));
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono una EntityRelacionada
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $asistencia->setEntityRelacionada($entityRelacionada);
@@ -110,7 +110,7 @@ class AsistenciaController extends Controller
         $asistencia->setNombreAsistencia($data->request->get('nombreAsistencia'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $asistencia->setEntityRelacionada($entityRelacionada);

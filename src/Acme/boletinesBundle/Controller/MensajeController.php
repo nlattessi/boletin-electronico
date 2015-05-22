@@ -57,7 +57,7 @@ class MensajeController extends Controller
         $mensaje = new Mensaje();
         $mensaje->setNombreMensaje($data->request->get('nombreMensaje'));
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono una EntityRelacionada
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $mensaje->setEntityRelacionada($entityRelacionada);
@@ -110,7 +110,7 @@ class MensajeController extends Controller
         $mensaje->setNombreMensaje($data->request->get('nombreMensaje'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $mensaje->setEntityRelacionada($entityRelacionada);

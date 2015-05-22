@@ -16,7 +16,7 @@ class DisciplinaType extends AbstractType
     {
         $builder
             ->add('nombreDisciplina')
-            ->add('idEntityRelacionada')
+            ->add('idAlumno')
         ;
     }
 

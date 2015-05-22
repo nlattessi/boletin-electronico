@@ -4,12 +4,9 @@ namespace Acme\boletinesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Acme\boletinesBundle\Entity\Actividad;
-use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\ActividadType;
+
 use Acme\boletinesBundle\Servicios\ActividadService;
 
 class ActividadController extends Controller
@@ -97,7 +94,7 @@ class ActividadController extends Controller
 
     private function obtenerUsuario($em){
         //TODO: sacar una vez que tengaos login
-       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
+       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 0));
        return $usuario;
     }
 
@@ -133,7 +130,7 @@ class ActividadController extends Controller
         $actividad->setFechaCreacion(new \DateTime('now'));
 
         $idArchivo = $data->request->get('idArchivo');
-        if( $idArchivo > 1){
+        if( $idArchivo > 0){
             //no eligio ninguno
             //Selecciono otro Archivo, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));

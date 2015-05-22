@@ -4,12 +4,9 @@ namespace Acme\boletinesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Acme\boletinesBundle\Servicios\SesionService;
 use Acme\boletinesBundle\Entity\Disciplina;
-use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\DisciplinaType;
+
 
 class DisciplinaController extends Controller
 {
@@ -45,7 +42,7 @@ class DisciplinaController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Alumno')->findAll();
         }
 
         return $this->render('BoletinesBundle:Disciplina:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,15 +50,24 @@ class DisciplinaController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $disciplina = new Disciplina();
-        $disciplina->setNombreDisciplina($data->request->get('nombreDisciplina'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $disciplina->setEntityRelacionada($entityRelacionada);
+        $disciplina->setComentarioDocente($data->request->get('comentarioDocente'));
+        $disciplina->setDescargoAlumno($data->request->get('descargoAlumno'));
+        $disciplina->setDocente($sesionService->obtenerMiEntidadRelacionada());
+        $disciplina->setFechaCarga(new \DateTime('now'));
+        //TODO cambiar por parametro
+        //$disciplina->setFechaSuceso($data->request->get('fechaSuceso'));
+        $disciplina->setFechaSuceso(new \DateTime('now'));
+
+        $idAlumno = $data->request->get('idAlumno');
+        if($idAlumno > 0){
+            //Selecciono una Alumno
+            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
+            $disciplina->setAlumno($alumno);
         }
+
 
         $em->persist($disciplina);
         $em->flush();
@@ -96,7 +102,7 @@ class DisciplinaController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Alumno')->findAll();
             $disciplina = $em->getRepository('BoletinesBundle:Disciplina')->findOneBy(array('idDisciplina' => $id));
         }
 
@@ -105,15 +111,23 @@ class DisciplinaController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
+
         $disciplina = $em->getRepository('BoletinesBundle:Disciplina')->findOneBy(array('idDisciplina' => $id));
 
-        $disciplina->setNombreDisciplina($data->request->get('nombreDisciplina'));
+        $disciplina->setComentarioDocente($data->request->get('comentarioDocente'));
+        $disciplina->setDescargoAlumno($data->request->get('descargoAlumno'));
+        $disciplina->setDocente($sesionService->obtenerMiEntidadRelacionada());
+        $disciplina->setFechaCarga(new \DateTime('now'));
+        //TODO cambiar por parametro
+        //$disciplina->setFechaSuceso($data->request->get('fechaSuceso'));
+        $disciplina->setFechaSuceso(new \DateTime('now'));
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $disciplina->setEntityRelacionada($entityRelacionada);
+        $idAlumno = $data->request->get('idAlumno');
+        if($idAlumno > 0){
+            //Selecciono una Alumno
+            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
+            $disciplina->setAlumno($alumno);
         }
 
         $em->persist($disciplina);

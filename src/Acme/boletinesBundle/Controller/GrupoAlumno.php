@@ -57,7 +57,7 @@ class GrupoAlumnoController extends Controller
         $grupoAlumno = new GrupoAlumno();
         $grupoAlumno->setNombreGrupoAlumno($data->request->get('nombreGrupoAlumno'));
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono una EntityRelacionada
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $grupoAlumno->setEntityRelacionada($entityRelacionada);
@@ -110,7 +110,7 @@ class GrupoAlumnoController extends Controller
         $grupoAlumno->setNombreGrupoAlumno($data->request->get('nombreGrupoAlumno'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $grupoAlumno->setEntityRelacionada($entityRelacionada);

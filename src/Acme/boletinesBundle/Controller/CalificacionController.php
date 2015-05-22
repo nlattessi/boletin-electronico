@@ -57,7 +57,7 @@ class CalificacionController extends Controller
         $calificacion = new Calificacion();
         $calificacion->setNombreCalificacion($data->request->get('nombreCalificacion'));
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono una EntityRelacionada
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $calificacion->setEntityRelacionada($entityRelacionada);
@@ -110,7 +110,7 @@ class CalificacionController extends Controller
         $calificacion->setNombreCalificacion($data->request->get('nombreCalificacion'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $calificacion->setEntityRelacionada($entityRelacionada);
