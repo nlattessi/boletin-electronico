@@ -110,7 +110,7 @@ class EntidadController extends Controller
         $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
+        if($idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $entidad->setEntityRelacionada($entityRelacionada);

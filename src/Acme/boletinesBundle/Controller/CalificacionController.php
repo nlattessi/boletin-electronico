@@ -45,22 +45,32 @@ class CalificacionController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Examen')->findAll();
+            $alumnosDelExamen = $em->getRepository('BoletinesBundle:Alumno')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Calificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Calificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'alumnosDelExamen' => $alumnosDelExamen));
     }
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
 
         $calificacion = new Calificacion();
-        $calificacion->setNombreCalificacion($data->request->get('nombreCalificacion'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $calificacion->setEntityRelacionada($entityRelacionada);
+        $calificacion->setValorCalificacion($data->request->get('valorCalificacion'));
+        $calificacion->setComentarioCalificacion($data->request->get('comentarioCalificacion'));
+        $calificacion->setFechaCalificacion(new \DateTime('now'));
+        $calificacion->setValidada('N');
+        $idExamen = $data->request->get('idExamen');
+        if($idExamen > 0){
+            //Selecciono una Examen
+            $examen = $em->getRepository('BoletinesBundle:Examen')->findOneBy(array('idExamen' => $idExamen));
+            $calificacion->setExamen($examen);
+        }
+        $idAlumno = $data->request->get('idAlumno');
+        if($idAlumno > 0){
+            //Selecciono una Alumno
+            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
+            $calificacion->setAlumno($alumno);
         }
 
         $em->persist($calificacion);
@@ -96,24 +106,33 @@ class CalificacionController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Examen')->findAll();
+            $alumnosDelExamen = $em->getRepository('BoletinesBundle:Alumno')->findAll();
             $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
         }
 
-        return $this->render('BoletinesBundle:Calificacion:edit.html.twig', array('calificacion' => $calificacion, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Calificacion:edit.html.twig', array('calificacion' => $calificacion, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas, 'alumnosDelExamen' => $alumnosDelExamen));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
 
-        $calificacion->setNombreCalificacion($data->request->get('nombreCalificacion'));
+        $calificacion->setValorCalificacion($data->request->get('valorCalificacion'));
+        $calificacion->setComentarioCalificacion($data->request->get('comentarioCalificacion'));
+        $calificacion->setFechaCalificacion(new \DateTime('now'));
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $calificacion->setEntityRelacionada($entityRelacionada);
+        $idExamen = $data->request->get('idExamen');
+        if($idExamen > 0){
+            //Selecciono otra Examen, hay que buscarla y persistirla
+            $examen = $em->getRepository('BoletinesBundle:Examen')->findOneBy(array('idExamen' => $idExamen));
+            $calificacion->setExamen($examen);
+        }
+        $idAlumno = $data->request->get('idAlumno');
+        if($idAlumno > 0){
+            //Selecciono una Alumno
+            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
+            $calificacion->setAlumno($alumno);
         }
 
         $em->persist($calificacion);

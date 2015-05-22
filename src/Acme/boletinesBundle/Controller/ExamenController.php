@@ -74,7 +74,7 @@ class ExamenController extends Controller
 
         $usuario = $sesionService->obtenerUsuario();
 
-        $examen->setDocente($sesionService->obtenerEntidadRelacionada($usuario));
+        $examen->setDocente($sesionService->obtenerMiEntidadRelacionada());
         $examen->setActividad($actividadService->crearActividad($examen->getNombreExamen(),
             "Actividad automatica del examen", $examen->getFechaExamen(),$examen->getFechaExamen(),
             $usuario, null));
@@ -129,7 +129,7 @@ class ExamenController extends Controller
         $examen->setFechaExamen(new \DateTime('now'));
 
         $idMateria = $data->request->get('idMateria');
-        if($idMateria != null || $idMateria > 0){
+        if($idMateria > 0){
             //Selecciono otra Materia, hay que buscarla y persistirla
             $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $idMateria));
             $examen->setMateria($materia);

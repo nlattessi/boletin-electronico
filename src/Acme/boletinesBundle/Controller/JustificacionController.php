@@ -110,7 +110,7 @@ class JustificacionController extends Controller
         $justificacion->setNombreJustificacion($data->request->get('nombreJustificacion'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 0){
+        if($idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $justificacion->setEntityRelacionada($entityRelacionada);

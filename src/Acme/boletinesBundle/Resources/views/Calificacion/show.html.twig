@@ -10,16 +10,22 @@
             <td>{{ calificacion.idCalificacion }}</td>
         </tr>
         <tr>
-            <th>Calificacion</th>
-            <td>{{ calificacion.nombreCalificacion }}</td>
+            <th>Calificacion del Alumno</th>
+            <td>{{ calificacion.alumno.__toString() }}</td>
         </tr>
-        {% if calificacion.entityRelacionada != null %}
+        {% if calificacion.examen != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ calificacion.entityRelacionada.__toString() }}</td>
+            <th>Examen Asociado</th>
+            <td>{{ calificacion.examen.__toString() }}</td>
         </tr>
         {% endif %}
-
+        <tr>
+            <th>Valor calificacion</th>
+            <td>{{ calificacion.valorCalificacion }}</td>
+        </tr><tr>
+            <th>Comentario del docente</th>
+            <td>{{ calificacion.comentarioCalificacion }}</td>
+        </tr>
         </tbody>
     </table>
 

@@ -69,5 +69,120 @@ class Calificacion
      */
     private $idAlumno;
 
+    /**
+     * @return \DateTime
+     */
+    public function getFechaCalificacion()
+    {
+        return $this->fechaCalificacion;
+    }
 
+    /**
+     * @param \DateTime $fechaCalificacion
+     */
+    public function setFechaCalificacion($fechaCalificacion)
+    {
+        $this->fechaCalificacion = $fechaCalificacion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValorCalificacion()
+    {
+        return $this->valorCalificacion;
+    }
+
+    /**
+     * @param string $valorCalificacion
+     */
+    public function setValorCalificacion($valorCalificacion)
+    {
+        $this->valorCalificacion = $valorCalificacion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComentarioCalificacion()
+    {
+        return $this->comentarioCalificacion;
+    }
+
+    /**
+     * @param string $comentarioCalificacion
+     */
+    public function setComentarioCalificacion($comentarioCalificacion)
+    {
+        $this->comentarioCalificacion = $comentarioCalificacion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidada()
+    {
+        return $this->validada;
+    }
+
+    /**
+     * @param string $validada
+     */
+    public function setValidada($validada)
+    {
+        $this->validada = $validada;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdCalificacion()
+    {
+        return $this->idCalificacion;
+    }
+
+    /**
+     * @param int $idCalificacion
+     */
+    public function setIdCalificacion($idCalificacion)
+    {
+        $this->idCalificacion = $idCalificacion;
+    }
+
+    /**
+     * @return Examen
+     */
+    public function getExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * @param Examen $idExamen
+     */
+    public function setExamen($idExamen)
+    {
+        $this->idExamen = $idExamen;
+    }
+
+    /**
+     * @return Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param Alumno $idAlumno
+     */
+    public function setAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
+
+    public function __toString(){
+        return $this->getValorCalificacion();
+    }
 }
