@@ -45,7 +45,7 @@ class JustificacionController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findAll();
         }
 
         return $this->render('BoletinesBundle:Justificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,14 +53,17 @@ class JustificacionController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $justificacion = new Justificacion();
-        $justificacion->setNombreJustificacion($data->request->get('nombreJustificacion'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $justificacion->setEntityRelacionada($entityRelacionada);
+        $justificacion->setJustificacion($data->request->get('justificacion'));
+        $justificacion->setFechaCarga(new \DateTime('now'));
+        $justificacion->setUsuarioCarga($sesionService->obtenerUsuario());
+        $idArchivo = $data->request->get('idArchivo');
+        if($idArchivo > 0){
+            //Selecciono una Archivo
+            $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
+            $justificacion->setArchivo($archivo);
         }
 
         $em->persist($justificacion);
@@ -96,7 +99,7 @@ class JustificacionController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findAll();
             $justificacion = $em->getRepository('BoletinesBundle:Justificacion')->findOneBy(array('idJustificacion' => $id));
         }
 
@@ -107,13 +110,13 @@ class JustificacionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $justificacion = $em->getRepository('BoletinesBundle:Justificacion')->findOneBy(array('idJustificacion' => $id));
 
-        $justificacion->setNombreJustificacion($data->request->get('nombreJustificacion'));
+        $justificacion->setJustificacion($data->request->get('justificacion'));
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $justificacion->setEntityRelacionada($entityRelacionada);
+        $idArchivo = $data->request->get('idArchivo');
+        if($idArchivo > 0){
+            //Selecciono otra Archivo, hay que buscarla y persistirla
+            $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
+            $justificacion->setArchivo($archivo);
         }
 
         $em->persist($justificacion);
