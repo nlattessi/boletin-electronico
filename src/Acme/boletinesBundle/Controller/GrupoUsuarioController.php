@@ -45,7 +45,7 @@ class GrupoUsuarioController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
         }
 
         return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,14 +53,15 @@ class GrupoUsuarioController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $grupoUsuario = new GrupoUsuario();
         $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $grupoUsuario->setEntityRelacionada($entityRelacionada);
+        $grupoUsuario->setUsuarioCarga($sesionService->obtenerUsuario());
+        if($data->request->get('esPrivado') != 0){
+            $grupoUsuario->setEsPrivado(false);
+        }else{
+            $grupoUsuario->setEsPrivado(true);
         }
 
         $em->persist($grupoUsuario);
@@ -96,7 +97,7 @@ class GrupoUsuarioController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
             $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
         }
 
@@ -108,12 +109,10 @@ class GrupoUsuarioController extends Controller
         $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
 
         $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $grupoUsuario->setEntityRelacionada($entityRelacionada);
+        if($data->request->get('esPrivado') != 0){
+            $grupoUsuario->setEsPrivado(false);
+        }else{
+            $grupoUsuario->setEsPrivado(true);
         }
 
         $em->persist($grupoUsuario);
