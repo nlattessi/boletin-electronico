@@ -45,7 +45,7 @@ class MensajeController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
         }
 
         return $this->render('BoletinesBundle:Mensaje:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,14 +53,19 @@ class MensajeController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $mensaje = new Mensaje();
-        $mensaje->setNombreMensaje($data->request->get('nombreMensaje'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $mensaje->setEntityRelacionada($entityRelacionada);
+        $mensaje->setTituloMensaje($data->request->get('tituloMensaje'));
+        $mensaje->setTextoMensaje($data->request->get('textoMensaje'));
+        $mensaje->setUsuarioEnvia($sesionService->obtenerUsuario());
+        $mensaje->setFechaEnvio(new \DateTime('now'));
+        $mensaje->setBorrado(false);
+        $idUsuario = $data->request->get('idUsuarioRecibe');
+        if($idUsuario > 0){
+            //Selecciono una Usuario
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuario));
+            $mensaje->setUsuarioRecibe($usuario);
         }
 
         $em->persist($mensaje);
@@ -96,24 +101,30 @@ class MensajeController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
             $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('idMensaje' => $id));
         }
 
-        return $this->render('BoletinesBundle:Mensaje:edit.html.twig', array('mensaje' => $mensaje, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Mensaje:edit.html.twig', array('mensaje' => $mensaje,'entitiesRelacionadas' => $entitiesRelacionadas));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
+
         $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('idMensaje' => $id));
 
-        $mensaje->setNombreMensaje($data->request->get('nombreMensaje'));
+        $mensaje->setTituloMensaje($data->request->get('tituloMensaje'));
+        $mensaje->setTextoMensaje($data->request->get('textoMensaje'));
+        $mensaje->setUsuarioEnvia($sesionService->obtenerUsuario());
+        $mensaje->setFechaEnvio(new \DateTime('now'));
+        $mensaje->setBorrado(false);
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $mensaje->setEntityRelacionada($entityRelacionada);
+        $idUsuario = $data->request->get('idUsuarioRecibe');
+        if($idUsuario > 0){
+            //Selecciono otra Usuario, hay que buscarla y persistirla
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuario));
+            $mensaje->setUsuarioRecibe($usuario);
         }
 
         $em->persist($mensaje);

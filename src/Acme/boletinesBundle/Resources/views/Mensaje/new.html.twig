@@ -6,15 +6,16 @@
 
     <form action="{{ path('mensaje_new') }}" method="post">
 
-        <input type="text" placeholder="nombre" name="nombreMensaje"><br/>
+        <input type="text" placeholder="titular" name="tituloMensaje"><br/>
+        <input type="text" placeholder="texto" name="textoMensaje"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idUsuarioRecibe">
+            {% for usuario in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{usuario.idUsuario}}">{{usuario.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una usuario creada</option>
         </select>
         <br/><br/><br/>
 
