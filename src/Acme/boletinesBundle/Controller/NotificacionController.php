@@ -45,7 +45,7 @@ class NotificacionController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:GrupoUsuario')->findAll();
         }
 
         return $this->render('BoletinesBundle:Notificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,14 +53,19 @@ class NotificacionController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $notificacion = new Notificacion();
-        $notificacion->setNombreNotificacion($data->request->get('nombreNotificacion'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $notificacion->setEntityRelacionada($entityRelacionada);
+        $notificacion->setTituloNotificacion($data->request->get('tituloNotificacion'));
+        $notificacion->setTextoNotificacion($data->request->get('textoNotificacion'));
+        $notificacion->setUsuarioEnvia($sesionService->obtenerUsuario());
+        $notificacion->setFechaEnvio(new \DateTime('now'));
+
+        $idGrupoUsuario = $data->request->get('idGrupoUsuario');
+        if($idGrupoUsuario > 0){
+            //Selecciono una GrupoUsuario
+            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $idGrupoUsuario));
+            $notificacion->setGrupoUsuarioRecibe($grupoUsuario);
         }
 
         $em->persist($notificacion);
@@ -96,7 +101,7 @@ class NotificacionController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:GrupoUsuario')->findAll();
             $notificacion = $em->getRepository('BoletinesBundle:Notificacion')->findOneBy(array('idNotificacion' => $id));
         }
 
@@ -105,15 +110,19 @@ class NotificacionController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
         $notificacion = $em->getRepository('BoletinesBundle:Notificacion')->findOneBy(array('idNotificacion' => $id));
 
-        $notificacion->setNombreNotificacion($data->request->get('nombreNotificacion'));
+        $notificacion->setTituloNotificacion($data->request->get('tituloNotificacion'));
+        $notificacion->setTextoNotificacion($data->request->get('textoNotificacion'));
+        $notificacion->setUsuarioEnvia($sesionService->obtenerUsuario());
+        $notificacion->setFechaEnvio(new \DateTime('now'));
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if( $idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $notificacion->setEntityRelacionada($entityRelacionada);
+        $idGrupoUsuario = $data->request->get('idGrupoUsuario');
+        if($idGrupoUsuario > 0){
+            //Selecciono una GrupoUsuario
+            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $idGrupoUsuario));
+            $notificacion->setGrupoUsuarioRecibe($grupoUsuario);
         }
 
         $em->persist($notificacion);
