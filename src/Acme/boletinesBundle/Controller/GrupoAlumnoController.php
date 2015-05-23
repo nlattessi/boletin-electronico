@@ -43,12 +43,9 @@ class GrupoAlumnoController extends Controller
             } else {
                 $message = "Errores";
             }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
-        }
+        }else
 
-        return $this->render('BoletinesBundle:GrupoAlumno:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoAlumno:new.html.twig', array());
     }
     private function createEntity($data)
     {
@@ -56,11 +53,10 @@ class GrupoAlumnoController extends Controller
 
         $grupoAlumno = new GrupoAlumno();
         $grupoAlumno->setNombreGrupoAlumno($data->request->get('nombreGrupoAlumno'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $grupoAlumno->setEntityRelacionada($entityRelacionada);
+        if($data->request->get('esCurso') == 0) {
+            $grupoAlumno->setEsCurso(false);
+        }else{
+            $grupoAlumno->setEsCurso(true);
         }
 
         $em->persist($grupoAlumno);
@@ -96,11 +92,11 @@ class GrupoAlumnoController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+
             $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('idGrupoAlumno' => $id));
         }
 
-        return $this->render('BoletinesBundle:GrupoAlumno:edit.html.twig', array('grupoAlumno' => $grupoAlumno, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoAlumno:edit.html.twig', array('grupoAlumno' => $grupoAlumno, 'mensaje' => $message));
     }
     private function editEntity($data, $id)
     {
@@ -108,12 +104,10 @@ class GrupoAlumnoController extends Controller
         $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('idGrupoAlumno' => $id));
 
         $grupoAlumno->setNombreGrupoAlumno($data->request->get('nombreGrupoAlumno'));
-
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $grupoAlumno->setEntityRelacionada($entityRelacionada);
+        if($data->request->get('esCurso') == 0) {
+            $grupoAlumno->setEsCurso(false);
+        }else{
+            $grupoAlumno->setEsCurso(true);
         }
 
         $em->persist($grupoAlumno);

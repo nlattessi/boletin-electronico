@@ -44,7 +44,7 @@ boletines_asistencia:
 
 boletines_grupoAlumno:
     resource: "@BoletinesBundle/Resources/config/routing/grupoAlumno.yml"
-    prefix:   /grupoAlumno
+    prefix:   /grupoalumno
 
 boletines_grupoUsuario:
     resource: "@BoletinesBundle/Resources/config/routing/grupoUsuario.yml"

@@ -13,12 +13,11 @@
             <th>GrupoAlumno</th>
             <td>{{ grupoAlumno.nombreGrupoAlumno }}</td>
         </tr>
-        {% if grupoAlumno.entityRelacionada != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ grupoAlumno.entityRelacionada.__toString() }}</td>
+            <th>Es Curso</th>
+            <td><input type="checkbox" disabled="disabled" value="{{ grupoAlumno.esCurso }}" ></td>
         </tr>
-        {% endif %}
+
 
         </tbody>
     </table>

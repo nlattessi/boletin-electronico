@@ -35,5 +35,56 @@ class GrupoAlumno
      */
     private $idGrupoAlumno;
 
+    /**
+     * @return string
+     */
+    public function getNombreGrupoAlumno()
+    {
+        return $this->nombreGrupoAlumno;
+    }
+
+    /**
+     * @param string $nombreGrupoAlumno
+     */
+    public function setNombreGrupoAlumno($nombreGrupoAlumno)
+    {
+        $this->nombreGrupoAlumno = $nombreGrupoAlumno;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEsCurso()
+    {
+        return $this->esCurso;
+    }
+
+    /**
+     * @param boolean $esCurso
+     */
+    public function setEsCurso($esCurso)
+    {
+        $this->esCurso = $esCurso;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdGrupoAlumno()
+    {
+        return $this->idGrupoAlumno;
+    }
+
+    /**
+     * @param int $idGrupoAlumno
+     */
+    public function setIdGrupoAlumno($idGrupoAlumno)
+    {
+        $this->idGrupoAlumno = $idGrupoAlumno;
+    }
+
+    public function __toString(){
+        return $this->getNombreGrupoAlumno();
+    }
 
 }
