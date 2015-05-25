@@ -45,10 +45,11 @@ class AlumnoController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
+            $padres = $em->getRepository('BoletinesBundle:Usuario')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Alumno:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Alumno:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'padres'=> $padres));
     }
     private function createEntity($data)
     {
@@ -56,12 +57,25 @@ class AlumnoController extends Controller
 
         $alumno = new Alumno();
         $alumno->setNombreAlumno($data->request->get('nombreAlumno'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $alumno->setEntityRelacionada($entityRelacionada);
+        $idUsuarioAlumno = $data->request->get('idUsuarioAlumno');
+        if($idUsuarioAlumno > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioAlumno));
+            $alumno->setUsuarioAlumno($entityRelacionada);
         }
+        $idUsuarioPadre1 = $data->request->get('idUsuarioPadre1');
+        if($idUsuarioPadre1 > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre1));
+            $alumno->setUsuarioPadre1($entityRelacionada);
+        }
+        $idUsuarioPadre2 = $data->request->get('idUsuarioPadre2');
+        if($idUsuarioPadre2 > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre2));
+            $alumno->setUsuarioPadre2($entityRelacionada);
+        }
+
 
         $em->persist($alumno);
         $em->flush();
@@ -96,11 +110,12 @@ class AlumnoController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
+            $padres = $em->getRepository('BoletinesBundle:Usuario')->findAll();
             $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $id));
         }
 
-        return $this->render('BoletinesBundle:Alumno:edit.html.twig', array('alumno' => $alumno, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Alumno:edit.html.twig', array('alumno' => $alumno, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas, 'padres'=> $padres));
     }
     private function editEntity($data, $id)
     {
@@ -109,11 +124,23 @@ class AlumnoController extends Controller
 
         $alumno->setNombreAlumno($data->request->get('nombreAlumno'));
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if( $idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $alumno->setEntityRelacionada($entityRelacionada);
+        $idUsuarioAlumno = $data->request->get('idUsuarioAlumno');
+        if($idUsuarioAlumno > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioAlumno));
+            $alumno->setUsuarioAlumno($entityRelacionada);
+        }
+        $idUsuarioPadre1 = $data->request->get('idUsuarioPadre1');
+        if($idUsuarioPadre1 > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre1));
+            $alumno->setUsuarioPadre1($entityRelacionada);
+        }
+        $idUsuarioPadre2 = $data->request->get('idUsuarioPadre2');
+        if($idUsuarioPadre2 > 0){
+            //Selecciono una UsuarioAlumno
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre2));
+            $alumno->setUsuarioPadre2($entityRelacionada);
         }
 
         $em->persist($alumno);
