@@ -7,16 +7,16 @@
 
     <form action="{{ path('asistencia_edit', {'id':asistencia.idAsistencia }) }}" method="post">
         <input type="text" value="{{ asistencia.idAsistencia }}" hidden="hidden" name="idAsistencia"><br/>
-        <input type="text" value="{{ asistencia.nombreAsistencia }}" placeholder="nombre" name="nombreAsistencia"><br/>
-        {% if asistencia.entityRelacionada != null %}
-            <p>EntityRelacionada Asociado</p>
-            <p>{{ asistencia.entityRelacionada.__toString() }}</p>
+        <input type="text" value="{{ asistencia.fechaAsistencia|date('d-m-Y') }}" placeholder="fecha" name="fechaAsistencia"><br/>
+        {% if asistencia.materia != null %}
+            <p>Materia Asociada</p>
+            <p>{{ asistencia.materia.__toString() }}</p>
             <p> Si desea cambiarlo elija uno de la lista de abajo</p>
         {% endif %}
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idMateria">
+            {% for materia in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{materia.idMateria}}">{{materia.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">No seleccionar ninguna</option>

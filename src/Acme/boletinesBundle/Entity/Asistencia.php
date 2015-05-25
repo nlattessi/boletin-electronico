@@ -122,7 +122,7 @@ class Asistencia
     /**
      * @return Materia
      */
-    public function getIdMateria()
+    public function getMateria()
     {
         return $this->idMateria;
     }
@@ -130,13 +130,13 @@ class Asistencia
     /**
      * @param Materia $idMateria
      */
-    public function setIdMateria($idMateria)
+    public function setMateria($idMateria)
     {
         $this->idMateria = $idMateria;
     }
 
     public function __toString(){
-        return 'Asistencia del dia' . $this->getFechaAsistencia();
+        return 'Asistencia del dia' . $this->getFechaAsistencia()->format('d-m-Y');
     }
 
 }

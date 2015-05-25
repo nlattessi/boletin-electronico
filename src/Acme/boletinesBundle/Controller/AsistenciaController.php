@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Asistencia;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\AsistenciaType;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AsistenciaController extends Controller
 {
@@ -45,7 +46,7 @@ class AsistenciaController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Materia')->findAll();
         }
 
         return $this->render('BoletinesBundle:Asistencia:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
@@ -53,14 +54,19 @@ class AsistenciaController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
 
         $asistencia = new Asistencia();
-        $asistencia->setNombreAsistencia($data->request->get('nombreAsistencia'));
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono una EntityRelacionada
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $asistencia->setEntityRelacionada($entityRelacionada);
+        //$asistencia->setFechaAsistencia($data->request->get('fechaAsistencia'));
+        $asistencia->setFechaAsistencia(new \DateTime('now'));
+        $asistencia->setFechaCarga(new \DateTime('now'));
+        $asistencia->setUsuarioCargador($sesionService->obtenerUsuario());
+
+        $idMateria = $data->request->get('idMateria');
+        if($idMateria > 0){
+            //Selecciono una Materia
+            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $idMateria));
+            $asistencia->setMateria($materia);
         }
 
         $em->persist($asistencia);
@@ -96,7 +102,7 @@ class AsistenciaController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:EntityRelacionada')->findAll();
+            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Materia')->findAll();
             $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->findOneBy(array('idAsistencia' => $id));
         }
 
@@ -105,15 +111,19 @@ class AsistenciaController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $sesionService = $this->get('boletines.servicios.sesion');
         $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->findOneBy(array('idAsistencia' => $id));
 
-        $asistencia->setNombreAsistencia($data->request->get('nombreAsistencia'));
+        //$asistencia->setFechaAsistencia($data->request->get('fechaAsistencia'));
+        $asistencia->setFechaAsistencia(new \DateTime('now'));
+        $asistencia->setFechaCarga(new \DateTime('now'));
+        $asistencia->setUsuarioCargador($sesionService->obtenerUsuario());
 
-        $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 0){
-            //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
-            $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
-            $asistencia->setEntityRelacionada($entityRelacionada);
+        $idMateria = $data->request->get('idMateria');
+        if($idMateria > 0){
+            //Selecciono otra Materia, hay que buscarla y persistirla
+            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $idMateria));
+            $asistencia->setMateria($materia);
         }
 
         $em->persist($asistencia);
