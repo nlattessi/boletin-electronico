@@ -104,7 +104,7 @@ class UsuarioController extends Controller
         $usuario->setNombreUsuario($data->request->get('name'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if( $idEntityRelacionada > 0){
             //Selecciono otra usuario, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $usuario->setEntityRelacionada($entityRelacionada);

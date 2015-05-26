@@ -7,15 +7,8 @@
     <form action="{{ path('grupoUsuario_new') }}" method="post">
 
         <input type="text" placeholder="nombre" name="nombreGrupoUsuario"><br/>
+        <input type="checkbox" name="esPrivado"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
-
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
-
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
-        </select>
         <br/><br/><br/>
 
         <button type="submit" >Crear GrupoUsuario</button>

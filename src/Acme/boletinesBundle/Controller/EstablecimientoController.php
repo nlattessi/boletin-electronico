@@ -112,7 +112,7 @@ class EstablecimientoController extends Controller
         $establecimiento->setTelefonoEstablecimiento($data->request->get('telefonoEstablecimiento'));
 
         $idInstitucion = $data->request->get('idInstitucion');
-        if($idInstitucion > 1){
+        if($idInstitucion > 0){
             //Selecciono otra Institucion, hay que buscarla y persistirla
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $idInstitucion));
             $establecimiento->setInstitucion($institucion);

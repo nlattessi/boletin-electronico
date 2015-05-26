@@ -8,13 +8,31 @@
 
         <input type="text" placeholder="nombre" name="nombreAlumno"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idUsuarioAlumno">
+            {% for usuarioAlumno in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{usuarioAlumno.idUsuario}}">{{usuarioAlumno.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una Usuario creado</option>
+        </select>
+
+        <select name="idUsuarioPadre1">
+            {% for usuarioPadre in padres %}
+
+                <option value="{{usuarioPadre.idUsuario}}">{{usuarioPadre.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione un Usuario Padre</option>
+        </select>
+
+        <select name="idUsuarioPadre2">
+            {% for usuarioPadre2 in padres %}
+
+                <option value="{{usuarioPadre2.idUsuario}}">{{usuarioPadre2.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione otro Usuario padre</option>
         </select>
         <br/><br/><br/>
 

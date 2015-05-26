@@ -10,16 +10,24 @@
             <td>{{ disciplina.idDisciplina }}</td>
         </tr>
         <tr>
-            <th>Disciplina</th>
-            <td>{{ disciplina.nombreDisciplina }}</td>
+            <th>Docente</th>
+            <td>{{ disciplina.docente.__toString }}</td>
         </tr>
-        {% if disciplina.entityRelacionada != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ disciplina.entityRelacionada.__toString() }}</td>
+            <th>Cometnario</th>
+            <td>{{ disciplina.comentarioDocente }}</td>
+        </tr>
+
+        {% if disciplina.alumno != null %}
+        <tr>
+            <th>Alumno Asociado</th>
+            <td>{{ disciplina.alumno.__toString() }}</td>
         </tr>
         {% endif %}
-
+        <tr>
+            <th>Descargo</th>
+            <td>{{ disciplina.descargoAlumno }}</td>
+        </tr>
         </tbody>
     </table>
 

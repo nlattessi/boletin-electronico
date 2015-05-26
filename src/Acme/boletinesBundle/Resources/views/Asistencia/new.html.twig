@@ -6,15 +6,15 @@
 
     <form action="{{ path('asistencia_new') }}" method="post">
 
-        <input type="text" placeholder="nombre" name="nombreAsistencia"><br/>
+        <input type="text" placeholder="fecha" name="fechaAsistencia"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idMateria">
+            {% for materia in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{materia.idMateria}}">{{materia.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una materia creada</option>
         </select>
         <br/><br/><br/>
 

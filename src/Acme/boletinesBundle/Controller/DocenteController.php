@@ -119,7 +119,7 @@ class DocenteController extends Controller
         $docente->setEmailDocente($data->request->get('emailDocente'));
         $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
         $idUsuario = $data->request->get('idUsuario');
-        if($idUsuario > 1){
+        if($idUsuario > 0){
             $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' =>$idUsuario ));
             $docente->setUsuario($usuario);
         }else{

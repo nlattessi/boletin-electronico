@@ -13,10 +13,14 @@
             <th>GrupoUsuario</th>
             <td>{{ grupoUsuario.nombreGrupoUsuario }}</td>
         </tr>
-        {% if grupoUsuario.entityRelacionada != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ grupoUsuario.entityRelacionada.__toString() }}</td>
+            <th>Es privado</th>
+            <td><input type="checkbox" value="{{ grupoUsuario.esPrivado }}"  disabled><br/></td>
+        </tr>
+        {% if grupoUsuario.usuarioCarga != null %}
+        <tr>
+            <th>Usuario Asociado</th>
+            <td>{{ grupoUsuario.usuarioCarga.__toString() }}</td>
         </tr>
         {% endif %}
 

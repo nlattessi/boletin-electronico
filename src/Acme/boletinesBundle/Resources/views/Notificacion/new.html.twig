@@ -6,15 +6,16 @@
 
     <form action="{{ path('notificacion_new') }}" method="post">
 
-        <input type="text" placeholder="nombre" name="nombreNotificacion"><br/>
+        <input type="text" placeholder="titular" name="tituloNotificacion"><br/>
+        <input type="text" placeholder="texto" name="textoNotificacion"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idGrupoUsuario">
+            {% for grupoUsuarioRecibe in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{grupoUsuarioRecibe.idGrupoUsuario}}">{{grupoUsuarioRecibe.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una grupoUsuarioRecibe creada</option>
         </select>
         <br/><br/><br/>
 

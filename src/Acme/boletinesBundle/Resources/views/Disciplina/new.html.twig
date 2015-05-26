@@ -6,15 +6,17 @@
 
     <form action="{{ path('disciplina_new') }}" method="post">
 
-        <input type="text" placeholder="nombre" name="nombreDisciplina"><br/>
+        <input type="text" placeholder="Ingrese Comentario" name="comentarioDocente"><br/>
+        <input type="text" placeholder="Ingrese Descargo" name="descargoAlumno"><br/>
+        <input type="text" placeholder="Fecha suceso" name="fechaSuceso"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idAlumno">
+            {% for alumno in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{alumno.idAlumno}}">{{alumno.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una alumno creada</option>
         </select>
         <br/><br/><br/>
 

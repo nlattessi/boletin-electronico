@@ -6,15 +6,15 @@
 
     <form action="{{ path('justificacion_new') }}" method="post">
 
-        <input type="text" placeholder="nombre" name="nombreJustificacion"><br/>
+        <input type="text" placeholder="justificacion" name="justificacion"><br/>
 
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idArchivo">
+            {% for archivo in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
 
             {% endfor %}
-            <option value="-1" selected="selected">Seleccione una entityRelacionada creada</option>
+            <option value="-1" selected="selected">Seleccione una archivo creada</option>
         </select>
         <br/><br/><br/>
 

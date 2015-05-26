@@ -11,12 +11,20 @@
         </tr>
         <tr>
             <th>Justificacion</th>
-            <td>{{ justificacion.nombreJustificacion }}</td>
+            <td>{{ justificacion.justificacion }}</td>
         </tr>
-        {% if justificacion.entityRelacionada != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ justificacion.entityRelacionada.__toString() }}</td>
+            <th>Cargada por el usuario</th>
+            <td>{{ justificacion.usuarioCarga }}</td>
+        </tr>
+        <tr>
+            <th>El dia</th>
+            <td>{{ justificacion.fechaCarga|date('d-m-Y H:i') }}</td>
+        </tr>
+        {% if justificacion.archivo != null %}
+        <tr>
+            <th>Archivo Asociado</th>
+            <td>{{ justificacion.archivo.__toString() }}</td>
         </tr>
         {% endif %}
 

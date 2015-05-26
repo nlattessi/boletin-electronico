@@ -68,7 +68,7 @@ class MateriaController extends Controller
     	$em = $this->getDoctrine()->getManager();
 			
     	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
-        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
+        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 0));
 		$calendario = new Calendario();
 		$calendario ->setUsuarioPropietario($usuario);
 		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
@@ -112,7 +112,7 @@ class MateriaController extends Controller
         $materia->setNombreMateria($data->request->get('nombreMateria'));
 
         $idTipoMateria = $data->request->get('idTipoMateria');
-        if($idTipoMateria > 1){
+        if($idTipoMateria > 0){
             //Selecciono otro TipoMateria, hay que buscarla y persistirla
             $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $idTipoMateria));
             $materia->setTipoMateria($tipoMateria);

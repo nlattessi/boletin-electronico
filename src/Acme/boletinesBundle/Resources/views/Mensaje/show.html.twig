@@ -10,16 +10,29 @@
             <td>{{ mensaje.idMensaje }}</td>
         </tr>
         <tr>
-            <th>Mensaje</th>
-            <td>{{ mensaje.nombreMensaje }}</td>
+            <th>Titulo Mensaje</th>
+            <td>{{ mensaje.tituloMensaje }}</td>
         </tr>
-        {% if mensaje.entityRelacionada != null %}
         <tr>
-            <th>EntityRelacionada Asociado</th>
-            <td>{{ mensaje.entityRelacionada.__toString() }}</td>
+            <th>Mensaje</th>
+            <td>{{ mensaje.textoMensaje }}</td>
+        </tr>
+        <tr>
+            <th>Enviado el dia</th>
+            <td>{{ mensaje.fechaEnvio|date('d-m-Y H:i') }}</td>
+        </tr>
+        {% if mensaje.usuarioEnvia != null %}
+        <tr>
+            <th>Enviado por</th>
+            <td>{{ mensaje.usuarioEnvia.__toString() }}</td>
         </tr>
         {% endif %}
-
+        {% if mensaje.usuarioRecibe != null %}
+            <tr>
+                <th>Enviado por</th>
+                <td>{{ mensaje.usuarioRecibe.__toString() }}</td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 

@@ -58,5 +58,87 @@ class AlumnoAsistencia
      */
     private $idAlumno;
 
+    /**
+     * @return string
+     */
+    public function getValorAsistencia()
+    {
+        return $this->valorAsistencia;
+    }
 
+    /**
+     * @param string $valorAsistencia
+     */
+    public function setValorAsistencia($valorAsistencia)
+    {
+        $this->valorAsistencia = $valorAsistencia;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdAlumnoAsistencia()
+    {
+        return $this->idAlumnoAsistencia;
+    }
+
+    /**
+     * @param int $idAlumnoAsistencia
+     */
+    public function setIdAlumnoAsistencia($idAlumnoAsistencia)
+    {
+        $this->idAlumnoAsistencia = $idAlumnoAsistencia;
+    }
+
+    /**
+     * @return Justificacion
+     */
+    public function getJustificacion()
+    {
+        return $this->idJustificacion;
+    }
+
+    /**
+     * @param Justificacion $idJustificacion
+     */
+    public function setJustificacion($idJustificacion)
+    {
+        $this->idJustificacion = $idJustificacion;
+    }
+
+    /**
+     * @return Asistencia
+     */
+    public function getAsistencia()
+    {
+        return $this->idAsistencia;
+    }
+
+    /**
+     * @param Asistencia $idAsistencia
+     */
+    public function setAsistencia($idAsistencia)
+    {
+        $this->idAsistencia = $idAsistencia;
+    }
+
+    /**
+     * @return Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param Alumno $idAlumno
+     */
+    public function setAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
+    public function __toString(){
+        return $this->getAsistencia()->__toString();
+    }
 }

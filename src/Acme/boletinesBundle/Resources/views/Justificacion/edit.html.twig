@@ -7,16 +7,17 @@
 
     <form action="{{ path('justificacion_edit', {'id':justificacion.idJustificacion }) }}" method="post">
         <input type="text" value="{{ justificacion.idJustificacion }}" hidden="hidden" name="idJustificacion"><br/>
-        <input type="text" value="{{ justificacion.nombreJustificacion }}" placeholder="nombre" name="nombreJustificacion"><br/>
-        {% if justificacion.entityRelacionada != null %}
-            <p>EntityRelacionada Asociado</p>
-            <p>{{ justificacion.entityRelacionada.__toString() }}</p>
+        <p>Cargado por <b> {{ justificacion.usuarioCarga.__toString() }} </b></p>
+        <input type="text" value="{{ justificacion.justificacion }}" name="justificacion"><br/>
+        {% if justificacion.archivo != null %}
+            <p>Archivo Asociado</p>
+            <p>{{ justificacion.archivo.__toString() }}</p>
             <p> Si desea cambiarlo elija uno de la lista de abajo</p>
         {% endif %}
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idArchivo">
+            {% for archivo in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">No seleccionar ninguna</option>

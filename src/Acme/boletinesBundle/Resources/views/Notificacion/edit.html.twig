@@ -7,16 +7,17 @@
 
     <form action="{{ path('notificacion_edit', {'id':notificacion.idNotificacion }) }}" method="post">
         <input type="text" value="{{ notificacion.idNotificacion }}" hidden="hidden" name="idNotificacion"><br/>
-        <input type="text" value="{{ notificacion.nombreNotificacion }}" placeholder="nombre" name="nombreNotificacion"><br/>
-        {% if notificacion.entityRelacionada != null %}
-            <p>EntityRelacionada Asociado</p>
-            <p>{{ notificacion.entityRelacionada.__toString() }}</p>
+        <input type="text" value="{{ notificacion.tituloNotificacion }}" name="tituloNotificacion"><br/>
+        <input type="text" value="{{ notificacion.textoNotificacion }}" name="textoNotificacion"><br/>
+        {% if notificacion.grupoUsuarioRecibe != null %}
+            <p>GrupoUsuario Asociado</p>
+            <p>{{ notificacion.grupoUsuarioRecibe.__toString() }}</p>
             <p> Si desea cambiarlo elija uno de la lista de abajo</p>
         {% endif %}
-        <select name="idEntityRelacionada">
-            {% for entityRelacionada in entitiesRelacionadas %}
+        <select name="idGrupoUsuario">
+            {% for grupoUsuarioRecibe in entitiesRelacionadas %}
 
-                <option value="{{entityRelacionada.idEntityRelacionada}}">{{entityRelacionada.__toString()}}</option>
+                <option value="{{grupoUsuarioRecibe.idGrupoUsuario}}">{{grupoUsuarioRecibe.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">No seleccionar ninguna</option>

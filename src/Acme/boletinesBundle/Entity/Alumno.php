@@ -58,5 +58,88 @@ class Alumno
      */
     private $idUsuarioPadre2;
 
+    /**
+     * @return string
+     */
+    public function getNombreAlumno()
+    {
+        return $this->nombreAlumno;
+    }
+
+    /**
+     * @param string $nombreAlumno
+     */
+    public function setNombreAlumno($nombreAlumno)
+    {
+        $this->nombreAlumno = $nombreAlumno;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param int $idAlumno
+     */
+    public function setIdAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioAlumno()
+    {
+        return $this->idUsuarioAlumno;
+    }
+
+    /**
+     * @param Usuario $idUsuarioAlumno
+     */
+    public function setUsuarioAlumno($idUsuarioAlumno)
+    {
+        $this->idUsuarioAlumno = $idUsuarioAlumno;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioPadre1()
+    {
+        return $this->idUsuarioPadre1;
+    }
+
+    /**
+     * @param Usuario $idUsuarioPadre1
+     */
+    public function setUsuarioPadre1($idUsuarioPadre1)
+    {
+        $this->idUsuarioPadre1 = $idUsuarioPadre1;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioPadre2()
+    {
+        return $this->idUsuarioPadre2;
+    }
+
+    /**
+     * @param Usuario $idUsuarioPadre2
+     */
+    public function setUsuarioPadre2($idUsuarioPadre2)
+    {
+        $this->idUsuarioPadre2 = $idUsuarioPadre2;
+    }
+
+    public function __toString(){
+        return $this->getNombreAlumno();
+    }
 
 }
