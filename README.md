@@ -1,5 +1,4 @@
-# Repo boletin-electronico para:
-Proyecto Boletines
+# Proyecto Boletines
 
 ***
 
