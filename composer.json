@@ -23,9 +23,6 @@
         "incenteev/composer-parameter-handler": "~2.0"
     },
     "scripts": {
-        "pre-install-cmd": [
-            "Acme\\DemoBundle\\HerokuDatabase::populateEnvironment"
-        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
@@ -51,13 +48,7 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml",
-            "env-map": {
-                "database_host": "DATABASE_HOST",
-                "database_port": "DATABASE_PORT",
-                "database_name": "DATABASE_NAME",
-                "database_user": "DATABASE_USER",
-                "database_password": "DATABASE_PASSWORD"
+            "file": "app/config/parameters.yml"
             }
         }
     }
