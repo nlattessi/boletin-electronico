@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Disciplina</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Disciplina</th>
+            <td>{{ disciplina.idDisciplina }}</td>
+        </tr>
+        <tr>
+            <th>Docente</th>
+            <td>{{ disciplina.docente.__toString }}</td>
+        </tr>
+        <tr>
+            <th>Cometnario</th>
+            <td>{{ disciplina.comentarioDocente }}</td>
+        </tr>
+
+        {% if disciplina.alumno != null %}
+        <tr>
+            <th>Alumno Asociado</th>
+            <td>{{ disciplina.alumno.__toString() }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Descargo</th>
+            <td>{{ disciplina.descargoAlumno }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('disciplina') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('disciplina_edit', { 'id': disciplina.idDisciplina }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('disciplina_delete', { 'id': disciplina.idDisciplina }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

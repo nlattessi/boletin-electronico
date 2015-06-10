@@ -1,0 +1,19 @@
+calendario:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Calendario:index }
+
+calendario_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Calendario:new }
+
+calendario_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Calendario:delete }
+
+calendario_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Calendario:getOne }
+
+calendario_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Calendario:edit }

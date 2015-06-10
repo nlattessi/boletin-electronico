@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Alumno creation</h1>
+
+
+    <form action="{{ path('alumno_new') }}" method="post">
+
+        <input type="text" placeholder="nombre" name="nombreAlumno"><br/>
+
+        <select name="idUsuarioAlumno">
+            {% for usuarioAlumno in entitiesRelacionadas %}
+
+                <option value="{{usuarioAlumno.idUsuario}}">{{usuarioAlumno.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione una Usuario creado</option>
+        </select>
+
+        <select name="idUsuarioPadre1">
+            {% for usuarioPadre in padres %}
+
+                <option value="{{usuarioPadre.idUsuario}}">{{usuarioPadre.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione un Usuario Padre</option>
+        </select>
+
+        <select name="idUsuarioPadre2">
+            {% for usuarioPadre2 in padres %}
+
+                <option value="{{usuarioPadre2.idUsuario}}">{{usuarioPadre2.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione otro Usuario padre</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Alumno</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('alumno') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

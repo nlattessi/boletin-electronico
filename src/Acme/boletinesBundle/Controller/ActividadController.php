@@ -4,12 +4,10 @@ namespace Acme\boletinesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Acme\boletinesBundle\Entity\Actividad;
-use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\ActividadType;
+
+use Acme\boletinesBundle\Servicios\ActividadService;
 
 class ActividadController extends Controller
 {
@@ -58,25 +56,24 @@ class ActividadController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $actividad = new Actividad();
-        $actividad->setNombreActividad($data->request->get('nombreActividad'));
-        $actividad->setDescripcionActividad($data->request->get('descripcionActividad'));
-        /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
-             $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
-        $actividad->setFechaDesde(new \DateTime('now'));
-        $actividad->setFechaHasta(new \DateTime('now'));
-        $actividad->setFechaCreacion(new \DateTime('now'));
-
-        $actividad->setUsuarioCreador($this->obtenerUsuario($em));
+        $sesionService = $this->get('boletines.servicios.sesion');
+        $actividadService =  $this->get('boletines.servicios.actividad');
 
         $idArchivo = $data->request->get('idArchivo');
+        $archivo = null;
         if($idArchivo > 0) {
             $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
-            $actividad->setArchivo($archivo);
         }
-        $em->persist($actividad);
-        $em->flush();
+
+        $actividad = $actividadService->crearActividad($data->request->get('nombreActividad'),
+            $data->request->get('descripcionActividad')
+            ,new \DateTime('now')
+            ,new \DateTime('now'),
+            $sesionService->obtenerUsuario(),
+            $archivo);
+
+        /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
+             $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
 
         return $actividad;
     }
@@ -97,7 +94,7 @@ class ActividadController extends Controller
 
     private function obtenerUsuario($em){
         //TODO: sacar una vez que tengaos login
-       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
+       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 0));
        return $usuario;
     }
 
@@ -133,7 +130,7 @@ class ActividadController extends Controller
         $actividad->setFechaCreacion(new \DateTime('now'));
 
         $idArchivo = $data->request->get('idArchivo');
-        if( $idArchivo > 1){
+        if( $idArchivo > 0){
             //no eligio ninguno
             //Selecciono otro Archivo, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
@@ -145,5 +142,6 @@ class ActividadController extends Controller
 
         return $actividad;
     }
+
 }
 

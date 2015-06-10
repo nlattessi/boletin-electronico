@@ -55,5 +55,87 @@ class Justificacion
      */
     private $idArchivo;
 
+    /**
+     * @return \DateTime
+     */
+    public function getFechaCarga()
+    {
+        return $this->fechaCarga;
+    }
 
+    /**
+     * @param \DateTime $fechaCarga
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fechaCarga = $fechaCarga;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJustificacion()
+    {
+        return $this->justificacion;
+    }
+
+    /**
+     * @param string $justificacion
+     */
+    public function setJustificacion($justificacion)
+    {
+        $this->justificacion = $justificacion;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdJustificacion()
+    {
+        return $this->idJustificacion;
+    }
+
+    /**
+     * @param int $idJustificacion
+     */
+    public function setIdJustificacion($idJustificacion)
+    {
+        $this->idJustificacion = $idJustificacion;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->idUsuarioCarga;
+    }
+
+    /**
+     * @param Usuario $idUsuarioCarga
+     */
+    public function setUsuarioCarga($idUsuarioCarga)
+    {
+        $this->idUsuarioCarga = $idUsuarioCarga;
+    }
+
+    /**
+     * @return Archivo
+     */
+    public function getArchivo()
+    {
+        return $this->idArchivo;
+    }
+
+    /**
+     * @param Archivo $idArchivo
+     */
+    public function setArchivo($idArchivo)
+    {
+        $this->idArchivo = $idArchivo;
+    }
+
+    public function __toString(){
+        return $this->getJustificacion();
+    }
 }

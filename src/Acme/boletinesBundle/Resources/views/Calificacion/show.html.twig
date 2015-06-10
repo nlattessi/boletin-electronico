@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Calificacion</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Calificacion</th>
+            <td>{{ calificacion.idCalificacion }}</td>
+        </tr>
+        <tr>
+            <th>Calificacion del Alumno</th>
+            <td>{{ calificacion.alumno.__toString() }}</td>
+        </tr>
+        {% if calificacion.examen != null %}
+        <tr>
+            <th>Examen Asociado</th>
+            <td>{{ calificacion.examen.__toString() }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Valor calificacion</th>
+            <td>{{ calificacion.valorCalificacion }}</td>
+        </tr><tr>
+            <th>Comentario del docente</th>
+            <td>{{ calificacion.comentarioCalificacion }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('calificacion') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('calificacion_edit', { 'id': calificacion.idCalificacion }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('calificacion_delete', { 'id': calificacion.idCalificacion }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

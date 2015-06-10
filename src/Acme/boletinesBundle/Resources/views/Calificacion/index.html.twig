@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Calificacion list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Calificacion</th>
+                <th>Valor de la calificacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calificacion in entities %}
+            <tr>
+                <td>{{ calificacion.idCalificacion }}</td>
+                <td><a href="{{ path('calificacion_show', { 'id': calificacion.idCalificacion }) }}">{{ calificacion.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('calificacion_show', { 'id': calificacion.idCalificacion }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('calificacion_edit', { 'id': calificacion.idCalificacion }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('calificacion_delete', { 'id': calificacion.idCalificacion }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('calificacion_new') }}">
+                Crear Nueva Calificacion
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

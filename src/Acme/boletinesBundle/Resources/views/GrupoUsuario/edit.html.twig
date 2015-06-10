@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>GrupoUsuario edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('grupoUsuario_edit', {'id':grupoUsuario.idGrupoUsuario }) }}" method="post">
+        <input type="text" value="{{ grupoUsuario.idGrupoUsuario }}" hidden="hidden" name="idGrupoUsuario"><br/>
+        <input type="text" value="{{ grupoUsuario.nombreGrupoUsuario }}" placeholder="nombre" name="nombreGrupoUsuario"><br/>
+        <input type="checkbox" value="{{ grupoUsuario.esPrivado }}"  name="esPrivado"><br/>
+
+            <p>Usuario cargador</p>
+            <p>{{ grupoUsuario.usuarioCarga.__toString() }}</p>
+
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('grupoUsuario') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

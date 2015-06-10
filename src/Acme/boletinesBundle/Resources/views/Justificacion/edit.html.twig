@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Justificacion edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('justificacion_edit', {'id':justificacion.idJustificacion }) }}" method="post">
+        <input type="text" value="{{ justificacion.idJustificacion }}" hidden="hidden" name="idJustificacion"><br/>
+        <p>Cargado por <b> {{ justificacion.usuarioCarga.__toString() }} </b></p>
+        <input type="text" value="{{ justificacion.justificacion }}" name="justificacion"><br/>
+        {% if justificacion.archivo != null %}
+            <p>Archivo Asociado</p>
+            <p>{{ justificacion.archivo.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idArchivo">
+            {% for archivo in entitiesRelacionadas %}
+
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('justificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

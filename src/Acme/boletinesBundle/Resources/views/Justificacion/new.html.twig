@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Justificacion creation</h1>
+
+
+    <form action="{{ path('justificacion_new') }}" method="post">
+
+        <input type="text" placeholder="justificacion" name="justificacion"><br/>
+
+        <select name="idArchivo">
+            {% for archivo in entitiesRelacionadas %}
+
+                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione una archivo creada</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Justificacion</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('justificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

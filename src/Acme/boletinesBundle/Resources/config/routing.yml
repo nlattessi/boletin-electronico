@@ -22,6 +22,58 @@ boletines_actividad:
     resource: "@BoletinesBundle/Resources/config/routing/actividad.yml"
     prefix:   /actividad
 
+<<<<<<< HEAD
 boletines_usuario:
     resource: "@BoletinesBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuario
+=======
+boletines_examen:
+    resource: "@BoletinesBundle/Resources/config/routing/examen.yml"
+    prefix:   /examen
+
+boletines_alumno:
+    resource: "@BoletinesBundle/Resources/config/routing/alumno.yml"
+    prefix:   /alumno
+
+boletines_calificacion:
+    resource: "@BoletinesBundle/Resources/config/routing/calificacion.yml"
+    prefix:   /calificacion
+
+boletines_disciplina:
+    resource: "@BoletinesBundle/Resources/config/routing/disciplina.yml"
+    prefix:   /disciplina
+
+boletines_asistencia:
+    resource: "@BoletinesBundle/Resources/config/routing/asistencia.yml"
+    prefix:   /asistencia
+
+boletines_grupoAlumno:
+    resource: "@BoletinesBundle/Resources/config/routing/grupoAlumno.yml"
+    prefix:   /grupoAlumno
+
+boletines_grupoUsuario:
+    resource: "@BoletinesBundle/Resources/config/routing/grupoUsuario.yml"
+    prefix:   /grupoUsuario
+
+boletines_justificacion:
+    resource: "@BoletinesBundle/Resources/config/routing/justificacion.yml"
+    prefix:   /justificacion
+
+boletines_mensaje:
+    resource: "@BoletinesBundle/Resources/config/routing/mensaje.yml"
+    prefix:   /mensaje
+
+boletines_notificacion:
+    resource: "@BoletinesBundle/Resources/config/routing/notificacion.yml"
+    prefix:   /notificacion
+
+boletines_calendario:
+    resource: "@BoletinesBundle/Resources/config/routing/calendario.yml"
+    prefix:   /calendario
+
+boletines_login:
+    resource: "@BoletinesBundle/Resources/config/routing/login.yml"
+    prefix:   /login
+
+
+>>>>>>> b3e35a79b5dd6c57efb214b9831303dc1bc5cca6

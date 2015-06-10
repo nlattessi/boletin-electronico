@@ -1,0 +1,19 @@
+alumno:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Alumno:index }
+
+alumno_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Alumno:new }
+
+alumno_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Alumno:delete }
+
+alumno_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Alumno:getOne }
+
+alumno_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Alumno:edit }

@@ -1,0 +1,78 @@
+1) bajar e instalar:
+	* Visual C++ Redistributable for Visual Studio 2012 Update 4 (32 o 64bit)
+		** http://www.microsoft.com/en-us/download/details.aspx?id=30679
+
+
+2) bajar e instalar:
+	* Wamp (32 o 64 bit)
+		** http://www.wampserver.com/en/
+
+
+3) bajar uno de los 2 segun sea 32 o 64 bit:
+	* Zend OPcache 7.0.3 for PHP 5.5 vc11 (32 bit)
+	* Zend OPcache 7.0.3 for PHP 5.5 vc11 x64 (64 bit)
+		** http://dev.freshsite.pl/nc/php-accelerators/zend-opcache
+
+
+4) Copiar el dll dentro de ese zip en la carpeta:
+	* {donde_se_instalo_wamp}\bin\php\php5.5.12\zend_ext
+	* con el nombre php_opcache.dll
+
+
+5) copiar el archivo "php.ini" en estas 2 carpetas:
+	* {donde_se_instalo_wamp}\bin\php\php5.5.12
+	* {donde_se_instalo_wamp}\bin\apache\apache2.4.9\bin
+
+
+6) crear la base "boletin_electronico" desde el phpmyadmin
+	* http://localhost/phpmyadmin/
+
+
+7) instalar git
+	* http://git-scm.com/download/win
+
+
+8) bajarse el proyecto de github en la carpeta {donde_se_instalo_wamp}/www :
+	* git clone https://github.com/nlattessi/boletin-electronico.git
+
+
+9) instalar composer (y aceptar que sume el binario al PATH)
+	* https://getcomposer.org/Composer-Setup.exe
+
+
+10) Ir a la carpeta del proyecto y ejecutar el update del composer:
+	* en {donde_se_instalo_wamp}/www/boletin-electronico ejecutar:
+		** composer update
+	* cuando pida parametros ("Some parameters are missing. Please provide them.") completar segun el anexo "Anexo 3: Datos Mysql"
+
+
+11) Validar la instalacion
+	* ir a: http://localhost/boletin-electronico/web/config.php
+		** ver que diga "Your configuration looks good to run Symfony."
+	* ir a: http://localhost/boletin-electronico/web/app_dev.php/_configurator/step/0
+		** ver que esten los parametros tal cual seteamos en el punto 10)
+
+
+Anexo 1: opcional
+	* agregar al PATH de windows la ruta a php y mysql para usarlos desde el cmd:
+		** {donde_se_instalo_wamp}\bin\php\php5.5.12;{donde_se_instalo_wamp}\bin\mysql\mysql5.6.17\bin
+
+	* Ejemplo en mi caso:
+		** C:\wamp\bin\php\php5.5.12;C:\wamp\bin\mysql\mysql5.6.17\bin
+
+Anexo 2: opcional2
+	* copiar symphony.phar a la carpeta de wamp
+
+Anexo 3: Datos Mysql:
+	* database_driver = pdo_mysql
+	* database_host = 127.0.0.1
+	* database_port = 3306
+	* databse_name = boletin_electronico
+	* database_user = root
+	* database_password = (que quede vacio, darle enter)
+	* mailer_transport = (darle enter)
+	* mailer_host = (darle enter)
+	* mailer_user = (darle enter)
+	* mailer_password = (darle enter)
+	* locale = (darle enter)
+	* secret = (darle enter)

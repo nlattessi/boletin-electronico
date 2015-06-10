@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Asistencia edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('asistencia_edit', {'id':asistencia.idAsistencia }) }}" method="post">
+        <input type="text" value="{{ asistencia.idAsistencia }}" hidden="hidden" name="idAsistencia"><br/>
+        <input type="text" value="{{ asistencia.fechaAsistencia|date('d-m-Y') }}" placeholder="fecha" name="fechaAsistencia"><br/>
+        {% if asistencia.materia != null %}
+            <p>Materia Asociada</p>
+            <p>{{ asistencia.materia.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idMateria">
+            {% for materia in entitiesRelacionadas %}
+
+                <option value="{{materia.idMateria}}">{{materia.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('asistencia') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

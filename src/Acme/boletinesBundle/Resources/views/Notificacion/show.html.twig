@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Notificacion</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Notificacion</th>
+            <td>{{ notificacion.idNotificacion }}</td>
+        </tr>
+        <tr>
+            <th>Titulo Notificacion</th>
+            <td>{{ notificacion.tituloNotificacion }}</td>
+        </tr>
+        <tr>
+            <th>Notificacion</th>
+            <td>{{ notificacion.textoNotificacion }}</td>
+        </tr>
+        <tr>
+            <th>Enviado el dia</th>
+            <td>{{ notificacion.fechaEnvio|date('d-m-Y H:i') }}</td>
+        </tr>
+        {% if notificacion.usuarioEnvia != null %}
+            <tr>
+                <th>Enviado por</th>
+                <td>{{ notificacion.usuarioEnvia.__toString() }}</td>
+            </tr>
+        {% endif %}
+        {% if notificacion.grupoUsuarioRecibe != null %}
+            <tr>
+                <th>Enviado a</th>
+                <td>{{ notificacion.grupoUsuarioRecibe.__toString() }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('notificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('notificacion_edit', { 'id': notificacion.idNotificacion }) }}">
+                Editar
+            </a>
+        </li>
+        <li> <a href="{{ path('notificacion_delete', { 'id': notificacion.idNotificacion }) }}">Borrar</a></li>
+    </ul>
+{% endblock %}

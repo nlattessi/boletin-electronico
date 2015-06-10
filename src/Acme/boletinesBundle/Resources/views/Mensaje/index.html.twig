@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Mensaje list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Mensaje</th>
+                <th>Titulo mensaje</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mensaje in entities %}
+            <tr>
+                <td>{{ mensaje.idMensaje }}</td>
+                <td><a href="{{ path('mensaje_show', { 'id': mensaje.idMensaje }) }}">{{ mensaje.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('mensaje_show', { 'id': mensaje.idMensaje }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('mensaje_edit', { 'id': mensaje.idMensaje }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('mensaje_delete', { 'id': mensaje.idMensaje }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('mensaje_new') }}">
+                Crear Nueva Mensaje
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

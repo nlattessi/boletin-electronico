@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Justificacion</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Justificacion</th>
+            <td>{{ justificacion.idJustificacion }}</td>
+        </tr>
+        <tr>
+            <th>Justificacion</th>
+            <td>{{ justificacion.justificacion }}</td>
+        </tr>
+        <tr>
+            <th>Cargada por el usuario</th>
+            <td>{{ justificacion.usuarioCarga }}</td>
+        </tr>
+        <tr>
+            <th>El dia</th>
+            <td>{{ justificacion.fechaCarga|date('d-m-Y H:i') }}</td>
+        </tr>
+        {% if justificacion.archivo != null %}
+        <tr>
+            <th>Archivo Asociado</th>
+            <td>{{ justificacion.archivo.__toString() }}</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('justificacion') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('justificacion_edit', { 'id': justificacion.idJustificacion }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('justificacion_delete', { 'id': justificacion.idJustificacion }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

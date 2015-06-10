@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario")
  * @ORM\Entity
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -111,4 +112,34 @@ class Usuario
         return $this->getNombreUsuarioParaMostrar();
     }
 
+    public function getRoles(){
+        return array('ROLE_ADMIN');
+    }
+
+    public function getSalt(){
+        return '';
+    }
+
+    public function getUsername(){
+        return $this->nombreUsuario;
+    }
+    public function eraseCredentials(){}
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize(){
+        return serialize(array(
+            $this->idUsuario,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized){
+        list (
+            $this->idUsuario,
+            ) = unserialize($serialized);
+    }
 }

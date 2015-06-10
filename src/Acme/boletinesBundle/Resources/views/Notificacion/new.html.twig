@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Notificacion creation</h1>
+
+
+    <form action="{{ path('notificacion_new') }}" method="post">
+
+        <input type="text" placeholder="titular" name="tituloNotificacion"><br/>
+        <input type="text" placeholder="texto" name="textoNotificacion"><br/>
+
+        <select name="idGrupoUsuario">
+            {% for grupoUsuarioRecibe in entitiesRelacionadas %}
+
+                <option value="{{grupoUsuarioRecibe.idGrupoUsuario}}">{{grupoUsuarioRecibe.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione una grupoUsuarioRecibe creada</option>
+        </select>
+        <br/><br/><br/>
+
+        <button type="submit" >Crear Notificacion</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('notificacion') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>GrupoAlumno</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id GrupoAlumno</th>
+            <td>{{ grupoAlumno.idGrupoAlumno }}</td>
+        </tr>
+        <tr>
+            <th>GrupoAlumno</th>
+            <td>{{ grupoAlumno.nombreGrupoAlumno }}</td>
+        </tr>
+        <tr>
+            <th>Es Curso</th>
+            <td><input type="checkbox" disabled value="{{ grupoAlumno.esCurso }}" ></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('grupoAlumno') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('grupoAlumno_edit', { 'id': grupoAlumno.idGrupoAlumno }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('grupoAlumno_delete', { 'id': grupoAlumno.idGrupoAlumno }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
-use Acme\boletinesBundle\Form\InstitucionType;
 
 class InstitucionController extends Controller
 {
@@ -56,6 +55,12 @@ class InstitucionController extends Controller
         $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
         $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
 
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($institucion);
+        if (count($errors) > 0) {
+            return false;
+        }
         $em = $this->getDoctrine()->getManager();
         $em->persist($institucion);
         $em->flush();
@@ -96,16 +101,24 @@ class InstitucionController extends Controller
 
     private function editEntity($data, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+        try{
+            $em = $this->getDoctrine()->getManager();
 
-        $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
-        $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
-        $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
-        $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
 
-        $em->persist($institucion);
-        $em->flush();
+            $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
+            $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
+            $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
+            $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
+
+            $em->persist($institucion);
+            $em->flush();
+
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            // si quieren ver el error hacen un print de esto y exit : print_r( $error ); exit();
+            return false;
+        }
 
         return $institucion;
     }

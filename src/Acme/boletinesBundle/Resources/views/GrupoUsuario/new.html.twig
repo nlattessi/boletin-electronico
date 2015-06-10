@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>GrupoUsuario creation</h1>
+
+
+    <form action="{{ path('grupoUsuario_new') }}" method="post">
+
+        <input type="text" placeholder="nombre" name="nombreGrupoUsuario"><br/>
+        <input type="checkbox" name="esPrivado"><br/>
+
+        <br/><br/><br/>
+
+        <button type="submit" >Crear GrupoUsuario</button>
+
+
+        <br/>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('grupoUsuario') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

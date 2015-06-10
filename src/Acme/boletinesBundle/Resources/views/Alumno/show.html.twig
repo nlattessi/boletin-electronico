@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Alumno</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Alumno</th>
+            <td>{{ alumno.idAlumno }}</td>
+        </tr>
+        <tr>
+            <th>Alumno</th>
+            <td>{{ alumno.nombreAlumno }}</td>
+        </tr>
+        {% if alumno.usuarioAlumno != null %}
+        <tr>
+            <th>UsuarioAlumno Asociado</th>
+            <td>{{ alumno.usuarioAlumno.__toString() }}</td>
+        </tr>
+        {% endif %}
+        {% if alumno.usuarioPadre1 != null %}
+            <tr>
+                <th>usuarioPadre1 Asociado</th>
+                <td>{{ alumno.usuarioPadre1.__toString() }}</td>
+            </tr>
+        {% endif %}
+        {% if alumno.usuarioPadre2 != null %}
+            <tr>
+                <th>usuarioPadre2 Asociado</th>
+                <td>{{ alumno.usuarioPadre2.__toString() }}</td>
+            </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('alumno') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('alumno_edit', { 'id': alumno.idAlumno }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('alumno_delete', { 'id': alumno.idAlumno }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

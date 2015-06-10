@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Notificacion list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Notificacion</th>
+                <th>Nombre notificacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notificacion in entities %}
+            <tr>
+                <td>{{ notificacion.idNotificacion }}</td>
+                <td><a href="{{ path('notificacion_show', { 'id': notificacion.idNotificacion }) }}">{{ notificacion.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('notificacion_show', { 'id': notificacion.idNotificacion }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('notificacion_edit', { 'id': notificacion.idNotificacion }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('notificacion_delete', { 'id': notificacion.idNotificacion }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('notificacion_new') }}">
+                Crear Nueva Notificacion
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

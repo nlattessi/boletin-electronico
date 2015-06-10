@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Alumno edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('alumno_edit', {'id':alumno.idAlumno }) }}" method="post">
+        <input type="text" value="{{ alumno.idAlumno }}" hidden="hidden" name="idAlumno"><br/>
+        <input type="text" value="{{ alumno.nombreAlumno }}" placeholder="nombre" name="nombreAlumno"><br/>
+        {% if alumno.usuarioAlumno != null %}
+            <p>UsuarioAlumno Asociado</p>
+            <p>{{ alumno.usuarioAlumno.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idUsuarioAlumno">
+            {% for usuarioAlumno in entitiesRelacionadas %}
+
+                <option value="{{usuarioAlumno.idUsuario}}">{{usuarioAlumno.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No seleccionar ninguna</option>
+        </select>
+        {% if alumno.usuarioPadre1 != null %}
+            <p>Padre1 Asociado</p>
+            <p>{{ alumno.usuarioPadre1.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idUsuarioPadre1">
+            {% for usuarioPadre in padres %}
+
+                <option value="{{usuarioPadre.idUsuario}}">{{usuarioPadre.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione un Usuario Padre</option>
+        </select>
+        {% if alumno.usuarioPadre2 != null %}
+            <p>Padre2 Asociado</p>
+            <p>{{ alumno.usuarioPadre2.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idUsuarioPadre2">
+            {% for usuarioPadre2 in padres %}
+
+                <option value="{{usuarioPadre2.idUsuario}}">{{usuarioPadre2.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">Seleccione otro Usuario padre</option>
+        </select>
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('alumno') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

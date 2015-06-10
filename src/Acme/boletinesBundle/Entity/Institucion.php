@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Institucion
@@ -14,7 +15,7 @@ class Institucion
 {
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nombre_institucion", type="string", length=45, nullable=false)
      */
     private $nombreInstitucion;
@@ -35,7 +36,7 @@ class Institucion
 
     /**
      * @var string
-     *
+     * @Assert\Email()
      * @ORM\Column(name="email_institucion", type="string", length=45, nullable=true)
      */
     private $emailInstitucion;

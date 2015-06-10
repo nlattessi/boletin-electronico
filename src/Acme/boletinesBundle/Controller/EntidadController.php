@@ -57,7 +57,7 @@ class EntidadController extends Controller
         $entidad = new Entidad();
         $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono una EntityRelacionada
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $entidad->setEntityRelacionada($entityRelacionada);
@@ -107,10 +107,10 @@ class EntidadController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entidad = $em->getRepository('BoletinesBundle:Entidad')->findOneBy(array('idEntidad' => $id));
 
-        $entidad->setNombreEntidad($data->request->get('name'));
+        $entidad->setNombreEntidad($data->request->get('nombreEntidad'));
 
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
-        if($idEntityRelacionada != null || $idEntityRelacionada > 1){
+        if($idEntityRelacionada > 0){
             //Selecciono otra EntityRelacionada, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $entidad->setEntityRelacionada($entityRelacionada);
