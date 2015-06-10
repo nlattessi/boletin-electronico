@@ -57,6 +57,16 @@ class Usuario implements UserInterface, \Serializable
      */
     private $idUsuario;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Rol
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Rol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_rol", referencedColumnName="id_rol")
+     * })
+     */
+    private $idRol;
+
 	public function getNombreUsuario(){
 		return $this->nombreUsuario;
 	}
@@ -141,5 +151,21 @@ class Usuario implements UserInterface, \Serializable
         list (
             $this->idUsuario,
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Rol
+     */
+    public function getRol()
+    {
+        return $this->idRol;
+    }
+
+    /**
+     * @param Rol $idRol
+     */
+    public function setRol($idRol)
+    {
+        $this->idRol = $idRol;
     }
 }

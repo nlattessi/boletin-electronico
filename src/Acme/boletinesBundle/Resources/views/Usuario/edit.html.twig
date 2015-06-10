@@ -10,8 +10,19 @@
         <input type="text" value="{{ usuario.nombreUsuario }}" placeholder="nombre" name="nombreUsuario"><br/>
         <input type="text" value="{{ usuario.nombreUsuarioParaMostrar }}" placeholder="nombre_usuario_para_mostrar" name="nombreUsuarioParaMostrar"><br/>
         <input type="password" value="{{ usuario.password }}" placeholder="password" name="password"><br/>
-        <input type="submit" /><br/>
+
+        <select name="idRol">
+        {% for rol in entitiesRelacionadas %}
+            <option value="{{rol.id}}">{{rol}}</option>
+        {% endfor %}
+            <option value="-1" selected="selected">Seleccione un rol para el usuario</option>
+        </select>
+        <br>
+
+        <button type="submit">Editar Usuario</button>
+
     </form>
+
     <ul class="record_actions">
         <li>
             <a href="{{ path('usuario') }}">

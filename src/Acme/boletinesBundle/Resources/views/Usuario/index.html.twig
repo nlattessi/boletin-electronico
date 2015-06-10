@@ -8,6 +8,7 @@
         <tr>
             <th>Id Usuario</th>
             <th>Nombre usuario</th>
+            <th>Rol usuario</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -16,6 +17,11 @@
             <tr>
                 <td>{{ usuario.idUsuario }}</td>
                 <td><a href="{{ path('usuario_show', { 'id': usuario.idUsuario }) }}">{{ usuario.__toString() }}</a></td>
+    
+                {% if usuario.rol %}
+                    <td>{{ usuario.rol }}</td>
+                {% endif %}
+
                 <td>
                     <ul>
                         <li>

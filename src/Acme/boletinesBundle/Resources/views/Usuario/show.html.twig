@@ -10,6 +10,7 @@
             <th>NombreUsuario</th>
             <th>Password</th>
             <th>NombreUsuarioParaMostrar</th>
+            <th>Rol asociado</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,11 @@
             <td>{{ usuario.nombreUsuario }}</td>
             <td>{{ usuario.password }}</td>
             <td>{{ usuario.nombreUsuarioParaMostrar }}</td>
+
+            {% if usuario.rol %}
+                <td>{{ usuario.rol }}</td>
+            {% endif %}
+
         </tr>
         </tbody>
     </table>

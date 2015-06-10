@@ -9,7 +9,17 @@
         <input type="text" placeholder="nombre" name="nombreUsuario"><br/>
         <input type="text" placeholder="nombre_usuario_para_mostrar" name="nombreUsuarioParaMostrar"><br/>
         <input type="password" placeholder="password" name="password"><br/>
-        <button type="submit" >Crear Usuario</button>
+        
+        <select name="idRol">
+        {% for rol in entitiesRelacionadas %}
+            <option value="{{rol.id}}">{{rol}}</option>
+        {% endfor %}
+            <option value="-1" selected="selected">Seleccione un rol para el usuario</option>
+        </select>
+        <br>
+
+        <button type="submit">Crear Usuario</button>
+    
     </form>
 
     <ul class="record_actions">

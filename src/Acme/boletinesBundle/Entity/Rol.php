@@ -28,5 +28,27 @@ class Rol
      */
     private $idRol;
 
+    /**
+     * @return string
+     */
+    public function getNombreRol()
+    {
+        return $this->nombreRol;
+    }
 
+    public function __toString(){
+        return $this->getNombreRol();
+    }
+
+    public function getId(){
+        return $this->idRol;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
 }

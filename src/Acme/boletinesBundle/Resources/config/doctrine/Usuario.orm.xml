@@ -9,5 +9,10 @@
     <field name="nombreUsuarioParaMostrar" type="string" column="nombre_usuario_para_mostrar" length="45" nullable="false"/>
     <field name="nombreReal" type="string" column="nombre_real" length="45" nullable="true"/>
     <field name="telefonoUsuario" type="string" column="telefono_usuario" length="15" nullable="true"/>
+    <many-to-one field="idRol" target-entity="Rol">
+      <join-columns>
+        <join-column name="id_rol" referenced-column-name="id_rol"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>
