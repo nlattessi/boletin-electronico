@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Usuario list</h1>
+
+    <table class="records_list">
+        <thead>
+        <tr>
+            <th>Id Usuario</th>
+            <th>Nombre usuario</th>
+            <th>Rol usuario</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for usuario in entities %}
+            <tr>
+                <td>{{ usuario.idUsuario }}</td>
+                <td><a href="{{ path('usuario_show', { 'id': usuario.idUsuario }) }}">{{ usuario.__toString() }}</a></td>
+    
+                {% if usuario.rol %}
+                    <td>{{ usuario.rol }}</td>
+                {% endif %}
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('usuario_show', { 'id': usuario.idUsuario }) }}">Ver</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('usuario_edit', { 'id': usuario.idUsuario }) }}">Editar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('usuario_delete', { 'id': usuario.idUsuario }) }}">Borrar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('usuario_new') }}">
+                Crear Nueva Usuario
+            </a>
+        </li>
+    </ul>
+{% endblock %}
