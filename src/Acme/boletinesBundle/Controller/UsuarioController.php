@@ -75,6 +75,7 @@ class UsuarioController extends Controller
 
         return $usuario;
     }
+    
     public function editAction($id = null, Request $request = null)
     {
         $message = "";
@@ -93,32 +94,33 @@ class UsuarioController extends Controller
 
         return $this->render('BoletinesBundle:Usuario:edit.html.twig', array('usuario' => $entity, 'mensaje' => $message));
     }
+
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $id));
 
-<<<<<<< HEAD
         $usuario->setNombreUsuario($data->request->get('nombreUsuario'));
         $usuario->setNombreUsuarioParaMostrar($data->request->get('nombreUsuarioParaMostrar'));
         $usuario->setPassword($data->request->get('password'));
-=======
-        $usuario->setNombreUsuario($data->request->get('name'));
-
+        
+        /*$usuario->setNombreUsuario($data->request->get('name'));
+    
         $idEntityRelacionada = $data->request->get('idEntityRelacionada');
         if( $idEntityRelacionada > 0){
             //Selecciono otra usuario, hay que buscarla y persistirla
             $entityRelacionada = $em->getRepository('BoletinesBundle:EntityRelacionada')->findOneBy(array('idEntityRelacionada' => $idEntityRelacionada));
             $usuario->setEntityRelacionada($entityRelacionada);
-        }
->>>>>>> b3e35a79b5dd6c57efb214b9831303dc1bc5cca6
+        }*/
 
         $em->persist($usuario);
         $em->flush();
 
         return $usuario;
     }
-    public function crearUsuarioDocente($nombreReal, $email){
+
+    public function crearUsuarioDocente($nombreReal, $email)
+    {
        // $em = $this->getDoctrine()->getManager();
 
         $usuario = new Usuario();
