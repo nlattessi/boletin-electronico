@@ -22,11 +22,10 @@ boletines_actividad:
     resource: "@BoletinesBundle/Resources/config/routing/actividad.yml"
     prefix:   /actividad
 
-<<<<<<< HEAD
 boletines_usuario:
     resource: "@BoletinesBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuario
-=======
+
 boletines_examen:
     resource: "@BoletinesBundle/Resources/config/routing/examen.yml"
     prefix:   /examen
