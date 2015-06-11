@@ -3,11 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/boletines/css/ghpages-materialize.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/boletines/css/prism.css')}}" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" />
+
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('bundles/boletines/javascript/jquery.timeago.min.js')}}"></script>
+            <script src="{{ asset('bundles/boletines/javascript/prism.js')}}"></script>
+            <script src="{{ asset('bundles/boletines/javascript/materialize.js')}}"></script>
+            <script src="{{ asset('bundles/boletines/javascript/init.js')}}"></script>
+            <script src="{{ asset('bundles/boletines/javascript/main.js')}}"></script>
+            <script src="{{ asset('bundles/boletines/javascript/jquery-2.1.4.js')}}"></script>
+        {% endblock %}
     </body>
 </html>
