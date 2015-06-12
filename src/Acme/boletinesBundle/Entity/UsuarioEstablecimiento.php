@@ -42,4 +42,60 @@ class UsuarioEstablecimiento
     private $idUsuario;
 
 
+    public function UsuarioEstablecimiento($usuario, $establecimiento){
+        $this->setUsuario($usuario);
+        $this->setEstablecimiento($establecimiento);
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdUsuarioEstablecimiento()
+    {
+        return $this->idUsuarioEstablecimiento;
+    }
+
+    /**
+     * @param int $idUsuarioEstablecimiento
+     */
+    public function setIdUsuarioEstablecimiento($idUsuarioEstablecimiento)
+    {
+        $this->idUsuarioEstablecimiento = $idUsuarioEstablecimiento;
+    }
+
+    /**
+     * @return Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * @param Establecimiento $idEstablecimiento
+     */
+    public function setEstablecimiento($idEstablecimiento)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @param Usuario $idUsuario
+     */
+    public function setUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+
+
+
 }

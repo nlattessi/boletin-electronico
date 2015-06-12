@@ -15,7 +15,12 @@
         </tr>
         <tr>
             <th>Es Curso</th>
-            <td><input type="checkbox" disabled value="{{ grupoAlumno.esCurso }}" ></td>
+            <td><input type="checkbox" disabled
+                {% if grupoAlumno.esCurso %}
+                       checked
+                {% endif %}
+                        >
+            </td>
         </tr>
 
 

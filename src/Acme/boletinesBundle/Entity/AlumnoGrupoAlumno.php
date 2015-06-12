@@ -41,5 +41,57 @@ class AlumnoGrupoAlumno
      */
     private $idAlumno;
 
+    /**
+     * @return int
+     */
+    public function getIdAlumnoGrupoAlumno()
+    {
+        return $this->idAlumnoGrupoAlumno;
+    }
+    public function AlumnoGrupoAlumno($alumno, $grupoAlumno){
+        $this->setAlumno($alumno);
+        $this->setGrupoAlumno($grupoAlumno);
+    }
+
+    /**
+     * @param int $idAlumnoGrupoAlumno
+     */
+    public function setIdAlumnoGrupoAlumno($idAlumnoGrupoAlumno)
+    {
+        $this->idAlumnoGrupoAlumno = $idAlumnoGrupoAlumno;
+    }
+
+    /**
+     * @return GrupoAlumno
+     */
+    public function getGrupoAlumno()
+    {
+        return $this->idGrupo;
+    }
+
+    /**
+     * @param GrupoAlumno $idGrupo
+     */
+    public function setGrupoAlumno($idGrupo)
+    {
+        $this->idGrupo = $idGrupo;
+    }
+
+    /**
+     * @return Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param Alumno $idAlumno
+     */
+    public function setAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
 
 }

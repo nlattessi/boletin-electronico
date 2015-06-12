@@ -41,5 +41,58 @@ class DocenteMateria
      */
     private $idDocente;
 
+    public function DocenteMateria($docente, $materia){
+        $this->setDocente($docente);
+        $this->setMateria($materia);
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdDocenteMateria()
+    {
+        return $this->idDocenteMateria;
+    }
+
+    /**
+     * @param int $idDocenteMateria
+     */
+    public function setIdDocenteMateria($idDocenteMateria)
+    {
+        $this->idDocenteMateria = $idDocenteMateria;
+    }
+
+    /**
+     * @return Materia
+     */
+    public function getMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * @param Materia $idMateria
+     */
+    public function setMateria($idMateria)
+    {
+        $this->idMateria = $idMateria;
+    }
+
+    /**
+     * @return Docente
+     */
+    public function getDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * @param Docente $idDocente
+     */
+    public function setDocente($idDocente)
+    {
+        $this->idDocente = $idDocente;
+    }
+
 
 }
