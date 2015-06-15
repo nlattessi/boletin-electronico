@@ -123,7 +123,8 @@ class Usuario implements UserInterface, \Serializable
     }
 
     public function getRoles(){
-        return array('ROLE_ADMIN');
+        return array($this->idRol->getNombreRol());
+//        return array('ROLE_ADMIN');
     }
 
     public function getSalt(){

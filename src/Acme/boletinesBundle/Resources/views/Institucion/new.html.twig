@@ -1,22 +1,150 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Institucion creation</h1>
 
-<h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('institucion_new') }}" method="post">
-        <input type="text" placeholder="nombre" name="nombreInstitucion"><br/>
-        <input type="text" placeholder="direccion" name="direccionInstitucion"><br/>
-        <input type="text" placeholder="Telefono" name="telefonoInstitucion"><br/>
-        <input type="text" placeholder="email" name="emailInstitucion"><br/>
-        <input type="submit" /><br/>
-    </form>
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('institucion') }}">
-            Volver a la lista
-        </a>
-    </li>
-</ul>
+
+
+
+    <!-- Fixed nav -->
+    <div class="navbar-fixed">
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">one</a></li>
+            <li><a href="#!">two</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">three</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><img class="responsive-img" src="images/communitas-mini2.png"></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#"><i class="icon-linear-alarm"></i></a></li>
+                    <li><a href="#"><i class="icon-linear-envelope"></i></a></li>
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Super Admin<i
+                                    class="icon-linear-chevron-down right"></i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Main nav -->
+
+    <nav class="main-nav">
+        <div class="main-nav-wrapper">
+            <ul class="hide-on-med-and-down">
+                <li class="main-nav-pad center-align"><a href="#" class="active"><i
+                                class="icon-linear-city icon-nav-size"></i><br><span>Instituciones</span></a></li>
+                <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-users icon-nav-size"></i>
+                        <br><span>Usuarios</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- startMain content-->
+    <div class="container">
+        <div class="row">
+            <div class="col s10 m10 l10">
+                <h3 class="header">Nueva institución</h3>
+            </div>
+        </div>
+        <form action="{{ path('institucion_new') }}" method="post">
+
+            <div class="row">
+                <div class="input-field col s12 m6 l6">
+                    <input id="nombre_inst" type="text" class="validate" name="nombreInstitucion">
+                    <label for="nombre_inst">Nombre de la institución</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="email" type="text" class="validate" name="emailInstitucion">
+                    <label for="email">Correo electrónico oficial</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="nombre_apoderado" type="text" class="validate" name="telefonoInstitucion">
+                    <label for="nombre_apoderado">Teléfono</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <input id="nombre_apoderado" type="text" class="validate" name="direccionInstitucion">
+                    <label for="nombre_apoderado">Nombre del apoderado</label>
+                </div>
+            </div>
+            {#<div class="row">#}
+                {#<div class="col s12 m6 l6">#}
+                    {#<div class="file-field input-field">#}
+                        {#<input class="file-path validate" type="text"/>#}
+                        {#<label for="logo_img">Logotipo de la institución</label>#}
+
+                        {#<div class="btn-large">#}
+                            {#<span>Elegir archivo</span>#}
+                            {#<input type="file"/>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+
+
+            {#<div class="row">#}
+            {#<div class="col s12 m12 l12 card-panel orange lighten-5 mar-top">#}
+            {#<div class="col s1 m1 l1">#}
+            {#<form action="#">#}
+            {#<p class="right-align">#}
+            {#<input type="checkbox" id="test5" />#}
+            {#<label for="test5"></label>#}
+            {#</p>#}
+            {#</form>#}
+            {#</div>#}
+            {#<div class="col s11 m11 l11"><h5>¿La institución posee más de un establecimiento?</h5></div>#}
+            {#</div>#}
+            {#</div>#}
+
+            {#<div class="row">#}
+            {#<div class="input-field col s12 m6 l6">#}
+            {#<input disabled id="nombre_inst" type="text" class="validate">#}
+            {#<label for="nombre_inst">Nombre del establecimiento</label>#}
+            {#</div>#}
+            {#<div class="input-field col s12 m6 l6">#}
+            {#<input disabled id="email" type="text" class="validate">#}
+            {#<label for="email">Correo electrónico oficial</label>#}
+            {#</div>#}
+            {#<div class="input-field col s12 m6 l6">#}
+            {#<input disabled id="nombre_apoderado" type="text" class="validate">#}
+            {#<label for="nombre_apoderado">Teléfono</label>#}
+            {#</div>#}
+            {#<div class="input-field col s12 m6 l6">#}
+            {#<input disabled id="nombre_apoderado" type="text" class="validate">#}
+            {#<label for="nombre_apoderado">Nombre del apoderado</label>#}
+            {#</div>#}
+            {#</div>#}
+            <div class="row">
+                <input type="submit"/><br/>
+                <div class="col s12 center-align"><a href="#" class="btn-large waves-effect waves-light center-align">Guardar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+    {#<h1>Institucion creation</h1>#}
+
+    {#<h2>{{ mensaje }}</h2>#}
+
+    {#<form action="{{ path('institucion_new') }}" method="post">#}
+        {#<input type="text" placeholder="nombre" name="nombreInstitucion"><br/>#}
+        {#<input type="text" placeholder="direccion" name="direccionInstitucion"><br/>#}
+        {#<input type="text" placeholder="Telefono" name="telefonoInstitucion"><br/>#}
+        {#<input type="text" placeholder="email" name="emailInstitucion"><br/>#}
+        {#<input type="submit"/><br/>#}
+    {#</form>#}
+    {#<ul class="record_actions">#}
+        {#<li>#}
+            {#<a href="{{ path('institucion') }}">#}
+                {#Volver a la lista#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
 {% endblock %}
