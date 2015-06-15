@@ -41,5 +41,59 @@ class ExamenArchivo
      */
     private $idArchivo;
 
+    public function ExamenArchivo($examen, $archivo){
+        $this->setExamen($examen);
+        $this->setArchivo($archivo);
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdExamenArchivo()
+    {
+        return $this->idExamenArchivo;
+    }
+
+    /**
+     * @param int $idExamenArchivo
+     */
+    public function setIdExamenArchivo($idExamenArchivo)
+    {
+        $this->idExamenArchivo = $idExamenArchivo;
+    }
+
+    /**
+     * @return Examen
+     */
+    public function getExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * @param Examen $idExamen
+     */
+    public function setExamen($idExamen)
+    {
+        $this->idExamen = $idExamen;
+    }
+
+    /**
+     * @return Archivo
+     */
+    public function getArchivo()
+    {
+        return $this->idArchivo;
+    }
+
+    /**
+     * @param Archivo $idArchivo
+     */
+    public function setArchivo($idArchivo)
+    {
+        $this->idArchivo = $idArchivo;
+    }
+
+
 
 }

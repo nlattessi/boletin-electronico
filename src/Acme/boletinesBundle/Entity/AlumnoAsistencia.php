@@ -58,6 +58,11 @@ class AlumnoAsistencia
      */
     private $idAlumno;
 
+    public function AlumnoAsistencia($alumno, $asistencia){
+        $this->setAlumno($alumno);
+        $this->setAsistencia($asistencia);
+    }
+
     /**
      * @return string
      */

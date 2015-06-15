@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-
 {% block body -%}
     <h1>GrupoAlumno edit</h1>
 
@@ -8,7 +7,12 @@
     <form action="{{ path('grupoAlumno_edit', {'id':grupoAlumno.idGrupoAlumno }) }}" method="post">
         <input type="text" value="{{ grupoAlumno.idGrupoAlumno }}" hidden="hidden" name="idGrupoAlumno"><br/>
         <input type="text" value="{{ grupoAlumno.nombreGrupoAlumno }}" placeholder="nombre" name="nombreGrupoAlumno"><br/>
-        <input type="checkbox" value="{{ grupoAlumno.esCurso }}"  name="esCurso"><br/>
+        <input type="hidden" name="esCurso" value="0">
+        <input type="checkbox"
+                {% if grupoAlumno.esCurso %}
+               checked
+               {% endif %}
+               name="esCurso" value="1"><br/>
 
         <input type="submit" /><br/>
     </form>

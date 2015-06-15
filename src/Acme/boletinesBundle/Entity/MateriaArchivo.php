@@ -41,5 +41,59 @@ class MateriaArchivo
      */
     private $idArchivo;
 
+    public function MateriaArchivo($materia, $archivo){
+        $this->setArchivo($archivo);
+        $this->setMateria($materia);
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdMateriaArchivo()
+    {
+        return $this->idMateriaArchivo;
+    }
+
+    /**
+     * @param int $idMateriaArchivo
+     */
+    public function setIdMateriaArchivo($idMateriaArchivo)
+    {
+        $this->idMateriaArchivo = $idMateriaArchivo;
+    }
+
+    /**
+     * @return Materia
+     */
+    public function getMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * @param Materia $idMateria
+     */
+    public function setMateria($idMateria)
+    {
+        $this->idMateria = $idMateria;
+    }
+
+    /**
+     * @return Archivo
+     */
+    public function getArchivo()
+    {
+        return $this->idArchivo;
+    }
+
+    /**
+     * @param Archivo $idArchivo
+     */
+    public function setArchivo($idArchivo)
+    {
+        $this->idArchivo = $idArchivo;
+    }
+
+
 
 }
