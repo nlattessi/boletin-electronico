@@ -92,5 +92,4 @@ security:
             iterations:       1
 
     access_control:
-        - { path: ^/institucion, roles: ROLE_ADMIN }
-        
+        #- { path: ^/institucion, roles: ROLE_ADMIN }
