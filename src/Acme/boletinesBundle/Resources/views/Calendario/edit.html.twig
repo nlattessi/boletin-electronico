@@ -1,0 +1,36 @@
+{# {% extends '::base.html.twig' %} #}
+
+{% block body -%}
+    <h1>Calendario edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('calendario_edit', {'id':calendario.idCalendario }) }}" method="post">
+        <input type="text" value="{{ calendario.idCalendario }}" hidden="hidden" name="idCalendario"><br/>
+        <input type="text" value="{{ calendario.nombreCalendario }}" placeholder="nombre" name="nombreCalendario"><br/>
+
+        <select name="idUsuario">
+        {% for usuario in entitiesRelacionadas %}
+            <option value="{{usuario.id}}">{{usuario}}</option>
+        {% endfor %}
+            {% if calendario.usuarioPropietario %}
+                <option value="{{ calendario.usuarioPropietario.id }}" selected="selected">{{ calendario.usuarioPropietario }}</option>
+                <option value="-1">Seleccione un usuario ser propietario del calendario</option>
+            {% else %}
+                <option value="-1" selected="selected">Seleccione un usuario ser propietario del calendario</option>
+            {% endif %}
+        </select>
+        <br>
+
+        <button type="submit">Editar calendario</button>
+
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('calendario') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
