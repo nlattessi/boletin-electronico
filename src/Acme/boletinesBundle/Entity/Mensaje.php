@@ -1,187 +1,209 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Mensaje
- *
- * @ORM\Table(name="mensaje", indexes={@ORM\Index(name="usuario_envia_fk_mensaje", columns={"id_usuario_envia"}), @ORM\Index(name="usuario_recibe_fk_mensaje", columns={"id_usuario_recibe"})})
  * @ORM\Entity
+ * @ORM\Table(name="mensaje")
  */
 class Mensaje
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="titulo_mensaje", type="string", length=100, nullable=false)
-     */
-    private $tituloMensaje;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="texto_mensaje", type="string", length=500, nullable=false)
-     */
-    private $textoMensaje;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_envio", type="datetime", nullable=false)
-     */
-    private $fechaEnvio;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="borrado", type="boolean", nullable=false)
-     */
-    private $borrado;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_mensaje", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idMensaje;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_envia_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario_envia;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_recibe_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario_recibe;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $titulo;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $texto;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_envio;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $fue_borrado;
+
+    public function __construct()
+    {
+        $this->fecha_envio = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitulo();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_recibe", referencedColumnName="id_usuario")
-     * })
+     * @return integer 
      */
-    private $idUsuarioRecibe;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * Set titulo
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_envia", referencedColumnName="id_usuario")
-     * })
+     * @param string $titulo
+     * @return Mensaje
      */
-    private $idUsuarioEnvia;
-
-    /**
-     * @return string
-     */
-    public function getTituloMensaje()
+    public function setTitulo($titulo)
     {
-        return $this->tituloMensaje;
+        $this->titulo = $titulo;
+
+        return $this;
     }
 
     /**
-     * @param string $tituloMensaje
+     * Get titulo
+     *
+     * @return string 
      */
-    public function setTituloMensaje($tituloMensaje)
+    public function getTitulo()
     {
-        $this->tituloMensaje = $tituloMensaje;
+        return $this->titulo;
     }
 
     /**
-     * @return string
+     * Set texto
+     *
+     * @param string $texto
+     * @return Mensaje
      */
-    public function getTextoMensaje()
+    public function setTexto($texto)
     {
-        return $this->textoMensaje;
+        $this->texto = $texto;
+
+        return $this;
     }
 
     /**
-     * @param string $textoMensaje
+     * Get texto
+     *
+     * @return string 
      */
-    public function setTextoMensaje($textoMensaje)
+    public function getTexto()
     {
-        $this->textoMensaje = $textoMensaje;
+        return $this->texto;
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getFechaEnvio()
-    {
-        return $this->fechaEnvio;
-    }
-
-    /**
+     * Set fecha_envio
+     *
      * @param \DateTime $fechaEnvio
+     * @return Mensaje
      */
     public function setFechaEnvio($fechaEnvio)
     {
-        $this->fechaEnvio = $fechaEnvio;
+        $this->fecha_envio = $fechaEnvio;
+
+        return $this;
     }
 
     /**
-     * @return boolean
+     * Get fecha_envio
+     *
+     * @return \DateTime 
      */
-    public function isBorrado()
+    public function getFechaEnvio()
     {
-        return $this->borrado;
+        return $this->fecha_envio;
     }
 
     /**
-     * @param boolean $borrado
+     * Set fue_borrado
+     *
+     * @param boolean $fueBorrado
+     * @return Mensaje
      */
-    public function setBorrado($borrado)
+    public function setFueBorrado($fueBorrado)
     {
-        $this->borrado = $borrado;
+        $this->fue_borrado = $fueBorrado;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fue_borrado
+     *
+     * @return boolean 
      */
-    public function getIdMensaje()
+    public function getFueBorrado()
     {
-        return $this->idMensaje;
+        return $this->fue_borrado;
     }
 
     /**
-     * @param int $idMensaje
+     * Set usuario_envia
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioEnvia
+     * @return Mensaje
      */
-    public function setIdMensaje($idMensaje)
+    public function setUsuarioEnvia(\Acme\boletinesBundle\Entity\Usuario $usuarioEnvia)
     {
-        $this->idMensaje = $idMensaje;
+        $this->usuario_envia = $usuarioEnvia;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
-     */
-    public function getUsuarioRecibe()
-    {
-        return $this->idUsuarioRecibe;
-    }
-
-    /**
-     * @param Usuario $idUsuarioRecibe
-     */
-    public function setUsuarioRecibe($idUsuarioRecibe)
-    {
-        $this->idUsuarioRecibe = $idUsuarioRecibe;
-    }
-
-    /**
-     * @return Usuario
+     * Get usuario_envia
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
     public function getUsuarioEnvia()
     {
-        return $this->idUsuarioEnvia;
+        return $this->usuario_envia;
     }
 
     /**
-     * @param Usuario $idUsuarioEnvia
+     * Set usuario_recibe
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioRecibe
+     * @return Mensaje
      */
-    public function setUsuarioEnvia($idUsuarioEnvia)
+    public function setUsuarioRecibe(\Acme\boletinesBundle\Entity\Usuario $usuarioRecibe)
     {
-        $this->idUsuarioEnvia = $idUsuarioEnvia;
+        $this->usuario_recibe = $usuarioRecibe;
+
+        return $this;
     }
 
-    public function __toString(){
-        return $this->getTituloMensaje();
+    /**
+     * Get usuario_recibe
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioRecibe()
+    {
+        return $this->usuario_recibe;
     }
 }

@@ -1,212 +1,237 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Disciplina
- *
- * @ORM\Table(name="disciplina", indexes={@ORM\Index(name="alumno_fk_disciplina", columns={"id_alumno"}), @ORM\Index(name="docente_fk_disciplina", columns={"id_docente"})})
  * @ORM\Entity
+ * @ORM\Table(name="disciplina")
  */
 class Disciplina
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comentario_docente", type="string", length=255, nullable=false)
-     */
-    private $comentarioDocente;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descargo_alumno", type="string", length=255, nullable=true)
-     */
-    private $descargoAlumno;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_suceso", type="datetime", nullable=false)
-     */
-    private $fechaSuceso;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_carga", type="datetime", nullable=false)
-     */
-    private $fechaCarga;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="validado", type="boolean", nullable=true)
-     */
-    private $validado;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_disciplina", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
-    private $idDisciplina;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Docente
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Docente")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_docente", referencedColumnName="id_docente")
-     * })
+     * @ORM\ManyToOne(targetEntity="Alumno")
+     * @ORM\JoinColumn(name="alumno_id", referencedColumnName="id", nullable=false)
      */
-    private $idDocente;
+    protected $alumno;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Alumno
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
-     * })
+     * @ORM\Column(type="text")
      */
-    private $idAlumno;
+    protected $comentario;
 
     /**
-     * @return string
+     * @ORM\Column(type="text", nullable=true)
      */
-    public function getComentarioDocente()
+    protected $descargo_alumno;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_suceso;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $fue_validado;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario_carga;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_carga;
+
+    public function __construct()
     {
-        return $this->comentarioDocente;
+        $this->fecha_carga = new \DateTime();
     }
 
-    /**
-     * @param string $comentarioDocente
-     */
-    public function setComentarioDocente($comentarioDocente)
+    public function __toString()
     {
-        $this->comentarioDocente = $comentarioDocente;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescargoAlumno()
-    {
-        return $this->descargoAlumno;
-    }
-
-    /**
-     * @param string $descargoAlumno
-     */
-    public function setDescargoAlumno($descargoAlumno)
-    {
-        $this->descargoAlumno = $descargoAlumno;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getFechaSuceso()
-    {
-        return $this->fechaSuceso;
-    }
-
-    /**
-     * @param \DateTime $fechaSuceso
-     */
-    public function setFechaSuceso($fechaSuceso)
-    {
-        $this->fechaSuceso = $fechaSuceso;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getFechaCarga()
-    {
-        return $this->fechaCarga;
-    }
-
-    /**
-     * @param \DateTime $fechaCarga
-     */
-    public function setFechaCarga($fechaCarga)
-    {
-        $this->fechaCarga = $fechaCarga;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isValidado()
-    {
-        return $this->validado;
-    }
-
-    /**
-     * @param boolean $validado
-     */
-    public function setValidado($validado)
-    {
-        $this->validado = $validado;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdDisciplina()
-    {
-        return $this->idDisciplina;
-    }
-
-    /**
-     * @param int $idDisciplina
-     */
-    public function setIdDisciplina($idDisciplina)
-    {
-        $this->idDisciplina = $idDisciplina;
-    }
-
-    /**
-     * @return Docente
-     */
-    public function getDocente()
-    {
-        return $this->idDocente;
-    }
-
-    /**
-     * @param Docente $idDocente
-     */
-    public function setDocente($idDocente)
-    {
-        $this->idDocente = $idDocente;
-    }
-
-    /**
-     * @return Alumno
-     */
-    public function getAlumno()
-    {
-        return $this->idAlumno;
-    }
-
-    /**
-     * @param Alumno $idAlumno
-     */
-    public function setAlumno($idAlumno)
-    {
-        $this->idAlumno = $idAlumno;
-    }
-
-    public function __toString(){
-
         return 'Alumno: ' . $this->getAlumno()->__toString() . ' el dia '. $this->getFechaSuceso()->format('d-m-Y');
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     * @return Disciplina
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string 
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
+    }
+
+    /**
+     * Set descargo_alumno
+     *
+     * @param string $descargoAlumno
+     * @return Disciplina
+     */
+    public function setDescargoAlumno($descargoAlumno)
+    {
+        $this->descargo_alumno = $descargoAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get descargo_alumno
+     *
+     * @return string 
+     */
+    public function getDescargoAlumno()
+    {
+        return $this->descargo_alumno;
+    }
+
+    /**
+     * Set fecha_suceso
+     *
+     * @param \DateTime $fechaSuceso
+     * @return Disciplina
+     */
+    public function setFechaSuceso($fechaSuceso)
+    {
+        $this->fecha_suceso = $fechaSuceso;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_suceso
+     *
+     * @return \DateTime 
+     */
+    public function getFechaSuceso()
+    {
+        return $this->fecha_suceso;
+    }
+
+    /**
+     * Set fue_validado
+     *
+     * @param boolean $fueValidado
+     * @return Disciplina
+     */
+    public function setFueValidado($fueValidado)
+    {
+        $this->fue_validado = $fueValidado;
+
+        return $this;
+    }
+
+    /**
+     * Get fue_validado
+     *
+     * @return boolean 
+     */
+    public function getFueValidado()
+    {
+        return $this->fue_validado;
+    }
+
+    /**
+     * Set fecha_carga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Disciplina
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fecha_carga = $fechaCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_carga
+     *
+     * @return \DateTime 
+     */
+    public function getFechaCarga()
+    {
+        return $this->fecha_carga;
+    }
+
+    /**
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return Disciplina
+     */
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getAlumno()
+    {
+        return $this->alumno;
+    }
+
+    /**
+     * Set usuario_carga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Disciplina
+     */
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga)
+    {
+        $this->usuario_carga = $usuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario_carga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->usuario_carga;
+    }
 }

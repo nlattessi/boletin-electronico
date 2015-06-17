@@ -1,145 +1,599 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Alumno
- *
- * @ORM\Table(name="alumno", indexes={@ORM\Index(name="padre2_fk_alumno", columns={"id_usuario_padre2"}), @ORM\Index(name="usuarior_fk_alumno", columns={"id_usuario_alumno"}), @ORM\Index(name="padre1_fk_alumno", columns={"id_usuario_padre1"})})
  * @ORM\Entity
+ * @ORM\Table(name="alumno")
  */
 class Alumno
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_alumno", type="string", length=45, nullable=false)
-     */
-    private $nombreAlumno;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_alumno", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idAlumno;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $apellido;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $dni;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $direccion;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $telefono;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $nacionalidad;
+
+    /**
+     * @ORM\Column(type="string", length=1, nullable=true)
+     */
+    protected $sexo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Padre")
+     * @ORM\JoinColumn(name="padre_1_id", referencedColumnName="id", nullable=false)
+     */
+    protected $padre_1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Padre")
+     * @ORM\JoinColumn(name="padre_2_id", referencedColumnName="id", nullable=false)
+     */
+    protected $padre_2;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $obra_social;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $telefono_emergencia;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $obra_social_numero_afiliado;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $apodo;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $foto;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $fecha_ingreso;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $fecha_nacimiento;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Especialidad")
+     * @ORM\JoinColumn(name="especialidad_id", referencedColumnName="id", nullable=true)
+     */
+    protected $especialidad;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $observaciones;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Establecimiento")
+     * @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id", nullable=false)
+     */
+    protected $establecimiento;
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_alumno", referencedColumnName="id_usuario")
-     * })
+     * @return integer 
      */
-    private $idUsuarioAlumno;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * Set nombre
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_padre1", referencedColumnName="id_usuario")
-     * })
+     * @param string $nombre
+     * @return Alumno
      */
-    private $idUsuarioPadre1;
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * Get nombre
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_padre2", referencedColumnName="id_usuario")
-     * })
+     * @return string 
      */
-    private $idUsuarioPadre2;
-
-    /**
-     * @return string
-     */
-    public function getNombreAlumno()
+    public function getNombre()
     {
-        return $this->nombreAlumno;
+        return $this->nombre;
     }
 
     /**
-     * @param string $nombreAlumno
+     * Set apellido
+     *
+     * @param string $apellido
+     * @return Alumno
      */
-    public function setNombreAlumno($nombreAlumno)
+    public function setApellido($apellido)
     {
-        $this->nombreAlumno = $nombreAlumno;
+        $this->apellido = $apellido;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get apellido
+     *
+     * @return string 
      */
-    public function getIdAlumno()
+    public function getApellido()
     {
-        return $this->idAlumno;
+        return $this->apellido;
     }
 
     /**
-     * @param int $idAlumno
+     * Set dni
+     *
+     * @param string $dni
+     * @return Alumno
      */
-    public function setIdAlumno($idAlumno)
+    public function setDni($dni)
     {
-        $this->idAlumno = $idAlumno;
+        $this->dni = $dni;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
+     * Get dni
+     *
+     * @return string 
      */
-    public function getUsuarioAlumno()
+    public function getDni()
     {
-        return $this->idUsuarioAlumno;
+        return $this->dni;
     }
 
     /**
-     * @param Usuario $idUsuarioAlumno
+     * Set direccion
+     *
+     * @param string $direccion
+     * @return Alumno
      */
-    public function setUsuarioAlumno($idUsuarioAlumno)
+    public function setDireccion($direccion)
     {
-        $this->idUsuarioAlumno = $idUsuarioAlumno;
+        $this->direccion = $direccion;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
+     * Get direccion
+     *
+     * @return string 
      */
-    public function getUsuarioPadre1()
+    public function getDireccion()
     {
-        return $this->idUsuarioPadre1;
+        return $this->direccion;
     }
 
     /**
-     * @param Usuario $idUsuarioPadre1
+     * Set telefono
+     *
+     * @param string $telefono
+     * @return Alumno
      */
-    public function setUsuarioPadre1($idUsuarioPadre1)
+    public function setTelefono($telefono)
     {
-        $this->idUsuarioPadre1 = $idUsuarioPadre1;
+        $this->telefono = $telefono;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
+     * Get telefono
+     *
+     * @return string 
      */
-    public function getUsuarioPadre2()
+    public function getTelefono()
     {
-        return $this->idUsuarioPadre2;
+        return $this->telefono;
     }
 
     /**
-     * @param Usuario $idUsuarioPadre2
+     * Set nacionalidad
+     *
+     * @param string $nacionalidad
+     * @return Alumno
      */
-    public function setUsuarioPadre2($idUsuarioPadre2)
+    public function setNacionalidad($nacionalidad)
     {
-        $this->idUsuarioPadre2 = $idUsuarioPadre2;
+        $this->nacionalidad = $nacionalidad;
+
+        return $this;
     }
 
-    public function __toString(){
-        return $this->getNombreAlumno();
+    /**
+     * Get nacionalidad
+     *
+     * @return string 
+     */
+    public function getNacionalidad()
+    {
+        return $this->nacionalidad;
     }
 
+    /**
+     * Set sexo
+     *
+     * @param string $sexo
+     * @return Alumno
+     */
+    public function setSexo($sexo)
+    {
+        $this->sexo = $sexo;
+
+        return $this;
+    }
+
+    /**
+     * Get sexo
+     *
+     * @return string 
+     */
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+
+    /**
+     * Set obra_social
+     *
+     * @param string $obraSocial
+     * @return Alumno
+     */
+    public function setObraSocial($obraSocial)
+    {
+        $this->obra_social = $obraSocial;
+
+        return $this;
+    }
+
+    /**
+     * Get obra_social
+     *
+     * @return string 
+     */
+    public function getObraSocial()
+    {
+        return $this->obra_social;
+    }
+
+    /**
+     * Set telefono_emergencia
+     *
+     * @param string $telefonoEmergencia
+     * @return Alumno
+     */
+    public function setTelefonoEmergencia($telefonoEmergencia)
+    {
+        $this->telefono_emergencia = $telefonoEmergencia;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono_emergencia
+     *
+     * @return string 
+     */
+    public function getTelefonoEmergencia()
+    {
+        return $this->telefono_emergencia;
+    }
+
+    /**
+     * Set obra_social_numero_afiliado
+     *
+     * @param string $obraSocialNumeroAfiliado
+     * @return Alumno
+     */
+    public function setObraSocialNumeroAfiliado($obraSocialNumeroAfiliado)
+    {
+        $this->obra_social_numero_afiliado = $obraSocialNumeroAfiliado;
+
+        return $this;
+    }
+
+    /**
+     * Get obra_social_numero_afiliado
+     *
+     * @return string 
+     */
+    public function getObraSocialNumeroAfiliado()
+    {
+        return $this->obra_social_numero_afiliado;
+    }
+
+    /**
+     * Set apodo
+     *
+     * @param string $apodo
+     * @return Alumno
+     */
+    public function setApodo($apodo)
+    {
+        $this->apodo = $apodo;
+
+        return $this;
+    }
+
+    /**
+     * Get apodo
+     *
+     * @return string 
+     */
+    public function getApodo()
+    {
+        return $this->apodo;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     * @return Alumno
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string 
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * Set fecha_ingreso
+     *
+     * @param \DateTime $fechaIngreso
+     * @return Alumno
+     */
+    public function setFechaIngreso($fechaIngreso)
+    {
+        $this->fecha_ingreso = $fechaIngreso;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_ingreso
+     *
+     * @return \DateTime 
+     */
+    public function getFechaIngreso()
+    {
+        return $this->fecha_ingreso;
+    }
+
+    /**
+     * Set fecha_nacimiento
+     *
+     * @param \DateTime $fechaNacimiento
+     * @return Alumno
+     */
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fecha_nacimiento = $fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_nacimiento
+     *
+     * @return \DateTime 
+     */
+    public function getFechaNacimiento()
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Alumno
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
+     * @return Alumno
+     */
+    public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set padre_1
+     *
+     * @param \Acme\boletinesBundle\Entity\Padre $padre1
+     * @return Alumno
+     */
+    public function setPadre1(\Acme\boletinesBundle\Entity\Padre $padre1)
+    {
+        $this->padre_1 = $padre1;
+
+        return $this;
+    }
+
+    /**
+     * Get padre_1
+     *
+     * @return \Acme\boletinesBundle\Entity\Padre 
+     */
+    public function getPadre1()
+    {
+        return $this->padre_1;
+    }
+
+    /**
+     * Set padre_2
+     *
+     * @param \Acme\boletinesBundle\Entity\Padre $padre2
+     * @return Alumno
+     */
+    public function setPadre2(\Acme\boletinesBundle\Entity\Padre $padre2)
+    {
+        $this->padre_2 = $padre2;
+
+        return $this;
+    }
+
+    /**
+     * Get padre_2
+     *
+     * @return \Acme\boletinesBundle\Entity\Padre 
+     */
+    public function getPadre2()
+    {
+        return $this->padre_2;
+    }
+
+    /**
+     * Set especialidad
+     *
+     * @param \Acme\boletinesBundle\Entity\Especialidad $especialidad
+     * @return Alumno
+     */
+    public function setEspecialidad(\Acme\boletinesBundle\Entity\Especialidad $especialidad = null)
+    {
+        $this->especialidad = $especialidad;
+
+        return $this;
+    }
+
+    /**
+     * Get especialidad
+     *
+     * @return \Acme\boletinesBundle\Entity\Especialidad 
+     */
+    public function getEspecialidad()
+    {
+        return $this->especialidad;
+    }
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return Alumno
+     */
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento 
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
+    }
 }

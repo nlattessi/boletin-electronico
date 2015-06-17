@@ -5,158 +5,254 @@ namespace Acme\boletinesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Establecimiento
- *
- * @ORM\Table(name="establecimiento", indexes={@ORM\Index(name="institucion_fk_establecimiento", columns={"id_institucion"})})
  * @ORM\Entity
+ * @ORM\Table(name="establecimiento")
  */
 class Establecimiento
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_establecimiento", type="string", length=45, nullable=false)
-     */
-    private $nombreEstablecimiento;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="direccion_establecimiento", type="string", length=45, nullable=true)
-     */
-    private $direccionEstablecimiento;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono_establecimiento", type="string", length=45, nullable=true)
-     */
-    private $telefonoEstablecimiento;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email_establecimiento", type="string", length=45, nullable=true)
-     */
-    private $emailEstablecimiento;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_establecimiento", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idEstablecimiento;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Institucion
+     * @ORM\ManyToOne(targetEntity="Institucion")
+     * @ORM\JoinColumn(name="institucion_id", referencedColumnName="id", nullable=false)
+     */
+    protected $institucion;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $direccion;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $coordenadas_mapa;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $fecha_inauguracion;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $telefono;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $observaciones;
+
+    public function __toString(){
+        return $this->getNombre();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_institucion", referencedColumnName="id_institucion")
-     * })
+     * @return integer 
      */
-    private $idInstitucion;
-
-    /**
-     * @return string
-     */
-    public function getNombreEstablecimiento()
+    public function getId()
     {
-        return $this->nombreEstablecimiento;
+        return $this->id;
     }
 
     /**
-     * @param string $nombreEstablecimiento
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Establecimiento
      */
-    public function setNombreEstablecimiento($nombreEstablecimiento)
+    public function setNombre($nombre)
     {
-        $this->nombreEstablecimiento = $nombreEstablecimiento;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get nombre
+     *
+     * @return string 
      */
-    public function getDireccionEstablecimiento()
+    public function getNombre()
     {
-        return $this->direccionEstablecimiento;
+        return $this->nombre;
     }
 
     /**
-     * @param string $direccionEstablecimiento
+     * Set direccion
+     *
+     * @param string $direccion
+     * @return Establecimiento
      */
-    public function setDireccionEstablecimiento($direccionEstablecimiento)
+    public function setDireccion($direccion)
     {
-        $this->direccionEstablecimiento = $direccionEstablecimiento;
+        $this->direccion = $direccion;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get direccion
+     *
+     * @return string 
      */
-    public function getTelefonoEstablecimiento()
+    public function getDireccion()
     {
-        return $this->telefonoEstablecimiento;
+        return $this->direccion;
     }
 
     /**
-     * @param string $telefonoEstablecimiento
+     * Set coordenadas_mapa
+     *
+     * @param string $coordenadasMapa
+     * @return Establecimiento
      */
-    public function setTelefonoEstablecimiento($telefonoEstablecimiento)
+    public function setCoordenadasMapa($coordenadasMapa)
     {
-        $this->telefonoEstablecimiento = $telefonoEstablecimiento;
+        $this->coordenadas_mapa = $coordenadasMapa;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get coordenadas_mapa
+     *
+     * @return string 
      */
-    public function getEmailEstablecimiento()
+    public function getCoordenadasMapa()
     {
-        return $this->emailEstablecimiento;
+        return $this->coordenadas_mapa;
     }
 
     /**
-     * @param string $emailEstablecimiento
+     * Set fecha_inauguracion
+     *
+     * @param \DateTime $fechaInauguracion
+     * @return Establecimiento
      */
-    public function setEmailEstablecimiento($emailEstablecimiento)
+    public function setFechaInauguracion($fechaInauguracion)
     {
-        $this->emailEstablecimiento = $emailEstablecimiento;
+        $this->fecha_inauguracion = $fechaInauguracion;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fecha_inauguracion
+     *
+     * @return \DateTime 
      */
-    public function getIdEstablecimiento()
+    public function getFechaInauguracion()
     {
-        return $this->idEstablecimiento;
+        return $this->fecha_inauguracion;
     }
 
     /**
-     * @param int $idEstablecimiento
+     * Set telefono
+     *
+     * @param string $telefono
+     * @return Establecimiento
      */
-    public function setIdEstablecimiento($idEstablecimiento)
+    public function setTelefono($telefono)
     {
-        $this->idEstablecimiento = $idEstablecimiento;
+        $this->telefono = $telefono;
+
+        return $this;
     }
 
     /**
-     * @return Institucion
+     * Get telefono
+     *
+     * @return string 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Establecimiento
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Establecimiento
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * Set institucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $institucion
+     * @return Establecimiento
+     */
+    public function setInstitucion(\Acme\boletinesBundle\Entity\Institucion $institucion)
+    {
+        $this->institucion = $institucion;
+
+        return $this;
+    }
+
+    /**
+     * Get institucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion 
      */
     public function getInstitucion()
     {
-        return $this->idInstitucion;
-    }
-
-    /**
-     * @param Institucion $idInstitucion
-     */
-    public function setInstitucion($idInstitucion)
-    {
-        $this->idInstitucion = $idInstitucion;
-    }
-
-
-    public function __toString(){
-        return $this->getNombreEstablecimiento();
+        return $this->institucion;
     }
 }

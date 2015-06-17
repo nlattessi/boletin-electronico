@@ -1,45 +1,87 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UsuarioGrupoUsuario
- *
- * @ORM\Table(name="usuario_grupo_usuario", indexes={@ORM\Index(name="usario_fk_grupo_usuario", columns={"id_usuario"}), @ORM\Index(name="grupo_usuario_fk_usuario", columns={"id_grupo_usuario"})})
  * @ORM\Entity
+ * @ORM\Table(name="usuario_grupo_usuario")
  */
 class UsuarioGrupoUsuario
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_usuario_grupo_usuario", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idUsuarioGrupoUsuario;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
-     * })
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=false)
      */
-    private $idUsuario;
+    protected $usuario;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\GrupoUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\GrupoUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_grupo_usuario", referencedColumnName="id_grupo_usuario")
-     * })
+     * @ORM\ManyToOne(targetEntity="GrupoUsuario")
+     * @ORM\JoinColumn(name="grupo_usuario_id", referencedColumnName="id", nullable=false)
      */
-    private $idGrupoUsuario;
+    protected $grupo_usuario;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set usuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
+     * @return UsuarioGrupoUsuario
+     */
+    public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set grupo_usuario
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoUsuario $grupoUsuario
+     * @return UsuarioGrupoUsuario
+     */
+    public function setGrupoUsuario(\Acme\boletinesBundle\Entity\GrupoUsuario $grupoUsuario)
+    {
+        $this->grupo_usuario = $grupoUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get grupo_usuario
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoUsuario 
+     */
+    public function getGrupoUsuario()
+    {
+        return $this->grupo_usuario;
+    }
 }

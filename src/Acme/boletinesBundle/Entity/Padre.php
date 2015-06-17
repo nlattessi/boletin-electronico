@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="docente")
+ * @ORM\Table(name="padre")
  */
-class Docente
+class Padre
 {
     /**
      * @ORM\Column(type="integer")
@@ -49,42 +49,31 @@ class Docente
     protected $telefono;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $titulo;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    protected $fecha_ingreso;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    protected $fecha_nacimiento;
+    protected $ocupacion;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $foto;
+    protected $celular;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $es_titular;
+    protected $telefono_laboral;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $direccion_laboral;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $observaciones;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Establecimiento")
-     * @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id", nullable=false)
-     */
-    protected $establecimiento;
-
-    public  function __toString()
+    public function __toString()
     {
         return $this->getNombre();
     }
@@ -103,7 +92,7 @@ class Docente
      * Set nombre
      *
      * @param string $nombre
-     * @return Docente
+     * @return Padre
      */
     public function setNombre($nombre)
     {
@@ -126,7 +115,7 @@ class Docente
      * Set apellido
      *
      * @param string $apellido
-     * @return Docente
+     * @return Padre
      */
     public function setApellido($apellido)
     {
@@ -149,7 +138,7 @@ class Docente
      * Set dni
      *
      * @param string $dni
-     * @return Docente
+     * @return Padre
      */
     public function setDni($dni)
     {
@@ -172,7 +161,7 @@ class Docente
      * Set direccion
      *
      * @param string $direccion
-     * @return Docente
+     * @return Padre
      */
     public function setDireccion($direccion)
     {
@@ -195,7 +184,7 @@ class Docente
      * Set telefono
      *
      * @param string $telefono
-     * @return Docente
+     * @return Padre
      */
     public function setTelefono($telefono)
     {
@@ -215,125 +204,102 @@ class Docente
     }
 
     /**
-     * Set titulo
+     * Set ocupacion
      *
-     * @param string $titulo
-     * @return Docente
+     * @param string $ocupacion
+     * @return Padre
      */
-    public function setTitulo($titulo)
+    public function setOcupacion($ocupacion)
     {
-        $this->titulo = $titulo;
+        $this->ocupacion = $ocupacion;
 
         return $this;
     }
 
     /**
-     * Get titulo
+     * Get ocupacion
      *
      * @return string 
      */
-    public function getTitulo()
+    public function getOcupacion()
     {
-        return $this->titulo;
+        return $this->ocupacion;
     }
 
     /**
-     * Set fecha_ingreso
+     * Set celular
      *
-     * @param \DateTime $fechaIngreso
-     * @return Docente
+     * @param string $celular
+     * @return Padre
      */
-    public function setFechaIngreso($fechaIngreso)
+    public function setCelular($celular)
     {
-        $this->fecha_ingreso = $fechaIngreso;
+        $this->celular = $celular;
 
         return $this;
     }
 
     /**
-     * Get fecha_ingreso
-     *
-     * @return \DateTime 
-     */
-    public function getFechaIngreso()
-    {
-        return $this->fecha_ingreso;
-    }
-
-    /**
-     * Set fecha_nacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     * @return Docente
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fecha_nacimiento = $fechaNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get fecha_nacimiento
-     *
-     * @return \DateTime 
-     */
-    public function getFechaNacimiento()
-    {
-        return $this->fecha_nacimiento;
-    }
-
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     * @return Docente
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
+     * Get celular
      *
      * @return string 
      */
-    public function getFoto()
+    public function getCelular()
     {
-        return $this->foto;
+        return $this->celular;
     }
 
     /**
-     * Set es_titular
+     * Set telefono_laboral
      *
-     * @param boolean $esTitular
-     * @return Docente
+     * @param string $telefonoLaboral
+     * @return Padre
      */
-    public function setEsTitular($esTitular)
+    public function setTelefonoLaboral($telefonoLaboral)
     {
-        $this->es_titular = $esTitular;
+        $this->telefono_laboral = $telefonoLaboral;
 
         return $this;
     }
 
     /**
-     * Get es_titular
+     * Get telefono_laboral
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getEsTitular()
+    public function getTelefonoLaboral()
     {
-        return $this->es_titular;
+        return $this->telefono_laboral;
+    }
+
+    /**
+     * Set direccion_laboral
+     *
+     * @param string $direccionLaboral
+     * @return Padre
+     */
+    public function setDireccionLaboral($direccionLaboral)
+    {
+        $this->direccion_laboral = $direccionLaboral;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion_laboral
+     *
+     * @return string 
+     */
+    public function getDireccionLaboral()
+    {
+        return $this->direccion_laboral;
     }
 
     /**
      * Set observaciones
      *
      * @param string $observaciones
-     * @return Docente
+     * @return Padre
      */
     public function setObservaciones($observaciones)
     {
@@ -356,7 +322,7 @@ class Docente
      * Set usuario
      *
      * @param \Acme\boletinesBundle\Entity\Usuario $usuario
-     * @return Docente
+     * @return Padre
      */
     public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
     {
@@ -373,28 +339,5 @@ class Docente
     public function getUsuario()
     {
         return $this->usuario;
-    }
-
-    /**
-     * Set establecimiento
-     *
-     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
-     * @return Docente
-     */
-    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento)
-    {
-        $this->establecimiento = $establecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get establecimiento
-     *
-     * @return \Acme\boletinesBundle\Entity\Establecimiento 
-     */
-    public function getEstablecimiento()
-    {
-        return $this->establecimiento;
     }
 }

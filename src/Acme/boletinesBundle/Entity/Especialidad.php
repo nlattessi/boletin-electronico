@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Acme\boletinesBundle\Entity;
 
@@ -6,31 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="calendario")
+ * @ORM\Table(name="especialidad")
  */
-class Calendario
+class Especialidad
 {
     /**
-     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     protected $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", nullable=false)
-     */
-    protected $usuario;
 
     /**
      * @ORM\Column(type="string")
      */
     protected $nombre;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $descripcion;
+
     public function __toString()
     {
-        return $this->nombreCalendario;
+        return $this->getNombre();
     }
 
     /**
@@ -47,7 +46,7 @@ class Calendario
      * Set nombre
      *
      * @param string $nombre
-     * @return Calendario
+     * @return Especialidad
      */
     public function setNombre($nombre)
     {
@@ -67,25 +66,25 @@ class Calendario
     }
 
     /**
-     * Set usuario
+     * Set descripcion
      *
-     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
-     * @return Calendario
+     * @param string $descripcion
+     * @return Especialidad
      */
-    public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
+    public function setDescripcion($descripcion)
     {
-        $this->usuario = $usuario;
+        $this->descripcion = $descripcion;
 
         return $this;
     }
 
     /**
-     * Get usuario
+     * Get descripcion
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return string 
      */
-    public function getUsuario()
+    public function getDescripcion()
     {
-        return $this->usuario;
+        return $this->descripcion;
     }
 }

@@ -1,45 +1,87 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AlumnoGrupoAlumno
- *
- * @ORM\Table(name="alumno_grupo_alumno", indexes={@ORM\Index(name="alumno_fk_grupo_alumno_idx", columns={"id_alumno"}), @ORM\Index(name="grupo_alumno_fk_alumno_idx", columns={"id_grupo"})})
  * @ORM\Entity
+ * @ORM\Table(name="alumno_grupo_alumno")
  */
 class AlumnoGrupoAlumno
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_alumno_grupo_alumno", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idAlumnoGrupoAlumno;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\GrupoAlumno
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\GrupoAlumno")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_grupo", referencedColumnName="id_grupo_alumno")
-     * })
+     * @ORM\ManyToOne(targetEntity="Alumno")
+     * @ORM\JoinColumn(name="alumno_id", referencedColumnName="id", nullable=false)
      */
-    private $idGrupo;
+    protected $alumno;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Alumno
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
-     * })
+     * @ORM\ManyToOne(targetEntity="GrupoAlumno")
+     * @ORM\JoinColumn(name="grupo_alumno_id", referencedColumnName="id", nullable=false)
      */
-    private $idAlumno;
+    protected $grupo_alumno;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return AlumnoGrupoAlumno
+     */
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getAlumno()
+    {
+        return $this->alumno;
+    }
+
+    /**
+     * Set grupo_alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoAlumno $grupoAlumno
+     * @return AlumnoGrupoAlumno
+     */
+    public function setGrupoAlumno(\Acme\boletinesBundle\Entity\GrupoAlumno $grupoAlumno)
+    {
+        $this->grupo_alumno = $grupoAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get grupo_alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoAlumno 
+     */
+    public function getGrupoAlumno()
+    {
+        return $this->grupo_alumno;
+    }
 }

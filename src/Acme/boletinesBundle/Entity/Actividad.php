@@ -1,212 +1,237 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Actividad
- *
- * @ORM\Table(name="actividad", indexes={@ORM\Index(name="usuario_fk_actividad", columns={"id_usuario_creador"}), @ORM\Index(name="archivo_fk_actividad", columns={"id_archivo"})})
  * @ORM\Entity
+ * @ORM\Table(name="actividad")
  */
 class Actividad
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_actividad", type="string", length=45, nullable=false)
-     */
-    private $nombreActividad;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descripcion_actividad", type="string", length=500, nullable=false)
-     */
-    private $descripcionActividad;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_desde", type="datetime", nullable=false)
-     */
-    private $fechaDesde;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_hasta", type="datetime", nullable=false)
-     */
-    private $fechaHasta;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)
-     */
-    private $fechaCreacion;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_actividad", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
-    private $idActividad;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * @ORM\Column(type="string")
+     */
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $descripcion;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_desde;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_hasta;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Archivo")
+     * @ORM\JoinColumn(name="archivo_id", referencedColumnName="id", nullable=true)
+     */
+    protected $archivo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario_carga;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_carga;
+
+    public function __construct()
+    {
+        $this->fecha_carga = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_creador", referencedColumnName="id_usuario")
-     * })
+     * @return integer 
      */
-    private $idUsuarioCreador;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Archivo
+     * Set nombre
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Archivo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_archivo", referencedColumnName="id_archivo")
-     * })
+     * @param string $nombre
+     * @return Actividad
      */
-    private $idArchivo;
-
-    /**
-     * @return string
-     */
-    public function getNombreActividad()
+    public function setNombre($nombre)
     {
-        return $this->nombreActividad;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param string $nombreActividad
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setNombreActividad($nombreActividad)
+    public function getNombre()
     {
-        $this->nombreActividad = $nombreActividad;
+        return $this->nombre;
     }
 
     /**
-     * @return string
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Actividad
      */
-    public function getDescripcionActividad()
+    public function setDescripcion($descripcion)
     {
-        return $this->descripcionActividad;
+        $this->descripcion = $descripcion;
+
+        return $this;
     }
 
     /**
-     * @param string $descripcionActividad
+     * Get descripcion
+     *
+     * @return string 
      */
-    public function setDescripcionActividad($descripcionActividad)
+    public function getDescripcion()
     {
-        $this->descripcionActividad = $descripcionActividad;
+        return $this->descripcion;
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getFechaDesde()
-    {
-        return $this->fechaDesde;
-    }
-
-    /**
+     * Set fecha_desde
+     *
      * @param \DateTime $fechaDesde
+     * @return Actividad
      */
     public function setFechaDesde($fechaDesde)
     {
-        $this->fechaDesde = $fechaDesde;
+        $this->fecha_desde = $fechaDesde;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fecha_desde
+     *
+     * @return \DateTime 
      */
-    public function getFechaHasta()
+    public function getFechaDesde()
     {
-        return $this->fechaHasta;
+        return $this->fecha_desde;
     }
 
     /**
+     * Set fecha_hasta
+     *
      * @param \DateTime $fechaHasta
+     * @return Actividad
      */
     public function setFechaHasta($fechaHasta)
     {
-        $this->fechaHasta = $fechaHasta;
+        $this->fecha_hasta = $fechaHasta;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fecha_hasta
+     *
+     * @return \DateTime 
      */
-    public function getFechaCreacion()
+    public function getFechaHasta()
     {
-        return $this->fechaCreacion;
+        return $this->fecha_hasta;
     }
 
     /**
-     * @param \DateTime $fechaCreacion
+     * Set fecha_carga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Actividad
      */
-    public function setFechaCreacion($fechaCreacion)
+    public function setFechaCarga($fechaCarga)
     {
-        $this->fechaCreacion = $fechaCreacion;
+        $this->fecha_carga = $fechaCarga;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fecha_carga
+     *
+     * @return \DateTime 
      */
-    public function getIdActividad()
+    public function getFechaCarga()
     {
-        return $this->idActividad;
+        return $this->fecha_carga;
     }
 
     /**
-     * @param int $idActividad
+     * Set archivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $archivo
+     * @return Actividad
      */
-    public function setIdActividad($idActividad)
+    public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
     {
-        $this->idActividad = $idActividad;
+        $this->archivo = $archivo;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
-     */
-    public function getUsuarioCreador()
-    {
-        return $this->idUsuarioCreador;
-    }
-
-    /**
-     * @param Usuario $idUsuarioCreador
-     */
-    public function setUsuarioCreador($idUsuarioCreador)
-    {
-        $this->idUsuarioCreador = $idUsuarioCreador;
-    }
-
-    /**
-     * @return Archivo
+     * Get archivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
      */
     public function getArchivo()
     {
-        return $this->idArchivo;
+        return $this->archivo;
     }
 
     /**
-     * @param Archivo $idArchivo
+     * Set usuario_carga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Actividad
      */
-    public function setArchivo($idArchivo)
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga)
     {
-        $this->idArchivo = $idArchivo;
+        $this->usuario_carga = $usuarioCarga;
+
+        return $this;
     }
 
-    public function __toString(){
-
-        return $this->getNombreActividad();
+    /**
+     * Get usuario_carga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->usuario_carga;
     }
-
 }
