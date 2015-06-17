@@ -1,88 +1,120 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Materia
- *
- * @ORM\Table(name="materia", indexes={@ORM\Index(name="calendario_fk_materia", columns={"id_calendario_materia"}), @ORM\Index(name="tipo_materia_fk_materia", columns={"id_tipo_materia"})})
  * @ORM\Entity
+ * @ORM\Table(name="materia")
  */
 class Materia
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_materia", type="string", length=45, nullable=false)
-     */
-    private $nombreMateria;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_materia", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idMateria;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\TipoMateria
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\TipoMateria")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_tipo_materia", referencedColumnName="id_tipo_materia")
-     * })
+     * @ORM\Column(type="string")
      */
-    private $idTipoMateria;
+    protected $nombre;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Calendario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Calendario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_calendario_materia", referencedColumnName="id_calendario")
-     * })
+     * @ORM\ManyToOne(targetEntity="TipoMateria")
+     * @ORM\JoinColumn(name="tipo_materia_id", referencedColumnName="id", nullable=false)
      */
-    private $idCalendarioMateria;
+    protected $tipo_materia;
 
-	public function getNombreMateria(){
-		return $this->nombreMateria;
-	}
+    /**
+     * @ORM\ManyToOne(targetEntity="Calendario")
+     * @ORM\JoinColumn(name="calendario_id", referencedColumnName="id", nullable=false)
+     */
+    protected $calendario;
 
-	public function setNombreMateria($nombreMateria){
-		$this->nombreMateria = $nombreMateria;
-	}
+    public function __toString()
+    {
+        return $this->getNombre();  
+    }
 
-	public function getIdMateria(){
-		return $this->idMateria;
-	}
-	public function getId(){
-		return $this->idMateria;
-	}
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function setIdMateria($idMateria){
-		$this->idMateria = $idMateria;
-	}
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Materia
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
 
-	public function getTipoMateria(){
-		return $this->idTipoMateria;
-	}
+        return $this;
+    }
 
-	public function setTipoMateria($idTipoMateria){
-		$this->idTipoMateria = $idTipoMateria;
-	}
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
 
-	public function getCalendarioMateria(){
-		return $this->idCalendarioMateria;
-	}
+    /**
+     * Set tipo_materia
+     *
+     * @param \Acme\boletinesBundle\Entity\TipoMateria $tipoMateria
+     * @return Materia
+     */
+    public function setTipoMateria(\Acme\boletinesBundle\Entity\TipoMateria $tipoMateria)
+    {
+        $this->tipo_materia = $tipoMateria;
 
-	public function setCalendarioMateria($idCalendarioMateria){
-		$this->idCalendarioMateria = $idCalendarioMateria;
-	}
-    public function __toString() {
-     return $this->nombreMateria;  
-   } 
+        return $this;
+    }
+
+    /**
+     * Get tipo_materia
+     *
+     * @return \Acme\boletinesBundle\Entity\TipoMateria 
+     */
+    public function getTipoMateria()
+    {
+        return $this->tipo_materia;
+    }
+
+    /**
+     * Set calendario
+     *
+     * @param \Acme\boletinesBundle\Entity\Calendario $calendario
+     * @return Materia
+     */
+    public function setCalendario(\Acme\boletinesBundle\Entity\Calendario $calendario)
+    {
+        $this->calendario = $calendario;
+
+        return $this;
+    }
+
+    /**
+     * Get calendario
+     *
+     * @return \Acme\boletinesBundle\Entity\Calendario 
+     */
+    public function getCalendario()
+    {
+        return $this->calendario;
+    }
 }

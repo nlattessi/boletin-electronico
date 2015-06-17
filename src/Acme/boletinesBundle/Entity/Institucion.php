@@ -3,137 +3,88 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Institucion
- *
- * @ORM\Table(name="institucion")
  * @ORM\Entity
+ * @ORM\Table(name="institucion")
  */
 class Institucion
 {
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @ORM\Column(name="nombre_institucion", type="string", length=45, nullable=false)
-     */
-    private $nombreInstitucion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="direccion_institucion", type="string", length=45, nullable=false)
-     */
-    private $direccionInstitucion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono_institucion", type="string", length=45, nullable=true)
-     */
-    private $telefonoInstitucion;
-
-    /**
-     * @var string
-     * @Assert\Email()
-     * @ORM\Column(name="email_institucion", type="string", length=45, nullable=true)
-     */
-    private $emailInstitucion;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_institucion", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idInstitucion;
+    protected $id;
 
     /**
-     * @param string $direccionInstitucion
+     * @ORM\Column(type="string")
      */
-    public function setDireccionInstitucion($direccionInstitucion)
-    {
-        $this->direccionInstitucion = $direccionInstitucion;
-    }
+    protected $nombre;
 
     /**
-     * @return string
+     * @ORM\Column(type="text", nullable=true)
      */
-    public function getDireccionInstitucion()
-    {
-        return $this->direccionInstitucion;
-    }
-
-    /**
-     * @param string $emailInstitucion
-     */
-    public function setEmailInstitucion($emailInstitucion)
-    {
-        $this->emailInstitucion = $emailInstitucion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmailInstitucion()
-    {
-        return $this->emailInstitucion;
-    }
-
-    /**
-     * @param int $idInstitucion
-     */
-    public function setIdInstitucion($idInstitucion)
-    {
-        $this->idInstitucion = $idInstitucion;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdInstitucion()
-    {
-        return $this->idInstitucion;
-    }
-
-    /**
-     * @param string $nombreInstitucion
-     */
-    public function setNombreInstitucion($nombreInstitucion)
-    {
-        $this->nombreInstitucion = $nombreInstitucion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNombreInstitucion()
-    {
-        return $this->nombreInstitucion;
-    }
-
-    /**
-     * @param string $telefonoInstitucion
-     */
-    public function setTelefonoInstitucion($telefonoInstitucion)
-    {
-        $this->telefonoInstitucion = $telefonoInstitucion;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelefonoInstitucion()
-    {
-        return $this->telefonoInstitucion;
-    }
+    protected $logo;
 
     public function __toString()
     {
-        return $this->getNombreInstitucion();
+        return $this->getNombre();
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Institucion
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     * @return Institucion
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string 
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
 }

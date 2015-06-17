@@ -1,90 +1,90 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * GrupoAlumno
- *
- * @ORM\Table(name="grupo_alumno")
  * @ORM\Entity
+ * @ORM\Table(name="grupo_alumno")
  */
 class GrupoAlumno
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_grupo_alumno", type="string", length=45, nullable=false)
-     */
-    private $nombreGrupoAlumno;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="es_curso", type="boolean", nullable=false)
-     */
-    private $esCurso;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_grupo_alumno", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idGrupoAlumno;
+    protected $id;
 
     /**
-     * @return string
+     * @ORM\Column(type="string")
      */
-    public function getNombreGrupoAlumno()
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $es_curso;
+
+    public function __toString()
     {
-        return $this->nombreGrupoAlumno;
+        return $this->getNombre();
     }
 
     /**
-     * @param string $nombreGrupoAlumno
+     * Get id
+     *
+     * @return integer 
      */
-    public function setNombreGrupoAlumno($nombreGrupoAlumno)
+    public function getId()
     {
-        $this->nombreGrupoAlumno = $nombreGrupoAlumno;
+        return $this->id;
     }
 
     /**
-     * @return boolean
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return GrupoAlumno
      */
-    public function isEsCurso()
+    public function setNombre($nombre)
     {
-        return $this->esCurso;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set es_curso
+     *
      * @param boolean $esCurso
+     * @return GrupoAlumno
      */
     public function setEsCurso($esCurso)
     {
-        $this->esCurso = $esCurso;
+        $this->es_curso = $esCurso;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get es_curso
+     *
+     * @return boolean 
      */
-    public function getIdGrupoAlumno()
+    public function getEsCurso()
     {
-        return $this->idGrupoAlumno;
+        return $this->es_curso;
     }
-
-    /**
-     * @param int $idGrupoAlumno
-     */
-    public function setIdGrupoAlumno($idGrupoAlumno)
-    {
-        $this->idGrupoAlumno = $idGrupoAlumno;
-    }
-
-    public function __toString(){
-        return $this->getNombreGrupoAlumno();
-    }
-
 }

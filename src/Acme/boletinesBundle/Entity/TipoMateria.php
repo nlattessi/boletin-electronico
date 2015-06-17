@@ -1,69 +1,62 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TipoMateria
- *
- * @ORM\Table(name="tipo_materia")
  * @ORM\Entity
+ * @ORM\Table(name="tipo_materia")
  */
 class TipoMateria
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_tipo_materia", type="string", length=45, nullable=false)
-     */
-    private $nombreTipoMateria;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_tipo_materia", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idTipoMateria;
+    protected $id;
 
     /**
-     * @return string
+     * @ORM\Column(type="string")
      */
-    public function getNombreTipoMateria()
+    protected $nombre;
+
+    public function __toString()
     {
-        return $this->nombreTipoMateria;
+        return $this->getNombre();
     }
 
     /**
-     * @param string $nombreTipoMateria
+     * Get id
+     *
+     * @return integer 
      */
-    public function setNombreTipoMateria($nombreTipoMateria)
+    public function getId()
     {
-        $this->nombreTipoMateria = $nombreTipoMateria;
+        return $this->id;
     }
 
     /**
-     * @return int
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return TipoMateria
      */
-    public function getIdTipoMateria()
+    public function setNombre($nombre)
     {
-        return $this->idTipoMateria;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param int $idTipoMateria
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setIdTipoMateria($idTipoMateria)
+    public function getNombre()
     {
-        $this->idTipoMateria = $idTipoMateria;
+        return $this->nombre;
     }
-
-
-
-    public function __toString() {
-        return $this->nombreTipoMateria;
-   } 
-
 }

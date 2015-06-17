@@ -1,45 +1,87 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AlumnoMateria
- *
- * @ORM\Table(name="alumno_materia", indexes={@ORM\Index(name="alumno_fk_materia_idx", columns={"id_alumno"}), @ORM\Index(name="materia_fk_alumno_idx", columns={"id_materia"})})
  * @ORM\Entity
+ * @ORM\Table(name="alumno_materia")
  */
 class AlumnoMateria
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_alumno_materia", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idAlumnoMateria;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Materia
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_materia", referencedColumnName="id_materia")
-     * })
+     * @ORM\ManyToOne(targetEntity="Alumno")
+     * @ORM\JoinColumn(name="alumno_id", referencedColumnName="id", nullable=false)
      */
-    private $idMateria;
+    protected $alumno;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Alumno
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
-     * })
+     * @ORM\ManyToOne(targetEntity="Materia")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id", nullable=false)
      */
-    private $idAlumno;
+    protected $materia;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return AlumnoMateria
+     */
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getAlumno()
+    {
+        return $this->alumno;
+    }
+
+    /**
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return AlumnoMateria
+     */
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getMateria()
+    {
+        return $this->materia;
+    }
 }

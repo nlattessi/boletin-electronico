@@ -1,162 +1,180 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Archivo
- *
- * @ORM\Table(name="archivo", indexes={@ORM\Index(name="usuario_fk_archivo", columns={"id_usuario_carga"})})
  * @ORM\Entity
+ * @ORM\Table(name="archivo")
  */
 class Archivo
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_para_mostrar", type="string", length=45, nullable=false)
-     */
-    private $nombreParaMostrar;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_archivo", type="string", length=45, nullable=false)
-     */
-    private $nombreArchivo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ruta_archivo", type="string", length=75, nullable=false)
-     */
-    private $rutaArchivo;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_subida", type="datetime")
-     */
-    private $fechaSubida;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_archivo", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idArchivo;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_carga", referencedColumnName="id_usuario")
-     * })
+     * @ORM\Column(type="string")
      */
-    private $idUsuarioCarga;
+    protected $nombre_para_mostrar;
 
     /**
-     * @return string
+     * @ORM\Column(type="string")
      */
-    public function getNombreParaMostrar()
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $ruta;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id", nullable=false)
+     */
+    protected $usuario_carga;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_carga;
+
+    public function __construct()
     {
-        return $this->nombreParaMostrar;
+        $this->fecha_carga = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 
     /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre_para_mostrar
+     *
      * @param string $nombreParaMostrar
+     * @return Archivo
      */
     public function setNombreParaMostrar($nombreParaMostrar)
     {
-        $this->nombreParaMostrar = $nombreParaMostrar;
+        $this->nombre_para_mostrar = $nombreParaMostrar;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get nombre_para_mostrar
+     *
+     * @return string 
      */
-    public function getNombreArchivo()
+    public function getNombreParaMostrar()
     {
-        return $this->nombreArchivo;
+        return $this->nombre_para_mostrar;
     }
 
     /**
-     * @param string $nombreArchivo
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Archivo
      */
-    public function setNombreArchivo($nombreArchivo)
+    public function setNombre($nombre)
     {
-        $this->nombreArchivo = $nombreArchivo;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get nombre
+     *
+     * @return string 
      */
-    public function getRutaArchivo()
+    public function getNombre()
     {
-        return $this->rutaArchivo;
+        return $this->nombre;
     }
 
     /**
-     * @param string $rutaArchivo
+     * Set ruta
+     *
+     * @param string $ruta
+     * @return Archivo
      */
-    public function setRutaArchivo($rutaArchivo)
+    public function setRuta($ruta)
     {
-        $this->rutaArchivo = $rutaArchivo;
+        $this->ruta = $ruta;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get ruta
+     *
+     * @return string 
      */
-    public function getFechaSubida()
+    public function getRuta()
     {
-        return $this->fechaSubida;
+        return $this->ruta;
     }
 
     /**
-     * @param \DateTime $fechaSubida
+     * Set fecha_carga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Archivo
      */
-    public function setFechaSubida($fechaSubida)
+    public function setFechaCarga($fechaCarga)
     {
-        $this->fechaSubida = $fechaSubida;
+        $this->fecha_carga = $fechaCarga;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fecha_carga
+     *
+     * @return \DateTime 
      */
-    public function getIdArchivo()
+    public function getFechaCarga()
     {
-        return $this->idArchivo;
+        return $this->fecha_carga;
     }
 
     /**
-     * @param int $idArchivo
+     * Set usuario_carga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Archivo
      */
-    public function setIdArchivo($idArchivo)
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga)
     {
-        $this->idArchivo = $idArchivo;
+        $this->usuario_carga = $usuarioCarga;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
+     * Get usuario_carga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
-    public function getIdUsuarioCarga()
+    public function getUsuarioCarga()
     {
-        return $this->idUsuarioCarga;
+        return $this->usuario_carga;
     }
-
-    /**
-     * @param Usuario $idUsuarioCarga
-     */
-    public function setIdUsuarioCarga($idUsuarioCarga)
-    {
-        $this->idUsuarioCarga = $idUsuarioCarga;
-    }
-
-    public function __toString(){
-        return $this->getNombreArchivo();
-    }
-
 }

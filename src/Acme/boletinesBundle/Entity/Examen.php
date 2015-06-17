@@ -1,169 +1,177 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Examen
- *
- * @ORM\Table(name="examen", indexes={@ORM\Index(name="docente_fk_examen", columns={"id_docente"}), @ORM\Index(name="materia_fk_examen", columns={"id_materia"}), @ORM\Index(name="actividad_fk_examen", columns={"id_actividad"})})
  * @ORM\Entity
+ * @ORM\Table(name="examen")
  */
 class Examen
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_examen", type="string", length=45, nullable=false)
-     */
-    private $nombreExamen;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_examen", type="datetime", nullable=false)
-     */
-    private $fechaExamen;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_examen", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idExamen;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Materia
+     * @ORM\Column(type="string")
+     */
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Docente")
+     * @ORM\JoinColumn(name="docente_id", referencedColumnName="id", nullable=false)
+     */
+    protected $docente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Materia")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id", nullable=false)
+     */
+    protected $materia;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Actividad")
+     * @ORM\JoinColumn(name="actividad_id", referencedColumnName="id", nullable=false)
+     */
+    protected $actividad;
+
+    public function __toString()
+    {
+        return  $this->getNombre();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_materia", referencedColumnName="id_materia")
-     * })
+     * @return integer 
      */
-    private $idMateria;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Docente
+     * Set nombre
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Docente")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_docente", referencedColumnName="id_docente")
-     * })
+     * @param string $nombre
+     * @return Examen
      */
-    private $idDocente;
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Actividad
+     * Get nombre
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Actividad")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_actividad", referencedColumnName="id_actividad")
-     * })
+     * @return string 
      */
-    private $idActividad;
-
-    /**
-     * @return string
-     */
-    public function getNombreExamen()
+    public function getNombre()
     {
-        return $this->nombreExamen;
+        return $this->nombre;
     }
 
     /**
-     * @param string $nombreExamen
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Examen
      */
-    public function setNombreExamen($nombreExamen)
+    public function setFecha($fecha)
     {
-        $this->nombreExamen = $nombreExamen;
+        $this->fecha = $fecha;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fecha
+     *
+     * @return \DateTime 
      */
-    public function getFechaExamen()
+    public function getFecha()
     {
-        return $this->fechaExamen;
+        return $this->fecha;
     }
 
     /**
-     * @param \DateTime $fechaExamen
+     * Set docente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $docente
+     * @return Examen
      */
-    public function setFechaExamen($fechaExamen)
+    public function setDocente(\Acme\boletinesBundle\Entity\Docente $docente)
     {
-        $this->fechaExamen = $fechaExamen;
+        $this->docente = $docente;
+
+        return $this;
     }
 
     /**
-     * @return int
-     */
-    public function getIdExamen()
-    {
-        return $this->idExamen;
-    }
-
-    /**
-     * @param int $idExamen
-     */
-    public function setIdExamen($idExamen)
-    {
-        $this->idExamen = $idExamen;
-    }
-
-    /**
-     * @return Materia
-     */
-    public function getMateria()
-    {
-        return $this->idMateria;
-    }
-
-    /**
-     * @param Materia $idMateria
-     */
-    public function setMateria($idMateria)
-    {
-        $this->idMateria = $idMateria;
-    }
-
-    /**
-     * @return Docente
+     * Get docente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
      */
     public function getDocente()
     {
-        return $this->idDocente;
+        return $this->docente;
     }
 
     /**
-     * @param Docente $idDocente
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return Examen
      */
-    public function setDocente($idDocente)
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia)
     {
-        $this->idDocente = $idDocente;
+        $this->materia = $materia;
+
+        return $this;
     }
 
     /**
-     * @return Actividad
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getMateria()
+    {
+        return $this->materia;
+    }
+
+    /**
+     * Set actividad
+     *
+     * @param \Acme\boletinesBundle\Entity\Actividad $actividad
+     * @return Examen
+     */
+    public function setActividad(\Acme\boletinesBundle\Entity\Actividad $actividad)
+    {
+        $this->actividad = $actividad;
+
+        return $this;
+    }
+
+    /**
+     * Get actividad
+     *
+     * @return \Acme\boletinesBundle\Entity\Actividad 
      */
     public function getActividad()
     {
-        return $this->idActividad;
+        return $this->actividad;
     }
-
-    /**
-     * @param Actividad $idActividad
-     */
-    public function setActividad($idActividad)
-    {
-        $this->idActividad = $idActividad;
-    }
-
-    public function __toString(){
-      return  $this->getNombreExamen();
-    }
-
-
 }

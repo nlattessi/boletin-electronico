@@ -1,45 +1,87 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MateriaArchivo
- *
- * @ORM\Table(name="materia_archivo", indexes={@ORM\Index(name="materia_fk_archivo", columns={"id_materia"}), @ORM\Index(name="archivo_fk_materia", columns={"id_archivo"})})
  * @ORM\Entity
+ * @ORM\Table(name="materia_archivo")
  */
 class MateriaArchivo
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_materia_archivo", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idMateriaArchivo;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Materia
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_materia", referencedColumnName="id_materia")
-     * })
+     * @ORM\ManyToOne(targetEntity="Materia")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id", nullable=false)
      */
-    private $idMateria;
+    protected $materia;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Archivo
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Archivo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_archivo", referencedColumnName="id_archivo")
-     * })
+     * @ORM\ManyToOne(targetEntity="Archivo")
+     * @ORM\JoinColumn(name="archivo_id", referencedColumnName="id", nullable=false)
      */
-    private $idArchivo;
+    protected $archivo;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return MateriaArchivo
+     */
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getMateria()
+    {
+        return $this->materia;
+    }
+
+    /**
+     * Set archivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $archivo
+     * @return MateriaArchivo
+     */
+    public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo)
+    {
+        $this->archivo = $archivo;
+
+        return $this;
+    }
+
+    /**
+     * Get archivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
+     */
+    public function getArchivo()
+    {
+        return $this->archivo;
+    }
 }

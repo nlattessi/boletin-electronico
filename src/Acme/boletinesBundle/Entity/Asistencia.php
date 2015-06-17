@@ -1,142 +1,153 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Asistencia
- *
- * @ORM\Table(name="asistencia", indexes={@ORM\Index(name="materia_fk_asistencia", columns={"id_materia"}), @ORM\Index(name="usuario_fk_asistencia", columns={"id_usuario_cargador"})})
  * @ORM\Entity
+ * @ORM\Table(name="asistencia")
  */
 class Asistencia
 {
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_asistencia", type="datetime", nullable=false)
-     */
-    private $fechaAsistencia;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_carga", type="datetime", nullable=false)
-     */
-    private $fechaCarga;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_asistencia", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idAsistencia;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_cargador", referencedColumnName="id_usuario")
-     * })
+     * @ORM\ManyToOne(targetEntity="Materia")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id", nullable=false)
      */
-    private $idUsuarioCargador;
+    protected $materia;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Materia
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_materia", referencedColumnName="id_materia")
-     * })
+     * @ORM\Column(type="date")
      */
-    private $idMateria;
+    protected $fecha;
 
     /**
-     * @return \DateTime
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id", nullable=false)
      */
-    public function getFechaAsistencia()
+    protected $usuario_carga;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $fecha_carga;
+
+    public function __construct()
     {
-        return $this->fechaAsistencia;
+        $this->fecha_carga = new \DateTime();
     }
 
-    /**
-     * @param \DateTime $fechaAsistencia
-     */
-    public function setFechaAsistencia($fechaAsistencia)
+    public function __toString()
     {
-        $this->fechaAsistencia = $fechaAsistencia;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getFechaCarga()
-    {
-        return $this->fechaCarga;
-    }
-
-    /**
-     * @param \DateTime $fechaCarga
-     */
-    public function setFechaCarga($fechaCarga)
-    {
-        $this->fechaCarga = $fechaCarga;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdAsistencia()
-    {
-        return $this->idAsistencia;
-    }
-
-    /**
-     * @param int $idAsistencia
-     */
-    public function setIdAsistencia($idAsistencia)
-    {
-        $this->idAsistencia = $idAsistencia;
-    }
-
-    /**
-     * @return Usuario
-     */
-    public function getUsuarioCargador()
-    {
-        return $this->idUsuarioCargador;
-    }
-
-    /**
-     * @param Usuario $idUsuarioCargador
-     */
-    public function setUsuarioCargador($idUsuarioCargador)
-    {
-        $this->idUsuarioCargador = $idUsuarioCargador;
-    }
-
-    /**
-     * @return Materia
-     */
-    public function getMateria()
-    {
-        return $this->idMateria;
-    }
-
-    /**
-     * @param Materia $idMateria
-     */
-    public function setMateria($idMateria)
-    {
-        $this->idMateria = $idMateria;
-    }
-
-    public function __toString(){
         return 'Asistencia del dia' . $this->getFechaAsistencia()->format('d-m-Y');
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Asistencia
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * Set fecha_carga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Asistencia
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fecha_carga = $fechaCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha_carga
+     *
+     * @return \DateTime 
+     */
+    public function getFechaCarga()
+    {
+        return $this->fecha_carga;
+    }
+
+    /**
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return Asistencia
+     */
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getMateria()
+    {
+        return $this->materia;
+    }
+
+    /**
+     * Set usuario_carga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Asistencia
+     */
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga)
+    {
+        $this->usuario_carga = $usuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario_carga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->usuario_carga;
+    }
 }

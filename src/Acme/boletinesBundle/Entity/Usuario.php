@@ -1,172 +1,147 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Usuario
- *
- * @ORM\Table(name="usuario")
  * @ORM\Entity
+ * @ORM\Table(name="usuario")
  */
-class Usuario implements UserInterface, \Serializable
+class Usuario
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_usuario", type="string", length=45, nullable=false)
-     */
-    private $nombreUsuario;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=45, nullable=false)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_usuario_para_mostrar", type="string", length=45, nullable=false)
-     */
-    private $nombreUsuarioParaMostrar;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_real", type="string", length=45, nullable=true)
-     */
-    private $nombreReal;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono_usuario", type="string", length=15, nullable=true)
-     */
-    private $telefonoUsuario;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_usuario", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idUsuario;
+    protected $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Rol
+     * @ORM\Column(type="string")
+     */
+    protected $username;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $password_hash;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Rol")
+     * @ORM\JoinColumn(name="rol_id", referencedColumnName="id", nullable=false)
+     */
+    protected $rol;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $id_entidad_correspondiente;
+
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
+
+    /**
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Rol")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_rol", referencedColumnName="id_rol")
-     * })
+     * @return integer 
      */
-    private $idRol;
-
-	public function getNombreUsuario(){
-		return $this->nombreUsuario;
-	}
-
-	public function setNombreUsuario($nombreUsuario){
-		$this->nombreUsuario = $nombreUsuario;
-	}
-
-	public function getPassword(){
-		return $this->password;
-	}
-
-	public function setPassword($password){
-		$this->password = $password;
-	}
-
-	public function getNombreUsuarioParaMostrar(){
-		return $this->nombreUsuarioParaMostrar;
-	}
-
-	public function setNombreUsuarioParaMostrar($nombreUsuarioParaMostrar){
-		$this->nombreUsuarioParaMostrar = $nombreUsuarioParaMostrar;
-	}
-
-	public function getNombreReal(){
-		return $this->nombreReal;
-	}
-
-	public function setNombreReal($nombreReal){
-		$this->nombreReal = $nombreReal;
-	}
-
-	public function getTelefonoUsuario(){
-		return $this->telefonoUsuario;
-	}
-
-	public function setTelefonoUsuario($telefonoUsuario){
-		$this->telefonoUsuario = $telefonoUsuario;
-	}
-
-	public function getIdUsuario(){
-		return $this->idUsuario;
-	}
-	public function getId(){
-		return $this->idUsuario;
-	}
-
-	public function setIdUsuario($idUsuario){
-		$this->idUsuario = $idUsuario;
-	}
-
-    public function __toString(){
-        return $this->getNombreUsuarioParaMostrar();
-    }
-
-    public function getRoles(){
-        return array($this->idRol->getNombreRol());
-//        return array('ROLE_ADMIN');
-    }
-
-    public function getSalt(){
-        return '';
-    }
-
-    public function getUsername(){
-        return $this->nombreUsuario;
-    }
-    public function eraseCredentials(){}
-
-    /**
-     * @see \Serializable::serialize()
-     */
-    public function serialize(){
-        return serialize(array(
-            $this->idUsuario,
-        ));
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
-     * @see \Serializable::unserialize()
+     * Set username
+     *
+     * @param string $username
+     * @return Usuario
      */
-    public function unserialize($serialized){
-        list (
-            $this->idUsuario,
-            ) = unserialize($serialized);
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**
-     * @return Rol
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set password_hash
+     *
+     * @param string $passwordHash
+     * @return Usuario
+     */
+    public function setPasswordHash($passwordHash)
+    {
+        $this->password_hash = $passwordHash;
+
+        return $this;
+    }
+
+    /**
+     * Get password_hash
+     *
+     * @return string 
+     */
+    public function getPasswordHash()
+    {
+        return $this->password_hash;
+    }
+
+    /**
+     * Set id_entidad_correspondiente
+     *
+     * @param integer $idEntidadCorrespondiente
+     * @return Usuario
+     */
+    public function setIdEntidadCorrespondiente($idEntidadCorrespondiente)
+    {
+        $this->id_entidad_correspondiente = $idEntidadCorrespondiente;
+
+        return $this;
+    }
+
+    /**
+     * Get id_entidad_correspondiente
+     *
+     * @return integer 
+     */
+    public function getIdEntidadCorrespondiente()
+    {
+        return $this->id_entidad_correspondiente;
+    }
+
+    /**
+     * Set rol
+     *
+     * @param \Acme\boletinesBundle\Entity\Rol $rol
+     * @return Usuario
+     */
+    public function setRol(\Acme\boletinesBundle\Entity\Rol $rol)
+    {
+        $this->rol = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Acme\boletinesBundle\Entity\Rol 
      */
     public function getRol()
     {
-        return $this->idRol;
-    }
-
-    /**
-     * @param Rol $idRol
-     */
-    public function setRol($idRol)
-    {
-        $this->idRol = $idRol;
+        return $this->rol;
     }
 }

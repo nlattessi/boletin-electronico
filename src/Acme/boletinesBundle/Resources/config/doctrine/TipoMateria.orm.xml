@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Acme\boletinesBundle\Entity\TipoMateria" table="tipo_materia">
-    <id name="idTipoMateria" type="integer" column="id_tipo_materia">
-      <generator strategy="IDENTITY"/>
-    </id>
-    <field name="nombreTipoMateria" type="string" column="nombre_tipo_materia" length="45" nullable="false"/>
-  </entity>
-</doctrine-mapping>

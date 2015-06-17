@@ -1,54 +1,91 @@
-<?php
+<?php 
 
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Rol
- *
- * @ORM\Table(name="rol")
  * @ORM\Entity
+ * @ORM\Table(name="rol")
  */
 class Rol
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_rol", type="string", length=45, nullable=false)
-     */
-    private $nombreRol;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_rol", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idRol;
+    protected $id;
 
     /**
-     * @return string
+     * @ORM\Column(type="string")
      */
-    public function getNombreRol()
+    protected $nombre;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $descripcion;
+
+    public function __toString()
     {
-        return $this->nombreRol;
+        return $this->getNombre();
     }
 
-    public function __toString(){
-        return $this->getNombreRol();
-    }
 
-    public function getId(){
-        return $this->idRol;
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
-     * @return int
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Rol
      */
-    public function getIdRol()
+    public function setNombre($nombre)
     {
-        return $this->idRol;
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Rol
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 }
