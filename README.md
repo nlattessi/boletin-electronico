@@ -4,6 +4,7 @@ Links importantes:
 - [Asana](https://app.asana.com)
 - [Trello](https://trello.com/b/dwncOdSd/boletines)
 - [Documentacion Symfony](http://symfony.com/doc/current/index.html)
+- [Repo de Front-End](https://github.com/Gunigugu/Communitas)
 
 Wiki interna:
 - [Guia deploy en Windows](https://github.com/nlattessi/boletin-electronico/wiki/Guia-deploy-en-Windows)
