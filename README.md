@@ -5,6 +5,7 @@ Links importantes:
 - [Trello](https://trello.com/b/dwncOdSd/boletines)
 - [Documentacion Symfony](http://symfony.com/doc/current/index.html)
 - [Repo de Front-End](https://github.com/Gunigugu/Communitas)
+- [Documento online de Modelo de datos](https://docs.google.com/document/d/1nRZkYKjIRz_ZzetTGPuUKWd_wJ_TQzPtIRuQukp36Rc/edit?usp=sharing)
 
 Wiki interna:
 - [Guia deploy en Windows](https://github.com/nlattessi/boletin-electronico/wiki/Guia-deploy-en-Windows)
