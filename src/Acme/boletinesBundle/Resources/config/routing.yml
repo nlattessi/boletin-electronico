@@ -73,3 +73,14 @@ boletines_calendario:
 boletines_login:
     resource: "@BoletinesBundle/Resources/config/routing/login.yml"
     prefix:   /login
+
+boletines_home:
+    resource: "@BoletinesBundle/Resources/config/routing/home.yml"
+    prefix:   /home
+
+logout:
+    path:   /logout
+
+login_index:
+    pattern:   /
+    defaults:  { _controller: BoletinesBundle:Login:login }

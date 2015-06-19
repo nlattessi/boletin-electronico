@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/boletines/css/ghpages-materialize.css')}}" />
             <link rel="stylesheet" href="{{ asset('bundles/boletines/css/prism.css')}}" />
+            <link rel="stylesheet" href="{{ asset('bundles/boletines/css/animate.css')}}" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" />
 
@@ -13,12 +14,12 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
+            <script src="{{ asset('bundles/boletines/javascript/jquery-2.1.1.min.js')}}"></script>
             <script src="{{ asset('bundles/boletines/javascript/jquery.timeago.min.js')}}"></script>
             <script src="{{ asset('bundles/boletines/javascript/prism.js')}}"></script>
             <script src="{{ asset('bundles/boletines/javascript/materialize.js')}}"></script>
             <script src="{{ asset('bundles/boletines/javascript/init.js')}}"></script>
             <script src="{{ asset('bundles/boletines/javascript/main.js')}}"></script>
-            <script src="{{ asset('bundles/boletines/javascript/jquery-2.1.4.js')}}"></script>
         {% endblock %}
     </body>
 </html>

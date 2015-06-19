@@ -1,23 +1,94 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Institucion edit</h1>
+    {#<h1>Institucion edit</h1>#}
 
     <h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('institucion_edit', {'id':institucion.idInstitucion }) }}" method="post">
-        <input type="text" value="{{ institucion.idInstitucion }}" hidden="hidden" name="id"><br/>
-        <input type="text" value="{{ institucion.nombreInstitucion }}" placeholder="nombre" name="nombreInstitucion"><br/>
-        <input type="text" value="{{ institucion.direccionInstitucion }}" placeholder="direccion" name="direccionInstitucion"><br/>
-        <input type="text" value="{{ institucion.telefonoInstitucion }}" placeholder="Telefono" name="telefonoInstitucion"><br/>
-        <input type="text" value="{{ institucion.emailInstitucion }}" placeholder="email" name="emailInstitucion"><br/>
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('institucion') }}">
-                Volver a la lista
-            </a>
-        </li>
+    {#<form action="{{ path('institucion_edit', {'id':institucion.idInstitucion }) }}" method="post">#}
+        {#<input type="text" value="{{ institucion.idInstitucion }}" hidden="hidden" name="id"><br/>#}
+        {#<input type="text" value="{{ institucion.nombreInstitucion }}" placeholder="nombre" name="nombreInstitucion"><br/>#}
+        {#<input type="text" value="{{ institucion.direccionInstitucion }}" placeholder="direccion" name="direccionInstitucion"><br/>#}
+        {#<input type="text" value="{{ institucion.telefonoInstitucion }}" placeholder="Telefono" name="telefonoInstitucion"><br/>#}
+        {#<input type="text" value="{{ institucion.emailInstitucion }}" placeholder="email" name="emailInstitucion"><br/>#}
+        {#<input type="submit" /><br/>#}
+    {#</form>#}
+    {#<ul class="record_actions">#}
+        {#<li>#}
+            {#<a href="{{ path('institucion') }}">#}
+                {#Volver a la lista#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
+
+
+
+<!-- Fixed nav -->
+<div class="navbar-fixed">
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
     </ul>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo"><img class="responsive-img" src={{ asset('bundles/boletines/images/communitas-mini2.png')}}></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#"><i class="icon-linear-alarm"></i></a></li>
+                <li><a href="#"><i class="icon-linear-envelope"></i></a></li>
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Super Admin<i
+                                class="icon-linear-chevron-down right"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- Main nav -->
+
+<nav class="main-nav">
+    <div class="main-nav-wrapper">
+        <ul class="hide-on-med-and-down">
+            <li class="main-nav-pad center-align"><a href="#" class="active"><i
+                            class="icon-linear-city icon-nav-size"></i><br><span>Instituciones</span></a></li>
+            <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-users icon-nav-size"></i>
+                    <br><span>Usuarios</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- startMain content-->
+<div class="container">
+    <div class="row">
+        <div class="col s10 m10 l10">
+            <h3 class="header">Nueva institución</h3>
+        </div>
+    </div>
+    <form action="{{ path('institucion_edit', {'id':institucion.idInstitucion }) }}" method="post">
+
+        <div class="row">
+            <div class="input-field col s12 m6 l6">
+                <input id="nombre_inst" type="text" class="validate"  value="{{ institucion.nombreInstitucion }}" name="nombreInstitucion">
+                <label for="nombre_inst">Nombre de la institución</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <input id="email" type="text" class="validate" value="{{ institucion.emailInstitucion }}" name="emailInstitucion">
+                <label for="email">Correo electrónico oficial</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <input id="nombre_apoderado" type="text" class="validate" value="{{ institucion.telefonoInstitucion }}" name="telefonoInstitucion">
+                <label for="nombre_apoderado">Teléfono</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <input id="nombre_apoderado" type="text" class="validate" value="{{ institucion.direccionInstitucion }}"  name="direccionInstitucion">
+                <label for="nombre_apoderado">Nombre del apoderado</label>
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit"/><br/>
+            <div class="col s12 center-align"><a href="#" class="btn-large waves-effect waves-light center-align">Guardar</a>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -72,12 +72,16 @@ security:
             form_login:
                 login_path:  login
                 check_path:  login_check
+                default_target_path: login_redirect
+            logout:
+                path:   /logout
+                target: /login/login
     providers:
         administrators:
             entity: { class: BoletinesBundle:Usuario, property: nombreUsuario }
-    role_hierarchy:
-            ROLE_ADMIN:       ROLE_USER
-            ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+#    role_hierarchy:
+#            ROLE_ADMIN:       ROLE_USER
+#            ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 #        in_memory:
 #            memory:
 #                users:

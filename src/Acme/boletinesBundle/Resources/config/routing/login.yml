@@ -4,4 +4,8 @@ login:
 
 login_check:
     pattern:   /login_check
-    
+
+login_redirect:
+    pattern:   /login/redirect
+    defaults:  { _controller: BoletinesBundle:Login:redirect }
+
