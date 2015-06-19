@@ -1,0 +1,3 @@
+home_father:
+    pattern:   /padre
+    defaults:  { _controller: BoletinesBundle:Home:father}
