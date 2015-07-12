@@ -41,5 +41,59 @@ class UsuarioGrupoUsuario
      */
     private $idGrupoUsuario;
 
+    public function UsuarioGrupoUsuario($usuario, $grupoUsuario){
+        $this->setUsuario($usuario);
+        $this->setGrupoUsuario($grupoUsuario);
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdUsuarioGrupoUsuario()
+    {
+        return $this->idUsuarioGrupoUsuario;
+    }
+
+    /**
+     * @param int $idUsuarioGrupoUsuario
+     */
+    public function setIdUsuarioGrupoUsuario($idUsuarioGrupoUsuario)
+    {
+        $this->idUsuarioGrupoUsuario = $idUsuarioGrupoUsuario;
+    }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @param Usuario $idUsuario
+     */
+    public function setUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    /**
+     * @return GrupoUsuario
+     */
+    public function getGrupoUsuario()
+    {
+        return $this->idGrupoUsuario;
+    }
+
+    /**
+     * @param GrupoUsuario $idGrupoUsuario
+     */
+    public function setGrupoUsuario($idGrupoUsuario)
+    {
+        $this->idGrupoUsuario = $idGrupoUsuario;
+    }
+
+
 
 }

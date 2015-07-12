@@ -41,5 +41,59 @@ class CalendarioActividad
      */
     private $idActividad;
 
+    public function CalendarioActividad($calendario, $actividad){
+        $this->setCalendario($calendario);
+        $this->setActividad($actividad);
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getIdCalendarioActividad()
+    {
+        return $this->idCalendarioActividad;
+    }
+
+    /**
+     * @param int $idCalendarioActividad
+     */
+    public function setIdCalendarioActividad($idCalendarioActividad)
+    {
+        $this->idCalendarioActividad = $idCalendarioActividad;
+    }
+
+    /**
+     * @return Calendario
+     */
+    public function getCalendario()
+    {
+        return $this->idCalendario;
+    }
+
+    /**
+     * @param Calendario $idCalendario
+     */
+    public function setCalendario($idCalendario)
+    {
+        $this->idCalendario = $idCalendario;
+    }
+
+    /**
+     * @return Actividad
+     */
+    public function getActividad()
+    {
+        return $this->idActividad;
+    }
+
+    /**
+     * @param Actividad $idActividad
+     */
+    public function setActividad($idActividad)
+    {
+        $this->idActividad = $idActividad;
+    }
+
 
 }

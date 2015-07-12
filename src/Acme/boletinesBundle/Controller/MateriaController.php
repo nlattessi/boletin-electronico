@@ -66,14 +66,26 @@ class MateriaController extends Controller
     private function createEntity($data)
     {
     	$em = $this->getDoctrine()->getManager();
+
+        $sesionService = $this->get('boletines.servicios.sesion');
+        $actividadService =  $this->get('boletines.servicios.actividad');
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
 			
     	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
-        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 0));
+        $usuario =  $sesionService->obtenerUsuario();
 		$calendario = new Calendario();
 		$calendario ->setUsuarioPropietario($usuario);
 		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
 		$em->persist($calendario);
         $em->flush();
+
+        $actividad = $actividadService->crearActividad('borrar despues',
+            'harcodeamela toda'
+            ,new \DateTime('now')
+            ,new \DateTime('now'),
+           $usuario,
+            null);
+        $muchosAMuchos->asociarCalendarioActividad($calendario,$actividad);
         $materia = new Materia();
         $materia->setNombreMateria($data->request->get('nombreMateria'));
     //    $materia->setIdTipoMateria($data->request->get('idTipoMateria'));

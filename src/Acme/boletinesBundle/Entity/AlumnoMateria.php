@@ -41,5 +41,60 @@ class AlumnoMateria
      */
     private $idAlumno;
 
+    public function AlumnoMateria($alumno, $materia){
+        $this->setAlumno($alumno);
+        $this->setMateria($materia);
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getIdAlumnoMateria()
+    {
+        return $this->idAlumnoMateria;
+    }
+
+    /**
+     * @param int $idAlumnoMateria
+     */
+    public function setIdAlumnoMateria($idAlumnoMateria)
+    {
+        $this->idAlumnoMateria = $idAlumnoMateria;
+    }
+
+    /**
+     * @return Materia
+     */
+    public function getMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * @param Materia $idMateria
+     */
+    public function setMateria($idMateria)
+    {
+        $this->idMateria = $idMateria;
+    }
+
+    /**
+     * @return Alumno
+     */
+    public function getAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param Alumno $idAlumno
+     */
+    public function setAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
+
 
 }

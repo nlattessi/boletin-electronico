@@ -10,3 +10,7 @@ services:
           class: Acme\boletinesBundle\Servicios\SesionService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.muchosamuchos:
+          class: Acme\boletinesBundle\Servicios\MuchosAmuchosService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
