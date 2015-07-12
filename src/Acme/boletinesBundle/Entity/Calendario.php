@@ -38,7 +38,7 @@ class Calendario
      */
     private $idUsuarioPropietario;
 
-public function getNombreCalendario(){
+    public function getNombreCalendario(){
 		return $this->nombreCalendario;
 	}
 
@@ -57,15 +57,23 @@ public function getNombreCalendario(){
 		$this->idCalendario = $idCalendario;
 	}
 
-	public function getUsuarioPropietario(){
-		return $this->idUsuarioPropietario;
-	}
-
-	public function setUsuarioPropietario($idUsuarioPropietario){
-		$this->idUsuarioPropietario = $idUsuarioPropietario;
-	}
-
 	public function __toString() {  
      return $this->nombreCalendario;  
-   } 
+   }
+
+    /**
+     * @return Usuario
+     */
+    public function getUsuarioPropietario()
+    {
+        return $this->idUsuarioPropietario;
+    }
+
+    /**
+     * @param Usuario $idUsuario
+     */
+    public function setUsuarioPropietario($idUsuarioPropietario)
+    {
+        $this->idUsuarioPropietario = $idUsuarioPropietario;
+    }
 }

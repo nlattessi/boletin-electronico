@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Calendario</h1>
+
+    <table class="record_properties">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>NombreCalendario</th>
+            <th>Propietario</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ calendario.idCalendario }}</td>
+            <td>{{ calendario.nombreCalendario }}</td>
+
+            {% if calendario.usuarioPropietario %}
+                <td>{{ calendario.usuarioPropietario }}</td>
+            {% endif %}
+
+        </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('calendario') }}">
+                Volver a la lista
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('calendario_edit', { 'id': calendario.idCalendario }) }}">
+                Editar
+            </a>
+        </li>
+        <li> <a href="{{ path('calendario_delete', { 'id': calendario.idCalendario }) }}">Borrar</a></li>
+    </ul>
+{% endblock %}

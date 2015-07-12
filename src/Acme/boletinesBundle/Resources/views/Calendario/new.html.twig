@@ -1,0 +1,30 @@
+{# {% extends '::base.html.twig' %} #}
+
+{% block body -%}
+    <h1>Calendario creation</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('calendario_new') }}" method="post">
+        <input type="text" placeholder="nombre" name="nombreCalendario"><br/>
+        
+        <select name="idUsuario">
+        {% for usuario in entitiesRelacionadas %}
+            <option value="{{usuario.id}}">{{usuario}}</option>
+        {% endfor %}
+            <option value="-1" selected="selected">Seleccione un usuario ser propietario del calendario</option>
+        </select>
+        <br>
+
+        <button type="submit">Crear calendario</button>
+    
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('calendario') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}
