@@ -1,0 +1,55 @@
+Acme\boletinesBundle\Entity\Alumno:
+    type: entity
+    table: alumno
+    indexes:
+        padre2_fk_alumno:
+            columns:
+                - id_usuario_padre2
+        usuarior_fk_alumno:
+            columns:
+                - id_usuario_alumno
+        padre1_fk_alumno:
+            columns:
+                - id_usuario_padre1
+    id:
+        idAlumno:
+            id: true
+            type: integer
+            column: id_alumno
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreAlumno:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_alumno
+    manyToOne:
+        idUsuarioAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_alumno:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idUsuarioPadre1:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_padre1:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idUsuarioPadre2:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_padre2:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

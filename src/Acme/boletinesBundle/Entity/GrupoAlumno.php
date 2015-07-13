@@ -87,4 +87,14 @@ class GrupoAlumno
         return $this->getNombreGrupoAlumno();
     }
 
+
+    /**
+     * Get esCurso
+     *
+     * @return boolean 
+     */
+    public function getEsCurso()
+    {
+        return $this->esCurso;
+    }
 }

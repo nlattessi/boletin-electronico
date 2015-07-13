@@ -95,4 +95,50 @@ class GrupoAlumnoMateria
     }
 
 
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return GrupoAlumnoMateria
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * Set idGrupoAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoAlumno $idGrupoAlumno
+     * @return GrupoAlumnoMateria
+     */
+    public function setIdGrupoAlumno(\Acme\boletinesBundle\Entity\GrupoAlumno $idGrupoAlumno = null)
+    {
+        $this->idGrupoAlumno = $idGrupoAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idGrupoAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoAlumno 
+     */
+    public function getIdGrupoAlumno()
+    {
+        return $this->idGrupoAlumno;
+    }
 }

@@ -94,4 +94,50 @@ class AlumnoGrupoAlumno
     }
 
 
+
+    /**
+     * Set idGrupo
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoAlumno $idGrupo
+     * @return AlumnoGrupoAlumno
+     */
+    public function setIdGrupo(\Acme\boletinesBundle\Entity\GrupoAlumno $idGrupo = null)
+    {
+        $this->idGrupo = $idGrupo;
+
+        return $this;
+    }
+
+    /**
+     * Get idGrupo
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoAlumno 
+     */
+    public function getIdGrupo()
+    {
+        return $this->idGrupo;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return AlumnoGrupoAlumno
+     */
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
 }

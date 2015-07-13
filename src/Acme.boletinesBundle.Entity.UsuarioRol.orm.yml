@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\UsuarioRol:
+    type: entity
+    table: usuario_rol
+    indexes:
+        usuario_fk_rol:
+            columns:
+                - id_usuario
+        rol_fk_usuario:
+            columns:
+                - id_rol
+    id:
+        idUsuarioRol:
+            id: true
+            type: integer
+            column: id_usuario_rol
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idRol:
+            targetEntity: Acme\boletinesBundle\Entity\Rol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_rol:
+                    referencedColumnName: id_rol
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

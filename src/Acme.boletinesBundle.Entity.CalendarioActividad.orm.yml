@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\CalendarioActividad:
+    type: entity
+    table: calendario_actividad
+    indexes:
+        calendario_fk_actividad:
+            columns:
+                - id_calendario
+        actividad_fk_calendario:
+            columns:
+                - id_actividad
+    id:
+        idCalendarioActividad:
+            id: true
+            type: integer
+            column: id_calendario_actividad
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idCalendario:
+            targetEntity: Acme\boletinesBundle\Entity\Calendario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_calendario:
+                    referencedColumnName: id_calendario
+            orphanRemoval: false
+        idActividad:
+            targetEntity: Acme\boletinesBundle\Entity\Actividad
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_actividad:
+                    referencedColumnName: id_actividad
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

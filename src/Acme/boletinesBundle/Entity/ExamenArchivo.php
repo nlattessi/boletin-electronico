@@ -96,4 +96,50 @@ class ExamenArchivo
 
 
 
+
+    /**
+     * Set idExamen
+     *
+     * @param \Acme\boletinesBundle\Entity\Examen $idExamen
+     * @return ExamenArchivo
+     */
+    public function setIdExamen(\Acme\boletinesBundle\Entity\Examen $idExamen = null)
+    {
+        $this->idExamen = $idExamen;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamen
+     *
+     * @return \Acme\boletinesBundle\Entity\Examen 
+     */
+    public function getIdExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * Set idArchivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $idArchivo
+     * @return ExamenArchivo
+     */
+    public function setIdArchivo(\Acme\boletinesBundle\Entity\Archivo $idArchivo = null)
+    {
+        $this->idArchivo = $idArchivo;
+
+        return $this;
+    }
+
+    /**
+     * Get idArchivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
+     */
+    public function getIdArchivo()
+    {
+        return $this->idArchivo;
+    }
 }

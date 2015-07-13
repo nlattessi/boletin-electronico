@@ -85,4 +85,50 @@ class Materia
     public function __toString() {
      return $this->nombreMateria;  
    } 
+
+    /**
+     * Set idTipoMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\TipoMateria $idTipoMateria
+     * @return Materia
+     */
+    public function setIdTipoMateria(\Acme\boletinesBundle\Entity\TipoMateria $idTipoMateria = null)
+    {
+        $this->idTipoMateria = $idTipoMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idTipoMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\TipoMateria 
+     */
+    public function getIdTipoMateria()
+    {
+        return $this->idTipoMateria;
+    }
+
+    /**
+     * Set idCalendarioMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Calendario $idCalendarioMateria
+     * @return Materia
+     */
+    public function setIdCalendarioMateria(\Acme\boletinesBundle\Entity\Calendario $idCalendarioMateria = null)
+    {
+        $this->idCalendarioMateria = $idCalendarioMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idCalendarioMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Calendario 
+     */
+    public function getIdCalendarioMateria()
+    {
+        return $this->idCalendarioMateria;
+    }
 }

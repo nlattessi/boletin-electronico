@@ -1,0 +1,46 @@
+Acme\boletinesBundle\Entity\Asistencia:
+    type: entity
+    table: asistencia
+    indexes:
+        materia_fk_asistencia:
+            columns:
+                - id_materia
+        usuario_fk_asistencia:
+            columns:
+                - id_usuario_cargador
+    id:
+        idAsistencia:
+            id: true
+            type: integer
+            column: id_asistencia
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaAsistencia:
+            type: datetime
+            nullable: false
+            column: fecha_asistencia
+        fechaCarga:
+            type: datetime
+            nullable: false
+            column: fecha_carga
+    manyToOne:
+        idUsuarioCargador:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_cargador:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_materia:
+                    referencedColumnName: id_materia
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

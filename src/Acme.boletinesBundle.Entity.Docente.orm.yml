@@ -1,0 +1,41 @@
+Acme\boletinesBundle\Entity\Docente:
+    type: entity
+    table: docente
+    indexes:
+        usuario_fk_docente:
+            columns:
+                - id_usuario
+    id:
+        idDocente:
+            id: true
+            type: integer
+            column: id_docente
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreDocente:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_docente
+        emailDocente:
+            type: string
+            length: 45
+            nullable: false
+            column: email_docente
+        telefonoDocente:
+            type: string
+            length: 45
+            nullable: false
+            column: telefono_docente
+    manyToOne:
+        idUsuario:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

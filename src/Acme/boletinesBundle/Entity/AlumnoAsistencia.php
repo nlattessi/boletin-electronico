@@ -146,4 +146,73 @@ class AlumnoAsistencia
     public function __toString(){
         return $this->getAsistencia()->__toString();
     }
+
+    /**
+     * Set idJustificacion
+     *
+     * @param \Acme\boletinesBundle\Entity\Justificacion $idJustificacion
+     * @return AlumnoAsistencia
+     */
+    public function setIdJustificacion(\Acme\boletinesBundle\Entity\Justificacion $idJustificacion = null)
+    {
+        $this->idJustificacion = $idJustificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get idJustificacion
+     *
+     * @return \Acme\boletinesBundle\Entity\Justificacion 
+     */
+    public function getIdJustificacion()
+    {
+        return $this->idJustificacion;
+    }
+
+    /**
+     * Set idAsistencia
+     *
+     * @param \Acme\boletinesBundle\Entity\Asistencia $idAsistencia
+     * @return AlumnoAsistencia
+     */
+    public function setIdAsistencia(\Acme\boletinesBundle\Entity\Asistencia $idAsistencia = null)
+    {
+        $this->idAsistencia = $idAsistencia;
+
+        return $this;
+    }
+
+    /**
+     * Get idAsistencia
+     *
+     * @return \Acme\boletinesBundle\Entity\Asistencia 
+     */
+    public function getIdAsistencia()
+    {
+        return $this->idAsistencia;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return AlumnoAsistencia
+     */
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
 }

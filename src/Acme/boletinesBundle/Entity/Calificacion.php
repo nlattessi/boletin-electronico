@@ -185,4 +185,50 @@ class Calificacion
     public function __toString(){
         return $this->getValorCalificacion();
     }
+
+    /**
+     * Set idExamen
+     *
+     * @param \Acme\boletinesBundle\Entity\Examen $idExamen
+     * @return Calificacion
+     */
+    public function setIdExamen(\Acme\boletinesBundle\Entity\Examen $idExamen = null)
+    {
+        $this->idExamen = $idExamen;
+
+        return $this;
+    }
+
+    /**
+     * Get idExamen
+     *
+     * @return \Acme\boletinesBundle\Entity\Examen 
+     */
+    public function getIdExamen()
+    {
+        return $this->idExamen;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return Calificacion
+     */
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
 }

@@ -1,0 +1,35 @@
+Acme\boletinesBundle\Entity\GrupoUsuario:
+    type: entity
+    table: grupo_usuario
+    indexes:
+        usuario_carga_fk_grupo_usuario:
+            columns:
+                - id_usuario_carga
+    id:
+        idGrupoUsuario:
+            id: true
+            type: integer
+            column: id_grupo_usuario
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreGrupoUsuario:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_grupo_usuario
+        esPrivado:
+            type: boolean
+            nullable: false
+            column: es_privado
+    manyToOne:
+        idUsuarioCarga:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_carga:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -68,4 +68,27 @@ public function getNombreCalendario(){
 	public function __toString() {  
      return $this->nombreCalendario;  
    } 
+
+    /**
+     * Set idUsuarioPropietario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioPropietario
+     * @return Calendario
+     */
+    public function setIdUsuarioPropietario(\Acme\boletinesBundle\Entity\Usuario $idUsuarioPropietario = null)
+    {
+        $this->idUsuarioPropietario = $idUsuarioPropietario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioPropietario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioPropietario()
+    {
+        return $this->idUsuarioPropietario;
+    }
 }

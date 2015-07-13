@@ -1,0 +1,38 @@
+Acme\boletinesBundle\Entity\MateriaDiaHorario:
+    type: entity
+    table: materia_dia_horario
+    indexes:
+        materia_fk_dia_hora:
+            columns:
+                - id_materia
+    id:
+        idMateriaDiaHorario:
+            id: true
+            type: integer
+            column: id_materia_dia_horario
+            generator:
+                strategy: IDENTITY
+    fields:
+        dia:
+            type: string
+            length: 10
+            nullable: false
+        horaCatedraInicio:
+            type: integer
+            nullable: false
+            column: hora_catedra_inicio
+        horaCatedraFin:
+            type: integer
+            nullable: false
+            column: hora_catedra_fin
+    manyToOne:
+        idMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_materia:
+                    referencedColumnName: id_materia
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

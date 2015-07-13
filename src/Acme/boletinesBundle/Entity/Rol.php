@@ -51,4 +51,17 @@ class Rol
     {
         return $this->idRol;
     }
+
+    /**
+     * Set nombreRol
+     *
+     * @param string $nombreRol
+     * @return Rol
+     */
+    public function setNombreRol($nombreRol)
+    {
+        $this->nombreRol = $nombreRol;
+
+        return $this;
+    }
 }

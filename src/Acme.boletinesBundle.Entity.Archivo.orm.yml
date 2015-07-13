@@ -1,0 +1,45 @@
+Acme\boletinesBundle\Entity\Archivo:
+    type: entity
+    table: archivo
+    indexes:
+        usuario_fk_archivo:
+            columns:
+                - id_usuario_carga
+    id:
+        idArchivo:
+            id: true
+            type: integer
+            column: id_archivo
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreParaMostrar:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_para_mostrar
+        nombreArchivo:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_archivo
+        rutaArchivo:
+            type: string
+            length: 75
+            nullable: false
+            column: ruta_archivo
+        fechaSubida:
+            type: datetime
+            nullable: false
+            column: fecha_subida
+    manyToOne:
+        idUsuarioCarga:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_carga:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

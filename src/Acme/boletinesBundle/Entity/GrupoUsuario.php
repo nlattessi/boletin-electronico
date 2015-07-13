@@ -113,4 +113,37 @@ class GrupoUsuario
         return $this->getNombreGrupoUsuario();
     }
 
+
+    /**
+     * Get esPrivado
+     *
+     * @return boolean 
+     */
+    public function getEsPrivado()
+    {
+        return $this->esPrivado;
+    }
+
+    /**
+     * Set idUsuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioCarga
+     * @return GrupoUsuario
+     */
+    public function setIdUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $idUsuarioCarga = null)
+    {
+        $this->idUsuarioCarga = $idUsuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioCarga()
+    {
+        return $this->idUsuarioCarga;
+    }
 }

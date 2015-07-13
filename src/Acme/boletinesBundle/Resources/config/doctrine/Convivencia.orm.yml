@@ -1,0 +1,76 @@
+Acme\boletinesBundle\Entity\Convivencia:
+    type: entity
+    table: convivencia
+    indexes:
+        FK_72D32A26320260C0:
+            columns:
+                - alumno_id
+        FK_72D32A26230266D4:
+            columns:
+                - usuario_carga_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        comentario:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+            comment: ''
+        descargo:
+            type: string
+            nullable: true
+            length: 250
+            fixed: false
+            comment: ''
+        fechaSuceso:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: fecha_suceso
+        validado:
+            type: boolean
+            nullable: true
+            comment: ''
+        valor:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+        fechaCreacion:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: fecha_creacion
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: fecha_actualizacion
+    manyToOne:
+        usuarioCarga:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_carga_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        alumno:
+            targetEntity: Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

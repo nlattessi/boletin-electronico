@@ -1,0 +1,43 @@
+Acme\boletinesBundle\Entity\Materia:
+    type: entity
+    table: materia
+    indexes:
+        calendario_fk_materia:
+            columns:
+                - id_calendario_materia
+        tipo_materia_fk_materia:
+            columns:
+                - id_tipo_materia
+    id:
+        idMateria:
+            id: true
+            type: integer
+            column: id_materia
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreMateria:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_materia
+    manyToOne:
+        idTipoMateria:
+            targetEntity: Acme\boletinesBundle\Entity\TipoMateria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_tipo_materia:
+                    referencedColumnName: id_tipo_materia
+            orphanRemoval: false
+        idCalendarioMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Calendario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_calendario_materia:
+                    referencedColumnName: id_calendario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

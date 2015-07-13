@@ -1,0 +1,21 @@
+Acme\boletinesBundle\Entity\GrupoAlumno:
+    type: entity
+    table: grupo_alumno
+    id:
+        idGrupoAlumno:
+            id: true
+            type: integer
+            column: id_grupo_alumno
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreGrupoAlumno:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_grupo_alumno
+        esCurso:
+            type: boolean
+            nullable: false
+            column: es_curso
+    lifecycleCallbacks: {  }

@@ -1,0 +1,46 @@
+Acme\boletinesBundle\Entity\Justificacion:
+    type: entity
+    table: justificacion
+    indexes:
+        usuario_fk_justificacion:
+            columns:
+                - id_usuario_carga
+        archivo_fk_justificacion:
+            columns:
+                - id_archivo
+    id:
+        idJustificacion:
+            id: true
+            type: integer
+            column: id_justificacion
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaCarga:
+            type: datetime
+            nullable: false
+            column: fecha_carga
+        justificacion:
+            type: string
+            length: 255
+            nullable: false
+    manyToOne:
+        idUsuarioCarga:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_carga:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idArchivo:
+            targetEntity: Acme\boletinesBundle\Entity\Archivo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_archivo:
+                    referencedColumnName: id_archivo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

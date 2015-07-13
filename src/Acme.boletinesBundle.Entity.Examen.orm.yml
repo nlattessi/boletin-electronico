@@ -1,0 +1,59 @@
+Acme\boletinesBundle\Entity\Examen:
+    type: entity
+    table: examen
+    indexes:
+        docente_fk_examen:
+            columns:
+                - id_docente
+        materia_fk_examen:
+            columns:
+                - id_materia
+        actividad_fk_examen:
+            columns:
+                - id_actividad
+    id:
+        idExamen:
+            id: true
+            type: integer
+            column: id_examen
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreExamen:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_examen
+        fechaExamen:
+            type: datetime
+            nullable: false
+            column: fecha_examen
+    manyToOne:
+        idMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_materia:
+                    referencedColumnName: id_materia
+            orphanRemoval: false
+        idDocente:
+            targetEntity: Acme\boletinesBundle\Entity\Docente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_docente:
+                    referencedColumnName: id_docente
+            orphanRemoval: false
+        idActividad:
+            targetEntity: Acme\boletinesBundle\Entity\Actividad
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_actividad:
+                    referencedColumnName: id_actividad
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -209,4 +209,50 @@ class Actividad
         return $this->getNombreActividad();
     }
 
+
+    /**
+     * Set idUsuarioCreador
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioCreador
+     * @return Actividad
+     */
+    public function setIdUsuarioCreador(\Acme\boletinesBundle\Entity\Usuario $idUsuarioCreador = null)
+    {
+        $this->idUsuarioCreador = $idUsuarioCreador;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioCreador
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioCreador()
+    {
+        return $this->idUsuarioCreador;
+    }
+
+    /**
+     * Set idArchivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $idArchivo
+     * @return Actividad
+     */
+    public function setIdArchivo(\Acme\boletinesBundle\Entity\Archivo $idArchivo = null)
+    {
+        $this->idArchivo = $idArchivo;
+
+        return $this;
+    }
+
+    /**
+     * Get idArchivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
+     */
+    public function getIdArchivo()
+    {
+        return $this->idArchivo;
+    }
 }

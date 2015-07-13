@@ -95,4 +95,50 @@ class DocenteMateria
     }
 
 
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return DocenteMateria
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * Set idDocente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $idDocente
+     * @return DocenteMateria
+     */
+    public function setIdDocente(\Acme\boletinesBundle\Entity\Docente $idDocente = null)
+    {
+        $this->idDocente = $idDocente;
+
+        return $this;
+    }
+
+    /**
+     * Get idDocente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
+     */
+    public function getIdDocente()
+    {
+        return $this->idDocente;
+    }
 }

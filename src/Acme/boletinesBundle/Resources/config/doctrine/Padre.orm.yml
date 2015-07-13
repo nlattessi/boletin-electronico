@@ -1,0 +1,139 @@
+Acme\boletinesBundle\Entity\Padre:
+    type: entity
+    table: padre
+    indexes:
+        FK_usuario_padre:
+            columns:
+                - usuario_id
+        fk_ciudad_padre:
+            columns:
+                - ciudad_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+        apellido:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+        dni:
+            type: string
+            nullable: true
+            length: 8
+            fixed: false
+            comment: ''
+        direccion:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+        direccionLaboral:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: direccion_laboral
+        codigoPostal:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: codigo_postal
+        codigoPais:
+            type: string
+            nullable: true
+            length: 4
+            fixed: false
+            comment: ''
+            column: codigo_pais
+        codigoArea:
+            type: string
+            nullable: true
+            length: 5
+            fixed: false
+            comment: ''
+            column: codigo_area
+        telefono:
+            type: string
+            nullable: false
+            length: 12
+            fixed: false
+            comment: ''
+        celular:
+            type: string
+            nullable: false
+            length: 12
+            fixed: false
+            comment: ''
+        telefonoLaboral:
+            type: string
+            nullable: false
+            length: 12
+            fixed: false
+            comment: ''
+            column: telefono_laboral
+        ocupacion:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+        observaciones:
+            type: string
+            nullable: true
+            length: 250
+            fixed: false
+            comment: ''
+        establecimientoId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: establecimiento_id
+        creationTime:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: update_time
+    manyToOne:
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        ciudad:
+            targetEntity: Ciudad
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciudad_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -138,4 +138,50 @@ class Justificacion
     public function __toString(){
         return $this->getJustificacion();
     }
+
+    /**
+     * Set idUsuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioCarga
+     * @return Justificacion
+     */
+    public function setIdUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $idUsuarioCarga = null)
+    {
+        $this->idUsuarioCarga = $idUsuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioCarga()
+    {
+        return $this->idUsuarioCarga;
+    }
+
+    /**
+     * Set idArchivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $idArchivo
+     * @return Justificacion
+     */
+    public function setIdArchivo(\Acme\boletinesBundle\Entity\Archivo $idArchivo = null)
+    {
+        $this->idArchivo = $idArchivo;
+
+        return $this;
+    }
+
+    /**
+     * Get idArchivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
+     */
+    public function getIdArchivo()
+    {
+        return $this->idArchivo;
+    }
 }

@@ -53,4 +53,106 @@ class MateriaDiaHorario
     private $idMateria;
 
 
+
+    /**
+     * Set dia
+     *
+     * @param string $dia
+     * @return MateriaDiaHorario
+     */
+    public function setDia($dia)
+    {
+        $this->dia = $dia;
+
+        return $this;
+    }
+
+    /**
+     * Get dia
+     *
+     * @return string 
+     */
+    public function getDia()
+    {
+        return $this->dia;
+    }
+
+    /**
+     * Set horaCatedraInicio
+     *
+     * @param integer $horaCatedraInicio
+     * @return MateriaDiaHorario
+     */
+    public function setHoraCatedraInicio($horaCatedraInicio)
+    {
+        $this->horaCatedraInicio = $horaCatedraInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get horaCatedraInicio
+     *
+     * @return integer 
+     */
+    public function getHoraCatedraInicio()
+    {
+        return $this->horaCatedraInicio;
+    }
+
+    /**
+     * Set horaCatedraFin
+     *
+     * @param integer $horaCatedraFin
+     * @return MateriaDiaHorario
+     */
+    public function setHoraCatedraFin($horaCatedraFin)
+    {
+        $this->horaCatedraFin = $horaCatedraFin;
+
+        return $this;
+    }
+
+    /**
+     * Get horaCatedraFin
+     *
+     * @return integer 
+     */
+    public function getHoraCatedraFin()
+    {
+        return $this->horaCatedraFin;
+    }
+
+    /**
+     * Get idMateriaDiaHorario
+     *
+     * @return integer 
+     */
+    public function getIdMateriaDiaHorario()
+    {
+        return $this->idMateriaDiaHorario;
+    }
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return MateriaDiaHorario
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
 }

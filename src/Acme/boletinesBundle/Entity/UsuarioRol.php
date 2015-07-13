@@ -42,4 +42,60 @@ class UsuarioRol
     private $idUsuario;
 
 
+
+    /**
+     * Get idUsuarioRol
+     *
+     * @return integer 
+     */
+    public function getIdUsuarioRol()
+    {
+        return $this->idUsuarioRol;
+    }
+
+    /**
+     * Set idRol
+     *
+     * @param \Acme\boletinesBundle\Entity\Rol $idRol
+     * @return UsuarioRol
+     */
+    public function setIdRol(\Acme\boletinesBundle\Entity\Rol $idRol = null)
+    {
+        $this->idRol = $idRol;
+
+        return $this;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \Acme\boletinesBundle\Entity\Rol 
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuario
+     * @return UsuarioRol
+     */
+    public function setIdUsuario(\Acme\boletinesBundle\Entity\Usuario $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

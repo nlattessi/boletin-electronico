@@ -1,0 +1,55 @@
+Acme\boletinesBundle\Entity\AlumnoAsistencia:
+    type: entity
+    table: alumno_asistencia
+    indexes:
+        alumno_fk_asistencia:
+            columns:
+                - id_alumno
+        asistencia_fk_alumno:
+            columns:
+                - id_asistencia
+        justificacion_fk_alumno:
+            columns:
+                - id_justificacion
+    id:
+        idAlumnoAsistencia:
+            id: true
+            type: integer
+            column: id_alumno_asistencia
+            generator:
+                strategy: IDENTITY
+    fields:
+        valorAsistencia:
+            type: string
+            length: 1
+            nullable: false
+            column: valor_asistencia
+    manyToOne:
+        idJustificacion:
+            targetEntity: Acme\boletinesBundle\Entity\Justificacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_justificacion:
+                    referencedColumnName: id_justificacion
+            orphanRemoval: false
+        idAsistencia:
+            targetEntity: Acme\boletinesBundle\Entity\Asistencia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_asistencia:
+                    referencedColumnName: id_asistencia
+            orphanRemoval: false
+        idAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_alumno:
+                    referencedColumnName: id_alumno
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,60 @@
+Acme\boletinesBundle\Entity\Actividad:
+    type: entity
+    table: actividad
+    indexes:
+        usuario_fk_actividad:
+            columns:
+                - id_usuario_creador
+        archivo_fk_actividad:
+            columns:
+                - id_archivo
+    id:
+        idActividad:
+            id: true
+            type: integer
+            column: id_actividad
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreActividad:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_actividad
+        descripcionActividad:
+            type: string
+            length: 500
+            nullable: false
+            column: descripcion_actividad
+        fechaDesde:
+            type: datetime
+            nullable: false
+            column: fecha_desde
+        fechaHasta:
+            type: datetime
+            nullable: false
+            column: fecha_hasta
+        fechaCreacion:
+            type: datetime
+            nullable: false
+            column: fecha_creacion
+    manyToOne:
+        idUsuarioCreador:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_creador:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idArchivo:
+            targetEntity: Acme\boletinesBundle\Entity\Archivo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_archivo:
+                    referencedColumnName: id_archivo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

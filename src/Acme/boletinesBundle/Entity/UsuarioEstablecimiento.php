@@ -98,4 +98,50 @@ class UsuarioEstablecimiento
 
 
 
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $idEstablecimiento
+     * @return UsuarioEstablecimiento
+     */
+    public function setIdEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuario
+     * @return UsuarioEstablecimiento
+     */
+    public function setIdUsuario(\Acme\boletinesBundle\Entity\Usuario $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

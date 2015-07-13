@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\AlumnoGrupoAlumno:
+    type: entity
+    table: alumno_grupo_alumno
+    indexes:
+        alumno_fk_grupo_alumno_idx:
+            columns:
+                - id_alumno
+        grupo_alumno_fk_alumno_idx:
+            columns:
+                - id_grupo
+    id:
+        idAlumnoGrupoAlumno:
+            id: true
+            type: integer
+            column: id_alumno_grupo_alumno
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idGrupo:
+            targetEntity: Acme\boletinesBundle\Entity\GrupoAlumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_grupo:
+                    referencedColumnName: id_grupo_alumno
+            orphanRemoval: false
+        idAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_alumno:
+                    referencedColumnName: id_alumno
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

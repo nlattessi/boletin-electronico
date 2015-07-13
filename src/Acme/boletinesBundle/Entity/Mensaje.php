@@ -184,4 +184,60 @@ class Mensaje
     public function __toString(){
         return $this->getTituloMensaje();
     }
+
+    /**
+     * Get borrado
+     *
+     * @return boolean 
+     */
+    public function getBorrado()
+    {
+        return $this->borrado;
+    }
+
+    /**
+     * Set idUsuarioRecibe
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioRecibe
+     * @return Mensaje
+     */
+    public function setIdUsuarioRecibe(\Acme\boletinesBundle\Entity\Usuario $idUsuarioRecibe = null)
+    {
+        $this->idUsuarioRecibe = $idUsuarioRecibe;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioRecibe
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioRecibe()
+    {
+        return $this->idUsuarioRecibe;
+    }
+
+    /**
+     * Set idUsuarioEnvia
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioEnvia
+     * @return Mensaje
+     */
+    public function setIdUsuarioEnvia(\Acme\boletinesBundle\Entity\Usuario $idUsuarioEnvia = null)
+    {
+        $this->idUsuarioEnvia = $idUsuarioEnvia;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioEnvia
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioEnvia()
+    {
+        return $this->idUsuarioEnvia;
+    }
 }

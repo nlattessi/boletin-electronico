@@ -142,4 +142,73 @@ class Alumno
         return $this->getNombreAlumno();
     }
 
+
+    /**
+     * Set idUsuarioAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioAlumno
+     * @return Alumno
+     */
+    public function setIdUsuarioAlumno(\Acme\boletinesBundle\Entity\Usuario $idUsuarioAlumno = null)
+    {
+        $this->idUsuarioAlumno = $idUsuarioAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioAlumno()
+    {
+        return $this->idUsuarioAlumno;
+    }
+
+    /**
+     * Set idUsuarioPadre1
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioPadre1
+     * @return Alumno
+     */
+    public function setIdUsuarioPadre1(\Acme\boletinesBundle\Entity\Usuario $idUsuarioPadre1 = null)
+    {
+        $this->idUsuarioPadre1 = $idUsuarioPadre1;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioPadre1
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioPadre1()
+    {
+        return $this->idUsuarioPadre1;
+    }
+
+    /**
+     * Set idUsuarioPadre2
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioPadre2
+     * @return Alumno
+     */
+    public function setIdUsuarioPadre2(\Acme\boletinesBundle\Entity\Usuario $idUsuarioPadre2 = null)
+    {
+        $this->idUsuarioPadre2 = $idUsuarioPadre2;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioPadre2
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioPadre2()
+    {
+        return $this->idUsuarioPadre2;
+    }
 }

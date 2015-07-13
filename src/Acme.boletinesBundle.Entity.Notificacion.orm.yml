@@ -1,0 +1,52 @@
+Acme\boletinesBundle\Entity\Notificacion:
+    type: entity
+    table: notificacion
+    indexes:
+        usuario_envia_fk_notificacion:
+            columns:
+                - id_usuario_envia
+        grupo_usuario_fk_notificacion:
+            columns:
+                - id_grupo_usuario_recibe
+    id:
+        idNotificacion:
+            id: true
+            type: integer
+            column: id_notificacion
+            generator:
+                strategy: IDENTITY
+    fields:
+        tituloNotificacion:
+            type: string
+            length: 100
+            nullable: false
+            column: titulo_notificacion
+        textoNotificacion:
+            type: string
+            length: 500
+            nullable: false
+            column: texto_notificacion
+        fechaEnvio:
+            type: datetime
+            nullable: false
+            column: fecha_envio
+    manyToOne:
+        idUsuarioEnvia:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_envia:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idGrupoUsuarioRecibe:
+            targetEntity: Acme\boletinesBundle\Entity\GrupoUsuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_grupo_usuario_recibe:
+                    referencedColumnName: id_grupo_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

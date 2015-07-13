@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\ExamenArchivo:
+    type: entity
+    table: examen_archivo
+    indexes:
+        examen_fk_archivo:
+            columns:
+                - id_examen
+        archivo_fk_examen:
+            columns:
+                - id_archivo
+    id:
+        idExamenArchivo:
+            id: true
+            type: integer
+            column: id_examen_archivo
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idExamen:
+            targetEntity: Acme\boletinesBundle\Entity\Examen
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_examen:
+                    referencedColumnName: id_examen
+            orphanRemoval: false
+        idArchivo:
+            targetEntity: Acme\boletinesBundle\Entity\Archivo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_archivo:
+                    referencedColumnName: id_archivo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -139,4 +139,50 @@ class Asistencia
         return 'Asistencia del dia' . $this->getFechaAsistencia()->format('d-m-Y');
     }
 
+
+    /**
+     * Set idUsuarioCargador
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioCargador
+     * @return Asistencia
+     */
+    public function setIdUsuarioCargador(\Acme\boletinesBundle\Entity\Usuario $idUsuarioCargador = null)
+    {
+        $this->idUsuarioCargador = $idUsuarioCargador;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioCargador
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioCargador()
+    {
+        return $this->idUsuarioCargador;
+    }
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return Asistencia
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
 }

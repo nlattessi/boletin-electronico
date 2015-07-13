@@ -1,0 +1,39 @@
+Acme\boletinesBundle\Entity\UsuarioEstablecimiento:
+    type: entity
+    table: usuario_establecimiento
+    indexes:
+        FK_7110F23F7DFA12F6:
+            columns:
+                - establecimiento_id
+        FK_7110F23FFCF8192D:
+            columns:
+                - usuario_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        establecimiento:
+            targetEntity: Establecimiento
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                establecimiento_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

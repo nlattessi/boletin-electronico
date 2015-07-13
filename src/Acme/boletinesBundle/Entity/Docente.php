@@ -135,4 +135,27 @@ class Docente
     public  function __toString(){
         return $this->getNombreDocente();
     }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuario
+     * @return Docente
+     */
+    public function setIdUsuario(\Acme\boletinesBundle\Entity\Usuario $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

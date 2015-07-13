@@ -209,4 +209,60 @@ class Disciplina
         return 'Alumno: ' . $this->getAlumno()->__toString() . ' el dia '. $this->getFechaSuceso()->format('d-m-Y');
     }
 
+
+    /**
+     * Get validado
+     *
+     * @return boolean 
+     */
+    public function getValidado()
+    {
+        return $this->validado;
+    }
+
+    /**
+     * Set idDocente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $idDocente
+     * @return Disciplina
+     */
+    public function setIdDocente(\Acme\boletinesBundle\Entity\Docente $idDocente = null)
+    {
+        $this->idDocente = $idDocente;
+
+        return $this;
+    }
+
+    /**
+     * Get idDocente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
+     */
+    public function getIdDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return Disciplina
+     */
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
 }

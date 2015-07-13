@@ -1,0 +1,46 @@
+Acme\boletinesBundle\Entity\Establecimiento:
+    type: entity
+    table: establecimiento
+    indexes:
+        institucion_fk_establecimiento:
+            columns:
+                - id_institucion
+    id:
+        idEstablecimiento:
+            id: true
+            type: integer
+            column: id_establecimiento
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreEstablecimiento:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_establecimiento
+        direccionEstablecimiento:
+            type: string
+            length: 45
+            nullable: true
+            column: direccion_establecimiento
+        telefonoEstablecimiento:
+            type: string
+            length: 45
+            nullable: true
+            column: telefono_establecimiento
+        emailEstablecimiento:
+            type: string
+            length: 45
+            nullable: true
+            column: email_establecimiento
+    manyToOne:
+        idInstitucion:
+            targetEntity: Acme\boletinesBundle\Entity\Institucion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_institucion:
+                    referencedColumnName: id_institucion
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

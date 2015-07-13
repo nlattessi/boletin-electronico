@@ -96,4 +96,50 @@ class UsuarioGrupoUsuario
 
 
 
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuario
+     * @return UsuarioGrupoUsuario
+     */
+    public function setIdUsuario(\Acme\boletinesBundle\Entity\Usuario $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * Set idGrupoUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoUsuario $idGrupoUsuario
+     * @return UsuarioGrupoUsuario
+     */
+    public function setIdGrupoUsuario(\Acme\boletinesBundle\Entity\GrupoUsuario $idGrupoUsuario = null)
+    {
+        $this->idGrupoUsuario = $idGrupoUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idGrupoUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoUsuario 
+     */
+    public function getIdGrupoUsuario()
+    {
+        return $this->idGrupoUsuario;
+    }
 }

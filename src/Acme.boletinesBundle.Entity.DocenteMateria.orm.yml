@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\DocenteMateria:
+    type: entity
+    table: docente_materia
+    indexes:
+        docente_fk_materia_idx:
+            columns:
+                - id_docente
+        materia_fk_docente_idx:
+            columns:
+                - id_materia
+    id:
+        idDocenteMateria:
+            id: true
+            type: integer
+            column: id_docente_materia
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_materia:
+                    referencedColumnName: id_materia
+            orphanRemoval: false
+        idDocente:
+            targetEntity: Acme\boletinesBundle\Entity\Docente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_docente:
+                    referencedColumnName: id_docente
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

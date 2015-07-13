@@ -161,4 +161,50 @@ class Notificacion
     public function __toString(){
         return $this->getTituloNotificacion();
     }
+
+    /**
+     * Set idUsuarioEnvia
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioEnvia
+     * @return Notificacion
+     */
+    public function setIdUsuarioEnvia(\Acme\boletinesBundle\Entity\Usuario $idUsuarioEnvia = null)
+    {
+        $this->idUsuarioEnvia = $idUsuarioEnvia;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioEnvia
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioEnvia()
+    {
+        return $this->idUsuarioEnvia;
+    }
+
+    /**
+     * Set idGrupoUsuarioRecibe
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoUsuario $idGrupoUsuarioRecibe
+     * @return Notificacion
+     */
+    public function setIdGrupoUsuarioRecibe(\Acme\boletinesBundle\Entity\GrupoUsuario $idGrupoUsuarioRecibe = null)
+    {
+        $this->idGrupoUsuarioRecibe = $idGrupoUsuarioRecibe;
+
+        return $this;
+    }
+
+    /**
+     * Get idGrupoUsuarioRecibe
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoUsuario 
+     */
+    public function getIdGrupoUsuarioRecibe()
+    {
+        return $this->idGrupoUsuarioRecibe;
+    }
 }

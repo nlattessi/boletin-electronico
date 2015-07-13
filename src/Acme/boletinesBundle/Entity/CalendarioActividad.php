@@ -96,4 +96,50 @@ class CalendarioActividad
     }
 
 
+
+    /**
+     * Set idCalendario
+     *
+     * @param \Acme\boletinesBundle\Entity\Calendario $idCalendario
+     * @return CalendarioActividad
+     */
+    public function setIdCalendario(\Acme\boletinesBundle\Entity\Calendario $idCalendario = null)
+    {
+        $this->idCalendario = $idCalendario;
+
+        return $this;
+    }
+
+    /**
+     * Get idCalendario
+     *
+     * @return \Acme\boletinesBundle\Entity\Calendario 
+     */
+    public function getIdCalendario()
+    {
+        return $this->idCalendario;
+    }
+
+    /**
+     * Set idActividad
+     *
+     * @param \Acme\boletinesBundle\Entity\Actividad $idActividad
+     * @return CalendarioActividad
+     */
+    public function setIdActividad(\Acme\boletinesBundle\Entity\Actividad $idActividad = null)
+    {
+        $this->idActividad = $idActividad;
+
+        return $this;
+    }
+
+    /**
+     * Get idActividad
+     *
+     * @return \Acme\boletinesBundle\Entity\Actividad 
+     */
+    public function getIdActividad()
+    {
+        return $this->idActividad;
+    }
 }

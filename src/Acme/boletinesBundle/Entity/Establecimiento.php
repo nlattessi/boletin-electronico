@@ -159,4 +159,27 @@ class Establecimiento
     public function __toString(){
         return $this->getNombreEstablecimiento();
     }
+
+    /**
+     * Set idInstitucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $idInstitucion
+     * @return Establecimiento
+     */
+    public function setIdInstitucion(\Acme\boletinesBundle\Entity\Institucion $idInstitucion = null)
+    {
+        $this->idInstitucion = $idInstitucion;
+
+        return $this;
+    }
+
+    /**
+     * Get idInstitucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion 
+     */
+    public function getIdInstitucion()
+    {
+        return $this->idInstitucion;
+    }
 }

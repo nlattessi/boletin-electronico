@@ -1,0 +1,56 @@
+Acme\boletinesBundle\Entity\Calificacion:
+    type: entity
+    table: calificacion
+    indexes:
+        alumno_fk_examen_idx:
+            columns:
+                - id_alumno
+        examen_fk_calificacion_idx:
+            columns:
+                - id_examen
+    id:
+        idCalificacion:
+            id: true
+            type: integer
+            column: id_calificacion
+            generator:
+                strategy: IDENTITY
+    fields:
+        fechaCalificacion:
+            type: datetime
+            nullable: true
+            column: fecha_calificacion
+        valorCalificacion:
+            type: string
+            length: 10
+            nullable: true
+            column: valor_calificacion
+        comentarioCalificacion:
+            type: string
+            length: 127
+            nullable: true
+            column: comentario_calificacion
+        validada:
+            type: string
+            length: 1
+            nullable: false
+    manyToOne:
+        idExamen:
+            targetEntity: Acme\boletinesBundle\Entity\Examen
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_examen:
+                    referencedColumnName: id_examen
+            orphanRemoval: false
+        idAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_alumno:
+                    referencedColumnName: id_alumno
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

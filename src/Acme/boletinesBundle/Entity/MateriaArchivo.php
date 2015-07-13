@@ -96,4 +96,50 @@ class MateriaArchivo
 
 
 
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return MateriaArchivo
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * Set idArchivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $idArchivo
+     * @return MateriaArchivo
+     */
+    public function setIdArchivo(\Acme\boletinesBundle\Entity\Archivo $idArchivo = null)
+    {
+        $this->idArchivo = $idArchivo;
+
+        return $this;
+    }
+
+    /**
+     * Get idArchivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
+     */
+    public function getIdArchivo()
+    {
+        return $this->idArchivo;
+    }
 }

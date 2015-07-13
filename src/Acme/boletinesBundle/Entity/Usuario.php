@@ -169,4 +169,27 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->idRol = $idRol;
     }
+
+    /**
+     * Set idRol
+     *
+     * @param \Acme\boletinesBundle\Entity\Rol $idRol
+     * @return Usuario
+     */
+    public function setIdRol(\Acme\boletinesBundle\Entity\Rol $idRol = null)
+    {
+        $this->idRol = $idRol;
+
+        return $this;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \Acme\boletinesBundle\Entity\Rol 
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
 }

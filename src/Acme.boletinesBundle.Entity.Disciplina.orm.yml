@@ -1,0 +1,59 @@
+Acme\boletinesBundle\Entity\Disciplina:
+    type: entity
+    table: disciplina
+    indexes:
+        alumno_fk_disciplina:
+            columns:
+                - id_alumno
+        docente_fk_disciplina:
+            columns:
+                - id_docente
+    id:
+        idDisciplina:
+            id: true
+            type: integer
+            column: id_disciplina
+            generator:
+                strategy: IDENTITY
+    fields:
+        comentarioDocente:
+            type: string
+            length: 255
+            nullable: false
+            column: comentario_docente
+        descargoAlumno:
+            type: string
+            length: 255
+            nullable: true
+            column: descargo_alumno
+        fechaSuceso:
+            type: datetime
+            nullable: false
+            column: fecha_suceso
+        fechaCarga:
+            type: datetime
+            nullable: false
+            column: fecha_carga
+        validado:
+            type: boolean
+            nullable: true
+    manyToOne:
+        idDocente:
+            targetEntity: Acme\boletinesBundle\Entity\Docente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_docente:
+                    referencedColumnName: id_docente
+            orphanRemoval: false
+        idAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_alumno:
+                    referencedColumnName: id_alumno
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

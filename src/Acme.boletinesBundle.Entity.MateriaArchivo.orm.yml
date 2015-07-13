@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\MateriaArchivo:
+    type: entity
+    table: materia_archivo
+    indexes:
+        materia_fk_archivo:
+            columns:
+                - id_materia
+        archivo_fk_materia:
+            columns:
+                - id_archivo
+    id:
+        idMateriaArchivo:
+            id: true
+            type: integer
+            column: id_materia_archivo
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idMateria:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_materia:
+                    referencedColumnName: id_materia
+            orphanRemoval: false
+        idArchivo:
+            targetEntity: Acme\boletinesBundle\Entity\Archivo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_archivo:
+                    referencedColumnName: id_archivo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

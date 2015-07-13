@@ -1,0 +1,17 @@
+Acme\boletinesBundle\Entity\Rol:
+    type: entity
+    table: rol
+    id:
+        idRol:
+            id: true
+            type: integer
+            column: id_rol
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreRol:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_rol
+    lifecycleCallbacks: {  }

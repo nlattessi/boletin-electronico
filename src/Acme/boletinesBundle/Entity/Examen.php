@@ -166,4 +166,73 @@ class Examen
     }
 
 
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return Examen
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * Set idDocente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $idDocente
+     * @return Examen
+     */
+    public function setIdDocente(\Acme\boletinesBundle\Entity\Docente $idDocente = null)
+    {
+        $this->idDocente = $idDocente;
+
+        return $this;
+    }
+
+    /**
+     * Get idDocente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
+     */
+    public function getIdDocente()
+    {
+        return $this->idDocente;
+    }
+
+    /**
+     * Set idActividad
+     *
+     * @param \Acme\boletinesBundle\Entity\Actividad $idActividad
+     * @return Examen
+     */
+    public function setIdActividad(\Acme\boletinesBundle\Entity\Actividad $idActividad = null)
+    {
+        $this->idActividad = $idActividad;
+
+        return $this;
+    }
+
+    /**
+     * Get idActividad
+     *
+     * @return \Acme\boletinesBundle\Entity\Actividad 
+     */
+    public function getIdActividad()
+    {
+        return $this->idActividad;
+    }
 }

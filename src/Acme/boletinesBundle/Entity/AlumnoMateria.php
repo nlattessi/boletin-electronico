@@ -97,4 +97,50 @@ class AlumnoMateria
 
 
 
+
+    /**
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return AlumnoMateria
+     */
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
+    {
+        $this->idMateria = $idMateria;
+
+        return $this;
+    }
+
+    /**
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return AlumnoMateria
+     */
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
 }

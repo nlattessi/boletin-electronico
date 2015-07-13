@@ -1,0 +1,55 @@
+Acme\boletinesBundle\Entity\Mensaje:
+    type: entity
+    table: mensaje
+    indexes:
+        usuario_envia_fk_mensaje:
+            columns:
+                - id_usuario_envia
+        usuario_recibe_fk_mensaje:
+            columns:
+                - id_usuario_recibe
+    id:
+        idMensaje:
+            id: true
+            type: integer
+            column: id_mensaje
+            generator:
+                strategy: IDENTITY
+    fields:
+        tituloMensaje:
+            type: string
+            length: 100
+            nullable: false
+            column: titulo_mensaje
+        textoMensaje:
+            type: string
+            length: 500
+            nullable: false
+            column: texto_mensaje
+        fechaEnvio:
+            type: datetime
+            nullable: false
+            column: fecha_envio
+        borrado:
+            type: boolean
+            nullable: false
+    manyToOne:
+        idUsuarioRecibe:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_recibe:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+        idUsuarioEnvia:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario_envia:
+                    referencedColumnName: id_usuario
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

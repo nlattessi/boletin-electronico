@@ -1,0 +1,46 @@
+Acme\boletinesBundle\Entity\Usuario:
+    type: entity
+    table: usuario
+    id:
+        idUsuario:
+            id: true
+            type: integer
+            column: id_usuario
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreUsuario:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_usuario
+        password:
+            type: string
+            length: 45
+            nullable: false
+        nombreUsuarioParaMostrar:
+            type: string
+            length: 45
+            nullable: false
+            column: nombre_usuario_para_mostrar
+        nombreReal:
+            type: string
+            length: 45
+            nullable: true
+            column: nombre_real
+        telefonoUsuario:
+            type: string
+            length: 15
+            nullable: true
+            column: telefono_usuario
+    manyToOne:
+        idRol:
+            targetEntity: Acme\boletinesBundle\Entity\Rol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_rol:
+                    referencedColumnName: id_rol
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
