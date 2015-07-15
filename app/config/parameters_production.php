@@ -1,13 +1,16 @@
 <?php
 
-$db = parse_url(getenv('DATABASE_URL'));
+$url = parse_url(getenv('DATABASE_URL'));
 
 $container->setParameter('database_driver', 'pdo_pgsql');
-$container->setParameter('database_host', $db['host']);
-$container->setParameter('database_port', $db['port']);
-$container->setParameter('database_name', $db['name']);
-$container->setParameter('database_user', $db['user']);
-$container->setParameter('database_password', $db['pass']);
+$container->setParameter('database_host', $url['host']);
+$container->setParameter('database_port', $url['port']);
+
+$db = substr($url['path'],1);
+$container->setParameter('database_name', $db);
+
+$container->setParameter('database_user', $url['user']);
+$container->setParameter('database_password', $url['pass']);
 $container->setParameter('secret', getenv('SECRET'));
 $container->setParameter('locale', 'en');
 $container->setParameter('mailer_transport', null);

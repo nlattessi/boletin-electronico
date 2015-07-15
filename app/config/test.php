@@ -2,4 +2,5 @@
 
 $db = parse_url(getenv('DATABASE_URL'));
 
-print_r($db);
+$db2 = substr($db['path'],1);
+print_r($db2);
