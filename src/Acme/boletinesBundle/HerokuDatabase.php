@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\BoletinesBundle;
+namespace Acme\boletinesBundle;
 
 use Composer\Script\Event;
 
