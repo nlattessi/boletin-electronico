@@ -1,6 +1,6 @@
 <?php
 
-//$db = parse_url(getenv('DATABASE_URL'));
+$db = parse_url(getenv('DATABASE_URL'));
 
 $container->setParameter('database_driver', 'pdo_pgsql');
 $container->setParameter('database_host', $db['host']);
