@@ -4,8 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-0": {
-            "": "src/",
-            "Acme\\BoletinesBundle\\HerokuDatabase": ""
+            "": "src/"
         }
     },
     "require": {
@@ -26,9 +25,6 @@
         "brandonwamboldt/utilphp": "1.1.*"
     },
     "scripts": {
-        "pre-install-cmd": [
-          "Acme\\BoletinesBundle\\HerokuDatabase::populateEnviroment"
-        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
@@ -54,15 +50,7 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml",
-            "env-map": {
-              "database_driver": "DATABASE_DRIVER",
-              "database_host": "DATABASE_HOST",
-              "database_port": "DATABASE_PORT",
-              "database_name": "DATABASE_NAME",
-              "database_user": "DATABASE_USER",
-              "database_password": "DATABASE_PASSWORD"
-            }
+            "file": "app/config/parameters.yml"
         }
     }
 }
