@@ -2,6 +2,7 @@ imports:
     #    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: "@BoletinesBundle/Resources/config/services.yml"}
+    - { resource: parameters_production.php }
 
 framework:
     #esi:             ~
