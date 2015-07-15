@@ -41,13 +41,12 @@ class ExamenArchivo
      */
     private $idArchivo;
 
-    public function ExamenArchivo($examen, $archivo){
-        $this->setExamen($examen);
-        $this->setArchivo($archivo);
-    }
+
 
     /**
-     * @return int
+     * Get idExamenArchivo
+     *
+     * @return integer 
      */
     public function getIdExamenArchivo()
     {
@@ -55,45 +54,48 @@ class ExamenArchivo
     }
 
     /**
-     * @param int $idExamenArchivo
+     * Set idExamen
+     *
+     * @param \Acme\boletinesBundle\Entity\Examen $idExamen
+     * @return ExamenArchivo
      */
-    public function setIdExamenArchivo($idExamenArchivo)
+    public function setIdExamen(\Acme\boletinesBundle\Entity\Examen $idExamen = null)
     {
-        $this->idExamenArchivo = $idExamenArchivo;
+        $this->idExamen = $idExamen;
+
+        return $this;
     }
 
     /**
-     * @return Examen
+     * Get idExamen
+     *
+     * @return \Acme\boletinesBundle\Entity\Examen 
      */
-    public function getExamen()
+    public function getIdExamen()
     {
         return $this->idExamen;
     }
 
     /**
-     * @param Examen $idExamen
+     * Set idArchivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $idArchivo
+     * @return ExamenArchivo
      */
-    public function setExamen($idExamen)
+    public function setIdArchivo(\Acme\boletinesBundle\Entity\Archivo $idArchivo = null)
     {
-        $this->idExamen = $idExamen;
+        $this->idArchivo = $idArchivo;
+
+        return $this;
     }
 
     /**
-     * @return Archivo
+     * Get idArchivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
      */
-    public function getArchivo()
+    public function getIdArchivo()
     {
         return $this->idArchivo;
     }
-
-    /**
-     * @param Archivo $idArchivo
-     */
-    public function setArchivo($idArchivo)
-    {
-        $this->idArchivo = $idArchivo;
-    }
-
-
-
 }

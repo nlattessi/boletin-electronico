@@ -3,9 +3,9 @@
 {% block body -%}
 
 {# src/Acme/SecurityBundle/Resources/views/Security/login.html.twig #}
-{% if error %}
+{# {% if error %}
     <div>{{ error.message }}</div>
-{% endif %}
+{% endif %} #}
 
 {#<form action="{{ path('login_check') }}" method="post">#}
     {#<label for="username">Username:</label>#}
@@ -26,17 +26,20 @@
 
 
 
-<div class="container login">
+<div class="container login fadeIn animated">
 
     <div class="login-wrapper">
         <form action="{{ path('login_check') }}" method="post">
-            <div class="center-align"><img class="responsive-img" src={{ asset('bundles/boletines/images/isologotipoFull.jpg')}}  width="380"></div>
-            <H5 class="center-align">Inicia sesión para continuar</H5>
+            <div class="center-align"><img class="responsive-img" src="{{ asset('bundles/boletines/images/isologotipoFull.jpg') }}" width="380"></div>
+            <h5 class="center-align">Inicia sesión para continuar</h5>
+            {% if error %}
+                <div class="error-msg center-align"><i class="icon-linear-cross"></i> Alguno de los datos ingresados es incorrecto</div>
+            {% endif %}
             <div class="row">
                 <div class="input-field col s12">
                     <i class="icon-linear-user prefix"></i>
                     <input id="icon_prefix" type="text"  name="_username" class="validate">
-                    <label for="icon_prefix">DNI</label>
+                    <label for="icon_prefix">Nombre de usuario</label>
                 </div><br>
                 <div class="input-field col s12">
                     <i class="icon-linear-lock prefix"></i>
@@ -52,7 +55,7 @@
                     </form>
                 </div>
                 <div class="col s12 center-align">
-                    <button type="submit">login</button>
+                    <button class="btn-large waves-effect waves-light center-align btn100p" type="submit">login</button>
 
                     {#<a href="#" class="btn-large waves-effect waves-light center-align btn100p">Ingresar</a>#}
                 </div>

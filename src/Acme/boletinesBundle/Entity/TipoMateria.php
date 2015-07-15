@@ -15,55 +15,111 @@ class TipoMateria
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_tipo_materia", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=25, nullable=false)
      */
-    private $nombreTipoMateria;
+    private $nombre;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_tipo_materia", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idTipoMateria;
+    private $id;
+
+
 
     /**
-     * @return string
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return TipoMateria
      */
-    public function getNombreTipoMateria()
+    public function setNombre($nombre)
     {
-        return $this->nombreTipoMateria;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param string $nombreTipoMateria
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setNombreTipoMateria($nombreTipoMateria)
+    public function getNombre()
     {
-        $this->nombreTipoMateria = $nombreTipoMateria;
+        return $this->nombre;
     }
 
     /**
-     * @return int
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return TipoMateria
      */
-    public function getIdTipoMateria()
+    public function setCreationTime($creationTime)
     {
-        return $this->idTipoMateria;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @param int $idTipoMateria
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function setIdTipoMateria($idTipoMateria)
+    public function getCreationTime()
     {
-        $this->idTipoMateria = $idTipoMateria;
+        return $this->creationTime;
     }
 
+    /**
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return TipoMateria
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
 
+        return $this;
+    }
 
-    public function __toString() {
-        return $this->nombreTipoMateria;
-   } 
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

@@ -265,7 +265,7 @@
 
 
 
-  // Select Plugin
+  // Select Plugin  
   $.fn.material_select = function (callback) {
     $(this).each(function(){
       $select = $(this);
@@ -331,7 +331,7 @@
       // Wrap Elements
       $select.wrap(wrapper);
       // Add Select Display Element
-      var dropdownIcon = $('<i class="mdi-navigation-arrow-drop-down"></i>');
+      var dropdownIcon = $('<i class="mdi-navigation-arrow-drop-down "></i>');
       if ( $select.is(':disabled') )
         dropdownIcon.addClass('disabled');
 

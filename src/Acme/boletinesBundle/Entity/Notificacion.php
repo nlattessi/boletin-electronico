@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Notificacion
  *
- * @ORM\Table(name="notificacion", indexes={@ORM\Index(name="usuario_envia_fk_notificacion", columns={"id_usuario_envia"}), @ORM\Index(name="grupo_usuario_fk_notificacion", columns={"id_grupo_usuario_recibe"})})
+ * @ORM\Table(name="notificacion")
  * @ORM\Entity
  */
 class Notificacion
@@ -15,16 +15,16 @@ class Notificacion
     /**
      * @var string
      *
-     * @ORM\Column(name="titulo_notificacion", type="string", length=100, nullable=false)
+     * @ORM\Column(name="titulo", type="string", length=100, nullable=false)
      */
-    private $tituloNotificacion;
+    private $titulo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="texto_notificacion", type="string", length=500, nullable=false)
+     * @ORM\Column(name="texto", type="string", length=500, nullable=false)
      */
-    private $textoNotificacion;
+    private $texto;
 
     /**
      * @var \DateTime
@@ -34,68 +34,86 @@ class Notificacion
     private $fechaEnvio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=150, nullable=true)
+     */
+    private $url;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_notificacion", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idNotificacion;
+    private $id;
+
+
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
+     * Set titulo
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_envia", referencedColumnName="id_usuario")
-     * })
+     * @param string $titulo
+     * @return Notificacion
      */
-    private $idUsuarioEnvia;
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
 
     /**
-     * @var \Acme\boletinesBundle\Entity\GrupoUsuario
+     * Get titulo
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\GrupoUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_grupo_usuario_recibe", referencedColumnName="id_grupo_usuario")
-     * })
+     * @return string 
      */
-    private $idGrupoUsuarioRecibe;
-
-    /**
-     * @return string
-     */
-    public function getTituloNotificacion()
+    public function getTitulo()
     {
-        return $this->tituloNotificacion;
+        return $this->titulo;
     }
 
     /**
-     * @param string $tituloNotificacion
+     * Set texto
+     *
+     * @param string $texto
+     * @return Notificacion
      */
-    public function setTituloNotificacion($tituloNotificacion)
+    public function setTexto($texto)
     {
-        $this->tituloNotificacion = $tituloNotificacion;
+        $this->texto = $texto;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get texto
+     *
+     * @return string 
      */
-    public function getTextoNotificacion()
+    public function getTexto()
     {
-        return $this->textoNotificacion;
+        return $this->texto;
     }
 
     /**
-     * @param string $textoNotificacion
+     * Set fechaEnvio
+     *
+     * @param \DateTime $fechaEnvio
+     * @return Notificacion
      */
-    public function setTextoNotificacion($textoNotificacion)
+    public function setFechaEnvio($fechaEnvio)
     {
-        $this->textoNotificacion = $textoNotificacion;
+        $this->fechaEnvio = $fechaEnvio;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fechaEnvio
+     *
+     * @return \DateTime 
      */
     public function getFechaEnvio()
     {
@@ -103,62 +121,35 @@ class Notificacion
     }
 
     /**
-     * @param \DateTime $fechaEnvio
+     * Set url
+     *
+     * @param string $url
+     * @return Notificacion
      */
-    public function setFechaEnvio($fechaEnvio)
+    public function setUrl($url)
     {
-        $this->fechaEnvio = $fechaEnvio;
+        $this->url = $url;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get url
+     *
+     * @return string 
      */
-    public function getIdNotificacion()
+    public function getUrl()
     {
-        return $this->idNotificacion;
+        return $this->url;
     }
 
     /**
-     * @param int $idNotificacion
+     * Get id
+     *
+     * @return integer 
      */
-    public function setIdNotificacion($idNotificacion)
+    public function getId()
     {
-        $this->idNotificacion = $idNotificacion;
-    }
-
-    /**
-     * @return Usuario
-     */
-    public function getUsuarioEnvia()
-    {
-        return $this->idUsuarioEnvia;
-    }
-
-    /**
-     * @param Usuario $idUsuarioEnvia
-     */
-    public function setUsuarioEnvia($idUsuarioEnvia)
-    {
-        $this->idUsuarioEnvia = $idUsuarioEnvia;
-    }
-
-    /**
-     * @return GrupoUsuario
-     */
-    public function getGrupoUsuarioRecibe()
-    {
-        return $this->idGrupoUsuarioRecibe;
-    }
-
-    /**
-     * @param GrupoUsuario $idGrupoUsuarioRecibe
-     */
-    public function setGrupoUsuarioRecibe($idGrupoUsuarioRecibe)
-    {
-        $this->idGrupoUsuarioRecibe = $idGrupoUsuarioRecibe;
-    }
-
-    public function __toString(){
-        return $this->getTituloNotificacion();
+        return $this->id;
     }
 }

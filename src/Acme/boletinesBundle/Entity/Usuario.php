@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Usuario
  *
- * @ORM\Table(name="usuario")
+ * @ORM\Table(name="usuario", indexes={@ORM\Index(name="FK_2265B05D90F1D76D", columns={"rol_id"})})
  * @ORM\Entity
  */
 class Usuario implements UserInterface, \Serializable
@@ -16,9 +16,9 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_usuario", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreUsuario;
+    private $nombre;
 
     /**
      * @var string
@@ -28,145 +28,262 @@ class Usuario implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="nombre_usuario_para_mostrar", type="string", length=45, nullable=false)
+     * @ORM\Column(name="id_entidad_asociada", type="integer", nullable=false)
      */
-    private $nombreUsuarioParaMostrar;
+    private $idEntidadAsociada;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_real", type="string", length=45, nullable=true)
+     * @ORM\Column(name="email", type="string", length=65, nullable=true)
      */
-    private $nombreReal;
+    private $email;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="telefono_usuario", type="string", length=15, nullable=true)
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
      */
-    private $telefonoUsuario;
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_usuario", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idUsuario;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Rol
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Rol")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_rol", referencedColumnName="id_rol")
+     *   @ORM\JoinColumn(name="rol_id", referencedColumnName="id")
      * })
      */
-    private $idRol;
+    private $rol;
 
-	public function getNombreUsuario(){
-		return $this->nombreUsuario;
-	}
 
-	public function setNombreUsuario($nombreUsuario){
-		$this->nombreUsuario = $nombreUsuario;
-	}
-
-	public function getPassword(){
-		return $this->password;
-	}
-
-	public function setPassword($password){
-		$this->password = $password;
-	}
-
-	public function getNombreUsuarioParaMostrar(){
-		return $this->nombreUsuarioParaMostrar;
-	}
-
-	public function setNombreUsuarioParaMostrar($nombreUsuarioParaMostrar){
-		$this->nombreUsuarioParaMostrar = $nombreUsuarioParaMostrar;
-	}
-
-	public function getNombreReal(){
-		return $this->nombreReal;
-	}
-
-	public function setNombreReal($nombreReal){
-		$this->nombreReal = $nombreReal;
-	}
-
-	public function getTelefonoUsuario(){
-		return $this->telefonoUsuario;
-	}
-
-	public function setTelefonoUsuario($telefonoUsuario){
-		$this->telefonoUsuario = $telefonoUsuario;
-	}
-
-	public function getIdUsuario(){
-		return $this->idUsuario;
-	}
-	public function getId(){
-		return $this->idUsuario;
-	}
-
-	public function setIdUsuario($idUsuario){
-		$this->idUsuario = $idUsuario;
-	}
-
-    public function __toString(){
-        return $this->getNombreUsuarioParaMostrar();
-    }
-
-    public function getRoles(){
-        return array($this->idRol->getNombreRol());
-//        return array('ROLE_ADMIN');
-    }
-
-    public function getSalt(){
-        return '';
-    }
-
-    public function getUsername(){
-        return $this->nombreUsuario;
-    }
-    public function eraseCredentials(){}
 
     /**
-     * @see \Serializable::serialize()
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Usuario
      */
-    public function serialize(){
-        return serialize(array(
-            $this->idUsuario,
-        ));
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @see \Serializable::unserialize()
+     * Get nombre
+     *
+     * @return string
      */
-    public function unserialize($serialized){
-        list (
-            $this->idUsuario,
-            ) = unserialize($serialized);
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 
     /**
-     * @return Rol
+     * Set password
+     *
+     * @param string $password
+     * @return Usuario
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set idEntidadAsociada
+     *
+     * @param integer $idEntidadAsociada
+     * @return Usuario
+     */
+    public function setIdEntidadAsociada($idEntidadAsociada)
+    {
+        $this->idEntidadAsociada = $idEntidadAsociada;
+
+        return $this;
+    }
+
+    /**
+     * Get idEntidadAsociada
+     *
+     * @return integer
+     */
+    public function getIdEntidadAsociada()
+    {
+        return $this->idEntidadAsociada;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Usuario
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return Usuario
+     */
+    public function setCreationTime($creationTime)
+    {
+        $this->creationTime = $creationTime;
+
+        return $this;
+    }
+
+    /**
+     * Get creationTime
+     *
+     * @return \DateTime
+     */
+    public function getCreationTime()
+    {
+        return $this->creationTime;
+    }
+
+    /**
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return Usuario
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set rol
+     *
+     * @param \Acme\boletinesBundle\Entity\Rol $rol
+     * @return Usuario
+     */
+    public function setRol(\Acme\boletinesBundle\Entity\Rol $rol = null)
+    {
+        $this->rol = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Acme\boletinesBundle\Entity\Rol
      */
     public function getRol()
     {
-        return $this->idRol;
+        return $this->rol;
     }
 
-    /**
-     * @param Rol $idRol
-     */
-    public function setRol($idRol)
+    public function getRoles()
     {
-        $this->idRol = $idRol;
+        return array($this->rol->getNombre());
     }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getUsername()
+    {
+        return $this->nombre;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->nombre,
+            $this->password,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nombre,
+            $this->password,
+        ) = unserialize($serialized);
+    }
+
 }

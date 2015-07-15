@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Institucion" table="institucion">
-    <id name="idInstitucion" type="integer" column="id_institucion">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="nombreInstitucion" type="string" column="nombre_institucion" length="45" nullable="false"/>
-    <field name="direccionInstitucion" type="string" column="direccion_institucion" length="45" nullable="false"/>
-    <field name="telefonoInstitucion" type="string" column="telefono_institucion" length="45" nullable="true"/>
-    <field name="emailInstitucion" type="string" column="email_institucion" length="45" nullable="true"/>
+    <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
+    <field name="logo" type="string" column="logo" length="45" nullable="true"/>
+    <field name="cuit" type="string" column="cuit" length="11" nullable="true"/>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
   </entity>
 </doctrine-mapping>

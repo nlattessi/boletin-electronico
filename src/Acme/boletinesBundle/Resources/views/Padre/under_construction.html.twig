@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+  {% if app.user %}
+    {% if is_granted('ROLE_ADMIN') %}
+      {{ include('::partials/institucion_fixed_nav.html.twig') }}
+      {{ include('::partials/institucion_main_nav.html.twig', {'nav_selected': ''}) }}
+    {% else %} 
+      {% if is_granted('ROLE_PADRE') %}
+        {{ include('::partials/padre_fixed_nav.html.twig') }}
+        {{ include('::partials/padre_main_nav.html.twig') }}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+ <!-- startMain content-->   
+<div class="container">
+  <div class="row mar-top-xl mar-bot-xl">
+    <div class="col s12 m8 l12 center-align">
+      <i class="icon-linear-brain icon-uc-size"></i>
+      <h3 class="">Esta página se está diseñando</h3>
+      <h5 class="">Estará disponible en la próxima demo</h5>
+    </div>
+  </div>
+</div>
+ <!-- end Main content-->
+
+  {{ include('::partials/footer.html.twig') }}
+{% endblock %}

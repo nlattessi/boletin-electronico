@@ -76,8 +76,25 @@ class Disciplina
      */
     private $idAlumno;
 
+
+
     /**
-     * @return string
+     * Set comentarioDocente
+     *
+     * @param string $comentarioDocente
+     * @return Disciplina
+     */
+    public function setComentarioDocente($comentarioDocente)
+    {
+        $this->comentarioDocente = $comentarioDocente;
+
+        return $this;
+    }
+
+    /**
+     * Get comentarioDocente
+     *
+     * @return string 
      */
     public function getComentarioDocente()
     {
@@ -85,15 +102,22 @@ class Disciplina
     }
 
     /**
-     * @param string $comentarioDocente
+     * Set descargoAlumno
+     *
+     * @param string $descargoAlumno
+     * @return Disciplina
      */
-    public function setComentarioDocente($comentarioDocente)
+    public function setDescargoAlumno($descargoAlumno)
     {
-        $this->comentarioDocente = $comentarioDocente;
+        $this->descargoAlumno = $descargoAlumno;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get descargoAlumno
+     *
+     * @return string 
      */
     public function getDescargoAlumno()
     {
@@ -101,15 +125,22 @@ class Disciplina
     }
 
     /**
-     * @param string $descargoAlumno
+     * Set fechaSuceso
+     *
+     * @param \DateTime $fechaSuceso
+     * @return Disciplina
      */
-    public function setDescargoAlumno($descargoAlumno)
+    public function setFechaSuceso($fechaSuceso)
     {
-        $this->descargoAlumno = $descargoAlumno;
+        $this->fechaSuceso = $fechaSuceso;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fechaSuceso
+     *
+     * @return \DateTime 
      */
     public function getFechaSuceso()
     {
@@ -117,15 +148,22 @@ class Disciplina
     }
 
     /**
-     * @param \DateTime $fechaSuceso
+     * Set fechaCarga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Disciplina
      */
-    public function setFechaSuceso($fechaSuceso)
+    public function setFechaCarga($fechaCarga)
     {
-        $this->fechaSuceso = $fechaSuceso;
+        $this->fechaCarga = $fechaCarga;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fechaCarga
+     *
+     * @return \DateTime 
      */
     public function getFechaCarga()
     {
@@ -133,31 +171,32 @@ class Disciplina
     }
 
     /**
-     * @param \DateTime $fechaCarga
+     * Set validado
+     *
+     * @param boolean $validado
+     * @return Disciplina
      */
-    public function setFechaCarga($fechaCarga)
+    public function setValidado($validado)
     {
-        $this->fechaCarga = $fechaCarga;
+        $this->validado = $validado;
+
+        return $this;
     }
 
     /**
-     * @return boolean
+     * Get validado
+     *
+     * @return boolean 
      */
-    public function isValidado()
+    public function getValidado()
     {
         return $this->validado;
     }
 
     /**
-     * @param boolean $validado
-     */
-    public function setValidado($validado)
-    {
-        $this->validado = $validado;
-    }
-
-    /**
-     * @return int
+     * Get idDisciplina
+     *
+     * @return integer 
      */
     public function getIdDisciplina()
     {
@@ -165,48 +204,48 @@ class Disciplina
     }
 
     /**
-     * @param int $idDisciplina
+     * Set idDocente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $idDocente
+     * @return Disciplina
      */
-    public function setIdDisciplina($idDisciplina)
+    public function setIdDocente(\Acme\boletinesBundle\Entity\Docente $idDocente = null)
     {
-        $this->idDisciplina = $idDisciplina;
+        $this->idDocente = $idDocente;
+
+        return $this;
     }
 
     /**
-     * @return Docente
+     * Get idDocente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
      */
-    public function getDocente()
+    public function getIdDocente()
     {
         return $this->idDocente;
     }
 
     /**
-     * @param Docente $idDocente
+     * Set idAlumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $idAlumno
+     * @return Disciplina
      */
-    public function setDocente($idDocente)
+    public function setIdAlumno(\Acme\boletinesBundle\Entity\Alumno $idAlumno = null)
     {
-        $this->idDocente = $idDocente;
+        $this->idAlumno = $idAlumno;
+
+        return $this;
     }
 
     /**
-     * @return Alumno
+     * Get idAlumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
      */
-    public function getAlumno()
+    public function getIdAlumno()
     {
         return $this->idAlumno;
     }
-
-    /**
-     * @param Alumno $idAlumno
-     */
-    public function setAlumno($idAlumno)
-    {
-        $this->idAlumno = $idAlumno;
-    }
-
-    public function __toString(){
-
-        return 'Alumno: ' . $this->getAlumno()->__toString() . ' el dia '. $this->getFechaSuceso()->format('d-m-Y');
-    }
-
 }

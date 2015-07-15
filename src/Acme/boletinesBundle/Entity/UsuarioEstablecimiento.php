@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UsuarioEstablecimiento
  *
- * @ORM\Table(name="usuario_establecimiento", indexes={@ORM\Index(name="usuario_fk_establecimiento", columns={"id_usuario"}), @ORM\Index(name="establecimiento_fk_usuario", columns={"id_establecimiento"})})
+ * @ORM\Table(name="usuario_establecimiento", indexes={@ORM\Index(name="FK_7110F23F7DFA12F6", columns={"establecimiento_id"}), @ORM\Index(name="FK_7110F23FFCF8192D", columns={"usuario_id"})})
  * @ORM\Entity
  */
 class UsuarioEstablecimiento
@@ -15,87 +15,87 @@ class UsuarioEstablecimiento
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_usuario_establecimiento", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idUsuarioEstablecimiento;
-
-    /**
-     * @var \Acme\boletinesBundle\Entity\Establecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id_establecimiento")
-     * })
-     */
-    private $idEstablecimiento;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
+     *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })
      */
-    private $idUsuario;
-
-
-    public function UsuarioEstablecimiento($usuario, $establecimiento){
-        $this->setUsuario($usuario);
-        $this->setEstablecimiento($establecimiento);
-    }
+    private $usuario;
 
     /**
-     * @return int
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
      */
-    public function getIdUsuarioEstablecimiento()
-    {
-        return $this->idUsuarioEstablecimiento;
-    }
+    private $establecimiento;
+
+
 
     /**
-     * @param int $idUsuarioEstablecimiento
+     * Get id
+     *
+     * @return integer 
      */
-    public function setIdUsuarioEstablecimiento($idUsuarioEstablecimiento)
+    public function getId()
     {
-        $this->idUsuarioEstablecimiento = $idUsuarioEstablecimiento;
+        return $this->id;
     }
 
     /**
-     * @return Establecimiento
+     * Set usuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
+     * @return UsuarioEstablecimiento
      */
-    public function getEstablecimiento()
+    public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario = null)
     {
-        return $this->idEstablecimiento;
+        $this->usuario = $usuario;
+
+        return $this;
     }
 
     /**
-     * @param Establecimiento $idEstablecimiento
-     */
-    public function setEstablecimiento($idEstablecimiento)
-    {
-        $this->idEstablecimiento = $idEstablecimiento;
-    }
-
-    /**
-     * @return Usuario
+     * Get usuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
     public function getUsuario()
     {
-        return $this->idUsuario;
+        return $this->usuario;
     }
 
     /**
-     * @param Usuario $idUsuario
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return UsuarioEstablecimiento
      */
-    public function setUsuario($idUsuario)
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento = null)
     {
-        $this->idUsuario = $idUsuario;
+        $this->establecimiento = $establecimiento;
+
+        return $this;
     }
 
-
-
-
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento 
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
+    }
 }

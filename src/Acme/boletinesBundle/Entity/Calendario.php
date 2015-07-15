@@ -38,34 +38,61 @@ class Calendario
      */
     private $idUsuarioPropietario;
 
-public function getNombreCalendario(){
-		return $this->nombreCalendario;
-	}
 
-	public function setNombreCalendario($nombreCalendario){
-		$this->nombreCalendario = $nombreCalendario;
-	}
 
-	public function getId(){
-		return $this->idCalendario;
-	}
-	public function getIdCalendario(){
-		return $this->idCalendario;
-	}
-	
-	public function setIdCalendario($idCalendario){
-		$this->idCalendario = $idCalendario;
-	}
+    /**
+     * Set nombreCalendario
+     *
+     * @param string $nombreCalendario
+     * @return Calendario
+     */
+    public function setNombreCalendario($nombreCalendario)
+    {
+        $this->nombreCalendario = $nombreCalendario;
 
-	public function getUsuarioPropietario(){
-		return $this->idUsuarioPropietario;
-	}
+        return $this;
+    }
 
-	public function setUsuarioPropietario($idUsuarioPropietario){
-		$this->idUsuarioPropietario = $idUsuarioPropietario;
-	}
+    /**
+     * Get nombreCalendario
+     *
+     * @return string 
+     */
+    public function getNombreCalendario()
+    {
+        return $this->nombreCalendario;
+    }
 
-	public function __toString() {  
-     return $this->nombreCalendario;  
-   } 
+    /**
+     * Get idCalendario
+     *
+     * @return integer 
+     */
+    public function getIdCalendario()
+    {
+        return $this->idCalendario;
+    }
+
+    /**
+     * Set idUsuarioPropietario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $idUsuarioPropietario
+     * @return Calendario
+     */
+    public function setIdUsuarioPropietario(\Acme\boletinesBundle\Entity\Usuario $idUsuarioPropietario = null)
+    {
+        $this->idUsuarioPropietario = $idUsuarioPropietario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuarioPropietario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getIdUsuarioPropietario()
+    {
+        return $this->idUsuarioPropietario;
+    }
 }

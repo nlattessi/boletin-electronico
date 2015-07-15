@@ -41,14 +41,12 @@ class CalendarioActividad
      */
     private $idActividad;
 
-    public function CalendarioActividad($calendario, $actividad){
-        $this->setCalendario($calendario);
-        $this->setActividad($actividad);
-    }
 
 
     /**
-     * @return int
+     * Get idCalendarioActividad
+     *
+     * @return integer 
      */
     public function getIdCalendarioActividad()
     {
@@ -56,44 +54,48 @@ class CalendarioActividad
     }
 
     /**
-     * @param int $idCalendarioActividad
+     * Set idCalendario
+     *
+     * @param \Acme\boletinesBundle\Entity\Calendario $idCalendario
+     * @return CalendarioActividad
      */
-    public function setIdCalendarioActividad($idCalendarioActividad)
+    public function setIdCalendario(\Acme\boletinesBundle\Entity\Calendario $idCalendario = null)
     {
-        $this->idCalendarioActividad = $idCalendarioActividad;
+        $this->idCalendario = $idCalendario;
+
+        return $this;
     }
 
     /**
-     * @return Calendario
+     * Get idCalendario
+     *
+     * @return \Acme\boletinesBundle\Entity\Calendario 
      */
-    public function getCalendario()
+    public function getIdCalendario()
     {
         return $this->idCalendario;
     }
 
     /**
-     * @param Calendario $idCalendario
+     * Set idActividad
+     *
+     * @param \Acme\boletinesBundle\Entity\Actividad $idActividad
+     * @return CalendarioActividad
      */
-    public function setCalendario($idCalendario)
+    public function setIdActividad(\Acme\boletinesBundle\Entity\Actividad $idActividad = null)
     {
-        $this->idCalendario = $idCalendario;
+        $this->idActividad = $idActividad;
+
+        return $this;
     }
 
     /**
-     * @return Actividad
+     * Get idActividad
+     *
+     * @return \Acme\boletinesBundle\Entity\Actividad 
      */
-    public function getActividad()
+    public function getIdActividad()
     {
         return $this->idActividad;
     }
-
-    /**
-     * @param Actividad $idActividad
-     */
-    public function setActividad($idActividad)
-    {
-        $this->idActividad = $idActividad;
-    }
-
-
 }

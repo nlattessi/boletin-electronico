@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Calificacion
  *
- * @ORM\Table(name="calificacion", indexes={@ORM\Index(name="alumno_fk_examen_idx", columns={"id_alumno"}), @ORM\Index(name="examen_fk_calificacion_idx", columns={"id_examen"})})
+ * @ORM\Table(name="calificacion", indexes={@ORM\Index(name="FK_8A3AF218320260C0", columns={"alumno_id"}), @ORM\Index(name="fk_calificacion_evaluacion", columns={"evaluacion_id"}), @ORM\Index(name="fk_usuario_calificacion_idx", columns={"usuario_carga_id"})})
  * @ORM\Entity
  */
 class Calificacion
@@ -15,23 +15,23 @@ class Calificacion
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_calificacion", type="datetime", nullable=true)
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
-    private $fechaCalificacion;
+    private $fecha;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="valor_calificacion", type="string", length=10, nullable=true)
+     * @ORM\Column(name="valor", type="string", length=10, nullable=true)
      */
-    private $valorCalificacion;
+    private $valor;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comentario_calificacion", type="string", length=127, nullable=true)
+     * @ORM\Column(name="comentario", type="string", length=127, nullable=true)
      */
-    private $comentarioCalificacion;
+    private $comentario;
 
     /**
      * @var string
@@ -41,84 +41,146 @@ class Calificacion
     private $validada;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)
+     */
+    private $fechaCreacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=true)
+     */
+    private $fechaActualizacion;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_calificacion", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idCalificacion;
+    private $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Examen
+     * @var \Acme\boletinesBundle\Entity\Usuario
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Examen")
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_examen", referencedColumnName="id_examen")
+     *   @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id")
      * })
      */
-    private $idExamen;
+    private $usuarioCarga;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Evaluacion
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Evaluacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="evaluacion_id", referencedColumnName="id")
+     * })
+     */
+    private $evaluacion;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Alumno
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
+     *   @ORM\JoinColumn(name="alumno_id", referencedColumnName="id")
      * })
      */
-    private $idAlumno;
+    private $alumno;
+
+
 
     /**
-     * @return \DateTime
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Calificacion
      */
-    public function getFechaCalificacion()
+    public function setFecha($fecha)
     {
-        return $this->fechaCalificacion;
+        $this->fecha = $fecha;
+
+        return $this;
     }
 
     /**
-     * @param \DateTime $fechaCalificacion
+     * Get fecha
+     *
+     * @return \DateTime 
      */
-    public function setFechaCalificacion($fechaCalificacion)
+    public function getFecha()
     {
-        $this->fechaCalificacion = $fechaCalificacion;
+        return $this->fecha;
     }
 
     /**
-     * @return string
+     * Set valor
+     *
+     * @param string $valor
+     * @return Calificacion
      */
-    public function getValorCalificacion()
+    public function setValor($valor)
     {
-        return $this->valorCalificacion;
+        $this->valor = $valor;
+
+        return $this;
     }
 
     /**
-     * @param string $valorCalificacion
+     * Get valor
+     *
+     * @return string 
      */
-    public function setValorCalificacion($valorCalificacion)
+    public function getValor()
     {
-        $this->valorCalificacion = $valorCalificacion;
+        return $this->valor;
     }
 
     /**
-     * @return string
+     * Set comentario
+     *
+     * @param string $comentario
+     * @return Calificacion
      */
-    public function getComentarioCalificacion()
+    public function setComentario($comentario)
     {
-        return $this->comentarioCalificacion;
+        $this->comentario = $comentario;
+
+        return $this;
     }
 
     /**
-     * @param string $comentarioCalificacion
+     * Get comentario
+     *
+     * @return string 
      */
-    public function setComentarioCalificacion($comentarioCalificacion)
+    public function getComentario()
     {
-        $this->comentarioCalificacion = $comentarioCalificacion;
+        return $this->comentario;
     }
 
     /**
-     * @return string
+     * Set validada
+     *
+     * @param string $validada
+     * @return Calificacion
+     */
+    public function setValidada($validada)
+    {
+        $this->validada = $validada;
+
+        return $this;
+    }
+
+    /**
+     * Get validada
+     *
+     * @return string 
      */
     public function getValidada()
     {
@@ -126,63 +188,127 @@ class Calificacion
     }
 
     /**
-     * @param string $validada
+     * Set fechaCreacion
+     *
+     * @param \DateTime $fechaCreacion
+     * @return Calificacion
      */
-    public function setValidada($validada)
+    public function setFechaCreacion($fechaCreacion)
     {
-        $this->validada = $validada;
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fechaCreacion
+     *
+     * @return \DateTime 
      */
-    public function getIdCalificacion()
+    public function getFechaCreacion()
     {
-        return $this->idCalificacion;
+        return $this->fechaCreacion;
     }
 
     /**
-     * @param int $idCalificacion
+     * Set fechaActualizacion
+     *
+     * @param \DateTime $fechaActualizacion
+     * @return Calificacion
      */
-    public function setIdCalificacion($idCalificacion)
+    public function setFechaActualizacion($fechaActualizacion)
     {
-        $this->idCalificacion = $idCalificacion;
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
     }
 
     /**
-     * @return Examen
+     * Get fechaActualizacion
+     *
+     * @return \DateTime 
      */
-    public function getExamen()
+    public function getFechaActualizacion()
     {
-        return $this->idExamen;
+        return $this->fechaActualizacion;
     }
 
     /**
-     * @param Examen $idExamen
+     * Get id
+     *
+     * @return integer 
      */
-    public function setExamen($idExamen)
+    public function getId()
     {
-        $this->idExamen = $idExamen;
+        return $this->id;
     }
 
     /**
-     * @return Alumno
+     * Set usuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Calificacion
+     */
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga = null)
+    {
+        $this->usuarioCarga = $usuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->usuarioCarga;
+    }
+
+    /**
+     * Set evaluacion
+     *
+     * @param \Acme\boletinesBundle\Entity\Evaluacion $evaluacion
+     * @return Calificacion
+     */
+    public function setEvaluacion(\Acme\boletinesBundle\Entity\Evaluacion $evaluacion = null)
+    {
+        $this->evaluacion = $evaluacion;
+
+        return $this;
+    }
+
+    /**
+     * Get evaluacion
+     *
+     * @return \Acme\boletinesBundle\Entity\Evaluacion 
+     */
+    public function getEvaluacion()
+    {
+        return $this->evaluacion;
+    }
+
+    /**
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return Calificacion
+     */
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno = null)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
      */
     public function getAlumno()
     {
-        return $this->idAlumno;
-    }
-
-    /**
-     * @param Alumno $idAlumno
-     */
-    public function setAlumno($idAlumno)
-    {
-        $this->idAlumno = $idAlumno;
-    }
-
-
-    public function __toString(){
-        return $this->getValorCalificacion();
+        return $this->alumno;
     }
 }

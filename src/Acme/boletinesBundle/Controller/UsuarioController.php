@@ -119,11 +119,21 @@ class UsuarioController extends Controller
         $usuario->setPassword($data->request->get('password'));
 
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('idRol' => $data->request->get('idRol')));
-        $usuario->setRol($rol);        
-        
+        $usuario->setRol($rol);
+
         $em->persist($usuario);
         $em->flush();
 
         return $usuario;
+    }
+
+    public function new2Action()
+    {
+        return $this->render('BoletinesBundle:Usuario:new2.html.twig', array());
+    }
+
+    public function edit2Action()
+    {
+        return $this->render('BoletinesBundle:Usuario:edit2.html.twig', array());
     }
 }

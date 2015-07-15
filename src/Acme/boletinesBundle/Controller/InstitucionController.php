@@ -6,8 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
+
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
+use \utilphp\util;
 
 class InstitucionController extends Controller
 {
@@ -25,42 +31,45 @@ class InstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
     }
 
     public function newAction(Request $request)
     {
-        $message = "";
+        $error = "";
 
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $institucion = $this->createEntity($request);
             if($institucion != null) {
-                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+                //return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+                return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
             } else {
-                $message = "Errores";
+                $error = "Errores";
             }
         }
 
-        return $this->render('BoletinesBundle:Institucion:new.html.twig', array('mensaje' => $message));
+        return $this->render('BoletinesBundle:Institucion:new.html.twig', array('error' => $error));
     }
 
     private function createEntity($data)
     {
         $institucion = new Institucion();
-        $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
-        $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
-        $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
-        $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
+        $institucion->setNombre($data->request->get('nombreInstitucion'));
 
+        $logoFile = $data->files->get('logoInstitucion');
+        if ($logoFile) {
+            $this->crearYSetearFileLogo($logoFile, $institucion);
+        }
 
         $validator = $this->get('validator');
         $errors = $validator->validate($institucion);
         if (count($errors) > 0) {
             return false;
         }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($institucion);
         $em->flush();
@@ -71,13 +80,15 @@ class InstitucionController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
        if($institucion instanceof Institucion) {
            $em->remove($institucion);
            $em->flush();
+           $this->borrarFileLogo($institucion);
        }
-        return $this->indexAction();
+        //return $this->indexAction();
+       return new RedirectResponse($this->generateUrl('institucion'));
     }
 
 
@@ -87,13 +98,14 @@ class InstitucionController extends Controller
         if ($request->getMethod() == 'POST') {
             $institucion = $this->editEntity($request, $id);
             if($institucion != null) {
-                return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+                //return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+                return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
             } else {
                 $message = "Errores";
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
         }
 
         return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion, 'mensaje' => $message));
@@ -104,12 +116,15 @@ class InstitucionController extends Controller
         try{
             $em = $this->getDoctrine()->getManager();
 
-            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $id));
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
-            $institucion->setNombreInstitucion($data->request->get('nombreInstitucion'));
-            $institucion->setDireccionInstitucion($data->request->get('direccionInstitucion'));
-            $institucion->setEmailInstitucion($data->request->get('emailInstitucion'));
-            $institucion->setTelefonoInstitucion($data->request->get('telefonoInstitucion'));
+            $institucion->setNombre($data->request->get('nombreInstitucion'));
+
+            $logoFile = $data->files->get('logoInstitucion');
+            if ($logoFile) {
+                $this->borrarFileLogo($institucion);
+                $this->crearYSetearFileLogo($logoFile, $institucion);
+            }
 
             $em->persist($institucion);
             $em->flush();
@@ -121,5 +136,31 @@ class InstitucionController extends Controller
         }
 
         return $institucion;
+    }
+
+    private function crearYSetearFileLogo($logoFile, $institucion)
+    {
+        $fs = new Filesystem();
+        $dir = __DIR__.'/../../../../web/uploads/logos/';
+        $slugName = util::slugify($institucion->getNombre());
+        $newFileName = rand(1, 99999) . '.' . $slugName;
+        while ($fs->exists($dir . $newFileName)) {
+            $newFileName = rand(1, 99999) . '.' . $slugName;
+        }
+
+        $logoFile->move(
+            $dir,
+            $newFileName
+        );
+
+        $institucion->setLogo($newFileName);
+    }
+
+    private function borrarFileLogo($institucion)
+    {
+        $fs = new Filesystem();
+        if ($fs->exists($institucion->getAbsolutePath())) {
+            $fs->remove($institucion->getAbsolutePath());
+        }
     }
 }

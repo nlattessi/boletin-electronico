@@ -1654,7 +1654,10 @@ html {
  * Remove default margin.
  */
 body {
-  margin: 0; }
+  margin: 0;
+   }
+
+
 
 /* HTML5 display definitions
    ========================================================================== */
@@ -1667,7 +1670,7 @@ body {
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block; }
 
-/**
+
  * 1. Correct `inline-block` display not defined in IE 8/9.
  * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
@@ -2157,7 +2160,8 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 50px;
   padding-top: 0px;
-  background-color: #F39A6D; }
+  background-color: #F39A6D;
+   }
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
@@ -8863,9 +8867,31 @@ small {
   transition: .2s ease-out;
   cursor: pointer;
     padding: 0px 8px 0px 8px !important; }
-  .btn:hover, .btn-small:hover {
+.btn-xsmall {
+  border-radius: 20px;
+  text-decoration: none;
+  color: #DB8B63;
+  background-color: transparent;
+  border: 1px solid #F39A6E;
+  text-align: center;
+  letter-spacing: .5px;
+  -webkit-transition: .2s ease-out;
+  -moz-transition: .2s ease-out;
+  -o-transition: .2s ease-out;
+  -ms-transition: .2s ease-out;
+  transition: .2s ease-out;
+  cursor: pointer;
+    padding: 5px 10px 5px 10px !important;
+    margin-right: 5px; }
+
+  .btn:hover:hover, .btn-small:hover, .btn-xsmall:hover {
     background-color: #F39A6E;
     color: #fff; }
+
+.mistake  {
+    color: #EDC5B1 !important;
+    border: 1px solid #EDC5B1 !important; }
+
 
 .btn-floating {
   display: inline-block;
@@ -9178,7 +9204,7 @@ a.waves-effect .waves-ripple {
 .collapsible:hover {
   
   
-  margin: 1.4rem 0 1rem 0; }
+  /*margin: 1.4rem 0 1rem 0;*/ }
 
 .collapsible-header {
   display: block;
@@ -9195,6 +9221,15 @@ a.waves-effect .waves-ripple {
   transition: .25s ease; }
   .collapsible-header:hover {
   color: #F39A6D;
+}
+  .collapsible-header:active {
+  color: #F39A6D !important;
+}
+  .collapsible-header:focus {
+  color: #F39A6D !important;
+}
+  .collapsible-header:visited {
+  color: #F39A6D !important;
 }
   .collapsible-header i {
     width: 2rem;
@@ -9290,7 +9325,7 @@ select:focus {
 
 button:focus {
   outline: none;
-  background-color: #2ab7a9; }
+  background-color: #F39A6E; }
 
 label {
   font-size: 0.8rem;
@@ -11274,6 +11309,17 @@ nav ul li:hover, nav ul li.active {
   color: #3C3C3B;
   font-weight: 300; }
 
+.h-h3 {
+  color: #3C3C3B;
+  font-weight: 300; }
+
+.h-h3 i {
+  font-size: 2rem;
+  line-height: 3.4rem;
+  display: block;
+  float: left;
+  margin-right: 1rem; }
+
 .caption {
   font-size: 1.25rem;
   font-weight: 300;
@@ -11885,6 +11931,14 @@ body.parallax-demo footer {
     margin-top: 3.5rem !important;
 }
 
+.mar-top-xl {
+    margin-top: 8.5rem !important;
+}
+
+.mar-bot-xl {
+    margin-bottom: 8.5rem !important;
+}
+
 .mar-top-soft {
   margin-top: 25px;
 }
@@ -11895,6 +11949,9 @@ body.parallax-demo footer {
 
 .pad-top-disci {
   padding-top: 0.5rem !important;
+}
+.pad-all-edit {
+  padding: 1rem !important;
 } 
 
 .main-nav
@@ -11922,6 +11979,10 @@ body.parallax-demo footer {
 .icon-nav-size
 {
   font-size: 26px;}
+
+.icon-uc-size
+{
+  font-size: 40px;}
 
 .main-nav-pad
 {
@@ -12157,7 +12218,17 @@ body.parallax-demo footer {
   margin-bottom: 15px;
   background-color: #fff;
   border: 1px solid #cacaca;
+  -webkit-transition: .2s ease-out;
+  -moz-transition: .2s ease-out;
+  -o-transition: .2s ease-out;
+  -ms-transition: .2s ease-out;
+  transition: .2s ease-out;
   }
+.panel:hover {
+  
+  border: 1px solid #F39A6D;
+  }
+
 
 .panel-default > .panel-heading {
   color: #575756;
@@ -12190,7 +12261,22 @@ body.parallax-demo footer {
   text-align: center;
   margin-right: 1rem;}
 
-.widget-events {
+.widget-link  {
+    color: #575756 !important;
+    
+    }
+
+.widget-link a {
+    color: #575756 !important;
+    -webkit-transition: .2s ease-out;
+  -moz-transition: .2s ease-out;
+  -o-transition: .2s ease-out;
+  -ms-transition: .2s ease-out;
+  transition: .2s ease-out;
+    }
+
+.widget-link a:hover {
+    color: #F39A6D !important;
     }
 
 .widget-events-date {
@@ -12294,4 +12380,11 @@ body.parallax-demo footer {
       
       border-bottom: 1px solid #F39A6D !important;
     }
-  
+
+.error-msg {
+      
+  color: #fff;
+  background-color: #EE8277;
+  padding: 10px;
+  border-radius: 35px;
+    }

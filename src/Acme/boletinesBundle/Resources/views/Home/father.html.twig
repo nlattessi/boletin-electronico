@@ -2,53 +2,8 @@
 
 {% block body -%}
 
-    <!-- Fixed nav -->
-    <div class="navbar-fixed">
-        <ul id="dropdown1" class="dropdown-content drop-user">
-            <li><a href="#!" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
-        </ul>
-        <ul id="dropdown2" class="dropdown-content drop-notification">
-            <span class="circle dot"></span>
-            <div clasS="notifi"><h6>Notificaciones</h6></div>
-            <li><a href="#!" class="t-s">Las asistencias han sido actualizadas<br><span class="ts-s">Hace 20 minutos</span></a></li>
-            <li class="divider"></li>
-            <li><a href="#!" class="t-s">Su hijo se porto mal<br><span class="ts-s">Hace 2 horas</span></a></li>
-            <li class="divider"></li>
-            <li><a href="#!" class="t-s">Suspensión de clases<br><span class="ts-s">Ayer</span></a></li>
-        </ul>
-        <ul id="dropdown3" class="dropdown-content drop-messages">
-            <span class="circle dot"></span>
-            <div clasS="notifi"><h6>Mensajes</h6></div>
-            <li><a href="#!" class="t-s"><b>Don Mota</b> te ha enviado un mensaje<br><span class="ts-s">Hace 10 minutos.</span></a></li>
-            <li class="divider"></li>
-            <li><a href="#!" class="t-s"><b>John Pol</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
-            <li class="divider"></li>
-            <li><a href="#!" class="t-s"><b>Marta Chota</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
-        </ul>
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><img class="responsive-img" src={{ asset('bundles/boletines/images//communitas-mini2.png')}}></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">3</span></i></a></li>
-                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">1</span></i></a></li>
-                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">Sebastian Peacecraft<i class="icon-linear-chevron-down right"></i></a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <!-- Main nav -->
-
-    <nav class="main-nav">
-        <div class="main-nav-wrapper father-nav">
-            <ul class="hide-on-med-and-down">
-                <li class="main-nav-pad center-align"><a href="#" class="active"><i class="icon-linear-history icon-nav-size"></i><br><span>Inicio</span></a></li>
-                <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-clipboard-text icon-nav-size"></i> <br><span>Asistencia</span></a></li>
-                <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-list3 icon-nav-size"></i> <br><span>Calificaciones</span></a></li>
-                <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-calendar-full icon-nav-size"></i> <br><span>Calendario</span></a></li>
-                <li class="main-nav-pad center-align"><a href="#"><i class="icon-linear-neutral icon-nav-size"></i> <br><span>Disciplina</span></a></li>
-            </ul>
-        </div>
-    </nav>
+    {{ include('BoletinesBundle::Padre/fixed_nav.html.twig') }}
+    {{ include('BoletinesBundle::Padre/main_nav.html.twig') }}
 
     <!-- startMain content-->
 
@@ -77,7 +32,7 @@
                 <div class="col s12">
                     <div class="panel-default">
                         <div class="panel-body-school normalh center-align">
-                            <img src={{ asset('bundles/boletines/images//mb.png')}} alt="as" class="inst-thumb">
+                            <a href="{{ path('home_inst_manuel_belgrano') }}"><img src={{ asset('bundles/boletines/images//mb.png')}} alt="as" class="inst-thumb"></a>
                             <h6 class="school-style">Colegio Manuel Belgrano</h6>
                             <h6 class="">Nivel secundario</h6>
 
@@ -96,8 +51,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12">
-                                    <h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5></a>
                                 </div>
 
                             </div>
@@ -125,8 +80,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12">
-                                    <h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5></a>
                                 </div>
 
                             </div>
@@ -146,8 +101,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12 ">
-                                    <h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5></a>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +185,7 @@
                 <div class="col s12">
                     <div class="panel-default">
                         <div class="panel-body-school normalh center-align">
-                            <img src={{ asset('bundles/boletines/images//belgranods.jpg')}} alt="as" class="inst-thumb">
+                            <a href="{{ path('home_inst_belgrano_day_school') }}"><img src={{ asset('bundles/boletines/images//belgranods.jpg')}} alt="as" class="inst-thumb"></a>
                             <h6 class="school-style">Belgrano Day School</h6>
                             <h6 class="">Nivel secundario</h6>
 
@@ -249,8 +204,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12">
-                                    <h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5></a>
                                 </div>
 
                             </div>
@@ -278,8 +233,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12">
-                                    <h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5></a>
                                 </div>
 
                             </div>
@@ -299,8 +254,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col s12 ">
-                                    <h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5>
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5></a>
                                 </div>
                             </div>
                         </div>
@@ -381,8 +336,321 @@
         </div>
 
     </div> <!-- end student 2-->
-    <div id="test3" class="col s12"></div>
-    <div id="test4" class="col s12"></div>
+    {# <div id="test3" class="col s12"></div>
+    <div id="test4" class="col s12"></div> #}
+
+    <div id="test3" class="col s12 mar-top fadeIn animated"> <!-- start student 3-->
+        <div class="col s12 m6 l2"> <!-- startWidget 4-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel-default">
+                        <div class="panel-body-school normalh center-align">
+                            <a href="{{ path('home_inst_manuel_belgrano') }}"><img src={{ asset('bundles/boletines/images//mb.png')}} alt="as" class="inst-thumb"></a>
+                            <h6 class="school-style">Colegio Manuel Belgrano</h6>
+                            <h6 class="">Nivel secundario</h6>
+
+                            <div class="col s4">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 4-->
+        <div class="col s12 m6 l4"> <!-- startWidget 1-->
+            <div class="row ">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body normalh">
+                            <div class="col s12">
+                                <h6><span class="widget-events-date">11 Jun</span> Reunion de padres</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">04 Jul</span>  Examen de Geografía</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">29 Jul</span>  Examen de Matemática</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">9 ago</span>  Examen de Inglés</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 1-->
+        <div class="col s12 m6 l3"> <!-- startWidget 2-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body normalh center-align">
+                            <h1 class="asist-m">3<span class="asist-widget-span">/25</span></h1>
+                            <h6 class="">Inasistencias</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 2-->
+        <div class="col s12 m6 l3"> <!-- startWidget 3-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body normalh center-align">
+                            <div class="col s12 pad-top-disci">
+                                <i class="icon-linear-happy discipline-widget-i happy"></i><br>
+                                <h5 class="discipline-widget-t">¡Buena conducta!</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 3-->
+
+        <div class="col s12">
+            <ul class="collapsible mar-top" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-history"></i> Materias asignadas<i class="icon-linear-chevron-down right"></i></h5></div>
+                    <div class="collapsible-body">
+                        <table class="week">
+                            <thead>
+                            <tr>
+                                <th class="week-tittle">Lunes</th>
+                                <th class="week-tittle">Martes</th>
+                                <th class="week-tittle">Miércoles</th>
+                                <th class="week-tittle">Jueves</th>
+                                <th class="week-tittle">Viernes</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-grey"> Música</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-pink"> Educación física</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-pink"> Educación física</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-grey"> Música</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-red"> Física</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                            </tr>
+                            </tbody>
+                        </table></div>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div><!-- end student 3-->
+
+    <div id="test4" class="col s12 mar-top fadeIn animated"> <!-- start student 4-->
+        <div class="col s12 m6 l2"> <!-- startWidget 4-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel-default">
+                        <div class="panel-body-school normalh center-align">
+                            <a href="{{ path('home_inst_belgrano_day_school') }}"><img src={{ asset('bundles/boletines/images//belgranods.jpg')}} alt="as" class="inst-thumb"></a>
+                            <h6 class="school-style">Belgrano Day School</h6>
+                            <h6 class="">Nivel secundario</h6>
+
+                            <div class="col s4">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 4-->
+        <div class="col s12 m6 l4"> <!-- startWidget 1-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-calendar-insert"></i> Próximos eventos</h5></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body normalh">
+                            <div class="col s12">
+                                <h6><span class="widget-events-date">11 Jun</span> Reunion de padres</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">04 Jul</span>  Examen de Historia</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">29 Jul</span>  Examen de Inglés</h6>
+                                <div class="divider"></div>
+                                <h6><span class="widget-events-date">9 ago</span>  Examen de Literatura</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 1-->
+        <div class="col s12 m6 l3"> <!-- startWidget 2-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-clipboard-text"></i> Asistencia</h5></a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body normalh center-align">
+                            <h1 class="asist-m">12<span class="asist-widget-span">/25</span></h1>
+                            <h6 class="">Inasistencias</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 2-->
+        <div class="col s12 m6 l3"> <!-- startWidget 3-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col s12 widget-link">
+                                    <a href="{{ path('home_under_construction') }}"><h5 class="panel-title"><i class="icon-linear-neutral"></i> Disciplina</h5></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body normalh center-align">
+                            <div class="col s12 pad-top-disci">
+                                <i class="icon-linear-mad discipline-widget-i sad"></i><br>
+                                <h5 class="discipline-widget-t">¡Mala conducta!</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 3-->
+
+
+
+
+
+
+        <div class="col s12">
+            <ul class="collapsible mar-top" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-history"></i> Materias asignadas<i class="icon-linear-chevron-down right"></i></h5></div>
+                    <div class="collapsible-body">
+                        <table class="week">
+                            <thead>
+                            <tr>
+                                <th class="week-tittle">Lunes</th>
+                                <th class="week-tittle">Martes</th>
+                                <th class="week-tittle">Miércoles</th>
+                                <th class="week-tittle">Jueves</th>
+                                <th class="week-tittle">Viernes</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">8:00 - 9:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">9:40 - 11:00</span><br><span class="week-subject w-grey"> Música</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">11:20 - 12:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-yellow"> Historia</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-pink"> Educación física</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-violet"> Literatura</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-pink"> Educación física</span></td>
+                                <td><span clasS="week-time">13:20 - 14:40</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                            </tr>
+                            <tr>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-turquose"> Matemática</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-grey"> Música</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-green"> Inglés</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-red"> Física</span></td>
+                                <td><span clasS="week-time">16:00 - 17:20</span><br><span class="week-subject w-blue"> Geografía</span></td>
+                            </tr>
+                            </tbody>
+                        </table></div>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div> <!-- end student 4-->
+
+
     </div>
 
     </div>
@@ -393,19 +661,16 @@
 
 
     <!-- end Main content-->
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="container">
-                © 2015 Communitas - Comunidad educativa virtual
-                <a class="grey-text text-lighten-4 right" href="#!">Ayuda</a>
-            </div>
-        </div>
-    </footer>
-    <script> $(document).ready(function(){
+    {{ include('footer.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
             $('.collapsible').collapsible({
                 accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             });
-        });</script>
-
-
+        });
+    </script>
 {% endblock %}

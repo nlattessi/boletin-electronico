@@ -2,24 +2,32 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Calificacion" table="calificacion">
     <indexes>
-      <index name="alumno_fk_examen_idx" columns="id_alumno"/>
-      <index name="examen_fk_calificacion_idx" columns="id_examen"/>
+      <index name="FK_8A3AF218320260C0" columns="alumno_id"/>
+      <index name="fk_calificacion_evaluacion" columns="evaluacion_id"/>
+      <index name="fk_usuario_calificacion_idx" columns="usuario_carga_id"/>
     </indexes>
-    <id name="idCalificacion" type="integer" column="id_calificacion">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="fechaCalificacion" type="datetime" column="fecha_calificacion" nullable="true"/>
-    <field name="valorCalificacion" type="string" column="valor_calificacion" length="10" nullable="true"/>
-    <field name="comentarioCalificacion" type="string" column="comentario_calificacion" length="127" nullable="true"/>
+    <field name="fecha" type="datetime" column="fecha" nullable="true"/>
+    <field name="valor" type="string" column="valor" length="10" nullable="true"/>
+    <field name="comentario" type="string" column="comentario" length="127" nullable="true"/>
     <field name="validada" type="string" column="validada" length="1" nullable="false"/>
-    <many-to-one field="idExamen" target-entity="Examen">
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
+    <field name="fechaActualizacion" type="datetime" column="fecha_actualizacion" nullable="true"/>
+    <many-to-one field="usuarioCarga" target-entity="Usuario">
       <join-columns>
-        <join-column name="id_examen" referenced-column-name="id_examen"/>
+        <join-column name="usuario_carga_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idAlumno" target-entity="Alumno">
+    <many-to-one field="evaluacion" target-entity="Evaluacion">
       <join-columns>
-        <join-column name="id_alumno" referenced-column-name="id_alumno"/>
+        <join-column name="evaluacion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="alumno" target-entity="Alumno">
+      <join-columns>
+        <join-column name="alumno_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

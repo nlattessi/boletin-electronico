@@ -65,8 +65,25 @@ class Examen
      */
     private $idActividad;
 
+
+
     /**
-     * @return string
+     * Set nombreExamen
+     *
+     * @param string $nombreExamen
+     * @return Examen
+     */
+    public function setNombreExamen($nombreExamen)
+    {
+        $this->nombreExamen = $nombreExamen;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreExamen
+     *
+     * @return string 
      */
     public function getNombreExamen()
     {
@@ -74,15 +91,22 @@ class Examen
     }
 
     /**
-     * @param string $nombreExamen
+     * Set fechaExamen
+     *
+     * @param \DateTime $fechaExamen
+     * @return Examen
      */
-    public function setNombreExamen($nombreExamen)
+    public function setFechaExamen($fechaExamen)
     {
-        $this->nombreExamen = $nombreExamen;
+        $this->fechaExamen = $fechaExamen;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fechaExamen
+     *
+     * @return \DateTime 
      */
     public function getFechaExamen()
     {
@@ -90,15 +114,9 @@ class Examen
     }
 
     /**
-     * @param \DateTime $fechaExamen
-     */
-    public function setFechaExamen($fechaExamen)
-    {
-        $this->fechaExamen = $fechaExamen;
-    }
-
-    /**
-     * @return int
+     * Get idExamen
+     *
+     * @return integer 
      */
     public function getIdExamen()
     {
@@ -106,64 +124,71 @@ class Examen
     }
 
     /**
-     * @param int $idExamen
+     * Set idMateria
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $idMateria
+     * @return Examen
      */
-    public function setIdExamen($idExamen)
+    public function setIdMateria(\Acme\boletinesBundle\Entity\Materia $idMateria = null)
     {
-        $this->idExamen = $idExamen;
+        $this->idMateria = $idMateria;
+
+        return $this;
     }
 
     /**
-     * @return Materia
+     * Get idMateria
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
      */
-    public function getMateria()
+    public function getIdMateria()
     {
         return $this->idMateria;
     }
 
     /**
-     * @param Materia $idMateria
+     * Set idDocente
+     *
+     * @param \Acme\boletinesBundle\Entity\Docente $idDocente
+     * @return Examen
      */
-    public function setMateria($idMateria)
+    public function setIdDocente(\Acme\boletinesBundle\Entity\Docente $idDocente = null)
     {
-        $this->idMateria = $idMateria;
+        $this->idDocente = $idDocente;
+
+        return $this;
     }
 
     /**
-     * @return Docente
+     * Get idDocente
+     *
+     * @return \Acme\boletinesBundle\Entity\Docente 
      */
-    public function getDocente()
+    public function getIdDocente()
     {
         return $this->idDocente;
     }
 
     /**
-     * @param Docente $idDocente
+     * Set idActividad
+     *
+     * @param \Acme\boletinesBundle\Entity\Actividad $idActividad
+     * @return Examen
      */
-    public function setDocente($idDocente)
+    public function setIdActividad(\Acme\boletinesBundle\Entity\Actividad $idActividad = null)
     {
-        $this->idDocente = $idDocente;
+        $this->idActividad = $idActividad;
+
+        return $this;
     }
 
     /**
-     * @return Actividad
+     * Get idActividad
+     *
+     * @return \Acme\boletinesBundle\Entity\Actividad 
      */
-    public function getActividad()
+    public function getIdActividad()
     {
         return $this->idActividad;
     }
-
-    /**
-     * @param Actividad $idActividad
-     */
-    public function setActividad($idActividad)
-    {
-        $this->idActividad = $idActividad;
-    }
-
-    public function __toString(){
-      return  $this->getNombreExamen();
-    }
-
-
 }

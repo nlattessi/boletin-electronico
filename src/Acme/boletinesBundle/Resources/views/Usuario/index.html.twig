@@ -1,50 +1,127 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Usuario list</h1>
 
-    <table class="records_list">
-        <thead>
-        <tr>
-            <th>Id Usuario</th>
-            <th>Nombre usuario</th>
-            <th>Rol usuario</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for usuario in entities %}
-            <tr>
-                <td>{{ usuario.idUsuario }}</td>
-                <td><a href="{{ path('usuario_show', { 'id': usuario.idUsuario }) }}">{{ usuario.__toString() }}</a></td>
-    
-                {% if usuario.rol %}
-                    <td>{{ usuario.rol }}</td>
-                {% endif %}
+  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'usuarios'}) }}
 
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usuario_show', { 'id': usuario.idUsuario }) }}">Ver</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuario_edit', { 'id': usuario.idUsuario }) }}">Editar</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuario_delete', { 'id': usuario.idUsuario }) }}">Borrar</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+ <!-- startMain content-->
+<div class="container">
+  <div class="row">
 
-    <ul>
-        <li>
-            <a href="{{ path('usuario_new') }}">
-                Crear Nueva Usuario
-            </a>
-        </li>
-    </ul>
+    <div class="col s12 m12 l12">
+
+      <!--  Tables Section-->
+
+
+      <div id="striped" >
+        <div class="row mar-top-soft">
+          <div class="col s10 m10 l10">
+            <h3 class="header">Asignar o editar usuarios a instituciones</h3>
+
+          </div>
+
+              <div class="input-field col s11 mar-top-soft">
+                <i class="icon-linear-magnifier prefix"></i>
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Buscar institución</label>
+              </div>
+
+        </div>
+
+          <div class="row">
+            <div class="col s12">
+
+              <table class="striped">
+                <thead>
+                  <tr>
+                      <th data-field="">Nombre</th>
+                      <th data-field="">Usuarios</th>
+                      <th data-field="">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Belgrano Day School</a></td>
+                    <td><span class="new badge">3</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+
+                    </td>
+
+
+                  </tr>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Colegio N° 22 Remedios de escalada de San Martin</a></td>
+                    <td><span class="new badge">2</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Institución 3</a></td>
+                    <td><span class="new badge">1</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Institución 4</a></td>
+                    <td><span class="new badge">3</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+                  </tr>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Institución 4</a></td>
+                    <td><span class="new badge">3</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+                  </tr>
+                  <tr>
+                    <td><a href="{{ path('home_under_construction') }}" class="casual">Institución 4</a></td>
+                    <td><span class="new badge">3</span></td>
+
+                    <td>
+                      <a href="{{ path('usuario_edit2') }}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                      <a href="{{ path('usuario_new2') }}" data-position="top" data-delay="25" data-tooltip="Nuevo usuario" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+
+    </div><!--  End Tables Section  -->
+  <div class="row">
+
+    <div class="col s12 m12 l12 mar-top-soft">
+        <ul class="pagination pagi-pad">
+              <li class="disabled"><a href="#!"><i class="icon-linear-chevron-left"></i></a></li>
+              <li class="active"><a href="#!">1</a></li>
+              <li class="waves-effect"><a href="#!">2</a></li>
+              <li class="waves-effect"><a href="#!">3</a></li>
+              <li class="waves-effect"><a href="#!">4</a></li>
+              <li class="waves-effect"><a href="#!">5</a></li>
+              <li class="waves-effect"><a href="#!"><i class="icon-linear-chevron-right"></i></a></li>
+            </ul>
+    </div>
+  </div>
+</div>
+</div>
+ <!-- end Main content-->
+
+   {{ include('::footer.html.twig') }}
+
+
 {% endblock %}

@@ -7,93 +7,155 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UsuarioGrupoUsuario
  *
- * @ORM\Table(name="usuario_grupo_usuario", indexes={@ORM\Index(name="usario_fk_grupo_usuario", columns={"id_usuario"}), @ORM\Index(name="grupo_usuario_fk_usuario", columns={"id_grupo_usuario"})})
+ * @ORM\Table(name="usuario_grupo_usuario", indexes={@ORM\Index(name="IDX_8BDF2024FCF8192D", columns={"usuario_id"}), @ORM\Index(name="IDX_8BDF2024C344EF9F", columns={"grupo_usuario_id"})})
  * @ORM\Entity
  */
 class UsuarioGrupoUsuario
 {
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_usuario_grupo_usuario", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idUsuarioGrupoUsuario;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
+     *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      * })
      */
-    private $idUsuario;
+    private $usuario;
 
     /**
      * @var \Acme\boletinesBundle\Entity\GrupoUsuario
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\GrupoUsuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_grupo_usuario", referencedColumnName="id_grupo_usuario")
+     *   @ORM\JoinColumn(name="grupo_usuario_id", referencedColumnName="id")
      * })
      */
-    private $idGrupoUsuario;
+    private $grupoUsuario;
 
-    public function UsuarioGrupoUsuario($usuario, $grupoUsuario){
-        $this->setUsuario($usuario);
-        $this->setGrupoUsuario($grupoUsuario);
-    }
+
 
     /**
-     * @return int
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return UsuarioGrupoUsuario
      */
-    public function getIdUsuarioGrupoUsuario()
+    public function setCreationTime($creationTime)
     {
-        return $this->idUsuarioGrupoUsuario;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @param int $idUsuarioGrupoUsuario
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function setIdUsuarioGrupoUsuario($idUsuarioGrupoUsuario)
+    public function getCreationTime()
     {
-        $this->idUsuarioGrupoUsuario = $idUsuarioGrupoUsuario;
+        return $this->creationTime;
     }
 
     /**
-     * @return Usuario
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return UsuarioGrupoUsuario
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
+     * @return UsuarioGrupoUsuario
+     */
+    public function setUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
     public function getUsuario()
     {
-        return $this->idUsuario;
+        return $this->usuario;
     }
 
     /**
-     * @param Usuario $idUsuario
+     * Set grupoUsuario
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoUsuario $grupoUsuario
+     * @return UsuarioGrupoUsuario
      */
-    public function setUsuario($idUsuario)
+    public function setGrupoUsuario(\Acme\boletinesBundle\Entity\GrupoUsuario $grupoUsuario = null)
     {
-        $this->idUsuario = $idUsuario;
+        $this->grupoUsuario = $grupoUsuario;
+
+        return $this;
     }
 
     /**
-     * @return GrupoUsuario
+     * Get grupoUsuario
+     *
+     * @return \Acme\boletinesBundle\Entity\GrupoUsuario 
      */
     public function getGrupoUsuario()
     {
-        return $this->idGrupoUsuario;
+        return $this->grupoUsuario;
     }
-
-    /**
-     * @param GrupoUsuario $idGrupoUsuario
-     */
-    public function setGrupoUsuario($idGrupoUsuario)
-    {
-        $this->idGrupoUsuario = $idGrupoUsuario;
-    }
-
-
-
 }

@@ -1,49 +1,43 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Institucion</h1>
 
-    <table class="record_properties">
-        <tbody>
-             <tr>
-                <th>Id Institucion</th>
-                <td>{{ institucion.idInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Nombreinstitucion</th>
-                <td>{{ institucion.nombreInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Direccioninstitucion</th>
-                <td>{{ institucion.direccionInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Telefonoinstitucion</th>
-                <td>{{ institucion.telefonoInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Emailinstitucion</th>
-                <td>{{ institucion.emailInstitucion }}</td>
-            </tr>
-            <tr>
-                <th>Idinstitucion</th>
-                <td>{{ institucion.idInstitucion }}</td>
-            </tr>
-        </tbody>
-    </table>
+  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
 
- <ul class="record_actions">
-    <li>
-        <a href="{{ path('institucion') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('institucion_edit', { 'id': institucion.idInstitucion }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('institucion_delete', { 'id': institucion.idInstitucion }) }}">Borrar</a></li>
-</ul>
-</ul>
+  <!-- startMain content-->
+<div class="container">
+  <div class="row mar-top-soft">
+
+    <div class="col s12 m8 l8">
+    <h3 class="header">{{ institucion.nombre }}</h3>
+    <h5 class="header">Nivel secundario</h5>
+    </div>
+    <div class="col s12 m4 l4 center-align">
+    {# <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft"> #}
+    {% if institucion.logo %}
+        <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
+    {% endif %}
+    </div><!--  End Tables Section  -->
+
+</div>
+<div class="divider mar-top-soft"></div>
+      <div class="row mar-top-soft">
+        <div class="col s12 m6 l6">
+        <h5 class="header">Establecimientos: <span class="span-s"> 1</span></h5>
+        </div>
+        <div class="col s12 m6 l6">
+        <h5 class="header">Cantidad de estudiantes: <span class="span-s"> {{ random(500) }}</span></h5>
+        <h5 class="header">Directivos: <span class="span-s"> {{ random(10) }}</span></h5>
+        <h5 class="header">Profesores: <span class="span-s"> {{ random(50) }}</span></h5>
+        <h5 class="header">Bedeles: <span class="span-s"> {{ random(20) }}</span></h5>
+
+        </div>
+    </div>
+</div>
+ <!-- end Main content-->
+
+   {{ include('footer.html.twig') }}
+
+
 {% endblock %}

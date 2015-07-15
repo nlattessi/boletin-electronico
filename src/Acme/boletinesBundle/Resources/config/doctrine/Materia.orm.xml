@@ -2,21 +2,17 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Materia" table="materia">
     <indexes>
-      <index name="calendario_fk_materia" columns="id_calendario_materia"/>
-      <index name="tipo_materia_fk_materia" columns="id_tipo_materia"/>
+      <index name="FK_6DF052845DC80656" columns="tipo_materia_id"/>
     </indexes>
-    <id name="idMateria" type="integer" column="id_materia">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="nombreMateria" type="string" column="nombre_materia" length="45" nullable="false"/>
-    <many-to-one field="idTipoMateria" target-entity="TipoMateria">
+    <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <many-to-one field="tipoMateria" target-entity="TipoMateria">
       <join-columns>
-        <join-column name="id_tipo_materia" referenced-column-name="id_tipo_materia"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idCalendarioMateria" target-entity="Calendario">
-      <join-columns>
-        <join-column name="id_calendario_materia" referenced-column-name="id_calendario"/>
+        <join-column name="tipo_materia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>
