@@ -12,6 +12,16 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
+doctrine:
+    dbal:
+        driver:   "pdo_pgsql"
+        host:     "ec2-54-197-238-19.compute-1.amazonaws.com"
+        port:     "5432"
+        dbname:   "dap1lfh1gcsa"
+        user:     "bbpajyqvifrdct"
+        password: "h2VgLyTjg1U5BoyLem8QCEZTUW"
+        charset:  UTF8
+
 monolog:
     handlers:
         main:
