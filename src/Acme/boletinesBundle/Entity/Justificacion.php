@@ -7,11 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Justificacion
  *
- * @ORM\Table(name="justificacion", indexes={@ORM\Index(name="usuario_fk_justificacion", columns={"id_usuario_carga"}), @ORM\Index(name="archivo_fk_justificacion", columns={"id_archivo"})})
+ * @ORM\Table(name="justificacion", indexes={@ORM\Index(name="FK_EBF13A877FA0C10D", columns={"usuario_carga_id"}), @ORM\Index(name="FK_EBF13A87EBB41DF2", columns={"archivo_id"})})
  * @ORM\Entity
  */
 class Justificacion
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comentario", type="string", length=250, nullable=false)
+     */
+    private $comentario;
+
     /**
      * @var \DateTime
      *
@@ -20,43 +27,83 @@ class Justificacion
     private $fechaCarga;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="justificacion", type="string", length=255, nullable=false)
+     * @ORM\Column(name="fecha_modificacion", type="datetime", nullable=true)
      */
-    private $justificacion;
+    private $fechaModificacion;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_justificacion", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idJustificacion;
-
-    /**
-     * @var \Acme\boletinesBundle\Entity\Usuario
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_carga", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idUsuarioCarga;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Archivo
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Archivo")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_archivo", referencedColumnName="id_archivo")
+     *   @ORM\JoinColumn(name="archivo_id", referencedColumnName="id")
      * })
      */
-    private $idArchivo;
+    private $archivo;
 
     /**
-     * @return \DateTime
+     * @var \Acme\boletinesBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id")
+     * })
+     */
+    private $usuarioCarga;
+
+
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     * @return Justificacion
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string 
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
+    }
+
+    /**
+     * Set fechaCarga
+     *
+     * @param \DateTime $fechaCarga
+     * @return Justificacion
+     */
+    public function setFechaCarga($fechaCarga)
+    {
+        $this->fechaCarga = $fechaCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCarga
+     *
+     * @return \DateTime 
      */
     public function getFechaCarga()
     {
@@ -64,78 +111,81 @@ class Justificacion
     }
 
     /**
-     * @param \DateTime $fechaCarga
+     * Set fechaModificacion
+     *
+     * @param \DateTime $fechaModificacion
+     * @return Justificacion
      */
-    public function setFechaCarga($fechaCarga)
+    public function setFechaModificacion($fechaModificacion)
     {
-        $this->fechaCarga = $fechaCarga;
+        $this->fechaModificacion = $fechaModificacion;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get fechaModificacion
+     *
+     * @return \DateTime 
      */
-    public function getJustificacion()
+    public function getFechaModificacion()
     {
-        return $this->justificacion;
+        return $this->fechaModificacion;
     }
 
     /**
-     * @param string $justificacion
+     * Get id
+     *
+     * @return integer 
      */
-    public function setJustificacion($justificacion)
+    public function getId()
     {
-        $this->justificacion = $justificacion;
+        return $this->id;
     }
 
     /**
-     * @return int
+     * Set archivo
+     *
+     * @param \Acme\boletinesBundle\Entity\Archivo $archivo
+     * @return Justificacion
      */
-    public function getIdJustificacion()
+    public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
     {
-        return $this->idJustificacion;
+        $this->archivo = $archivo;
+
+        return $this;
     }
 
     /**
-     * @param int $idJustificacion
-     */
-    public function setIdJustificacion($idJustificacion)
-    {
-        $this->idJustificacion = $idJustificacion;
-    }
-
-    /**
-     * @return Usuario
-     */
-    public function getUsuarioCarga()
-    {
-        return $this->idUsuarioCarga;
-    }
-
-    /**
-     * @param Usuario $idUsuarioCarga
-     */
-    public function setUsuarioCarga($idUsuarioCarga)
-    {
-        $this->idUsuarioCarga = $idUsuarioCarga;
-    }
-
-    /**
-     * @return Archivo
+     * Get archivo
+     *
+     * @return \Acme\boletinesBundle\Entity\Archivo 
      */
     public function getArchivo()
     {
-        return $this->idArchivo;
+        return $this->archivo;
     }
 
     /**
-     * @param Archivo $idArchivo
+     * Set usuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Justificacion
      */
-    public function setArchivo($idArchivo)
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga = null)
     {
-        $this->idArchivo = $idArchivo;
+        $this->usuarioCarga = $usuarioCarga;
+
+        return $this;
     }
 
-    public function __toString(){
-        return $this->getJustificacion();
+    /**
+     * Get usuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
+     */
+    public function getUsuarioCarga()
+    {
+        return $this->usuarioCarga;
     }
 }

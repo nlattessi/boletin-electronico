@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+{{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+{{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'usuarios'}) }}
+
+
+ <!-- startMain content-->
+<div class="container">
+  <div class="row mar-top-soft">
+
+    <div class="col s12 m8 l8">
+    <h3 class="header">Belgrano Day School</h3>
+    <h5 class="header">Nivel secundario</h5>
+    </div>
+    <div class="col s12 m4 l4 center-align">
+    <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft">
+    </div><!--  End Tables Section  -->
+
+</div>
+<div class="divider mar-top-soft"></div>
+
+    <div class="row mar-top-soft">
+
+    <div class="col s12 m8 l12">
+    <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario</h3>
+    <h5 class="header">Todos los campos son obligatorios</h5>
+    </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6 l6">
+            <input id="nombre_inst" type="text" class="validate">
+            <label for="nombre_inst">Nombre</label>
+        </div>
+          <div class="input-field col s12 m6 l6">
+            <input id="apellido" type="text" class="validate">
+            <label for="apellido">Apellido</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="user_name" type="text" class="validate">
+            <label for="user_name">Nombre de usuario</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="password" type="password" class="validate">
+            <label for="password">Contraseña</label>
+        </div>
+  </div>
+    <div class="row">
+      <div class="col s12 center-align mar-top-soft"><a href="{{ path('home_under_construction') }}" class="btn-large waves-effect waves-light center-align">Guardar</a></div>
+  </div>
+
+   <!--  End Tables Section  -->
+
+</div>
+
+
+</div>
+ <!-- end Main content-->
+
+   {{ include('footer.html.twig') }}
+
+
+{% endblock %}

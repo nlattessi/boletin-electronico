@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AlumnoAsistencia
  *
- * @ORM\Table(name="alumno_asistencia", indexes={@ORM\Index(name="alumno_fk_asistencia", columns={"id_alumno"}), @ORM\Index(name="asistencia_fk_alumno", columns={"id_asistencia"}), @ORM\Index(name="justificacion_fk_alumno", columns={"id_justificacion"})})
+ * @ORM\Table(name="alumno_asistencia", indexes={@ORM\Index(name="FK_D30A8664320260C0", columns={"alumno_id"}), @ORM\Index(name="FK_D30A866455D9EBE2", columns={"justificacion_id"}), @ORM\Index(name="FK_D30A86647DACCA5A", columns={"asistencia_id"})})
  * @ORM\Entity
  */
 class AlumnoAsistencia
@@ -15,135 +15,210 @@ class AlumnoAsistencia
     /**
      * @var string
      *
-     * @ORM\Column(name="valor_asistencia", type="string", length=1, nullable=false)
+     * @ORM\Column(name="valor", type="string", length=1, nullable=false)
      */
-    private $valorAsistencia;
+    private $valor;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_alumno_asistencia", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idAlumnoAsistencia;
-
-    /**
-     * @var \Acme\boletinesBundle\Entity\Justificacion
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Justificacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_justificacion", referencedColumnName="id_justificacion")
-     * })
-     */
-    private $idJustificacion;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Asistencia
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Asistencia")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_asistencia", referencedColumnName="id_asistencia")
+     *   @ORM\JoinColumn(name="asistencia_id", referencedColumnName="id")
      * })
      */
-    private $idAsistencia;
+    private $asistencia;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Justificacion
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Justificacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="justificacion_id", referencedColumnName="id")
+     * })
+     */
+    private $justificacion;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Alumno
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
+     *   @ORM\JoinColumn(name="alumno_id", referencedColumnName="id")
      * })
      */
-    private $idAlumno;
+    private $alumno;
 
-    public function AlumnoAsistencia($alumno, $asistencia){
-        $this->setAlumno($alumno);
-        $this->setAsistencia($asistencia);
-    }
+
 
     /**
-     * @return string
+     * Set valor
+     *
+     * @param string $valor
+     * @return AlumnoAsistencia
      */
-    public function getValorAsistencia()
+    public function setValor($valor)
     {
-        return $this->valorAsistencia;
+        $this->valor = $valor;
+
+        return $this;
     }
 
     /**
-     * @param string $valorAsistencia
+     * Get valor
+     *
+     * @return string 
      */
-    public function setValorAsistencia($valorAsistencia)
+    public function getValor()
     {
-        $this->valorAsistencia = $valorAsistencia;
+        return $this->valor;
     }
 
     /**
-     * @return int
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return AlumnoAsistencia
      */
-    public function getIdAlumnoAsistencia()
+    public function setCreationTime($creationTime)
     {
-        return $this->idAlumnoAsistencia;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @param int $idAlumnoAsistencia
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function setIdAlumnoAsistencia($idAlumnoAsistencia)
+    public function getCreationTime()
     {
-        $this->idAlumnoAsistencia = $idAlumnoAsistencia;
+        return $this->creationTime;
     }
 
     /**
-     * @return Justificacion
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return AlumnoAsistencia
      */
-    public function getJustificacion()
+    public function setUpdateTime($updateTime)
     {
-        return $this->idJustificacion;
+        $this->updateTime = $updateTime;
+
+        return $this;
     }
 
     /**
-     * @param Justificacion $idJustificacion
+     * Get updateTime
+     *
+     * @return \DateTime 
      */
-    public function setJustificacion($idJustificacion)
+    public function getUpdateTime()
     {
-        $this->idJustificacion = $idJustificacion;
+        return $this->updateTime;
     }
 
     /**
-     * @return Asistencia
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set asistencia
+     *
+     * @param \Acme\boletinesBundle\Entity\Asistencia $asistencia
+     * @return AlumnoAsistencia
+     */
+    public function setAsistencia(\Acme\boletinesBundle\Entity\Asistencia $asistencia = null)
+    {
+        $this->asistencia = $asistencia;
+
+        return $this;
+    }
+
+    /**
+     * Get asistencia
+     *
+     * @return \Acme\boletinesBundle\Entity\Asistencia 
      */
     public function getAsistencia()
     {
-        return $this->idAsistencia;
+        return $this->asistencia;
     }
 
     /**
-     * @param Asistencia $idAsistencia
+     * Set justificacion
+     *
+     * @param \Acme\boletinesBundle\Entity\Justificacion $justificacion
+     * @return AlumnoAsistencia
      */
-    public function setAsistencia($idAsistencia)
+    public function setJustificacion(\Acme\boletinesBundle\Entity\Justificacion $justificacion = null)
     {
-        $this->idAsistencia = $idAsistencia;
+        $this->justificacion = $justificacion;
+
+        return $this;
     }
 
     /**
-     * @return Alumno
+     * Get justificacion
+     *
+     * @return \Acme\boletinesBundle\Entity\Justificacion 
+     */
+    public function getJustificacion()
+    {
+        return $this->justificacion;
+    }
+
+    /**
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return AlumnoAsistencia
+     */
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno = null)
+    {
+        $this->alumno = $alumno;
+
+        return $this;
+    }
+
+    /**
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
      */
     public function getAlumno()
     {
-        return $this->idAlumno;
-    }
-
-    /**
-     * @param Alumno $idAlumno
-     */
-    public function setAlumno($idAlumno)
-    {
-        $this->idAlumno = $idAlumno;
-    }
-
-    public function __toString(){
-        return $this->getAsistencia()->__toString();
+        return $this->alumno;
     }
 }

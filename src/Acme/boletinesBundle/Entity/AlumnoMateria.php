@@ -7,94 +7,155 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AlumnoMateria
  *
- * @ORM\Table(name="alumno_materia", indexes={@ORM\Index(name="alumno_fk_materia_idx", columns={"id_alumno"}), @ORM\Index(name="materia_fk_alumno_idx", columns={"id_materia"})})
+ * @ORM\Table(name="alumno_materia", indexes={@ORM\Index(name="FK_43E74FC0320260C0", columns={"alumno_id"}), @ORM\Index(name="FK_43E74FC0B36DFBF4", columns={"materia_id"})})
  * @ORM\Entity
  */
 class AlumnoMateria
 {
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_alumno_materia", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idAlumnoMateria;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Materia
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_materia", referencedColumnName="id_materia")
+     *   @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
      * })
      */
-    private $idMateria;
+    private $materia;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Alumno
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Alumno")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_alumno", referencedColumnName="id_alumno")
+     *   @ORM\JoinColumn(name="alumno_id", referencedColumnName="id")
      * })
      */
-    private $idAlumno;
+    private $alumno;
 
-    public function AlumnoMateria($alumno, $materia){
-        $this->setAlumno($alumno);
-        $this->setMateria($materia);
-    }
 
 
     /**
-     * @return int
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return AlumnoMateria
      */
-    public function getIdAlumnoMateria()
+    public function setCreationTime($creationTime)
     {
-        return $this->idAlumnoMateria;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @param int $idAlumnoMateria
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function setIdAlumnoMateria($idAlumnoMateria)
+    public function getCreationTime()
     {
-        $this->idAlumnoMateria = $idAlumnoMateria;
+        return $this->creationTime;
     }
 
     /**
-     * @return Materia
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return AlumnoMateria
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return AlumnoMateria
+     */
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia = null)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia 
      */
     public function getMateria()
     {
-        return $this->idMateria;
+        return $this->materia;
     }
 
     /**
-     * @param Materia $idMateria
+     * Set alumno
+     *
+     * @param \Acme\boletinesBundle\Entity\Alumno $alumno
+     * @return AlumnoMateria
      */
-    public function setMateria($idMateria)
+    public function setAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno = null)
     {
-        $this->idMateria = $idMateria;
+        $this->alumno = $alumno;
+
+        return $this;
     }
 
     /**
-     * @return Alumno
+     * Get alumno
+     *
+     * @return \Acme\boletinesBundle\Entity\Alumno 
      */
     public function getAlumno()
     {
-        return $this->idAlumno;
+        return $this->alumno;
     }
-
-    /**
-     * @param Alumno $idAlumno
-     */
-    public function setAlumno($idAlumno)
-    {
-        $this->idAlumno = $idAlumno;
-    }
-
-
-
 }

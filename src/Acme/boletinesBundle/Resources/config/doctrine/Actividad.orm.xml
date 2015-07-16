@@ -2,25 +2,38 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Actividad" table="actividad">
     <indexes>
-      <index name="usuario_fk_actividad" columns="id_usuario_creador"/>
-      <index name="archivo_fk_actividad" columns="id_archivo"/>
+      <index name="FK_usuario" columns="usuario_carga_id"/>
+      <index name="FK_archivo_id" columns="archivo_id"/>
+      <index name="FK_institucion_id" columns="institucion_id"/>
+      <index name="FK_establecimiento_id" columns="establecimiento_id"/>
     </indexes>
-    <id name="idActividad" type="integer" column="id_actividad">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="nombreActividad" type="string" column="nombre_actividad" length="45" nullable="false"/>
-    <field name="descripcionActividad" type="string" column="descripcion_actividad" length="500" nullable="false"/>
-    <field name="fechaDesde" type="datetime" column="fecha_desde" nullable="false"/>
-    <field name="fechaHasta" type="datetime" column="fecha_hasta" nullable="false"/>
-    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="false"/>
-    <many-to-one field="idUsuarioCreador" target-entity="Usuario">
+    <field name="nombre" type="string" column="nombre" length="40" nullable="false"/>
+    <field name="descripcion" type="text" column="descripcion" nullable="true"/>
+    <field name="fechaHoraInicio" type="datetime" column="fecha_hora_inicio" nullable="false"/>
+    <field name="fechaHoraFin" type="datetime" column="fecha_hora_fin" nullable="false"/>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
+    <many-to-one field="establecimiento" target-entity="Establecimiento">
       <join-columns>
-        <join-column name="id_usuario_creador" referenced-column-name="id_usuario"/>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idArchivo" target-entity="Archivo">
+    <many-to-one field="institucion" target-entity="Institucion">
       <join-columns>
-        <join-column name="id_archivo" referenced-column-name="id_archivo"/>
+        <join-column name="institucion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="archivo" target-entity="Archivo">
+      <join-columns>
+        <join-column name="archivo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="usuarioCarga" target-entity="Usuario">
+      <join-columns>
+        <join-column name="usuario_carga_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

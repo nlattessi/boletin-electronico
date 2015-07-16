@@ -2,24 +2,17 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Mensaje" table="mensaje">
     <indexes>
-      <index name="usuario_envia_fk_mensaje" columns="id_usuario_envia"/>
-      <index name="usuario_recibe_fk_mensaje" columns="id_usuario_recibe"/>
+      <index name="FK_9B631D0165089FEB" columns="usuario_id"/>
     </indexes>
-    <id name="idMensaje" type="integer" column="id_mensaje">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="tituloMensaje" type="string" column="titulo_mensaje" length="100" nullable="false"/>
-    <field name="textoMensaje" type="string" column="texto_mensaje" length="500" nullable="false"/>
+    <field name="titulo" type="string" column="titulo" length="100" nullable="false"/>
+    <field name="texto" type="string" column="texto" length="500" nullable="false"/>
     <field name="fechaEnvio" type="datetime" column="fecha_envio" nullable="false"/>
-    <field name="borrado" type="boolean" column="borrado" nullable="false"/>
-    <many-to-one field="idUsuarioRecibe" target-entity="Usuario">
+    <many-to-one field="usuario" target-entity="Usuario">
       <join-columns>
-        <join-column name="id_usuario_recibe" referenced-column-name="id_usuario"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idUsuarioEnvia" target-entity="Usuario">
-      <join-columns>
-        <join-column name="id_usuario_envia" referenced-column-name="id_usuario"/>
+        <join-column name="usuario_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

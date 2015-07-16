@@ -1,3 +1,15 @@
 home_father:
     pattern:   /padre
     defaults:  { _controller: BoletinesBundle:Home:father}
+
+home_inst_manuel_belgrano:
+    pattern:   /institucion/inst_manuel_belgrano
+    defaults:  { _controller: BoletinesBundle:Home:inst_manuel_belgrano}
+
+home_inst_belgrano_day_school:
+    pattern:   /institucion/inst_belgrano_day_school
+    defaults:  { _controller: BoletinesBundle:Home:inst_belgrano_day_school}
+
+home_under_construction:
+    pattern:   /under_construction
+    defaults:  { _controller: BoletinesBundle:Home:under_construction}

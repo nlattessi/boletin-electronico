@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\EvaluacionArchivo" table="evaluacion_archivo">
+    <indexes>
+      <index name="FK_96A9D3A6EBB41DF2" columns="archivo_id"/>
+      <index name="FK_96A9D3A6777B3A01" columns="evaluacion_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <many-to-one field="archivo" target-entity="Archivo">
+      <join-columns>
+        <join-column name="archivo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="evaluacion" target-entity="Evaluacion">
+      <join-columns>
+        <join-column name="evaluacion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

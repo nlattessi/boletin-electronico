@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Archivo
  *
- * @ORM\Table(name="archivo", indexes={@ORM\Index(name="usuario_fk_archivo", columns={"id_usuario_carga"})})
+ * @ORM\Table(name="archivo", indexes={@ORM\Index(name="FK_3529B4827FA0C10D", columns={"usuario_carga_id"})})
  * @ORM\Entity
  */
 class Archivo
@@ -22,9 +22,9 @@ class Archivo
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_archivo", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreArchivo;
+    private $nombre;
 
     /**
      * @var string
@@ -36,31 +36,55 @@ class Archivo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_subida", type="datetime")
+     * @ORM\Column(name="fecha_subida", type="datetime", nullable=false)
      */
     private $fechaSubida;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=false)
+     */
+    private $fechaActualizacion;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_archivo", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idArchivo;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_carga", referencedColumnName="id_usuario")
+     *   @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id")
      * })
      */
-    private $idUsuarioCarga;
+    private $usuarioCarga;
+
+
 
     /**
-     * @return string
+     * Set nombreParaMostrar
+     *
+     * @param string $nombreParaMostrar
+     * @return Archivo
+     */
+    public function setNombreParaMostrar($nombreParaMostrar)
+    {
+        $this->nombreParaMostrar = $nombreParaMostrar;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreParaMostrar
+     *
+     * @return string 
      */
     public function getNombreParaMostrar()
     {
@@ -68,31 +92,45 @@ class Archivo
     }
 
     /**
-     * @param string $nombreParaMostrar
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Archivo
      */
-    public function setNombreParaMostrar($nombreParaMostrar)
+    public function setNombre($nombre)
     {
-        $this->nombreParaMostrar = $nombreParaMostrar;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get nombre
+     *
+     * @return string 
      */
-    public function getNombreArchivo()
+    public function getNombre()
     {
-        return $this->nombreArchivo;
+        return $this->nombre;
     }
 
     /**
-     * @param string $nombreArchivo
+     * Set rutaArchivo
+     *
+     * @param string $rutaArchivo
+     * @return Archivo
      */
-    public function setNombreArchivo($nombreArchivo)
+    public function setRutaArchivo($rutaArchivo)
     {
-        $this->nombreArchivo = $nombreArchivo;
+        $this->rutaArchivo = $rutaArchivo;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get rutaArchivo
+     *
+     * @return string 
      */
     public function getRutaArchivo()
     {
@@ -100,15 +138,22 @@ class Archivo
     }
 
     /**
-     * @param string $rutaArchivo
+     * Set fechaSubida
+     *
+     * @param \DateTime $fechaSubida
+     * @return Archivo
      */
-    public function setRutaArchivo($rutaArchivo)
+    public function setFechaSubida($fechaSubida)
     {
-        $this->rutaArchivo = $rutaArchivo;
+        $this->fechaSubida = $fechaSubida;
+
+        return $this;
     }
 
     /**
-     * @return \DateTime
+     * Get fechaSubida
+     *
+     * @return \DateTime 
      */
     public function getFechaSubida()
     {
@@ -116,47 +161,58 @@ class Archivo
     }
 
     /**
-     * @param \DateTime $fechaSubida
+     * Set fechaActualizacion
+     *
+     * @param \DateTime $fechaActualizacion
+     * @return Archivo
      */
-    public function setFechaSubida($fechaSubida)
+    public function setFechaActualizacion($fechaActualizacion)
     {
-        $this->fechaSubida = $fechaSubida;
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get fechaActualizacion
+     *
+     * @return \DateTime 
      */
-    public function getIdArchivo()
+    public function getFechaActualizacion()
     {
-        return $this->idArchivo;
+        return $this->fechaActualizacion;
     }
 
     /**
-     * @param int $idArchivo
+     * Get id
+     *
+     * @return integer 
      */
-    public function setIdArchivo($idArchivo)
+    public function getId()
     {
-        $this->idArchivo = $idArchivo;
+        return $this->id;
     }
 
     /**
-     * @return Usuario
+     * Set usuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return Archivo
      */
-    public function getIdUsuarioCarga()
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga = null)
     {
-        return $this->idUsuarioCarga;
+        $this->usuarioCarga = $usuarioCarga;
+
+        return $this;
     }
 
     /**
-     * @param Usuario $idUsuarioCarga
+     * Get usuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
-    public function setIdUsuarioCarga($idUsuarioCarga)
+    public function getUsuarioCarga()
     {
-        $this->idUsuarioCarga = $idUsuarioCarga;
+        return $this->usuarioCarga;
     }
-
-    public function __toString(){
-        return $this->getNombreArchivo();
-    }
-
 }

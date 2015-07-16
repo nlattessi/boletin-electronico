@@ -2,20 +2,22 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\MateriaArchivo" table="materia_archivo">
     <indexes>
-      <index name="materia_fk_archivo" columns="id_materia"/>
-      <index name="archivo_fk_materia" columns="id_archivo"/>
+      <index name="FK_566A8CA4B36DFBF4" columns="materia_id"/>
+      <index name="FK_566A8CA4EBB41DF2" columns="archivo_id"/>
     </indexes>
-    <id name="idMateriaArchivo" type="integer" column="id_materia_archivo">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <many-to-one field="idMateria" target-entity="Materia">
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <many-to-one field="archivo" target-entity="Archivo">
       <join-columns>
-        <join-column name="id_materia" referenced-column-name="id_materia"/>
+        <join-column name="archivo_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idArchivo" target-entity="Archivo">
+    <many-to-one field="materia" target-entity="Materia">
       <join-columns>
-        <join-column name="id_archivo" referenced-column-name="id_archivo"/>
+        <join-column name="materia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

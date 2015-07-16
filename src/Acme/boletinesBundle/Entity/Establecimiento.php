@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Establecimiento
  *
- * @ORM\Table(name="establecimiento", indexes={@ORM\Index(name="institucion_fk_establecimiento", columns={"id_institucion"})})
+ * @ORM\Table(name="establecimiento", indexes={@ORM\Index(name="FK_94A4D17EEF433A34", columns={"institucion_id"}), @ORM\Index(name="fk_ciudad_establecimiento", columns={"ciudad_id"})})
  * @ORM\Entity
  */
 class Establecimiento
@@ -15,148 +15,477 @@ class Establecimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_establecimiento", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreEstablecimiento;
+    private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion_establecimiento", type="string", length=45, nullable=true)
+     * @ORM\Column(name="direccion", type="string", length=45, nullable=true)
      */
-    private $direccionEstablecimiento;
+    private $direccion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono_establecimiento", type="string", length=45, nullable=true)
+     * @ORM\Column(name="codigo_postal", type="string", length=12, nullable=true)
      */
-    private $telefonoEstablecimiento;
+    private $codigoPostal;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longitud", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $longitud;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="latitud", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $latitud;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_inauguracion", type="date", nullable=true)
+     */
+    private $fechaInauguracion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email_establecimiento", type="string", length=45, nullable=true)
+     * @ORM\Column(name="codigo_pais", type="string", length=4, nullable=true)
      */
-    private $emailEstablecimiento;
+    private $codigoPais;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_area", type="string", length=4, nullable=true)
+     */
+    private $codigoArea;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=45, nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     */
+    private $observaciones;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_establecimiento", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEstablecimiento;
+    private $id;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Ciudad
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Ciudad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ciudad_id", referencedColumnName="id")
+     * })
+     */
+    private $ciudad;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Institucion
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_institucion", referencedColumnName="id_institucion")
+     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      * })
      */
-    private $idInstitucion;
+    private $institucion;
+
+
 
     /**
-     * @return string
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Establecimiento
      */
-    public function getNombreEstablecimiento()
+    public function setNombre($nombre)
     {
-        return $this->nombreEstablecimiento;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param string $nombreEstablecimiento
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setNombreEstablecimiento($nombreEstablecimiento)
+    public function getNombre()
     {
-        $this->nombreEstablecimiento = $nombreEstablecimiento;
+        return $this->nombre;
     }
 
     /**
-     * @return string
+     * Set direccion
+     *
+     * @param string $direccion
+     * @return Establecimiento
      */
-    public function getDireccionEstablecimiento()
+    public function setDireccion($direccion)
     {
-        return $this->direccionEstablecimiento;
+        $this->direccion = $direccion;
+
+        return $this;
     }
 
     /**
-     * @param string $direccionEstablecimiento
+     * Get direccion
+     *
+     * @return string 
      */
-    public function setDireccionEstablecimiento($direccionEstablecimiento)
+    public function getDireccion()
     {
-        $this->direccionEstablecimiento = $direccionEstablecimiento;
+        return $this->direccion;
     }
 
     /**
-     * @return string
+     * Set codigoPostal
+     *
+     * @param string $codigoPostal
+     * @return Establecimiento
      */
-    public function getTelefonoEstablecimiento()
+    public function setCodigoPostal($codigoPostal)
     {
-        return $this->telefonoEstablecimiento;
+        $this->codigoPostal = $codigoPostal;
+
+        return $this;
     }
 
     /**
-     * @param string $telefonoEstablecimiento
+     * Get codigoPostal
+     *
+     * @return string 
      */
-    public function setTelefonoEstablecimiento($telefonoEstablecimiento)
+    public function getCodigoPostal()
     {
-        $this->telefonoEstablecimiento = $telefonoEstablecimiento;
+        return $this->codigoPostal;
     }
 
     /**
-     * @return string
+     * Set longitud
+     *
+     * @param float $longitud
+     * @return Establecimiento
      */
-    public function getEmailEstablecimiento()
+    public function setLongitud($longitud)
     {
-        return $this->emailEstablecimiento;
+        $this->longitud = $longitud;
+
+        return $this;
     }
 
     /**
-     * @param string $emailEstablecimiento
+     * Get longitud
+     *
+     * @return float 
      */
-    public function setEmailEstablecimiento($emailEstablecimiento)
+    public function getLongitud()
     {
-        $this->emailEstablecimiento = $emailEstablecimiento;
+        return $this->longitud;
     }
 
     /**
-     * @return int
+     * Set latitud
+     *
+     * @param float $latitud
+     * @return Establecimiento
      */
-    public function getIdEstablecimiento()
+    public function setLatitud($latitud)
     {
-        return $this->idEstablecimiento;
+        $this->latitud = $latitud;
+
+        return $this;
     }
 
     /**
-     * @param int $idEstablecimiento
+     * Get latitud
+     *
+     * @return float 
      */
-    public function setIdEstablecimiento($idEstablecimiento)
+    public function getLatitud()
     {
-        $this->idEstablecimiento = $idEstablecimiento;
+        return $this->latitud;
     }
 
     /**
-     * @return Institucion
+     * Set fechaInauguracion
+     *
+     * @param \DateTime $fechaInauguracion
+     * @return Establecimiento
+     */
+    public function setFechaInauguracion($fechaInauguracion)
+    {
+        $this->fechaInauguracion = $fechaInauguracion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaInauguracion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaInauguracion()
+    {
+        return $this->fechaInauguracion;
+    }
+
+    /**
+     * Set codigoPais
+     *
+     * @param string $codigoPais
+     * @return Establecimiento
+     */
+    public function setCodigoPais($codigoPais)
+    {
+        $this->codigoPais = $codigoPais;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoPais
+     *
+     * @return string 
+     */
+    public function getCodigoPais()
+    {
+        return $this->codigoPais;
+    }
+
+    /**
+     * Set codigoArea
+     *
+     * @param string $codigoArea
+     * @return Establecimiento
+     */
+    public function setCodigoArea($codigoArea)
+    {
+        $this->codigoArea = $codigoArea;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoArea
+     *
+     * @return string 
+     */
+    public function getCodigoArea()
+    {
+        return $this->codigoArea;
+    }
+
+    /**
+     * Set telefono
+     *
+     * @param string $telefono
+     * @return Establecimiento
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string 
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Establecimiento
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return Establecimiento
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return Establecimiento
+     */
+    public function setCreationTime($creationTime)
+    {
+        $this->creationTime = $creationTime;
+
+        return $this;
+    }
+
+    /**
+     * Get creationTime
+     *
+     * @return \DateTime 
+     */
+    public function getCreationTime()
+    {
+        return $this->creationTime;
+    }
+
+    /**
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return Establecimiento
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set ciudad
+     *
+     * @param \Acme\boletinesBundle\Entity\Ciudad $ciudad
+     * @return Establecimiento
+     */
+    public function setCiudad(\Acme\boletinesBundle\Entity\Ciudad $ciudad = null)
+    {
+        $this->ciudad = $ciudad;
+
+        return $this;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+
+    /**
+     * Set institucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $institucion
+     * @return Establecimiento
+     */
+    public function setInstitucion(\Acme\boletinesBundle\Entity\Institucion $institucion = null)
+    {
+        $this->institucion = $institucion;
+
+        return $this;
+    }
+
+    /**
+     * Get institucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion 
      */
     public function getInstitucion()
     {
-        return $this->idInstitucion;
-    }
-
-    /**
-     * @param Institucion $idInstitucion
-     */
-    public function setInstitucion($idInstitucion)
-    {
-        $this->idInstitucion = $idInstitucion;
-    }
-
-
-    public function __toString(){
-        return $this->getNombreEstablecimiento();
+        return $this->institucion;
     }
 }

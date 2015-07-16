@@ -15,9 +15,9 @@ class GrupoAlumno
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_grupo_alumno", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreGrupoAlumno;
+    private $nombre;
 
     /**
      * @var boolean
@@ -27,64 +27,129 @@ class GrupoAlumno
     private $esCurso;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_grupo_alumno", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idGrupoAlumno;
+    private $id;
+
+
 
     /**
-     * @return string
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return GrupoAlumno
      */
-    public function getNombreGrupoAlumno()
+    public function setNombre($nombre)
     {
-        return $this->nombreGrupoAlumno;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param string $nombreGrupoAlumno
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setNombreGrupoAlumno($nombreGrupoAlumno)
+    public function getNombre()
     {
-        $this->nombreGrupoAlumno = $nombreGrupoAlumno;
+        return $this->nombre;
     }
 
     /**
-     * @return boolean
+     * Set esCurso
+     *
+     * @param boolean $esCurso
+     * @return GrupoAlumno
      */
-    public function isEsCurso()
+    public function setEsCurso($esCurso)
+    {
+        $this->esCurso = $esCurso;
+
+        return $this;
+    }
+
+    /**
+     * Get esCurso
+     *
+     * @return boolean 
+     */
+    public function getEsCurso()
     {
         return $this->esCurso;
     }
 
     /**
-     * @param boolean $esCurso
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return GrupoAlumno
      */
-    public function setEsCurso($esCurso)
+    public function setCreationTime($creationTime)
     {
-        $this->esCurso = $esCurso;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function getIdGrupoAlumno()
+    public function getCreationTime()
     {
-        return $this->idGrupoAlumno;
+        return $this->creationTime;
     }
 
     /**
-     * @param int $idGrupoAlumno
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return GrupoAlumno
      */
-    public function setIdGrupoAlumno($idGrupoAlumno)
+    public function setUpdateTime($updateTime)
     {
-        $this->idGrupoAlumno = $idGrupoAlumno;
+        $this->updateTime = $updateTime;
+
+        return $this;
     }
 
-    public function __toString(){
-        return $this->getNombreGrupoAlumno();
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
     }
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

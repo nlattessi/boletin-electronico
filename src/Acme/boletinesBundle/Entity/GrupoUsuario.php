@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GrupoUsuario
  *
- * @ORM\Table(name="grupo_usuario", indexes={@ORM\Index(name="usuario_carga_fk_grupo_usuario", columns={"id_usuario_carga"})})
+ * @ORM\Table(name="grupo_usuario", indexes={@ORM\Index(name="FK_7D6C3EFA7FA0C10D", columns={"usuario_carga_id"})})
  * @ORM\Entity
  */
 class GrupoUsuario
@@ -15,9 +15,9 @@ class GrupoUsuario
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_grupo_usuario", type="string", length=45, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreGrupoUsuario;
+    private $nombre;
 
     /**
      * @var boolean
@@ -27,90 +27,162 @@ class GrupoUsuario
     private $esPrivado;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
+     */
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id_grupo_usuario", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idGrupoUsuario;
+    private $id;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
      *
      * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario_carga", referencedColumnName="id_usuario")
+     *   @ORM\JoinColumn(name="usuario_carga_id", referencedColumnName="id")
      * })
      */
-    private $idUsuarioCarga;
+    private $usuarioCarga;
+
+
 
     /**
-     * @return string
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return GrupoUsuario
      */
-    public function getNombreGrupoUsuario()
+    public function setNombre($nombre)
     {
-        return $this->nombreGrupoUsuario;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
-     * @param string $nombreGrupoUsuario
+     * Get nombre
+     *
+     * @return string 
      */
-    public function setNombreGrupoUsuario($nombreGrupoUsuario)
+    public function getNombre()
     {
-        $this->nombreGrupoUsuario = $nombreGrupoUsuario;
+        return $this->nombre;
     }
 
     /**
-     * @return boolean
+     * Set esPrivado
+     *
+     * @param boolean $esPrivado
+     * @return GrupoUsuario
      */
-    public function isEsPrivado()
+    public function setEsPrivado($esPrivado)
+    {
+        $this->esPrivado = $esPrivado;
+
+        return $this;
+    }
+
+    /**
+     * Get esPrivado
+     *
+     * @return boolean 
+     */
+    public function getEsPrivado()
     {
         return $this->esPrivado;
     }
 
     /**
-     * @param boolean $esPrivado
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return GrupoUsuario
      */
-    public function setEsPrivado($esPrivado)
+    public function setCreationTime($creationTime)
     {
-        $this->esPrivado = $esPrivado;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * Get creationTime
+     *
+     * @return \DateTime 
      */
-    public function getIdGrupoUsuario()
+    public function getCreationTime()
     {
-        return $this->idGrupoUsuario;
+        return $this->creationTime;
     }
 
     /**
-     * @param int $idGrupoUsuario
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return GrupoUsuario
      */
-    public function setIdGrupoUsuario($idGrupoUsuario)
+    public function setUpdateTime($updateTime)
     {
-        $this->idGrupoUsuario = $idGrupoUsuario;
+        $this->updateTime = $updateTime;
+
+        return $this;
     }
 
     /**
-     * @return Usuario
+     * Get updateTime
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set usuarioCarga
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarioCarga
+     * @return GrupoUsuario
+     */
+    public function setUsuarioCarga(\Acme\boletinesBundle\Entity\Usuario $usuarioCarga = null)
+    {
+        $this->usuarioCarga = $usuarioCarga;
+
+        return $this;
+    }
+
+    /**
+     * Get usuarioCarga
+     *
+     * @return \Acme\boletinesBundle\Entity\Usuario 
      */
     public function getUsuarioCarga()
     {
-        return $this->idUsuarioCarga;
+        return $this->usuarioCarga;
     }
-
-    /**
-     * @param Usuario $idUsuarioCarga
-     */
-    public function setUsuarioCarga($idUsuarioCarga)
-    {
-        $this->idUsuarioCarga = $idUsuarioCarga;
-    }
-
-    public function __toString(){
-        return $this->getNombreGrupoUsuario();
-    }
-
 }

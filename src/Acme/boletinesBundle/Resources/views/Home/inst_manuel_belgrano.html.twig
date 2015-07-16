@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+{{ include('BoletinesBundle::Padre/fixed_nav.html.twig') }}
+{{ include('BoletinesBundle::Padre/main_nav.html.twig') }}
+
+
+  <!-- startMain content-->
+  <div class="container">
+    <div class="row mar-top-soft">
+
+      <div class="col s12 m8 l8">
+      <h3 class="header">Colegio Manuel Belgrano</h3>
+      <h5 class="header">Nivel secundario</h5>
+      </div>
+      <div class="col s12 m4 l4 center-align">
+      <img src="{{ asset('bundles/boletines/images/mb.png') }}" alt="as" class="inst-thumb mar-top-soft">
+      </div><!--  End Tables Section  -->
+
+  </div>
+  <div class="divider mar-top-soft"></div>
+        <div class="row mar-top-soft">
+          <div class="col s12 m6 l6">
+          <h5 class="header">Apoderado: <span class="span-s"> Walter Muscolo</span></h5>
+          <h5 class="header">E-mail: <span class="span-s"> mbelgrano@educa.edu.ar</span></h5>
+          <h5 class="header">Teléfono: <span class="span-s"> 5555-5555</span></h5>
+          <h5 class="header">Establecimientos: <span class="span-s"> 1</span></h5>
+          </div>
+          <div class="col s12 m6 l6">
+          <h5 class="header">Cantidad de estudiantes: <span class="span-s"> 456</span></h5>
+          <h5 class="header">Directivos: <span class="span-s"> 3</span></h5>
+          <h5 class="header">Profesores: <span class="span-s"> 21</span></h5>
+          <h5 class="header">Bedeles: <span class="span-s"> 0</span></h5>
+
+          </div>
+      </div>
+  </div>
+   <!-- end Main content-->
+
+  {{ include('footer.html.twig') }}
+{% endblock %}

@@ -2,27 +2,29 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\AlumnoAsistencia" table="alumno_asistencia">
     <indexes>
-      <index name="alumno_fk_asistencia" columns="id_alumno"/>
-      <index name="asistencia_fk_alumno" columns="id_asistencia"/>
-      <index name="justificacion_fk_alumno" columns="id_justificacion"/>
+      <index name="FK_D30A8664320260C0" columns="alumno_id"/>
+      <index name="FK_D30A866455D9EBE2" columns="justificacion_id"/>
+      <index name="FK_D30A86647DACCA5A" columns="asistencia_id"/>
     </indexes>
-    <id name="idAlumnoAsistencia" type="integer" column="id_alumno_asistencia">
+    <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="valorAsistencia" type="string" column="valor_asistencia" length="1" nullable="false"/>
-    <many-to-one field="idJustificacion" target-entity="Justificacion">
+    <field name="valor" type="string" column="valor" length="1" nullable="false"/>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <many-to-one field="asistencia" target-entity="Asistencia">
       <join-columns>
-        <join-column name="id_justificacion" referenced-column-name="id_justificacion"/>
+        <join-column name="asistencia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idAsistencia" target-entity="Asistencia">
+    <many-to-one field="justificacion" target-entity="Justificacion">
       <join-columns>
-        <join-column name="id_asistencia" referenced-column-name="id_asistencia"/>
+        <join-column name="justificacion_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idAlumno" target-entity="Alumno">
+    <many-to-one field="alumno" target-entity="Alumno">
       <join-columns>
-        <join-column name="id_alumno" referenced-column-name="id_alumno"/>
+        <join-column name="alumno_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

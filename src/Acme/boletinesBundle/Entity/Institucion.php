@@ -3,7 +3,6 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Institucion
@@ -15,125 +14,205 @@ class Institucion
 {
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @ORM\Column(name="nombre_institucion", type="string", length=45, nullable=false)
+     *
+     * @ORM\Column(name="nombre", type="string", length=45, nullable=false)
      */
-    private $nombreInstitucion;
+    private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion_institucion", type="string", length=45, nullable=false)
+     * @ORM\Column(name="logo", type="string", length=45, nullable=true)
      */
-    private $direccionInstitucion;
+    private $logo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono_institucion", type="string", length=45, nullable=true)
+     * @ORM\Column(name="cuit", type="string", length=11, nullable=true)
      */
-    private $telefonoInstitucion;
+    private $cuit;
 
     /**
-     * @var string
-     * @Assert\Email()
-     * @ORM\Column(name="email_institucion", type="string", length=45, nullable=true)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_time", type="datetime", nullable=true)
      */
-    private $emailInstitucion;
+    private $creationTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="update_time", type="datetime", nullable=true)
+     */
+    private $updateTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_institucion", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idInstitucion;
+    private $id;
+
+
 
     /**
-     * @param string $direccionInstitucion
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Institucion
      */
-    public function setDireccionInstitucion($direccionInstitucion)
+    public function setNombre($nombre)
     {
-        $this->direccionInstitucion = $direccionInstitucion;
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
+     * Get nombre
+     *
      * @return string
      */
-    public function getDireccionInstitucion()
+    public function getNombre()
     {
-        return $this->direccionInstitucion;
+        return $this->nombre;
     }
 
     /**
-     * @param string $emailInstitucion
+     * Set logo
+     *
+     * @param string $logo
+     * @return Institucion
      */
-    public function setEmailInstitucion($emailInstitucion)
+    public function setLogo($logo)
     {
-        $this->emailInstitucion = $emailInstitucion;
+        $this->logo = $logo;
+
+        return $this;
     }
 
     /**
+     * Get logo
+     *
      * @return string
      */
-    public function getEmailInstitucion()
+    public function getLogo()
     {
-        return $this->emailInstitucion;
+        return $this->logo;
     }
 
     /**
-     * @param int $idInstitucion
+     * Set cuit
+     *
+     * @param string $cuit
+     * @return Institucion
      */
-    public function setIdInstitucion($idInstitucion)
+    public function setCuit($cuit)
     {
-        $this->idInstitucion = $idInstitucion;
+        $this->cuit = $cuit;
+
+        return $this;
     }
 
     /**
-     * @return int
-     */
-    public function getIdInstitucion()
-    {
-        return $this->idInstitucion;
-    }
-
-    /**
-     * @param string $nombreInstitucion
-     */
-    public function setNombreInstitucion($nombreInstitucion)
-    {
-        $this->nombreInstitucion = $nombreInstitucion;
-    }
-
-    /**
+     * Get cuit
+     *
      * @return string
      */
-    public function getNombreInstitucion()
+    public function getCuit()
     {
-        return $this->nombreInstitucion;
+        return $this->cuit;
     }
 
     /**
-     * @param string $telefonoInstitucion
+     * Set creationTime
+     *
+     * @param \DateTime $creationTime
+     * @return Institucion
      */
-    public function setTelefonoInstitucion($telefonoInstitucion)
+    public function setCreationTime($creationTime)
     {
-        $this->telefonoInstitucion = $telefonoInstitucion;
+        $this->creationTime = $creationTime;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * Get creationTime
+     *
+     * @return \DateTime
      */
-    public function getTelefonoInstitucion()
+    public function getCreationTime()
     {
-        return $this->telefonoInstitucion;
+        return $this->creationTime;
     }
 
-    public function __toString()
+    /**
+     * Set updateTime
+     *
+     * @param \DateTime $updateTime
+     * @return Institucion
+     */
+    public function setUpdateTime($updateTime)
     {
-        return $this->getNombreInstitucion();
+        $this->updateTime = $updateTime;
+
+        return $this;
     }
 
+    /**
+     * Get updateTime
+     *
+     * @return \DateTime
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->logo
+            ? null
+            : $this->getUploadRootDir().'/'.$this->logo;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->logo
+            ? null
+            : $this->getUploadDir().'/'.$this->logo;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/logos';
+    }
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+    }
 }
