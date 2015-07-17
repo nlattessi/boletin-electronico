@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DisciplinaType extends AbstractType
+class ConvivenciaType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,7 @@ class DisciplinaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreDisciplina')
+            ->add('nombreConvivencia')
             ->add('idAlumno')
         ;
     }
@@ -26,7 +26,7 @@ class DisciplinaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Acme\boletinesBundle\Entity\Disciplina'
+            'data_class' => 'Acme\boletinesBundle\Entity\Convivencia'
         ));
     }
 
@@ -35,6 +35,6 @@ class DisciplinaType extends AbstractType
      */
     public function getName()
     {
-        return 'acme_boletinesbundle_disciplina';
+        return 'acme_boletinesbundle_convivencia';
     }
 }

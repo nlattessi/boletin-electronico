@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Convivencia</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Convivencia</th>
+            <td>{{ convivencia.idConvivencia }}</td>
+        </tr>
+        <tr>
+            <th>Docente</th>
+            <td>{{ convivencia.docente.__toString }}</td>
+        </tr>
+        <tr>
+            <th>Cometnario</th>
+            <td>{{ convivencia.comentarioDocente }}</td>
+        </tr>
+
+        {% if convivencia.alumno != null %}
+        <tr>
+            <th>Alumno Asociado</th>
+            <td>{{ convivencia.alumno.__toString() }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Descargo</th>
+            <td>{{ convivencia.descargoAlumno }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('convivencia') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('convivencia_edit', { 'id': convivencia.idConvivencia }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('convivencia_delete', { 'id': convivencia.idConvivencia }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

@@ -1,10 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Disciplina creation</h1>
+    <h1>Convivencia creation</h1>
 
 
-    <form action="{{ path('disciplina_new') }}" method="post">
+    <form action="{{ path('convivencia_new') }}" method="post">
 
         <input type="text" placeholder="Ingrese Comentario" name="comentarioDocente"><br/>
         <input type="text" placeholder="Ingrese Descargo" name="descargoAlumno"><br/>
@@ -20,7 +20,7 @@
         </select>
         <br/><br/><br/>
 
-        <button type="submit" >Crear Disciplina</button>
+        <button type="submit" >Crear Convivencia</button>
 
 
         <br/>
@@ -28,7 +28,7 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('disciplina') }}">
+            <a href="{{ path('convivencia') }}">
                 Volver a la lista
             </a>
         </li>

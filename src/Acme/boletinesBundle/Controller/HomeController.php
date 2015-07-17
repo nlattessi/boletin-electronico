@@ -34,4 +34,8 @@ class HomeController extends Controller
     {
         return $this->render('BoletinesBundle:Home:under_construction.html.twig', array());
     }
+    public function alumnoAction()
+    {
+        return $this->render('BoletinesBundle:Home:alumno.html.twig', array());
+    }
 }
