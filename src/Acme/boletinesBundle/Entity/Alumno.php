@@ -50,16 +50,16 @@ class Alumno
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono_codigo_pais", type="string", length=3, nullable=false)
+     * @ORM\Column(name="codigo_pais", type="string", length=3, nullable=false)
      */
-    private $telefonoCodigoPais;
+    private $codigoPais;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono_codigo_area", type="string", length=4, nullable=false)
+     * @ORM\Column(name="codigo_area", type="string", length=4, nullable=false)
      */
-    private $telefonoCodigoArea;
+    private $codigoArea;
 
     /**
      * @var string
@@ -352,9 +352,9 @@ class Alumno
      * @param string $telefonoCodigoPais
      * @return Alumno
      */
-    public function setTelefonoCodigoPais($telefonoCodigoPais)
+    public function setCodigoPais($codigoPais)
     {
-        $this->telefonoCodigoPais = $telefonoCodigoPais;
+        $this->codigoPais = $codigoPais;
 
         return $this;
     }
@@ -883,5 +883,42 @@ class Alumno
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Get codigoPais
+     *
+     * @return string 
+     */
+    public function getCodigoPais()
+    {
+        return $this->codigoPais;
+    }
+
+    /**
+     * Set codigoArea
+     *
+     * @param string $codigoArea
+     * @return Alumno
+     */
+    public function setCodigoArea($codigoArea)
+    {
+        $this->codigoArea = $codigoArea;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoArea
+     *
+     * @return string 
+     */
+    public function getCodigoArea()
+    {
+        return $this->codigoArea;
+    }
+
+    public function __toString(){
+        return $this->nombre . " " . $this->apellido;
     }
 }

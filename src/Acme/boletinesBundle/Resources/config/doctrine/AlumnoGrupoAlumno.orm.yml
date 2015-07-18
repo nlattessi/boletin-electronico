@@ -1,0 +1,50 @@
+Acme\boletinesBundle\Entity\AlumnoGrupoAlumno:
+    type: entity
+    table: alumno_grupo_alumno
+    indexes:
+        FK_55DB706320260C0:
+            columns:
+                - alumno_id
+        FK_55DB706628BDAE3:
+            columns:
+                - grupo_alumno_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        creationTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: update_time
+    manyToOne:
+        alumno:
+            targetEntity: Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        grupoAlumno:
+            targetEntity: GrupoAlumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                grupo_alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

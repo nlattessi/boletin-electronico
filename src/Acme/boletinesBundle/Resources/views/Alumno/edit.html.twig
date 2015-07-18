@@ -5,8 +5,8 @@
 
     <h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('alumno_edit', {'id':alumno.idAlumno }) }}" method="post">
-        <input type="text" value="{{ alumno.idAlumno }}" hidden="hidden" name="idAlumno"><br/>
+    <form action="{{ path('alumno_edit', {'id':alumno.id }) }}" method="post">
+        <input type="text" value="{{ alumno.id }}" hidden="hidden" name="idAlumno"><br/>
         <input type="text" value="{{ alumno.nombreAlumno }}" placeholder="nombre" name="nombreAlumno"><br/>
         {% if alumno.usuarioAlumno != null %}
             <p>UsuarioAlumno Asociado</p>
@@ -16,7 +16,7 @@
         <select name="idUsuarioAlumno">
             {% for usuarioAlumno in entitiesRelacionadas %}
 
-                <option value="{{usuarioAlumno.idUsuario}}">{{usuarioAlumno.__toString()}}</option>
+                <option value="{{usuarioAlumno.id}}">{{usuarioAlumno.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">No seleccionar ninguna</option>
@@ -29,7 +29,7 @@
         <select name="idUsuarioPadre1">
             {% for usuarioPadre in padres %}
 
-                <option value="{{usuarioPadre.idUsuario}}">{{usuarioPadre.__toString()}}</option>
+                <option value="{{usuarioPadre.id}}">{{usuarioPadre.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">Seleccione un Usuario Padre</option>
@@ -42,7 +42,7 @@
         <select name="idUsuarioPadre2">
             {% for usuarioPadre2 in padres %}
 
-                <option value="{{usuarioPadre2.idUsuario}}">{{usuarioPadre2.__toString()}}</option>
+                <option value="{{usuarioPadre2.id}}">{{usuarioPadre2.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">Seleccione otro Usuario padre</option>

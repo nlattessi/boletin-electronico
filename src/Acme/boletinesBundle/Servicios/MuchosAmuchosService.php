@@ -263,7 +263,7 @@ class MuchosAmuchosService {
     public function obtenerEstablecimientosPorUsuario($usuario){
         $establecimientos = array();
 
-        $establecimientosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('idUsuario' => $usuario));
+        $establecimientosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('id' => $usuario));
         foreach($establecimientosUsuario as $establecimientoUsuario){
             $establecimientos= $establecimientoUsuario->getEstablecimiento();
         }
@@ -293,7 +293,7 @@ class MuchosAmuchosService {
     public function obtenerGrupoUsuarioesPorUsuario($usuario){
         $grupoUsuarios = array();
 
-        $grupoUsuariosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->find(array('idUsuario' => $usuario));
+        $grupoUsuariosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->find(array('id' => $usuario));
         foreach($grupoUsuariosUsuario as $grupoUsuarioUsuario){
             $grupoUsuarios= $grupoUsuarioUsuario->getGrupoUsuario();
         }

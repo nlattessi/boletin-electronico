@@ -1,0 +1,45 @@
+Acme\boletinesBundle\Entity\Mensaje:
+    type: entity
+    table: mensaje
+    indexes:
+        FK_9B631D0165089FEB:
+            columns:
+                - usuario_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        titulo:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+            comment: ''
+        texto:
+            type: string
+            nullable: false
+            length: 500
+            fixed: false
+            comment: ''
+        fechaEnvio:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: fecha_envio
+    manyToOne:
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -18,7 +18,7 @@
         <select name="idUsuario">
             {% for usuario in entitiesRelacionadas %}
 
-                <option value="{{usuario.idUsuario}}">{{usuario.__toString()}}</option>
+                <option value="{{usuario.id}}">{{usuario.__toString()}}</option>
 
             {% endfor %}
             <option value="-1" selected="selected">No selecionar niguno</option>

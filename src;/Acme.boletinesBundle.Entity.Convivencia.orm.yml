@@ -1,0 +1,63 @@
+Acme\boletinesBundle\Entity\Convivencia:
+    type: entity
+    table: convivencia
+    indexes:
+        FK_72D32A26320260C0:
+            columns:
+                - alumno_id
+        FK_72D32A26230266D4:
+            columns:
+                - usuario_carga_id
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        comentario:
+            type: string
+            length: 255
+            nullable: false
+        descargo:
+            type: string
+            length: 255
+            nullable: true
+        fechaSuceso:
+            type: datetime
+            nullable: false
+            column: fecha_suceso
+        validado:
+            type: boolean
+            nullable: true
+        valor:
+            type: boolean
+            nullable: true
+        fechaCreacion:
+            type: datetime
+            nullable: false
+            column: fecha_creacion
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: fecha_actualizacion
+    manyToOne:
+        alumno:
+            targetEntity: Acme\boletinesBundle\Entity\Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioCarga:
+            targetEntity: Acme\boletinesBundle\Entity\Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_carga_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

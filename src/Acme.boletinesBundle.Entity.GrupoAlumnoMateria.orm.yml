@@ -1,0 +1,45 @@
+Acme\boletinesBundle\Entity\GrupoAlumnoMateria:
+    type: entity
+    table: grupo_alumno_materia
+    indexes:
+        FK_7B2FAA0D3BF20F66:
+            columns:
+                - grupo_alumno_id
+        FK_7B2FAA0DB36DFBF4:
+            columns:
+                - materia_id
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        creationTime:
+            type: datetime
+            nullable: true
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        materia:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                materia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        grupoAlumno:
+            targetEntity: Acme\boletinesBundle\Entity\GrupoAlumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                grupo_alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

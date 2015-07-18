@@ -7,7 +7,7 @@
         <tbody>
         <tr>
             <th>Id Alumno</th>
-            <td>{{ alumno.idAlumno }}</td>
+            <td>{{ alumno.id }}</td>
         </tr>
         <tr>
             <th>Alumno</th>
@@ -42,10 +42,10 @@
         </a>
     </li>
     <li>
-        <a href="{{ path('alumno_edit', { 'id': alumno.idAlumno }) }}">
+        <a href="{{ path('alumno_edit', { 'id': alumno.id }) }}">
             Editar
         </a>
     </li>
-    <li> <a href="{{ path('alumno_delete', { 'id': alumno.idAlumno }) }}">Borrar</a></li>
+    <li> <a href="{{ path('alumno_delete', { 'id': alumno.id }) }}">Borrar</a></li>
 </ul>
 {% endblock %}

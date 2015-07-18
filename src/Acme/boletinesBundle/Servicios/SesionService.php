@@ -20,7 +20,7 @@ class SesionService {
  * Para Obtener el usuario que esta actuando
  * */
     public function obtenerUsuario(){
-        $usuario =  $this->em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 1));
+        $usuario =  $this->em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => 1));
         return $usuario;
     }
 /*

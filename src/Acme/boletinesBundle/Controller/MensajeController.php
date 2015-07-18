@@ -64,7 +64,7 @@ class MensajeController extends Controller
         $idUsuario = $data->request->get('idUsuarioRecibe');
         if($idUsuario > 0){
             //Selecciono una Usuario
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuario));
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuario));
             $mensaje->setUsuarioRecibe($usuario);
         }
 
@@ -123,7 +123,7 @@ class MensajeController extends Controller
         $idUsuario = $data->request->get('idUsuarioRecibe');
         if($idUsuario > 0){
             //Selecciono otra Usuario, hay que buscarla y persistirla
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuario));
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuario));
             $mensaje->setUsuarioRecibe($usuario);
         }
 

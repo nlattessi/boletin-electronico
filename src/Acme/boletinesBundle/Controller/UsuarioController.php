@@ -28,7 +28,7 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $id));
+        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Usuario:show.html.twig', array('usuario' => $usuario));
     }
@@ -58,7 +58,7 @@ class UsuarioController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $id));
+        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
         if($usuario instanceof Usuario) {
             $em->remove($usuario);
@@ -99,7 +99,7 @@ class UsuarioController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $id));
+        $entity = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
         $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Rol')->findAll();
 
         return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
@@ -112,7 +112,7 @@ class UsuarioController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $id));
+        $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
         $usuario->setNombreUsuario($data->request->get('nombreUsuario'));
         $usuario->setNombreUsuarioParaMostrar($data->request->get('nombreUsuarioParaMostrar'));

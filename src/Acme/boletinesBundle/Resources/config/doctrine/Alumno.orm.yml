@@ -1,0 +1,211 @@
+Acme\boletinesBundle\Entity\Alumno:
+    type: entity
+    table: alumno
+    indexes:
+        FK_usuario_id:
+            columns:
+                - usuario_id
+        FK_direccion_ciudad_id:
+            columns:
+                - ciudad_id
+        FK_padre_1_id:
+            columns:
+                - padre1_id
+        FK_padre_2_id:
+            columns:
+                - padre2_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 30
+            fixed: false
+            comment: ''
+        apellido:
+            type: string
+            nullable: false
+            length: 30
+            fixed: false
+            comment: ''
+        dni:
+            type: string
+            nullable: false
+            length: 8
+            fixed: false
+            comment: ''
+        direccion:
+            type: string
+            nullable: false
+            length: 60
+            fixed: false
+            comment: ''
+        codigoPostal:
+            type: string
+            nullable: true
+            length: 10
+            fixed: false
+            comment: ''
+            column: codigo_postal
+        codigoPais:
+            type: string
+            nullable: false
+            length: 4
+            fixed: false
+            comment: ''
+            column: codigo_pais
+        codigoArea:
+            type: string
+            nullable: false
+            length: 5
+            fixed: false
+            comment: ''
+            column: codigo_area
+        telefono:
+            type: string
+            nullable: false
+            length: 12
+            fixed: false
+            comment: ''
+        nacionalidad:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+        sexo:
+            type: string
+            nullable: true
+            length: 1
+            fixed: true
+            comment: ''
+        obraSocial:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: ''
+            column: obra_social
+        obraSocialNumeroAfiliado:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: ''
+            column: obra_social_numero_afiliado
+        telefonoEmergencia:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: ''
+            column: telefono_emergencia
+        apodo:
+            type: string
+            nullable: true
+            length: 40
+            fixed: false
+            comment: ''
+        foto:
+            type: string
+            nullable: true
+            length: 250
+            fixed: false
+            comment: ''
+        avatarId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: avatar_id
+        fechaIngreso:
+            type: date
+            nullable: false
+            comment: ''
+            column: fecha_ingreso
+        fechaNacimiento:
+            type: date
+            nullable: false
+            comment: ''
+            column: fecha_nacimiento
+        especialidadId:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: especialidad_id
+        observaciones:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        establecimientoId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: establecimiento_id
+        creationTime:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: update_time
+        grupoSanguineo:
+            type: string
+            nullable: true
+            length: 12
+            fixed: false
+            comment: ''
+            column: grupo_sanguineo
+    manyToOne:
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        ciudad:
+            targetEntity: Ciudad
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ciudad_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        padre1:
+            targetEntity: Padre
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                padre1_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        padre2:
+            targetEntity: Padre
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                padre2_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

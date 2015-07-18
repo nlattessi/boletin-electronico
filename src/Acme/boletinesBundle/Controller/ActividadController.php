@@ -94,7 +94,7 @@ class ActividadController extends Controller
 
     private function obtenerUsuario($em){
         //TODO: sacar una vez que tengaos login
-       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => 0));
+       $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => 0));
        return $usuario;
     }
 

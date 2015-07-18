@@ -1,0 +1,19 @@
+Acme\boletinesBundle\Entity\Avatar:
+    type: entity
+    table: avatar
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 45
+            nullable: false
+        path:
+            type: string
+            length: 45
+            nullable: false
+    lifecycleCallbacks: {  }
