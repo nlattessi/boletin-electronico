@@ -2,9 +2,10 @@
 
 {% block body -%}
 
-  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
-
+  <header>
+    {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+    {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
+  </header>
 
 
 

@@ -13,3 +13,7 @@ home_inst_belgrano_day_school:
 home_under_construction:
     pattern:   /under_construction
     defaults:  { _controller: BoletinesBundle:Home:under_construction}
+
+home_admin:
+    pattern:    /admin
+    defaults:   {_controller: BoletinesBundle:Home:admin}

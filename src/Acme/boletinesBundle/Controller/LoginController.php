@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function redirectAction()
     {
         if($this->getUser()->getRol()->getNombre() == 'ROLE_ADMIN') {
-            return $this->redirect($this->generateUrl('institucion'));
+            return $this->redirect($this->generateUrl('home_admin'));
         } else if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE') {
             return $this->redirect($this->generateUrl('home_father'));
 
