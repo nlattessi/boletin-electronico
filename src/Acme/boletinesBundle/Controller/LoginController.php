@@ -38,7 +38,10 @@ class LoginController extends Controller
         } else if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE') {
             return $this->redirect($this->generateUrl('home_father'));
 
-        }
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO') {
+        return $this->redirect($this->generateUrl('home_alumno'));
+
+    }
 
 
 //        $request = $this->getRequest();

@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Convivencia list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Convivencia</th>
+                <th>Nombre convivencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for convivencia in entities %}
+            <tr>
+                <td>{{ convivencia.idConvivencia }}</td>
+                <td><a href="{{ path('convivencia_show', { 'id': convivencia.idConvivencia }) }}">{{ convivencia.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('convivencia_show', { 'id': convivencia.idConvivencia }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('convivencia_edit', { 'id': convivencia.idConvivencia }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('convivencia_delete', { 'id': convivencia.idConvivencia }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('convivencia_new') }}">
+                Crear Nueva Convivencia
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

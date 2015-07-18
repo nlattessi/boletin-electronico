@@ -1,0 +1,37 @@
+Acme\boletinesBundle\Entity\Materia:
+    type: entity
+    table: materia
+    indexes:
+        FK_6DF052845DC80656:
+            columns:
+                - tipo_materia_id
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 45
+            nullable: false
+        creationTime:
+            type: datetime
+            nullable: true
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        tipoMateria:
+            targetEntity: Acme\boletinesBundle\Entity\TipoMateria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tipo_materia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

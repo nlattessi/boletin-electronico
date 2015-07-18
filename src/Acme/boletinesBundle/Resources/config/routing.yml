@@ -38,9 +38,9 @@ boletines_calificacion:
     resource: "@BoletinesBundle/Resources/config/routing/calificacion.yml"
     prefix:   /calificacion
 
-boletines_disciplina:
-    resource: "@BoletinesBundle/Resources/config/routing/disciplina.yml"
-    prefix:   /disciplina
+boletines_convivencia:
+    resource: "@BoletinesBundle/Resources/config/routing/convivencia.yml"
+    prefix:   /convivencia
 
 boletines_asistencia:
     resource: "@BoletinesBundle/Resources/config/routing/asistencia.yml"

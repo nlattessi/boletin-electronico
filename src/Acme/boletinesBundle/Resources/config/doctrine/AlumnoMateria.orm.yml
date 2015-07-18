@@ -1,0 +1,50 @@
+Acme\boletinesBundle\Entity\AlumnoMateria:
+    type: entity
+    table: alumno_materia
+    indexes:
+        FK_43E74FC0320260C0:
+            columns:
+                - alumno_id
+        FK_43E74FC0B36DFBF4:
+            columns:
+                - materia_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        creationTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: update_time
+    manyToOne:
+        alumno:
+            targetEntity: Alumno
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                alumno_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        materia:
+            targetEntity: Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                materia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

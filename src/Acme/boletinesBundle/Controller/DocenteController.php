@@ -66,7 +66,7 @@ class DocenteController extends Controller
             $usuario = $controllerUsuario->crearUsuarioDocente($docente->getNombreDocente(), $docente->getEmailDocente());
             $em->persist($usuario);
         }else{
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' =>$idUsuario ));
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
         }
 
         $docente->setUsuario($usuario);
@@ -120,7 +120,7 @@ class DocenteController extends Controller
         $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
         $idUsuario = $data->request->get('idUsuario');
         if($idUsuario > 0){
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' =>$idUsuario ));
+            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
             $docente->setUsuario($usuario);
         }else{
             //no seleccionó ninguno

@@ -15,7 +15,7 @@
     <field name="direccionLaboral" type="string" column="direccion_laboral" length="45" nullable="true"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="45" nullable="true"/>
     <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="true"/>
-    <field name="codioArea" type="string" column="codio_area" length="4" nullable="true"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="4" nullable="true"/>
     <field name="telefono" type="string" column="telefono" length="12" nullable="false"/>
     <field name="celular" type="string" column="celular" length="12" nullable="false"/>
     <field name="telefonoLaboral" type="string" column="telefono_laboral" length="12" nullable="false"/>

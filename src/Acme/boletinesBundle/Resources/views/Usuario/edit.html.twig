@@ -5,8 +5,8 @@
 
     <h2>{{ mensaje }}</h2>
 
-    <form action="{{ path('usuario_edit', {'id':usuario.idUsuario }) }}" method="post">
-        <input type="text" value="{{ usuario.idUsuario }}" hidden="hidden" name="idUsuario"><br/>
+    <form action="{{ path('usuario_edit', {'id':usuario.id }) }}" method="post">
+        <input type="text" value="{{ usuario.id }}" hidden="hidden" name="idUsuario"><br/>
         <input type="text" value="{{ usuario.nombreUsuario }}" placeholder="nombre" name="nombreUsuario"><br/>
         <input type="text" value="{{ usuario.nombreUsuarioParaMostrar }}" placeholder="nombre_usuario_para_mostrar" name="nombreUsuarioParaMostrar"><br/>
         <input type="password" value="{{ usuario.password }}" placeholder="password" name="password"><br/>

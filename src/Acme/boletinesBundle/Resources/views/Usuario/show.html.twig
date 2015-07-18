@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>{{ usuario.idUsuario }}</td>
+            <td>{{ usuario.id }}</td>
             <td>{{ usuario.nombreUsuario }}</td>
             <td>{{ usuario.password }}</td>
             <td>{{ usuario.nombreUsuarioParaMostrar }}</td>
@@ -35,10 +35,10 @@
             </a>
         </li>
         <li>
-            <a href="{{ path('usuario_edit', { 'id': usuario.idUsuario }) }}">
+            <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}">
                 Editar
             </a>
         </li>
-        <li> <a href="{{ path('usuario_delete', { 'id': usuario.idUsuario }) }}">Borrar</a></li>
+        <li> <a href="{{ path('usuario_delete', { 'id': usuario.id }) }}">Borrar</a></li>
     </ul>
 {% endblock %}

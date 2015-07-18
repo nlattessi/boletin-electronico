@@ -15,8 +15,8 @@
     <field name="dni" type="string" column="dni" length="8" nullable="false"/>
     <field name="direccion" type="string" column="direccion" length="60" nullable="false"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="10" nullable="true"/>
-    <field name="telefonoCodigoPais" type="string" column="telefono_codigo_pais" length="3" nullable="false"/>
-    <field name="telefonoCodigoArea" type="string" column="telefono_codigo_area" length="4" nullable="false"/>
+    <field name="codigoPais" type="string" column="codigo_pais" length="3" nullable="false"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="4" nullable="false"/>
     <field name="telefono" type="string" column="telefono" length="10" nullable="false"/>
     <field name="nacionalidad" type="string" column="nacionalidad" length="20" nullable="true"/>
     <field name="sexo" type="string" column="sexo" length="1" nullable="true"/>

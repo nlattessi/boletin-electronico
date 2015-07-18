@@ -286,4 +286,8 @@ class Usuario implements UserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
+    public function __toString(){
+        return $this->nombre;
+    }
+
 }

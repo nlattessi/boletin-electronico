@@ -1,0 +1,23 @@
+Acme\boletinesBundle\Entity\TipoMateria:
+    type: entity
+    table: tipo_materia
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 25
+            nullable: false
+        creationTime:
+            type: datetime
+            nullable: true
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,15 @@
+Acme\boletinesBundle\Entity\Pais:
+    type: entity
+    table: pais
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 45
+            nullable: false
+    lifecycleCallbacks: {  }
