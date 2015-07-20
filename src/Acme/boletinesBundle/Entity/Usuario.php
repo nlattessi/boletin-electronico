@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario", indexes={@ORM\Index(name="FK_2265B05D90F1D76D", columns={"rol_id"})})
  * @ORM\Entity
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -91,7 +92,7 @@ class Usuario
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -114,7 +115,7 @@ class Usuario
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -137,7 +138,7 @@ class Usuario
     /**
      * Get idEntidadAsociada
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdEntidadAsociada()
     {
@@ -160,7 +161,7 @@ class Usuario
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -183,7 +184,7 @@ class Usuario
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -206,7 +207,7 @@ class Usuario
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -216,7 +217,7 @@ class Usuario
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -239,10 +240,57 @@ class Usuario
     /**
      * Get rol
      *
-     * @return \Acme\boletinesBundle\Entity\Rol 
+     * @return \Acme\boletinesBundle\Entity\Rol
      */
     public function getRol()
     {
         return $this->rol;
+    }
+
+    public function getUsername()
+    {
+        return $this->nombre;
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        $roles = array();
+        $roles[] = $this->getRol()->getNombre();
+        return $roles;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->nombre,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nombre,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 }
