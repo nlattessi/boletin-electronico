@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Establecimiento;
 use Acme\boletinesBundle\Entity\Calendario;
@@ -27,9 +28,7 @@ class EstablecimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('idEstablecimiento' => $id));
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $establecimiento->getInstitucion()));
-        $establecimiento->setInstitucion($institucion);
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
         return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('establecimiento' => $establecimiento));
     }
 
@@ -52,17 +51,48 @@ class EstablecimientoController extends Controller
         return $this->render('BoletinesBundle:Establecimiento:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
     }
 
-    private function createEntity($data)
+    public function newWithInstitucionAction($institucionId, Request $request)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
+            $establecimiento = $this->createEntity($request, $institucionId);
+            if($establecimiento != null) {
+              if ($request->get('crearEstablecimiento')) {
+                  return new RedirectResponse($this->generateUrl(
+                      'establecimiento_new_with_institucion',
+                      array('institucionId' => $institucionId))
+                  );
+              } else {
+                  //return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                  return new RedirectResponse($this->generateUrl(
+                      'establecimiento_show',
+                      array('id' => $establecimiento->getId()))
+                  );
+              }
+            } else {
+                $message = "Errores";
+            }
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
+        }
+
+        return $this->render('BoletinesBundle:Establecimiento:new_with_institucion.html.twig', array('institucion' => $institucion));
+    }
+
+    private function createEntity($data, $institucionId = null)
     {
         $em = $this->getDoctrine()->getManager();
 
         $establecimiento = new Establecimiento();
-        $establecimiento->setNombreEstablecimiento($data->request->get('nombreEstablecimiento'));
-        $establecimiento->setDireccionEstablecimiento($data->request->get('direccionEstablecimiento'));
-        $establecimiento->setEmailEstablecimiento($data->request->get('emailEstablecimiento'));
-        $establecimiento->setTelefonoEstablecimiento($data->request->get('telefonoEstablecimiento'));
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('idInstitucion' => $data->request->get('idInstitucion')));
-        $establecimiento->setInstitucion($institucion);
+        $establecimiento->setNombre($data->request->get('nombre'));
+        $establecimiento->setMaximoFaltas((int) $data->request->get('maximoFaltas'));
+        $establecimiento->setTardesFaltas((int) $data->request->get('tardesFaltas'));
+        if ($institucionId) {
+            $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
+            $establecimiento->setInstitucion($institucion);
+        }
 
         $em->persist($establecimiento);
         $em->flush();
@@ -124,4 +154,3 @@ class EstablecimientoController extends Controller
         return $establecimiento;
     }
 }
-

@@ -45,7 +45,14 @@ class InstitucionController extends Controller
             $institucion = $this->createEntity($request);
             if($institucion != null) {
                 //return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
-                return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                if ($request->get('crearEstablecimiento')) {
+                    return new RedirectResponse($this->generateUrl(
+                        'establecimiento_new_with_institucion',
+                        array('institucionId' => $institucion->getId()))
+                    );
+                } else {
+                    return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                }
             } else {
                 $error = "Errores";
             }
