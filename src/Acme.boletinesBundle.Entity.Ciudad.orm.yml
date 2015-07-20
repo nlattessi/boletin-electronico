@@ -1,0 +1,29 @@
+Acme\boletinesBundle\Entity\Ciudad:
+    type: entity
+    table: ciudad
+    indexes:
+        FK_provincida_id:
+            columns:
+                - provincia_id
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 45
+            nullable: false
+    manyToOne:
+        provincia:
+            targetEntity: Acme\boletinesBundle\Entity\Provincia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                provincia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

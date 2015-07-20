@@ -17,3 +17,7 @@ home_under_construction:
 home_admin:
     pattern:    /admin
     defaults:   {_controller: BoletinesBundle:Home:admin}
+
+home_alumno:
+    pattern:   /alumno
+    defaults:  { _controller: BoletinesBundle:Home:alumno}

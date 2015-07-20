@@ -1,0 +1,72 @@
+Acme\boletinesBundle\Entity\Evaluacion:
+    type: entity
+    table: evaluacion
+    indexes:
+        FK_514C8FEC230266D4:
+            columns:
+                - docente_id
+        FK_514C8FECB36DFBF4:
+            columns:
+                - materia_id
+        FK_514C8FECDC70121:
+            columns:
+                - actividad_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+        fecha:
+            type: datetime
+            nullable: false
+            comment: ''
+        creationTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: update_time
+    manyToOne:
+        docente:
+            targetEntity: Docente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                docente_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        materia:
+            targetEntity: Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                materia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        actividad:
+            targetEntity: Actividad
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                actividad_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

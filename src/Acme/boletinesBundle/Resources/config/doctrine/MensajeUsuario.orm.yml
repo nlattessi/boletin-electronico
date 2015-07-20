@@ -1,0 +1,58 @@
+Acme\boletinesBundle\Entity\MensajeUsuario:
+    type: entity
+    table: mensaje_usuario
+    indexes:
+        fk_sfsdfsdfsdf_idx:
+            columns:
+                - mensaje_id
+        fk_qwqwqwqqw_idx:
+            columns:
+                - usuario_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        leido:
+            type: boolean
+            nullable: true
+            comment: ''
+        borrado:
+            type: boolean
+            nullable: true
+            comment: ''
+        creationTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: update_time
+    manyToOne:
+        usuario:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        mensaje:
+            targetEntity: Mensaje
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                mensaje_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

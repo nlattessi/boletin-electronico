@@ -1,0 +1,31 @@
+Acme\boletinesBundle\Entity\Institucion:
+    type: entity
+    table: institucion
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            length: 45
+            nullable: false
+        logo:
+            type: string
+            length: 45
+            nullable: true
+        cuit:
+            type: string
+            length: 11
+            nullable: true
+        creationTime:
+            type: datetime
+            nullable: true
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    lifecycleCallbacks: {  }

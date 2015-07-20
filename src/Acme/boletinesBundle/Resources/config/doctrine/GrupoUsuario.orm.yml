@@ -1,0 +1,49 @@
+Acme\boletinesBundle\Entity\GrupoUsuario:
+    type: entity
+    table: grupo_usuario
+    indexes:
+        FK_7D6C3EFA7FA0C10D:
+            columns:
+                - usuario_carga_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+        esPrivado:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: es_privado
+        creationTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: update_time
+    manyToOne:
+        usuarioCarga:
+            targetEntity: Usuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuario_carga_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

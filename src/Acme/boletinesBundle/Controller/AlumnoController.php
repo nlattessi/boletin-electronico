@@ -60,19 +60,19 @@ class AlumnoController extends Controller
         $idUsuarioAlumno = $data->request->get('idUsuarioAlumno');
         if($idUsuarioAlumno > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioAlumno));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioAlumno));
             $alumno->setUsuarioAlumno($entityRelacionada);
         }
         $idUsuarioPadre1 = $data->request->get('idUsuarioPadre1');
         if($idUsuarioPadre1 > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre1));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre1));
             $alumno->setUsuarioPadre1($entityRelacionada);
         }
         $idUsuarioPadre2 = $data->request->get('idUsuarioPadre2');
         if($idUsuarioPadre2 > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre2));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre2));
             $alumno->setUsuarioPadre2($entityRelacionada);
         }
 
@@ -127,19 +127,19 @@ class AlumnoController extends Controller
         $idUsuarioAlumno = $data->request->get('idUsuarioAlumno');
         if($idUsuarioAlumno > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioAlumno));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioAlumno));
             $alumno->setUsuarioAlumno($entityRelacionada);
         }
         $idUsuarioPadre1 = $data->request->get('idUsuarioPadre1');
         if($idUsuarioPadre1 > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre1));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre1));
             $alumno->setUsuarioPadre1($entityRelacionada);
         }
         $idUsuarioPadre2 = $data->request->get('idUsuarioPadre2');
         if($idUsuarioPadre2 > 0){
             //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('idUsuario' => $idUsuarioPadre2));
+            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre2));
             $alumno->setUsuarioPadre2($entityRelacionada);
         }
 

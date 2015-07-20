@@ -1,0 +1,45 @@
+Acme\boletinesBundle\Entity\DocenteMateria:
+    type: entity
+    table: docente_materia
+    indexes:
+        FK_517E8597230266D4:
+            columns:
+                - docente_id
+        FK_517E8597B36DFBF4:
+            columns:
+                - materia_id
+    id:
+        id:
+            id: true
+            type: integer
+            generator:
+                strategy: IDENTITY
+    fields:
+        creationTime:
+            type: datetime
+            nullable: true
+            column: creation_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    manyToOne:
+        materia:
+            targetEntity: Acme\boletinesBundle\Entity\Materia
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                materia_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        docente:
+            targetEntity: Acme\boletinesBundle\Entity\Docente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                docente_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
