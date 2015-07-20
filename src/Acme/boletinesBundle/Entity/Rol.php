@@ -67,7 +67,7 @@ class Rol
     /**
      * Get nombre
      *
-     * @return string
+     * @return string 
      */
     public function getNombre()
     {
@@ -90,7 +90,7 @@ class Rol
     /**
      * Get descripcion
      *
-     * @return string
+     * @return string 
      */
     public function getDescripcion()
     {
@@ -113,7 +113,7 @@ class Rol
     /**
      * Get creationTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreationTime()
     {
@@ -136,7 +136,7 @@ class Rol
     /**
      * Get updateTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdateTime()
     {
@@ -146,7 +146,7 @@ class Rol
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {

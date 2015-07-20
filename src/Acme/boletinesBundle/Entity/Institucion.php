@@ -74,7 +74,7 @@ class Institucion
     /**
      * Get nombre
      *
-     * @return string
+     * @return string 
      */
     public function getNombre()
     {
@@ -97,7 +97,7 @@ class Institucion
     /**
      * Get logo
      *
-     * @return string
+     * @return string 
      */
     public function getLogo()
     {
@@ -120,7 +120,7 @@ class Institucion
     /**
      * Get cuit
      *
-     * @return string
+     * @return string 
      */
     public function getCuit()
     {
@@ -143,7 +143,7 @@ class Institucion
     /**
      * Get creationTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreationTime()
     {
@@ -166,7 +166,7 @@ class Institucion
     /**
      * Get updateTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdateTime()
     {
@@ -176,43 +176,10 @@ class Institucion
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->logo
-            ? null
-            : $this->getUploadRootDir().'/'.$this->logo;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->logo
-            ? null
-            : $this->getUploadDir().'/'.$this->logo;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/logos';
-    }
-
-    public function __construct()
-    {
-        $this->creationTime = new \DateTime();
     }
 }
