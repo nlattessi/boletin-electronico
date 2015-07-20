@@ -359,7 +359,7 @@ DROP TABLE IF EXISTS `establecimiento`;
 CREATE TABLE `establecimiento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `institucion_id` int(11) NOT NULL,
-  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,  
+  `nombre` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `ciudad_id` int(11) DEFAULT NULL,
   `direccion` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `codigo_postal` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -745,8 +745,8 @@ CREATE TABLE `rol` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `creation_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -822,7 +822,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-LOCK TABLES `boletines` WRITE;
+LOCK TABLES `usuario` WRITE;
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `email`) VALUES ('admin', 'admin', '1', 'admin@admin.com');
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('spacecraft', 'spacecraft', '2', '1', 'padre@padre.con');
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('juancarlos', 'juancarlos', '3', '1', 'alumno@alumno.com');
