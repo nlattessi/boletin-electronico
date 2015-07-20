@@ -58,6 +58,7 @@ class InstitucionController extends Controller
     {
         $institucion = new Institucion();
         $institucion->setNombre($data->request->get('nombreInstitucion'));
+        $institucion->setCuit($data->request->get('cuit'));
 
         $logoFile = $data->files->get('logoInstitucion');
         if ($logoFile) {
