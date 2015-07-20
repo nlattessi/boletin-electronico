@@ -15,13 +15,13 @@
     <field name="direccionLaboral" type="string" column="direccion_laboral" length="45" nullable="true"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="45" nullable="true"/>
     <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="true"/>
-    <field name="codigoArea" type="string" column="codigo_area" length="4" nullable="true"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="5" nullable="true"/>
     <field name="telefono" type="string" column="telefono" length="12" nullable="false"/>
     <field name="celular" type="string" column="celular" length="12" nullable="false"/>
     <field name="telefonoLaboral" type="string" column="telefono_laboral" length="12" nullable="false"/>
     <field name="ocupacion" type="string" column="ocupacion" length="45" nullable="true"/>
-    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
-    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="250" nullable="true"/>
+    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
     <many-to-one field="ciudad" target-entity="Ciudad">

@@ -64,14 +64,14 @@ class Establecimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_area", type="string", length=4, nullable=true)
+     * @ORM\Column(name="codigo_area", type="string", length=5, nullable=true)
      */
     private $codigoArea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono", type="string", length=45, nullable=true)
+     * @ORM\Column(name="telefono", type="string", length=12, nullable=true)
      */
     private $telefono;
 
@@ -88,6 +88,20 @@ class Establecimiento
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
      */
     private $observaciones;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="maximo_faltas", type="integer", nullable=false)
+     */
+    private $maximoFaltas;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tardes_faltas", type="integer", nullable=false)
+     */
+    private $tardesFaltas;
 
     /**
      * @var \DateTime
@@ -385,6 +399,52 @@ class Establecimiento
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+    /**
+     * Set maximoFaltas
+     *
+     * @param integer $maximoFaltas
+     * @return Establecimiento
+     */
+    public function setMaximoFaltas($maximoFaltas)
+    {
+        $this->maximoFaltas = $maximoFaltas;
+
+        return $this;
+    }
+
+    /**
+     * Get maximoFaltas
+     *
+     * @return integer 
+     */
+    public function getMaximoFaltas()
+    {
+        return $this->maximoFaltas;
+    }
+
+    /**
+     * Set tardesFaltas
+     *
+     * @param integer $tardesFaltas
+     * @return Establecimiento
+     */
+    public function setTardesFaltas($tardesFaltas)
+    {
+        $this->tardesFaltas = $tardesFaltas;
+
+        return $this;
+    }
+
+    /**
+     * Get tardesFaltas
+     *
+     * @return integer 
+     */
+    public function getTardesFaltas()
+    {
+        return $this->tardesFaltas;
     }
 
     /**

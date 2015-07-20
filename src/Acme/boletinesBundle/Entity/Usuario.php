@@ -3,7 +3,6 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -11,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="usuario", indexes={@ORM\Index(name="FK_2265B05D90F1D76D", columns={"rol_id"})})
  * @ORM\Entity
  */
-class Usuario implements UserInterface, \Serializable
+class Usuario
 {
     /**
      * @var string
@@ -30,7 +29,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_entidad_asociada", type="integer", nullable=false)
+     * @ORM\Column(name="id_entidad_asociada", type="integer", nullable=true)
      */
     private $idEntidadAsociada;
 
@@ -92,7 +91,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get nombre
      *
-     * @return string
+     * @return string 
      */
     public function getNombre()
     {
@@ -115,7 +114,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get password
      *
-     * @return string
+     * @return string 
      */
     public function getPassword()
     {
@@ -138,7 +137,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get idEntidadAsociada
      *
-     * @return integer
+     * @return integer 
      */
     public function getIdEntidadAsociada()
     {
@@ -161,7 +160,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -184,7 +183,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get creationTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreationTime()
     {
@@ -207,7 +206,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get updateTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdateTime()
     {
@@ -217,7 +216,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -240,54 +239,10 @@ class Usuario implements UserInterface, \Serializable
     /**
      * Get rol
      *
-     * @return \Acme\boletinesBundle\Entity\Rol
+     * @return \Acme\boletinesBundle\Entity\Rol 
      */
     public function getRol()
     {
         return $this->rol;
     }
-
-    public function getRoles()
-    {
-        return array($this->rol->getNombre());
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    public function getUsername()
-    {
-        return $this->nombre;
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->nombre,
-            $this->password,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->nombre,
-            $this->password,
-        ) = unserialize($serialized);
-    }
-
-    public function __toString(){
-        return $this->nombre;
-    }
-
 }

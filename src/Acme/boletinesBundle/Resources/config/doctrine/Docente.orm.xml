@@ -14,15 +14,15 @@
     <field name="direccion" type="string" column="direccion" length="45" nullable="true"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="45" nullable="true"/>
     <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="true"/>
-    <field name="codigoArea" type="string" column="codigo_area" length="4" nullable="true"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="5" nullable="true"/>
     <field name="telefono" type="string" column="telefono" length="12" nullable="false"/>
     <field name="titulo" type="string" column="titulo" length="45" nullable="true"/>
     <field name="fechaIngreso" type="date" column="fecha_ingreso" nullable="true"/>
     <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="true"/>
-    <field name="foto" type="string" column="foto" length="255" nullable="true"/>
+    <field name="foto" type="string" column="foto" length="250" nullable="true"/>
     <field name="esTitular" type="boolean" column="es_titular" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
-    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="true"/>
+    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
     <many-to-one field="ciudad" target-entity="Ciudad">

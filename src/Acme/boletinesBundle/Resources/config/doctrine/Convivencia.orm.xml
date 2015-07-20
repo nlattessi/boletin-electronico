@@ -8,8 +8,8 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="comentario" type="string" column="comentario" length="255" nullable="false"/>
-    <field name="descargo" type="string" column="descargo" length="255" nullable="true"/>
+    <field name="comentario" type="string" column="comentario" length="250" nullable="false"/>
+    <field name="descargo" type="string" column="descargo" length="250" nullable="true"/>
     <field name="fechaSuceso" type="datetime" column="fecha_suceso" nullable="false"/>
     <field name="validado" type="boolean" column="validado" nullable="true"/>
     <field name="valor" type="boolean" column="valor" nullable="true"/>
