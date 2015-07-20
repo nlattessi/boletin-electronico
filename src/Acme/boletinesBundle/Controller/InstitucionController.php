@@ -33,7 +33,10 @@ class InstitucionController extends Controller
 
         $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+        $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
+        $establecimientosCount = count($establecimientos);
+
+        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion, 'establecimientosCount' => $establecimientosCount));
     }
 
     public function newAction(Request $request)
@@ -44,15 +47,10 @@ class InstitucionController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $institucion = $this->createEntity($request);
             if($institucion != null) {
-                //return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
-                if ($request->get('crearEstablecimiento')) {
-                    return new RedirectResponse($this->generateUrl(
-                        'establecimiento_new_with_institucion',
-                        array('institucionId' => $institucion->getId()))
-                    );
-                } else {
-                    return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
-                }
+                return new RedirectResponse($this->generateUrl(
+                    'establecimiento_new_with_institucion',
+                    array('institucionId' => $institucion->getId()))
+                );
             } else {
                 $error = "Errores";
             }

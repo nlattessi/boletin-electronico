@@ -58,22 +58,22 @@ class EstablecimientoController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $establecimiento = $this->createEntity($request, $institucionId);
             if($establecimiento != null) {
-              if ($request->get('crearEstablecimiento')) {
-                  return new RedirectResponse($this->generateUrl(
-                      'establecimiento_new_with_institucion',
-                      array('institucionId' => $institucionId))
-                  );
-              } else {
-                  //return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
-                  return new RedirectResponse($this->generateUrl(
-                      'establecimiento_show',
-                      array('id' => $establecimiento->getId()))
-                  );
-              }
+                if ($request->get('agregarOtro')) {
+                    return new RedirectResponse($this->generateUrl(
+                        'establecimiento_new_with_institucion',
+                        array('institucionId' => $institucionId))
+                    );
+                } else {
+                    //return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                    return new RedirectResponse($this->generateUrl(
+                        'institucion_show',
+                        array('id' => $institucionId))
+                    );
+                }
             } else {
                 $message = "Errores";
             }
-        }else{
+        } else {
             $em = $this->getDoctrine()->getManager();
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
         }
