@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+  <h1>establecimiento_new_with_institucion</h1>
+
+  <p>
+    {{ institucion.nombre }}
+  </p>
+
+  <!-- startMain content-->
+ <div class="container">
+   <div class="row mar-top-soft">
+         <div class="col s10 m10 l10">
+           <h3 class="header">Nuevo establecimiento</h3>
+         </div>
+   </div>
+
+   <form action="{{ path('establecimiento_new_with_institucion', {'institucionId': institucion.id}) }}" method="post" enctype="multipart/form-data">
+
+   <div class="row">
+         <div class="input-field col s12 m6 l6">
+             <input id="nombre_inst" type="text" class="validate" name="nombre">
+             <label for="nombre_inst">Nombre</label>
+         </div>
+   </div>
+   <div class="row">
+         <div class="input-field col s12 m6 l6">
+             <input id="nombre_inst" type="number" class="validate" name="maximoFaltas">
+             <label for="nombre_inst">Maximo faltas</label>
+         </div>
+   </div>
+   <div class="row">
+         <div class="input-field col s12 m6 l6">
+             <input id="nombre_inst" type="number" class="validate" name="tardesFaltas">
+             <label for="nombre_inst">Cuanta falta es un tarde</label>
+         </div>
+   </div>
+
+     <div class="row">
+       <div class="col s12 center-align">
+         <button type="submit" name="finalizar" value="true" class="btn-large waves-effect waves-light center-align">Guardar</button>
+         <button type="submit" name="agregarOtro" value="true" class="btn-large waves-effect waves-light center-align">Guardar y agregar otro</button></div>
+     </div>
+
+   </form>
+
+</div>   <!-- end container-->
+
+{% endblock %}

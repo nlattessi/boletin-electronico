@@ -6,47 +6,30 @@
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>Id Establecimiento</th>
-            <td>{{ establecimiento.idEstablecimiento }}</td>
+            <th>Id</th>
+            <td>{{ establecimiento.id }}</td>
         </tr>
         <tr>
-            <th>Establecimiento</th>
-            <td>{{ establecimiento.nombreEstablecimiento }}</td>
+            <th>Nombre</th>
+            <td>{{ establecimiento.nombre }}</td>
         </tr>
         <tr>
-            <th>Direccion</th>
-            <td>{{ establecimiento.direccionEstablecimiento }}</td>
+            <th>Maximo faltas</th>
+            <td>{{ establecimiento.maximoFaltas }}</td>
         </tr>
         <tr>
-            <th>email</th>
-            <td>{{ establecimiento.emailEstablecimiento }}</td>
-        </tr>
-        <tr>
-            <th>Telefono</th>
-            <td>{{ establecimiento.telefonoEstablecimiento }}</td>
+            <th>Tardes faltas</th>
+            <td>{{ establecimiento.tardesFaltas }}</td>
         </tr>
 
         {% if establecimiento.institucion != null %}
             <tr>
                 <th>Institucion Asociado</th>
-                <td>{{ establecimiento.institucion.__toString() }}</td>
+                <td>{{ establecimiento.institucion.nombre() }}</td>
             </tr>
         {% endif %}
 
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('establecimiento') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('establecimiento_edit', { 'id': establecimiento.idEstablecimiento }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('establecimiento_delete', { 'id': establecimiento.idEstablecimiento }) }}">Borrar</a></li>
-</ul>
 {% endblock %}
