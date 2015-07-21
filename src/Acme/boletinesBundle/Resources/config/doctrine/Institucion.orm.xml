@@ -9,5 +9,10 @@
     <field name="cuit" type="string" column="cuit" length="11" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <one-to-many field="establecimientos" target-entity="Establecimiento" mapped-by="institucion">
+      <cascade>
+        <cascade-remove />
+      </cascade>
+    </one-to-many>
   </entity>
 </doctrine-mapping>

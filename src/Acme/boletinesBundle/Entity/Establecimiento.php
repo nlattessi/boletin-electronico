@@ -136,15 +136,12 @@ class Establecimiento
      */
     private $ciudad;
 
+
     /**
-     * @var \Acme\boletinesBundle\Entity\Institucion
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="Institucion", inversedBy="establecimientos")
+     * @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      */
-    private $institucion;
+    protected $institucion;
 
 
 
@@ -164,7 +161,7 @@ class Establecimiento
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -187,7 +184,7 @@ class Establecimiento
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -210,7 +207,7 @@ class Establecimiento
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -233,7 +230,7 @@ class Establecimiento
     /**
      * Get longitud
      *
-     * @return float 
+     * @return float
      */
     public function getLongitud()
     {
@@ -256,7 +253,7 @@ class Establecimiento
     /**
      * Get latitud
      *
-     * @return float 
+     * @return float
      */
     public function getLatitud()
     {
@@ -279,7 +276,7 @@ class Establecimiento
     /**
      * Get fechaInauguracion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInauguracion()
     {
@@ -302,7 +299,7 @@ class Establecimiento
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -325,7 +322,7 @@ class Establecimiento
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -348,7 +345,7 @@ class Establecimiento
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -371,7 +368,7 @@ class Establecimiento
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -394,7 +391,7 @@ class Establecimiento
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -417,7 +414,7 @@ class Establecimiento
     /**
      * Get maximoFaltas
      *
-     * @return integer 
+     * @return integer
      */
     public function getMaximoFaltas()
     {
@@ -440,7 +437,7 @@ class Establecimiento
     /**
      * Get tardesFaltas
      *
-     * @return integer 
+     * @return integer
      */
     public function getTardesFaltas()
     {
@@ -463,7 +460,7 @@ class Establecimiento
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -486,7 +483,7 @@ class Establecimiento
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -496,7 +493,7 @@ class Establecimiento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -519,7 +516,7 @@ class Establecimiento
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
