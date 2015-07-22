@@ -44,7 +44,7 @@
                 {% for institucion in entities %}
                   <tr>
                       <td><a href="{{ path('institucion_show', {'id': institucion.id}) }}" class="casual">{{ institucion.nombre }}</a></td>
-                    <td><span class="new badge">3</span></td>
+                    <td><span class="new badge">{{ institucion.usuarios|length }}</span></td>
 
                     <td>
                       <a href="{{ path('usuario_edit_institucion', {'institucionId':institucion.id } )}}" data-position="top" data-delay="25" data-tooltip="Editar usuarios" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>

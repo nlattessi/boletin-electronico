@@ -82,7 +82,7 @@ class Usuario implements UserInterface, \Serializable
      *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      * })
      */
-    private $institucion;
+    protected $institucion;
 
     /**
      * Set nombre
