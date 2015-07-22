@@ -116,6 +116,23 @@ class InstitucionController extends Controller
         return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion, 'mensaje' => $message));
     }
 
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!($request->getMethod() == 'POST' && $request->request->get('search'))) {
+            exit('sin nada');
+        }
+        $repo = $em->getRepository('BoletinesBundle:Institucion');
+        $query = $repo->createQueryBuilder('inst')
+            ->where('inst.nombre LIKE :search')
+            ->setParameter('search', '%'.$request->request->get('search').'%')
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities));
+    }
+
     private function editEntity($data, $id)
     {
         try{

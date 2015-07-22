@@ -29,11 +29,12 @@
             <a href="{{ path('institucion_new') }}" data-position="left" data-delay="25" data-tooltip="Crear nueva Institución" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
           </div>
               <div class="input-field col s11">
-                <i class="icon-linear-magnifier prefix"></i>
-                <input id="icon_prefix" type="text" class="validate">
-                <label for="icon_prefix">Buscar institución</label>
+                  <form action="{{ path('institucion_search') }}" method="post" enctype="multipart/form-data">
+                      <i class="icon-linear-magnifier prefix"></i>
+                      <input id="icon_prefix" type="text" class="validate" name="search">
+                      <label for="icon_prefix">Buscar institución</label>
+                  </form>
               </div>
-
         </div>
 
           <div class="row">
@@ -54,7 +55,7 @@
                     <td><a href="{{ path('institucion_show', {'id': entity.id}) }}" class="casual">{{ entity.nombre }}</a></td>
                     <td><span class="badge">1</span></td>
                     {# <td>15 Sep, 8:56 AM 2015</td> #}
-                    <td>{{ entity.creationTime | localizeddate('none', 'none', 'es_AR', null, "d MMM, hh:mm a Y") }}</td>
+                    {#<td>{{ entity.creationTime | localizeddate('none', 'none', 'es_AR', null, "d MMM, hh:mm a Y") }}</td>#}
                     <td>
                       <a href="{{ path('institucion_edit', {'id': entity.id}) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                       <a href="{{ path('institucion_delete', {'id': entity.id}) }}" data-position="top" data-delay="25" data-tooltip="Eliminar institución" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
