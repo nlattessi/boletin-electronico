@@ -33,5 +33,5 @@ assetic:
 swiftmailer:
     transport: gmail
     username:  communitas.recoverpass@gmail.com
-    password:  communitas.recoverpass
+    password:  passwordrecoverpass2015communitas
 
