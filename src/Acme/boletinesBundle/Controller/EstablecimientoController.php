@@ -92,9 +92,11 @@ class EstablecimientoController extends Controller
         if ($institucionId) {
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
             $establecimiento->setInstitucion($institucion);
+            $institucion->addEstablecimiento($establecimiento);
         }
 
         $em->persist($establecimiento);
+        $em->persist($institucion);
         $em->flush();
 
         return $establecimiento;
