@@ -30,3 +30,8 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+swiftmailer:
+    transport: gmail
+    username:  communitas.recoverpass@gmail.com
+    password:  communitas.recoverpass
+
