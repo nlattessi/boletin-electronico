@@ -11,11 +11,12 @@
   <div class="row mar-top-soft">
 
     <div class="col s12 m8 l8">
-    <h3 class="header">Belgrano Day School</h3>
-    <h5 class="header">Nivel secundario</h5>
+    <h3 class="header">{{ institucion.nombre }}</h3>
     </div>
     <div class="col s12 m4 l4 center-align">
-    <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft">
+        {% if institucion.logo %}
+            <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
+        {% endif %}
     </div><!--  End Tables Section  -->
 
 </div>
@@ -27,15 +28,11 @@
     <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario</h3>
     <h5 class="header">Todos los campos son obligatorios</h5>
     </div>
-    <form action="{{ path('usuario_new_institucion',  {'institucionId': institucionId }) }}" method="post">
+    <form action="{{ path('usuario_new_institucion',  {'institucionId': institucion.id }) }}" method="post">
       <div class="row">
         <div class="input-field col s12 m6 l6">
-            <input name="nombre_apellido" id="nombre_apellido" type="text" class="validate">
-            <label for="nombre_apellido">Nombre</label>
-        </div>
-          <div class="input-field col s12 m6 l6">
-            <input name="apellido" id="apellido" type="text" class="validate">
-            <label for="apellido">Apellido</label>
+            <input name="nombre" id="nombre" type="text" class="validate">
+            <label for="nombre">Nombre y Apellido</label>
         </div>
         <div class="input-field col s12 m6 l6">
             <input name="email" id="email" type="text" class="validate">

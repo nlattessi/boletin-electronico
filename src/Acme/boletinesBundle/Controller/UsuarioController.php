@@ -66,16 +66,19 @@ class UsuarioController extends Controller
 
     public function newConInstitucionAction($institucionId,Request $request ){
         $message = "";
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
-            $usuario = $this->createEntityConInstitucion($institucionId, $request);
+            $usuario = $this->createEntityConInstitucion($institucion, $request);
             if($usuario != null) {
                 return $this->editConInstitucionAction($institucionId, null);
             } else {
                 $message = "Errores";
             }
         }
-        return $this->render('BoletinesBundle:Usuario:new2.html.twig', array('institucionId' => $institucionId));
+        return $this->render('BoletinesBundle:Usuario:new2.html.twig', array(
+            'institucion' => $institucion));
     }
 
     public function deleteAction($id)
@@ -94,36 +97,28 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuario = new Usuario();
-        $usuario->setNombre($data->request->get('nombre_apellido'));
-        $usuario->setEmail($data->request->get('email'));
-        $usuario->setPassword($data->request->get('password'));
 
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('idRol' => $data->request->get('idRol')));
-
-        $usuario->setRol($rol);
-
-        $em->persist($usuario);
-        $em->flush();
+        $creacionService =  $this->get('boletines.servicios.creacion');
+        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+            $data->request->get('email'),
+            $data->request->get('password'),
+            $rol,
+            null);
 
         return $usuario;
     }
-    private function createEntityConInstitucion($institucionId, $data)
+    private function createEntityConInstitucion($institucion, $data)
     {
         $em = $this->getDoctrine()->getManager();
-        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
+
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DIRECTIVO'));
-
-        $usuario = new Usuario();
-        $usuario->setNombre($data->request->get('nombre_apellido'));
-        $usuario->setEmail($data->request->get('email'));
-        $usuario->setPassword($data->request->get('password'));
-
-        $usuario->setInstitucion($institucion);
-        $usuario->setRol($rol);
-
-        $em->persist($usuario);
-        $em->flush();
+        $creacionService =  $this->get('boletines.servicios.creacion');
+        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+            $data->request->get('email'),
+            $data->request->get('password'),
+            $rol,
+            $institucion);
 
         return $usuario;
     }
@@ -186,7 +181,7 @@ class UsuarioController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
-        $usuario->setNombre($data->request->get('nombre_apellido'));
+        $usuario->setNombre($data->request->get('nombre'));
         $usuario->setEmail($data->request->get('email'));
         $usuario->setPassword($data->request->get('password'));
         $idRol = $data->request->get('idRol');

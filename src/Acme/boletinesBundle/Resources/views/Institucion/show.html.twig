@@ -11,7 +11,6 @@
 
     <div class="col s12 m8 l8">
     <h3 class="header">{{ institucion.nombre }}</h3>
-    <h5 class="header">Nivel secundario</h5>
     </div>
     <div class="col s12 m4 l4 center-align">
     {# <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft"> #}
@@ -28,7 +27,7 @@
         </div>
         <div class="col s12 m6 l6">
         <h5 class="header">Cantidad de estudiantes: <span class="span-s"> {{ random(500) }}</span></h5>
-        <h5 class="header">Directivos: <span class="span-s"> {{ random(10) }}</span></h5>
+        <h5 class="header">Directivos: <span class="span-s">{{ institucion.usuarios|length }}</span></h5>
         <h5 class="header">Profesores: <span class="span-s"> {{ random(50) }}</span></h5>
         <h5 class="header">Bedeles: <span class="span-s"> {{ random(20) }}</span></h5>
 

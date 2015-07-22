@@ -43,9 +43,16 @@ class InstitucionController extends Controller
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $institucion = $this->createEntity($request);
-            if($institucion != null) {
-                //return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
-                return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+            if($institucion != null)
+            {
+                $creacionService =  $this->get('boletines.servicios.creacion');
+                $establecimiento = $creacionService->crearEstablecimiento();
+
+                if($request->request->has("finalizar")){
+                    return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+                }else{
+                    //TODO: redirección a la creacion de establecimientos
+                }
             } else {
                 $error = "Errores";
             }
@@ -120,6 +127,7 @@ class InstitucionController extends Controller
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
             $institucion->setNombre($data->request->get('nombreInstitucion'));
+            $institucion->setCuit($data->request->get('cuit'));
 
             $logoFile = $data->files->get('logoInstitucion');
             if ($logoFile) {

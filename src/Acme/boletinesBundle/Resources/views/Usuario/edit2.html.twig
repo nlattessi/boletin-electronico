@@ -14,7 +14,9 @@
     <h3 class="header">{{ institucion.nombre }}</h3>
     </div>
     <div class="col s12 m4 l4 center-align">
-    <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft">
+        {% if institucion.logo %}
+            <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
+        {% endif %}
     </div><!--  End Tables Section  -->
 
 </div>
@@ -42,12 +44,8 @@
                   <div class="col l12 pad-all-edit">
                       <input name="id" type="hidden" value="{{ usuario.id }}">
                       <div class="input-field col s12 m6 l6">
-                          <input name="nombre_apellido" id="nombre_apellido" type="text" class="validate" value="{{ usuario.nombre }}">
-                          <label for="nombre_apellido">Nombre</label>
-                      </div>
-                      <div class="input-field col s12 m6 l6">
-                          <input name="apellido" id="apellido" type="text" class="validate" value="{{ usuario.nombre }}">
-                          <label for="apellido">Apellido</label>
+                          <input name="nombre" id="nombre" type="text" class="validate" value="{{ usuario.nombre }}">
+                          <label for="nombre">Nombre y Apellido</label>
                       </div>
                       <div class="input-field col s12 m6 l6">
                           <input name="email" id="email" type="text" class="validate" value="{{ usuario.email }}">
