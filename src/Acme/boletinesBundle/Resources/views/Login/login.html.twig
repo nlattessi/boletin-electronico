@@ -29,7 +29,7 @@
 <div class="container login fadeIn animated">
 
     <div class="login-wrapper">
-        <form action="{{ path('usuario_send_email_recovery_password') }}" method="post">
+        <form action="{{ path('login_check') }}" method="post">
             <div class="center-align"><img class="responsive-img" src="{{ asset('bundles/boletines/images/isologotipoFull.jpg') }}" width="380"></div>
             <h5 class="center-align">Inicia sesión para continuar</h5>
             {% if error %}
@@ -38,6 +38,12 @@
             {#{% if recover %}#}
                 {#<div class="error-msg center-align"><i class="icon-linear-cross"></i> Su contraseña ha sido enviada </div>#}
             {#{% endif %}#}
+            {% for flashMessage in app.session.flashbag.get('token') %}
+                <div class="error-msg center-align">
+                    <i class="icon-linear-cross"></i>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             <div class="row">
                 <div class="input-field col s12">
                     <i class="icon-linear-user prefix"></i>
