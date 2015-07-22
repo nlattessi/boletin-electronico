@@ -27,28 +27,30 @@
     <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario</h3>
     <h5 class="header">Todos los campos son obligatorios</h5>
     </div>
-
+    <form action="{{ path('usuario_new_institucion',  {'institucionId': institucionId }) }}" method="post">
       <div class="row">
         <div class="input-field col s12 m6 l6">
-            <input id="nombre_inst" type="text" class="validate">
-            <label for="nombre_inst">Nombre</label>
+            <input name="nombre_apellido" id="nombre_apellido" type="text" class="validate">
+            <label for="nombre_apellido">Nombre</label>
         </div>
           <div class="input-field col s12 m6 l6">
-            <input id="apellido" type="text" class="validate">
+            <input name="apellido" id="apellido" type="text" class="validate">
             <label for="apellido">Apellido</label>
         </div>
         <div class="input-field col s12 m6 l6">
-            <input id="user_name" type="text" class="validate">
-            <label for="user_name">Nombre de usuario</label>
+            <input name="email" id="email" type="text" class="validate">
+            <label for="email">Email</label>
         </div>
         <div class="input-field col s12 m6 l6">
-            <input id="password" type="password" class="validate">
+            <input name="password" id="password" type="password" class="validate">
             <label for="password">Contraseña</label>
         </div>
   </div>
-    <div class="row">
-      <div class="col s12 center-align mar-top-soft"><a href="{{ path('home_under_construction') }}" class="btn-large waves-effect waves-light center-align">Guardar</a></div>
-  </div>
+        <div class="row">
+            <button type="submit" class="btn-large waves-effect waves-light center-align">Crear Usuario</button>
+        </div>
+    </form>
+
 
    <!--  End Tables Section  -->
 

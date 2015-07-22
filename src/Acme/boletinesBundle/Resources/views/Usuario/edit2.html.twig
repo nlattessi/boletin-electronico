@@ -11,8 +11,7 @@
   <div class="row mar-top-soft">
 
     <div class="col s12 m8 l8">
-    <h3 class="header">Belgrano Day School</h3>
-    <h5 class="header">Nivel secundario</h5>
+    <h3 class="header">{{ institucion.nombre }}</h3>
     </div>
     <div class="col s12 m4 l4 center-align">
     <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft">
@@ -27,90 +26,51 @@
     <h3 class="h-h3"><i class="icon-linear-pencil"></i> Editar usuarios</h3>
     </div>
     <div class="col s2 m2 l2">
-            <a href="{{ path('usuario_new2') }}" data-position="left" data-delay="25" data-tooltip="Crear nuevo usuario" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+            <a href="{{ path('usuario_new_institucion', {'institucionId':institucion.id } ) }}" data-position="left" data-delay="25" data-tooltip="Crear nuevo usuario" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
           </div>
 
     <div class="col s12 m8 l12">
       <ul class="collapsible mar-top-soft" data-collapsible="expandable">
-    <li>
-      <div class="collapsible-header active"><h5 class="panel-title"><i class="icon-linear-user"></i> Walterm<i class="icon-linear-chevron-down right"></i></h5></div>
+  {% for usuario in entities %}
+        <li>
 
-      <div class="collapsible-body"> <!--  start user 1  -->
-          <div class="row">
-              <div class="col l12 pad-all-edit">
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_inst" type="text" class="validate">
-                      <label for="nombre_inst">Nombre y apellido</label>
-                  </div>
-                    <div class="input-field col s12 m6 l6">
-                      <input id="email" type="email" class="validate">
-                      <label for="email">E-mail</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_apoderado" type="text" class="validate">
-                      <label for="nombre_apoderado">Nombre de usuario</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="password" type="password" class="validate">
-                      <label for="password">Contraseña</label>
-                       <div class="col s12 m6 l6 right"><a href="{{ path('home_under_construction') }}" class="btn-xsmall mistake waves-effect waves-light">Eliminar</a> <a href="{{ path('home_under_construction') }}" class="btn-xsmall waves-effect waves-light">Guardar</a></div>
-                  </div>
-                </div>
-          </div>
-      </div> <!--  end user 1  -->
-    </li>
-    <li>
-      <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-user"></i> Robertj<i class="icon-linear-chevron-down right"></i></h5></div>
-              <div class="collapsible-body"> <!--  start user 1  -->
-          <div class="row">
-              <div class="col l12 pad-all-edit">
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_inst" type="text" class="validate">
-                      <label for="nombre_inst">Nombre y apellido</label>
-                  </div>
-                    <div class="input-field col s12 m6 l6">
-                      <input id="email" type="email" class="validate">
-                      <label for="email">E-mail</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_apoderado" type="text" class="validate">
-                      <label for="nombre_apoderado">Nombre de usuario</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="password" type="password" class="validate">
-                      <label for="password">Contraseña</label>
-                       <div class="col s12 m6 l6 right"><a href="{{ path('home_under_construction') }}" class="btn-xsmall mistake waves-effect waves-light">Eliminar</a> <a href="{{ path('home_under_construction') }}" class="btn-xsmall waves-effect waves-light">Guardar</a></div>
-                  </div>
-                </div>
-          </div>
-      </div> <!--  end user 1  -->
-    </li>
-    <li>
-      <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-user"></i> Isabelr<i class="icon-linear-chevron-down right"></i></h5></div>
-              <div class="collapsible-body"> <!--  start user 1  -->
-          <div class="row">
-              <div class="col l12 pad-all-edit">
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_inst" type="text" class="validate">
-                      <label for="nombre_inst">Nombre y apellido</label>
-                  </div>
-                    <div class="input-field col s12 m6 l6">
-                      <input id="email" type="email" class="validate">
-                      <label for="email">E-mail</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="nombre_apoderado" type="text" class="validate">
-                      <label for="nombre_apoderado">Nombre de usuario</label>
-                  </div>
-                  <div class="input-field col s12 m6 l6">
-                      <input id="password" type="password" class="validate">
-                      <label for="password">Contraseña</label>
-                       <div class="col s12 m6 l6 right"><a href="{{ path('home_under_construction') }}" class="btn-xsmall mistake waves-effect waves-light">Eliminar</a> <a href="{{ path('home_under_construction') }}" class="btn-xsmall waves-effect waves-light">Guardar</a></div>
-                  </div>
-                </div>
-          </div>
-      </div> <!--  end user 1  -->
-    </li>
+          <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-user"></i> {{ usuario.nombre }}<i class="icon-linear-chevron-down right"></i></h5></div>
+
+          <div class="collapsible-body"> <!--  start user 1  -->
+              <form  action="{{ path('usuario_edit_institucion',  {'institucionId': institucion.id }) }}" method="post">
+              <div class="row">
+                  <div class="col l12 pad-all-edit">
+                      <input name="id" type="hidden" value="{{ usuario.id }}">
+                      <div class="input-field col s12 m6 l6">
+                          <input name="nombre_apellido" id="nombre_apellido" type="text" class="validate" value="{{ usuario.nombre }}">
+                          <label for="nombre_apellido">Nombre</label>
+                      </div>
+                      <div class="input-field col s12 m6 l6">
+                          <input name="apellido" id="apellido" type="text" class="validate" value="{{ usuario.nombre }}">
+                          <label for="apellido">Apellido</label>
+                      </div>
+                      <div class="input-field col s12 m6 l6">
+                          <input name="email" id="email" type="text" class="validate" value="{{ usuario.email }}">
+                          <label for="email">Email</label>
+                      </div>
+                      <div class="input-field col s12 m6 l6">
+                          <input name="password" id="password" type="password" class="validate">
+                          <label for="password">Contraseña</label>
+                          <div class="col s12 m6 l6 right">
+                              <button type="submit" class="btn-xsmall mistake waves-effect waves-light " name="guardar">Guardar Cambios</button>
+                              <button type="submit" class="btn-xsmall waves-effect waves-light " name="borrar">Borrar</button>
+                          </div>
+                      </div>
+                    </div>
+              </div>
+
+              </form>
+          </div> <!--  end user 1  -->
+
+
+        </li>
+  {% endfor %}
+
   </ul>
 
 

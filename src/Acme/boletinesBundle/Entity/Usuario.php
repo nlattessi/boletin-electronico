@@ -74,7 +74,15 @@ class Usuario implements UserInterface, \Serializable
      */
     private $rol;
 
-
+    /**
+     * @var \Acme\boletinesBundle\Entity\Institucion
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
+     * })
+     */
+    private $institucion;
 
     /**
      * Set nombre
@@ -215,14 +223,23 @@ class Usuario implements UserInterface, \Serializable
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+
 
     /**
      * Set rol
@@ -246,6 +263,30 @@ class Usuario implements UserInterface, \Serializable
     {
         return $this->rol;
     }
+
+    /**
+     * Set institucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $institucion
+     * @return Usuario
+     */
+    public function setInstitucion(\Acme\boletinesBundle\Entity\Institucion $institucion = null)
+    {
+        $this->institucion = $institucion;
+
+        return $this;
+    }
+
+    /**
+     * Get institucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion
+     */
+    public function getInstitucion()
+    {
+        return $this->institucion;
+    }
+
 
     public function getRoles()
     {

@@ -3,6 +3,7 @@
   <entity name="Acme\boletinesBundle\Entity\Usuario" table="usuario">
     <indexes>
       <index name="FK_2265B05D90F1D76D" columns="rol_id"/>
+        <index name="FK_usuario_institucion" columns="rol_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -16,6 +17,11 @@
     <many-to-one field="rol" target-entity="Rol">
       <join-columns>
         <join-column name="rol_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="institucion" target-entity="Institucion">
+      <join-columns>
+        <join-column name="institucion_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>
