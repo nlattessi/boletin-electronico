@@ -55,7 +55,7 @@ class Token
      */
     public function setToken($token)
     {
-        $this->token = $token;
+        $this->token = md5($token);
 
         return $this;
     }

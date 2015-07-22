@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="container login fadeIn animated">
+
+        <div class="login-wrapper">
+            <form action="{{ path('usuario_do_reset_password') }}" method="post">
+                <div class="center-align"><img class="responsive-img" src="{{ asset('bundles/boletines/images/isologotipoFull.jpg') }}" width="380"></div>
+                <H5 class="center-align">Ingrese una nueva contraseña</H5>
+                {#<div class="error-msg center-align"><i class="icon-linear-cross"></i> Las contraseñas que ha ingresado no concuerdan.</div>#}
+                {#<div class="success-msg center-align"><i class="icon-linear-check"></i> Su contraseña se ha cambiado exitosamente.</div>#}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="icon-linear-lock prefix"></i>
+                        <input id="icon_prefix" type="password" class="validate" name="password">
+                        <label for="icon_prefix">Nueva contraseña</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="icon-linear-lock prefix"></i>
+                        <input id="icon_prefix" type="password" class="validate">
+                        <label for="icon_prefix">Confirmar nueva contraseña</label>
+                    </div>
+                    <div class="col s12" style="margin-bottom: 15px;">
+                    </div>
+
+                    <input value="{{ token }}" name="token" hidden="hidden">
+
+
+                    <button class="btn-large waves-effect waves-light center-align btn100p" type="submit">Recuperar contraseña</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,3 +1,7 @@
+institucion_search:
+    path:     /search
+    defaults: { _controller: BoletinesBundle:Institucion:search }
+
 institucion:
     path:     /
     defaults: { _controller: BoletinesBundle:Institucion:index }
@@ -17,3 +21,4 @@ institucion_show:
 institucion_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Institucion:edit }
+
