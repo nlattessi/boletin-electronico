@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
+use Acme\boletinesBundle\Entity\Establecimiento;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -47,16 +48,26 @@ class InstitucionController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $institucion = $this->createEntity($request);
             if($institucion != null) {
-                return new RedirectResponse($this->generateUrl(
-                    'establecimiento_new_with_institucion',
-                    array('institucionId' => $institucion->getId()))
-                );
+                $establecimiento = $this->createEstablecimiento($request, $institucion);
+                if ($establecimiento != null) {
+                    if ($request->get('agregarOtro')) {
+                        return new RedirectResponse($this->generateUrl(
+                            'establecimiento_new_with_institucion',
+                            array('institucionId' => $institucion->getId()))
+                        );
+                    } else {
+                        return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                    }
+                } else {
+                    $error = "Errores alta establecimiento";
+                }
+
             } else {
-                $error = "Errores";
+                $error = "Errores alta institucion";
             }
         }
 
-        return $this->render('BoletinesBundle:Institucion:new.html.twig', array('error' => $error));
+        return $this->render('BoletinesBundle:Institucion:new2.html.twig', array('error' => $error));
     }
 
     private function createEntity($data)
@@ -80,6 +91,30 @@ class InstitucionController extends Controller
         $em->flush();
 
         return $institucion;
+    }
+
+    private function createEstablecimiento($data, $institucion = null)
+    {
+        $establecimiento = new Establecimiento();
+        $establecimiento->setNombre($data->request->get('nombreEstablecimiento'));
+        $establecimiento->setMaximoFaltas((int) $data->request->get('maximoFaltas'));
+        $establecimiento->setTardesFaltas((int) $data->request->get('tardesFaltas'));
+        if ($institucion) {
+            $establecimiento->setInstitucion($institucion);
+            $institucion->addEstablecimiento($establecimiento);
+        }
+
+        if ($data->request->get('fechaInauguracion')) {
+            $fecha = new \DateTime($data->request->get('fechaInauguracion'));
+            $establecimiento->setFechaInauguracion($fecha);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($establecimiento);
+        $em->persist($institucion);
+        $em->flush();
+
+        return $establecimiento;
     }
 
     public function deleteAction($id)
