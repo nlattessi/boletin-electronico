@@ -10,13 +10,21 @@ usuario_delete:
     path:     /delete/{id}
     defaults: { _controller: BoletinesBundle:Usuario:delete }
 
-usuario_show:
-    path:     /{id}
-    defaults: { _controller: BoletinesBundle:Usuario:getOne }
-
 usuario_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Usuario:edit }
+
+usuario_index_admin:
+    path:     /indexPorInstitucion/
+    defaults: { _controller: BoletinesBundle:Usuario:indexConInstitucion }
+
+usuario_edit_institucion:
+    path:     /{institucionId}/edit
+    defaults: { _controller: BoletinesBundle:Usuario:editConInstitucion }
+
+usuario_new_institucion:
+    path:     /{institucionId}/new
+    defaults: { _controller: BoletinesBundle:Usuario:newConInstitucion }
 
 usuario_edit2:
     path:     /edit2/
@@ -25,3 +33,7 @@ usuario_edit2:
 usuario_new2:
     path:     /new2/
     defaults: { _controller: BoletinesBundle:Usuario:new2 }
+
+usuario_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Usuario:getOne }

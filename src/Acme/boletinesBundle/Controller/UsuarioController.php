@@ -24,6 +24,15 @@ class UsuarioController extends Controller
         return $this->render('BoletinesBundle:Usuario:index.html.twig', array('entities' => $entities));
     }
 
+    public function indexConInstitucionAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('BoletinesBundle:Institucion')->findAll();
+
+        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities));
+    }
+
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -55,6 +64,23 @@ class UsuarioController extends Controller
         ));
     }
 
+    public function newConInstitucionAction($institucionId,Request $request ){
+        $message = "";
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
+        if ($request->getMethod() == 'POST') {
+            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
+            $usuario = $this->createEntityConInstitucion($institucion, $request);
+            if($usuario != null) {
+                return $this->editConInstitucionAction($institucionId, null);
+            } else {
+                $message = "Errores";
+            }
+        }
+        return $this->render('BoletinesBundle:Usuario:new2.html.twig', array(
+            'institucion' => $institucion));
+    }
+
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -64,24 +90,35 @@ class UsuarioController extends Controller
             $em->remove($usuario);
             $em->flush();
         }
-        return $this->indexAction();
+       // return $this->indexAction();
     }
 
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuario = new Usuario();
-        $usuario->setNombreUsuario($data->request->get('nombreUsuario'));
-        $usuario->setNombreUsuarioParaMostrar($data->request->get('nombreUsuarioParaMostrar'));
-        $usuario->setPassword($data->request->get('password'));
 
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('idRol' => $data->request->get('idRol')));
+        $creacionService =  $this->get('boletines.servicios.creacion');
+        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+            $data->request->get('email'),
+            $data->request->get('password'),
+            $rol,
+            null);
 
-        $usuario->setRol($rol);
+        return $usuario;
+    }
+    private function createEntityConInstitucion($institucion, $data)
+    {
+        $em = $this->getDoctrine()->getManager();
 
-        $em->persist($usuario);
-        $em->flush();
+        $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DIRECTIVO'));
+        $creacionService =  $this->get('boletines.servicios.creacion');
+        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+            $data->request->get('email'),
+            $data->request->get('password'),
+            $rol,
+            $institucion);
 
         return $usuario;
     }
@@ -109,23 +146,56 @@ class UsuarioController extends Controller
         ));
     }
 
+    public function editConInstitucionAction($institucionId = null, Request $request = null){
+        $message = "";
+        if ($request != null && $request->getMethod() == 'POST') {
+
+            if($request->request->has("borrar")){
+                $this->deleteAction($request->request->get('id'));
+            }else{
+                $entity = $this->editEntity($request, $request->request->get('id'));
+                if($entity == null) {
+                    $message = "Errores";
+                }
+            }
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' =>$institucionId));
+
+       $query = $em->createQuery('select u from BoletinesBundle:Usuario u where u.institucion = :institucionId');
+        $query->setParameter('institucionId',$institucionId);
+        $entities = $query->getResult();
+
+
+
+        return $this->render('BoletinesBundle:Usuario:edit2.html.twig', array(
+            'entities' => $entities,
+            'mensaje' => $message,
+            'institucion' => $institucion
+        ));
+    }
+
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
-        $usuario->setNombreUsuario($data->request->get('nombreUsuario'));
-        $usuario->setNombreUsuarioParaMostrar($data->request->get('nombreUsuarioParaMostrar'));
+        $usuario->setNombre($data->request->get('nombre'));
+        $usuario->setEmail($data->request->get('email'));
         $usuario->setPassword($data->request->get('password'));
+        $idRol = $data->request->get('idRol');
 
-        $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('idRol' => $data->request->get('idRol')));
-        $usuario->setRol($rol);
-
+        if($idRol != null && $idRol != '') {
+            $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('id' => $idRol));
+            $usuario->setRol($rol);
+        }
         $em->persist($usuario);
         $em->flush();
 
         return $usuario;
     }
+
 
     public function new2Action()
     {

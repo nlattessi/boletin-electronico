@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Institucion
@@ -57,6 +58,29 @@ class Institucion
     private $id;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Usuario", mappedBy="institucion", cascade={"remove"})
+     */
+    protected $usuarios;
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->usuarios = new ArrayCollection();
+    }
+
+    public function addUsuario(Usuario $u)
+    {
+        $this->usuarios[] = $u;
+        $u->setInstitucion($this);
+
+        return $this;
+    }
+
+    public function getUsuarios()
+    {
+        return $this->usuarios;
+    }
 
     /**
      * Set nombre
@@ -187,21 +211,21 @@ class Institucion
     {
         return null === $this->logo
             ? null
-            : $this->getUploadRootDir().'/'.$this->logo;
+            : $this->getUploadRootDir() . '/' . $this->logo;
     }
 
     public function getWebPath()
     {
         return null === $this->logo
             ? null
-            : $this->getUploadDir().'/'.$this->logo;
+            : $this->getUploadDir() . '/' . $this->logo;
     }
 
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -210,9 +234,5 @@ class Institucion
         // when displaying uploaded doc/image in the view.
         return 'uploads/logos';
     }
-
-    public function __construct()
-    {
-        $this->creationTime = new \DateTime();
-    }
 }
+
