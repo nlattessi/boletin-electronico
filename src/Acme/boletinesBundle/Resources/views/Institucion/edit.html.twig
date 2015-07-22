@@ -19,56 +19,25 @@
             <label for="nombre_inst">Nombre de la institución</label>
         </div>
       <div class="input-field col s12 m6 l6">
-          <input id="cuit" name="cuit" type="number" class="validate">
+          <input id="cuit" name="cuit" type="number" class="validate" value="{{ institucion.cuit }}">
           <label for="cuit" data-error="Este campo solo acepta valores numéricos" data-success="Correcto">C.U.I.T</label>
       </div>
   </div>
   <div class="row">
     <div class="col s12 m6 l6">
-        {# <form action="#"> #}
             <div class="file-field input-field">
               <input class="file-path validate" type="text"/>
               <label for="logo_img">Logotipo de la institución</label>
               <div class="btn-large">
                 <span>Elegir archivo</span>
-                <input type="file" name="logoInstitucion"/>
+                <input type="file" name="logoInstitucion" value="{{ institucion.logo }}"/>
               </div>
            </div>
         {# </form> #}
     </div>
   </div>
-    <div class="row">
-      <div class="col s12 m12 l12 card-panel orange lighten-5 mar-top">
-          <div class="col s1 m1 l1">
-              {# <form action="#"> #}
-                <p class="right-align">
-              <input type="checkbox" id="test5" />
-              <label for="test5"></label>
-                </p>
-              {# </form> #}
-            </div>
-            <div class="col s11 m11 l11"><h5>¿La institución posee más de un establecimiento?</h5></div>
-      </div>
-    </div>
 
-  {# <div class="row">
-        <div class="input-field col s12 m6 l6">
-            <input disabled id="nombre_inst" type="text" class="validate">
-            <label for="nombre_inst">Nombre del establecimiento</label>
-        </div>
-          <div class="input-field col s12 m6 l6">
-            <input disabled id="email" type="text" class="validate">
-            <label for="email">Correo electrónico oficial</label>
-        </div>
-        <div class="input-field col s12 m6 l6">
-            <input disabled id="nombre_apoderado" type="text" class="validate">
-            <label for="nombre_apoderado">Teléfono</label>
-        </div>
-        <div class="input-field col s12 m6 l6">
-            <input disabled id="nombre_apoderado" type="text" class="validate">
-            <label for="nombre_apoderado">Nombre del apoderado</label>
-        </div>
-  </div> #}
+
   <div class="row">
       <div class="col s12 center-align"><button type="submit" class="btn-large waves-effect waves-light center-align">Guardar</button></div>
   </div>
