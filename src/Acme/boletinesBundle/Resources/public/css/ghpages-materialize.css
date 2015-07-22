@@ -1975,7 +1975,15 @@ ul {
 a {
   color: #F39A6D;
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: transparent;
+  -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    -o-transition: .2s ease-out;
+    -ms-transition: .2s ease-out;
+    transition: .2s ease-out; }
+a:hover {
+  color: #FAD7C5;
+   }
 
 .valign-wrapper {
   display: -webkit-box;
@@ -8284,7 +8292,7 @@ nav {
   width: 100%;
   height: 56px;
   line-height: 56px;
-    border-bottom: 1px solid#D8E2E7 !important; }
+    border-bottom: 1px solid #D8E2E7 !important; }
   nav a {
     color: #666666; }
   nav .nav-wrapper {
@@ -8506,19 +8514,37 @@ small {
   font-weight: 300; }
   @media only screen and (min-width: 360px) {
     .flow-text {
-      font-size: 1.2rem; } }
+      font-size: 1.2rem;
+       } 
+             .login-wrapper {
+          width: 280px !important;
+}
+
+     }
   @media only screen and (min-width: 390px) {
     .flow-text {
-      font-size: 1.224rem; } }
+      font-size: 1.224rem; }
+                   .login-wrapper {
+          width: 280px !important;
+} }
   @media only screen and (min-width: 420px) {
     .flow-text {
-      font-size: 1.248rem; } }
+      font-size: 1.248rem; }
+                   .login-wrapper {
+          width: 280px !important;
+} }
   @media only screen and (min-width: 450px) {
     .flow-text {
-      font-size: 1.272rem; } }
+      font-size: 1.272rem; }
+                   .login-wrapper {
+          width: 280px !important;
+} }
   @media only screen and (min-width: 480px) {
     .flow-text {
-      font-size: 1.296rem; } }
+      font-size: 1.296rem;}
+                   .login-wrapper {
+          width: 280px !important;
+}  }
   @media only screen and (min-width: 510px) {
     .flow-text {
       font-size: 1.32rem; } }
@@ -8731,7 +8757,7 @@ small {
       float: right; } }
 
 .tabs {
-  height: 100px !important;
+  height: 76px !important;
   position: relative;
   height: 48px;
   background-color: #fff;
@@ -8742,8 +8768,8 @@ small {
     display: block;
     float: left;
     text-align: center;
-    line-height: 48px;
-    height: 48px;
+    line-height: 38px;
+    height: 38px;
     padding: 0 20px;
     margin: 0;
     text-transform: uppercase;
@@ -8881,7 +8907,11 @@ small {
   -ms-transition: .2s ease-out;
   transition: .2s ease-out;
   cursor: pointer;
+<<<<<<< Updated upstream
     padding: 5px 10px 5px 10px !important;
+=======
+    padding: 5px 15px 5px 15px !important;
+>>>>>>> Stashed changes
     margin-right: 5px; }
 
   .btn:hover:hover, .btn-small:hover, .btn-xsmall:hover {
@@ -9325,7 +9355,8 @@ select:focus {
 
 button:focus {
   outline: none;
-  background-color: #F39A6E; }
+  background-color: #F39A6E;
+  color: #ffffff; }
 
 label {
   font-size: 0.8rem;
@@ -9866,6 +9897,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     position: absolute;
     top: -14px;
     font-size: 0.8rem; }
+
 
 select {
   display: none; }
@@ -11970,16 +12002,42 @@ body.parallax-demo footer {
   position: relative;
   height: 100%;
     margin-left: 45%;
+   
+}
+
+.center-nav {
+   margin: 0 auto;
+  width: 50%;
 }
 
 .father-nav {
     margin-left: 34% !important;
 }
 
+.sa-nav {
+    margin-left: 42% !important;
+}
+
+.student-nav {
+    margin-left: 30% !important;
+}
+
 .icon-nav-size
 {
   font-size: 26px;}
 
+<<<<<<< Updated upstream
+=======
+.icon-nav-size-ab
+{
+  font-size: 26px;
+    font-size: 26px;
+  
+  
+  margin: 0px 10px 0px 0px;
+vertical-align: middle;}
+
+>>>>>>> Stashed changes
 .icon-uc-size
 {
   font-size: 40px;}
@@ -11987,6 +12045,12 @@ body.parallax-demo footer {
 .main-nav-pad
 {
     padding: 20px 10px 0px 0px;
+}
+
+.main-nav-pad-ab
+{
+    padding: 24px 10px 0px 0px;
+       margin-left: 10%;
 }
 
 .new-btn-marg 
@@ -12115,11 +12179,18 @@ body.parallax-demo footer {
 
         .avatar-nav {
         margin-right: 10px;
-        height: 42px;
+        height: 32px;
         overflow: hidden;
         left: 15px;
         display: inline-block;
         vertical-align: middle; }
+        .avatar-nav-top {
+        
+        height: 32px;
+        overflow: hidden;
+        
+        display: inline-block;
+        margin: 15px -5px 0px 20px; }
 
 .inst-thumb {
         
@@ -12217,7 +12288,11 @@ body.parallax-demo footer {
 .panel {
   margin-bottom: 15px;
   background-color: #fff;
+<<<<<<< Updated upstream
   border: 1px solid #cacaca;
+=======
+  border: 1px solid #D8E2E7;
+>>>>>>> Stashed changes
   -webkit-transition: .2s ease-out;
   -moz-transition: .2s ease-out;
   -o-transition: .2s ease-out;
@@ -12233,7 +12308,7 @@ body.parallax-demo footer {
 .panel-default > .panel-heading {
   color: #575756;
   background-color: #fff;
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D8E2E7; 
 }
 
 .panel-heading {
@@ -12283,7 +12358,7 @@ body.parallax-demo footer {
   font-weight: 800;
   text-transform: uppercase;
   border-right: 2px solid #40d47e;
-  padding: 0px 0.4rem 0px 0px;
+  padding: 0px 0.4rem 0px 0.4rem;
   margin-right: 0.4rem;
     }
 
@@ -12292,6 +12367,11 @@ body.parallax-demo footer {
     }
 .asist-widget-span {
     font-weight: 200 !important;
+    font-size: 1.5rem;
+    }
+.asist-widget-span-lates {
+    font-weight: 200 !important;
+    font-size: 1rem;
     }
 
 .school-style{
@@ -12312,7 +12392,13 @@ body.parallax-demo footer {
     }
 .asist-m {
     
-      margin: 0.8rem 0 0rem 0 !important;    }
+      margin: 0.8rem 0 0rem 0 !important; 
+      font-size: 3.5rem !important ; 
+      height: 70px;   }
+.asist-m-lates {
+    
+      margin: 0.8rem 0 0rem 0 !important;
+      font-size: 3.5rem !important ;  }
 
 .w-turquose{
     color: #1abc9c;
@@ -12385,6 +12471,74 @@ body.parallax-demo footer {
       
   color: #fff;
   background-color: #EE8277;
+<<<<<<< Updated upstream
   padding: 10px;
   border-radius: 35px;
     }
+=======
+  padding: 16px;
+  border-radius: 35px;
+    margin: 10px 0px 10px 0px;
+    }
+
+    .success-msg {
+      
+  color: #fff;
+  background-color: #2ECC71;
+  padding: 16px;
+  border-radius: 35px;
+    margin: 10px 0px 10px 0px;
+    }
+
+ .logo { height: 52px !important;
+}
+      .sa-d-i {
+      
+     font-size: 3rem !important;
+  color: #FAD7C5 !important;
+    }
+.widget-news {
+       font-weight: 800;
+       padding: 0px 0.4rem 0px 0.4rem;
+  
+    }
+
+.news-i {
+       font-size: 1.4rem;
+     vertical-align: text-bottom;
+    }
+
+.news-i-g {
+       
+     color: #2ECC71 !important;
+     
+    }
+.news-i-n {
+       
+     color: #ccc !important;
+     
+    }
+.news-i-b {
+     
+     color: #EE8277 !important;
+     
+    }
+.news-i-c {
+      
+     color: #3498DB !important;
+     
+    }
+.check-g {
+      
+     color: #2ECC71 !important;
+       font-weight: 900;
+     
+    }
+
+.cross-r {
+      
+     color: #E74C3C !important;
+       font-weight: 900;
+     
+    }
+>>>>>>> Stashed changes

@@ -20,6 +20,21 @@ class HomeController extends Controller
         return $this->render('BoletinesBundle:Home:father.html.twig', array());
     }
 
+    public function adminAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $instituciones = $em->getRepository('BoletinesBundle:Institucion')->findAll();
+        $institucionesCount = count($instituciones);
+
+        $alumnos = $em->getRepository('BoletinesBundle:Alumno')->findAll();
+        $alumnosCount = count($alumnos);
+
+        $alumnosCount = 7650; //HARDCODEADO PARA DEMO2
+
+        return $this->render('BoletinesBundle:Home:admin.html.twig', array('institucionesCount' => $institucionesCount, 'alumnosCount' => $alumnosCount));
+    }
+
     public function inst_manuel_belgranoAction()
     {
         return $this->render('BoletinesBundle:Home:inst_manuel_belgrano.html.twig', array());
