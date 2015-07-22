@@ -30,7 +30,7 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_entidad_asociada", type="integer", nullable=false)
+     * @ORM\Column(name="id_entidad_asociada", type="integer", nullable=true)
      */
     private $idEntidadAsociada;
 
@@ -223,23 +223,14 @@ class Usuario implements UserInterface, \Serializable
     }
 
     /**
-     * @return int
+     * Get id
+     *
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-
-
 
     /**
      * Set rol
@@ -288,23 +279,27 @@ class Usuario implements UserInterface, \Serializable
     }
 
 
-    public function getRoles()
+    public function getUsername()
     {
-        return array($this->rol->getNombre());
+        return $this->nombre;
     }
 
     public function getSalt()
     {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
         return null;
+    }
+
+    public function getRoles()
+    {
+        $roles = array();
+        $roles[] = $this->getRol()->getNombre();
+        return $roles;
     }
 
     public function eraseCredentials()
     {
-    }
-
-    public function getUsername()
-    {
-        return $this->nombre;
     }
 
     /** @see \Serializable::serialize() */
@@ -314,6 +309,8 @@ class Usuario implements UserInterface, \Serializable
             $this->id,
             $this->nombre,
             $this->password,
+            // see section on salt below
+            // $this->salt,
         ));
     }
 
@@ -324,11 +321,8 @@ class Usuario implements UserInterface, \Serializable
             $this->id,
             $this->nombre,
             $this->password,
+            // see section on salt below
+            // $this->salt
         ) = unserialize($serialized);
     }
-
-    public function __toString(){
-        return $this->nombre;
-    }
-
 }

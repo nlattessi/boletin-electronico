@@ -57,7 +57,7 @@ class Docente
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_area", type="string", length=4, nullable=true)
+     * @ORM\Column(name="codigo_area", type="string", length=5, nullable=true)
      */
     private $codigoArea;
 
@@ -92,7 +92,7 @@ class Docente
     /**
      * @var string
      *
-     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
+     * @ORM\Column(name="foto", type="string", length=250, nullable=true)
      */
     private $foto;
 
@@ -113,7 +113,7 @@ class Docente
     /**
      * @var integer
      *
-     * @ORM\Column(name="establecimiento_id", type="integer", nullable=true)
+     * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
      */
     private $establecimientoId;
 

@@ -39,12 +39,6 @@
 
     </div>
   </div>
-      <div class="row mar-top">
-          <div class="col s10 m10 l10">
-              <h3 class="header">Datos de establecimiento</h3>
-          </div>
-      </div>
-
       <div class="row">
           <div class="input-field col s12 m6 l6">
               <input id="nombre" name="nombre" type="text" class="validate">
@@ -52,8 +46,8 @@
           </div>
           <div class="input-field col s12 m6 l6">
               <div class="select-wrapper initialized"><i class="mdi-navigation-arrow-drop-down active"></i>
-                  <input id="ciudad" name="ciudad" type="text" class="select-dropdown" readonly="true" data-activates="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" value="Seleccionar ciudad">
-                  <ul id="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" class="dropdown-content select-dropdown" style="width: 499px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;"><li class="disabled active"><span>Seleccionar ciudad</span></li><li class=""><span>Buenos Aires</span></li><li class=""><span>Mar del Plata</span></li><li class=""><span>Río Grande</span></li></ul><select class="initialized">
+                  <ul id="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" class="dropdown-content select-dropdown" style="width: 499px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;"><li class="disabled active"><span>Seleccionar ciudad</span></li><li class=""><span>Buenos Aires</span></li><li class=""><span>Mar del Plata</span></li><li class=""><span>Río Grande</span></li></ul>
+                  <select class="initialized" name="ciudad">
                       <option value="" disabled="" selected="">Seleccionar ciudad</option>
                       <option value="1">Buenos Aires</option>
                       <option value="2">Mar del Plata</option>
@@ -120,8 +114,8 @@
 
   <div class="row">
       <div class="col s12 center-align mar-top-soft">
-          <button type="submit" name="finalizar" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</button>
-            <button type="submit" name="otro" class="btn-large waves-effect waves-light center-align">Agregar otro Establecimiento</button>
+                   <button type="submit" name="finalizar" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</button>
+                     <button type="submit" name="otro" class="btn-large waves-effect waves-light center-align">Agregar otro Establecimiento</button>
       </div>
   </div>
   </form>

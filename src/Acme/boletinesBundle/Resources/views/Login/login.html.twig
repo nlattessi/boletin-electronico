@@ -35,10 +35,19 @@
             {% if error %}
                 <div class="error-msg center-align"><i class="icon-linear-cross"></i> Alguno de los datos ingresados es incorrecto</div>
             {% endif %}
+            {#{% if recover %}#}
+                {#<div class="error-msg center-align"><i class="icon-linear-cross"></i> Su contraseña ha sido enviada </div>#}
+            {#{% endif %}#}
+            {% for flashMessage in app.session.flashbag.get('token') %}
+                <div class="error-msg center-align">
+                    <i class="icon-linear-cross"></i>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             <div class="row">
                 <div class="input-field col s12">
                     <i class="icon-linear-user prefix"></i>
-                    <input id="icon_prefix" type="text"  name="_username" class="validate">
+                    <input id="icon_prefix" type="text"  name="_username" class="validate" value="{% if (last_username) %}{{ last_username }}{% endif %}">
                     <label for="icon_prefix">Nombre de usuario</label>
                 </div><br>
                 <div class="input-field col s12">
@@ -52,12 +61,13 @@
                             <input type="checkbox" id="test5" />
                             <label for="test5">Permanecer conectado</label>
                         </p>
+                        <p class="center-align">
+                            ¿Olvidaste tu contraseña? <a href="{{ path('usuario_email_recovery_password') }}">Solicita una nueva</a>
+                        </p>
                     </form>
                 </div>
                 <div class="col s12 center-align">
                     <button class="btn-large waves-effect waves-light center-align btn100p" type="submit">login</button>
-
-                    {#<a href="#" class="btn-large waves-effect waves-light center-align btn100p">Ingresar</a>#}
                 </div>
             </div>
         </form>

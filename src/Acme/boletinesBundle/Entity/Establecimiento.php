@@ -64,14 +64,14 @@ class Establecimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_area", type="string", length=4, nullable=true)
+     * @ORM\Column(name="codigo_area", type="string", length=5, nullable=true)
      */
     private $codigoArea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono", type="string", length=45, nullable=true)
+     * @ORM\Column(name="telefono", type="string", length=12, nullable=true)
      */
     private $telefono;
 
@@ -88,6 +88,20 @@ class Establecimiento
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
      */
     private $observaciones;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="maximo_faltas", type="integer", nullable=false)
+     */
+    private $maximoFaltas;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tardes_faltas", type="integer", nullable=false)
+     */
+    private $tardesFaltas;
 
     /**
      * @var \DateTime
@@ -122,15 +136,12 @@ class Establecimiento
      */
     private $ciudad;
 
+
     /**
-     * @var \Acme\boletinesBundle\Entity\Institucion
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="Institucion", inversedBy="establecimientos")
+     * @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      */
-    private $institucion;
+    protected $institucion;
 
 
 
@@ -150,7 +161,7 @@ class Establecimiento
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -173,7 +184,7 @@ class Establecimiento
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -196,7 +207,7 @@ class Establecimiento
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -219,7 +230,7 @@ class Establecimiento
     /**
      * Get longitud
      *
-     * @return float 
+     * @return float
      */
     public function getLongitud()
     {
@@ -242,7 +253,7 @@ class Establecimiento
     /**
      * Get latitud
      *
-     * @return float 
+     * @return float
      */
     public function getLatitud()
     {
@@ -265,7 +276,7 @@ class Establecimiento
     /**
      * Get fechaInauguracion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInauguracion()
     {
@@ -288,7 +299,7 @@ class Establecimiento
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -311,7 +322,7 @@ class Establecimiento
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -334,7 +345,7 @@ class Establecimiento
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -357,7 +368,7 @@ class Establecimiento
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -380,11 +391,57 @@ class Establecimiento
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
         return $this->observaciones;
+    }
+
+    /**
+     * Set maximoFaltas
+     *
+     * @param integer $maximoFaltas
+     * @return Establecimiento
+     */
+    public function setMaximoFaltas($maximoFaltas)
+    {
+        $this->maximoFaltas = $maximoFaltas;
+
+        return $this;
+    }
+
+    /**
+     * Get maximoFaltas
+     *
+     * @return integer
+     */
+    public function getMaximoFaltas()
+    {
+        return $this->maximoFaltas;
+    }
+
+    /**
+     * Set tardesFaltas
+     *
+     * @param integer $tardesFaltas
+     * @return Establecimiento
+     */
+    public function setTardesFaltas($tardesFaltas)
+    {
+        $this->tardesFaltas = $tardesFaltas;
+
+        return $this;
+    }
+
+    /**
+     * Get tardesFaltas
+     *
+     * @return integer
+     */
+    public function getTardesFaltas()
+    {
+        return $this->tardesFaltas;
     }
 
     /**
@@ -403,7 +460,7 @@ class Establecimiento
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -426,7 +483,7 @@ class Establecimiento
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -436,7 +493,7 @@ class Establecimiento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -459,7 +516,7 @@ class Establecimiento
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {

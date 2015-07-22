@@ -15,10 +15,12 @@
     <field name="latitud" type="float" column="latitud" precision="10" scale="0" nullable="true"/>
     <field name="fechaInauguracion" type="date" column="fecha_inauguracion" nullable="true"/>
     <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="true"/>
-    <field name="codigoArea" type="string" column="codigo_area" length="4" nullable="true"/>
-    <field name="telefono" type="string" column="telefono" length="45" nullable="true"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="5" nullable="true"/>
+    <field name="telefono" type="string" column="telefono" length="12" nullable="true"/>
     <field name="email" type="string" column="email" length="45" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="maximoFaltas" type="integer" column="maximo_faltas" nullable="false"/>
+    <field name="tardesFaltas" type="integer" column="tardes_faltas" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
     <many-to-one field="ciudad" target-entity="Ciudad">
@@ -26,7 +28,7 @@
         <join-column name="ciudad_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="institucion" target-entity="Institucion">
+    <many-to-one field="institucion" target-entity="Institucion" inversed-by="establecimientos">
       <join-columns>
         <join-column name="institucion_id" referenced-column-name="id"/>
       </join-columns>

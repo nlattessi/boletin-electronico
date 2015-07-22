@@ -57,17 +57,36 @@ class Institucion
      */
     private $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Establecimiento", mappedBy="institucion", cascade={"remove"})
+     */
+    protected $establecimientos;
+
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->establecimientos = new ArrayCollection();
+    }
+
+    public function addEstablecimiento(Establecimiento $e)
+    {
+        $this->establecimientos[] = $e;
+        $e->setInstitucion($this);
+
+        return $this;
+    }
+
+    public function getEstablecimientos()
+    {
+        return $this->establecimientos;
+    }
+
 
     /**
      * @ORM\OneToMany(targetEntity="Usuario", mappedBy="institucion", cascade={"remove"})
      */
     protected $usuarios;
-
-    public function __construct()
-    {
-        $this->creationTime = new \DateTime();
-        $this->usuarios = new ArrayCollection();
-    }
 
     public function addUsuario(Usuario $u)
     {
@@ -207,27 +226,31 @@ class Institucion
         return $this->id;
     }
 
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
     public function getAbsolutePath()
     {
         return null === $this->logo
             ? null
             : $this->getUploadRootDir() . '/' . $this->logo;
     }
-
     public function getWebPath()
     {
         return null === $this->logo
             ? null
             : $this->getUploadDir() . '/' . $this->logo;
     }
-
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
-
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up

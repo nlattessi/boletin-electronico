@@ -29,14 +29,14 @@ class Calificacion
     /**
      * @var string
      *
-     * @ORM\Column(name="comentario", type="string", length=127, nullable=true)
+     * @ORM\Column(name="comentario", type="string", length=250, nullable=true)
      */
     private $comentario;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="validada", type="string", length=1, nullable=false)
+     * @ORM\Column(name="validada", type="boolean", nullable=false)
      */
     private $validada;
 
@@ -167,7 +167,7 @@ class Calificacion
     /**
      * Set validada
      *
-     * @param string $validada
+     * @param boolean $validada
      * @return Calificacion
      */
     public function setValidada($validada)
@@ -180,7 +180,7 @@ class Calificacion
     /**
      * Get validada
      *
-     * @return string 
+     * @return boolean 
      */
     public function getValidada()
     {

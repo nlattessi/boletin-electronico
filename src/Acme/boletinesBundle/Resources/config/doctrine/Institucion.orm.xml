@@ -14,5 +14,10 @@
               <cascade-remove/>
           </cascade>
       </one-to-many>
+    <one-to-many field="establecimientos" target-entity="Establecimiento" mapped-by="institucion">
+      <cascade>
+        <cascade-remove />
+      </cascade>
+    </one-to-many>
   </entity>
 </doctrine-mapping>

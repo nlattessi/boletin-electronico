@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
+use Acme\boletinesBundle\Entity\Establecimiento;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -33,7 +34,10 @@ class InstitucionController extends Controller
 
         $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
+        $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
+        $establecimientosCount = count($establecimientos);
+
+        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion, 'establecimientosCount' => $establecimientosCount));
     }
 
     public function newAction(Request $request)
@@ -54,7 +58,7 @@ class InstitucionController extends Controller
                     //TODO: redirección a la creacion de establecimientos
                 }
             } else {
-                $error = "Errores";
+                $error = "Errores alta institucion";
             }
         }
 
@@ -83,6 +87,32 @@ class InstitucionController extends Controller
         $em->flush();
 
         return $institucion;
+    }
+/*
+ * BORRAR cuando se pase al service
+ * */
+    private function createEstablecimiento($data, $institucion = null)
+    {
+        $establecimiento = new Establecimiento();
+        $establecimiento->setNombre($data->request->get('nombreEstablecimiento'));
+        $establecimiento->setMaximoFaltas((int) $data->request->get('maximoFaltas'));
+        $establecimiento->setTardesFaltas((int) $data->request->get('tardesFaltas'));
+        if ($institucion) {
+            $establecimiento->setInstitucion($institucion);
+            $institucion->addEstablecimiento($establecimiento);
+        }
+
+        if ($data->request->get('fechaInauguracion')) {
+            $fecha = new \DateTime($data->request->get('fechaInauguracion'));
+            $establecimiento->setFechaInauguracion($fecha);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($establecimiento);
+        $em->persist($institucion);
+        $em->flush();
+
+        return $establecimiento;
     }
 
     public function deleteAction($id)
@@ -117,6 +147,23 @@ class InstitucionController extends Controller
         }
 
         return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion, 'mensaje' => $message));
+    }
+
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!($request->getMethod() == 'POST' && $request->request->get('search'))) {
+            exit('sin nada');
+        }
+        $repo = $em->getRepository('BoletinesBundle:Institucion');
+        $query = $repo->createQueryBuilder('inst')
+            ->where('inst.nombre LIKE :search')
+            ->setParameter('search', '%'.$request->request->get('search').'%')
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities));
     }
 
     private function editEntity($data, $id)

@@ -15,14 +15,14 @@ class Convivencia
     /**
      * @var string
      *
-     * @ORM\Column(name="comentario", type="string", length=255, nullable=false)
+     * @ORM\Column(name="comentario", type="string", length=250, nullable=false)
      */
     private $comentario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descargo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descargo", type="string", length=250, nullable=true)
      */
     private $descargo;
 

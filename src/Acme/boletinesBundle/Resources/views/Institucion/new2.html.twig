@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="description" content="Communitas - Comunidad educativa virtual ">
+        <title>{% block title %}Communitas{% endblock %}</title>
+        <!-- Favicons-->
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('images/favicon/apple-touch-icon-152x152.png') }}">
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="{{ asset('bundles/boletines/images/favicon/mstile-144x144.png') }}">
+        <link rel="icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+        <!--  Android 5 Chrome Color-->
+        <meta name="theme-color" content="#EE6E73">
+
+        <!-- CSS-->
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/boletines/css2/prism.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/boletines/css2/ghpages-materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+            <link href="{{ asset('bundles/boletines/css2/animate.css') }}" rel="stylesheet">
+            <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic' rel='stylesheet' type='text/css'>
+        {% endblock %}
+    </head>
+<body>
+<header>
+  <!-- Fixed nav -->
+  <div class="navbar-fixed">
+  <ul id="dropdown1" class="dropdown-content drop-user">
+    <li><a href="/logout" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content drop-notification">
+    <span class="circle dot"></span>
+    <div clasS="notifi"><h6>Notificaciones</h6></div>
+    <li><a href="#!" class="t-s">Las asistencias han sido actualizadas<br><span class="ts-s">Hace 20 minutos</span></a></li>
+    <li class="divider"></li>
+    <li><a href="#!" class="t-s">Su hijo se porto mal<br><span class="ts-s">Hace 2 horas</span></a></li>
+    <li class="divider"></li>
+    <li><a href="#!" class="t-s">Suspensión de clases<br><span class="ts-s">Ayer</span></a></li>
+  </ul>
+  <ul id="dropdown3" class="dropdown-content drop-messages">
+    <span class="circle dot"></span>
+    <div clasS="notifi"><h6>Mensajes</h6></div>
+    <li><a href="#!" class="t-s"><b>Jorge Perez</b> te ha enviado un mensaje<br><span class="ts-s">Hace 10 minutos.</span></a></li>
+    <li class="divider"></li>
+    <li><a href="#!" class="t-s"><b>John Pol</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+    <li class="divider"></li>
+    <li><a href="#!" class="t-s"><b>Marta Sanchez</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+  </ul>
+<nav>
+  <div class="nav-wrapper">
+  <div class=""><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
+
+    <ul class="breadcrumb left hide-on-small-only">
+      <li><a href="#">Instituciones</a></li>
+      <li><i class="icon-linear-chevron-right bread-i"></i></li>
+      <li><a href="#" class="b-focus">Nueva institución</a></li>
+    </ul>
+    <ul class="right ">
+
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">3</span></i></a></li>
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">1</span></i></a></li>
+
+
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">Juan Carlos<i class="icon-linear-chevron-down right"></i></a></li>
+    </ul>
+  </div>
+  </div>
+</nav>
+</div>
+ <!-- Main nav -->
+
+  <!-- Fixed nav anti bullyng -->
+
+
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a href="#!" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png') }}"></a>
+            </li>
+      <li class="main-nav-pad"><a href="{{ path('home_admin') }}"><i class="icon-linear-history icon-nav-size"></i> <span>Inicio</span></a></li>
+      <li class="main-nav-pad active"><a href="{{ path('institucion') }}" class="active"><i class="icon-linear-city icon-nav-size"></i> <span>Instituciones</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('usuario') }}"><i class="icon-linear-users icon-nav-size"></i> <span>Usuarios</span></a></li>
+
+      </ul>
+ </header>
+
+  <main><!-- startMain content-->
+<div class="container">
+  <div class="row mar-top-soft">
+        <div class="col s10 m10 l10">
+          <h3 class="header">Crear institución</h3>
+        </div>
+  </div>
+  {% if error %}
+    <div class="error-msg center-align"><i class="icon-linear-cross"></i> Alguno de los datos ingresados son incorrectos o no fueron ingresados</div>
+  {% endif %}
+  <form action="{{ path('institucion_new') }}" method="post" enctype="multipart/form-data">
+  <div class="row">
+        <div class="input-field col s12 m6 l6">
+            <input id="nombre_inst" type="text" class="validate" name="nombreInstitucion">
+            <label for="nombre_inst">Nombre de la institución</label>
+        </div>
+          <div class="input-field col s12 m6 l6">
+            <input id="tel" type="tel" class="validate">
+            <label for="cuit">C.U.I.T</label>
+
+  </div>
+  <div class="row">
+    <div class="col s12 m6 l6">
+        <!-- <form action="#"> -->
+            <div class="file-field input-field">
+              <input class="file-path validate" type="text"/>
+              <label for="logo_img">Logotipo de la institución</label>
+              <div class="btn-large">
+                <span>Elegir archivo</span>
+                <input type="file" name="logoInstitucion" />
+              </div>
+           </div>
+        <!-- </form> -->
+    </div>
+  </div>
+    <div class="row mar-top">
+              <div class="col s10 m10 l10">
+          <h3 class="header">Datos de establecimiento</h3>
+        </div>
+    </div>
+
+  <div class="row">
+        <div class="input-field col s12 m6 l6">
+            <input  id="nombre_inst" type="text" class="validate" name="nombreEstablecimiento">
+            <label for="nombre_inst">Nombre del establecimiento</label>
+        </div>
+         <div class="input-field col s12 m6 l6">
+            <select>
+              <option value="" disabled selected>Seleccionar ciudad</option>
+              <option value="1">Buenos Aires</option>
+              <option value="2">Mar del Plata</option>
+              <option value="3">Río Grande</option>
+            </select>
+
+          </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="nombre_apoderado" type="text" class="validate">
+            <label for="nombre_apoderado">Dirección</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Código postal</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Longitud</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Latitud</label>
+        </div>
+
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Código país</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Código area</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input  id="tel" type="tel" class="validate">
+            <label for="tel">Teléfono</label>
+        </div>
+          <div class="input-field col s12 m6 l6">
+            <input  id="email" type="email" class="validate">
+            <label for="email">Correo electrónico oficial</label>
+        </div>
+        <div class=" col s12 m6 l6">
+        <i class="icon-linear-calendar-full"></i>
+              <label for="birthdate" class="">Fecha de inaguración</label>
+            <input type="date" class="datepicker" name="fechaInauguracion">
+
+        </div>
+        <div class="divider mar-bot-top col s12 m12 l12"></div>
+        <div class="col s12 m12 l12"> <h4 class="header">Importante!</h4><p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
+          <div class="input-field col s12 m6 l6">
+            <input  id="email" type="number" class="validate" name="maximoFaltas">
+            <label for="email">Total de faltas</label>
+        </div>
+          <div class="input-field col s12 m6 l6">
+            <input  id="email" type="number" class="validate" name="tardesFaltas">
+            <label for="email">Cantidad de llegadas tarde que equivalen una falta</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Observaciones</label>
+        </div>
+  </div>
+  <div class="row">
+      <div class="col s12 center-align mar-top-soft">
+        <button type="submit" name="finalizar" value="true" class="btn-large waves-effect waves-light center-align mar-right">Finalizar
+        <button type="submit" name="agregarOtro" value="true" class="btn-large waves-effect waves-light center-align">Agregar otro establecimiento
+      </div>
+
+  </div>
+
+  </div>   <!-- end container-->
+
+
+ </main><!-- end Main content-->
+<footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2015 Communitas - Comunidad educativa virtual
+            <a class="grey-text text-lighten-4 right" href="#!">Ayuda</a>
+            </div>
+          </div>
+</footer>
+
+    <!--  Scripts-->
+
+    <script src="{{ asset('bundles/boletines/js/jquery-2.1.1.min.js')}}"></script>
+    <script src="{{ asset('bundles/boletines/js2/jquery.timeago.min.js')}}"></script>
+    <script src="{{ asset('bundles/boletines/js2/prism.js')}}"></script>
+    <script src="{{ asset('bundles/boletines/js2/materialize.js')}}"></script>
+    <script src="{{ asset('bundles/boletines/js2/init.js')}}"></script>
+    <script>$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    formatSubmit : 'yyyy-mm-dd',
+    hiddenName : true
+  });</script>
+    <script>$(document).ready(function() {
+    $('select').material_select();
+  });</script>
+
+
+  </body>
+</html>

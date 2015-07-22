@@ -1,3 +1,19 @@
+usuario_email_recovery_password:
+    path:     /recoverpassword/
+    defaults: { _controller: BoletinesBundle:Usuario:emailRecoveryPassword }
+
+usuario_send_email_recovery_password:
+    path:     /sendrecoverpassword/
+    defaults: { _controller: BoletinesBundle:Usuario:sendEmailRecoveryPassword }
+
+usuario_reset_password:
+    path:     /resetpassword/{token}
+    defaults: { _controller: BoletinesBundle:Usuario:resetPassword }
+
+usuario_do_reset_password:
+    path:     /resetpassword/
+    defaults: { _controller: BoletinesBundle:Usuario:doResetPassword }
+
 usuario:
     path:     /
     defaults: { _controller: BoletinesBundle:Usuario:index }
