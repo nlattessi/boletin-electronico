@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="container login fadeIn animated">
+
+        <div class="login-wrapper">
+            <form action="{{ path('usuario_send_email_recovery_password') }}" method="post">
+                <div class="center-align"><img class="responsive-img" src="{{ asset('bundles/boletines/images/isologotipoFull.jpg') }}" width="380"></div>
+                <H5 class="center-align">Recuperar contraseña</H5>
+                {#<div class="error-msg center-align"><i class="icon-linear-cross"></i> No ha sido posible recuperar la contraseña con la direccion de email solicitada.</div>#}
+                {#<div class="success-msg center-align"><i class="icon-linear-check"></i> El correo de recuperación ha sido enviado correctamente.</div>#}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="icon-linear-at-sign prefix"></i>
+                        <input id="icon_prefix" type="email" class="validate" name="email">
+                        <label for="icon_prefix">E-mail</label>
+                    </div>
+                    <div class="col s12" style="margin-bottom: 15px;">
+                        <p class="center-align">
+                            Se enviará un correo a su casilla con las intrucciones para recuperar su contraseña.
+                        </p>
+                    </div>
+
+                    {#<div class="col s12 center-align"><a href="#" class="btn-large waves-effect waves-light center-align btn100p">Recuperar contraseña</a></div>#}
+                    <button class="btn-large waves-effect waves-light center-align btn100p" type="submit">Recuperar contraseña</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

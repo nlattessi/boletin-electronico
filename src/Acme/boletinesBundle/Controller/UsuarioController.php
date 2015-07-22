@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Controller;
 
 use Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Entity\Token;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -107,6 +108,63 @@ class UsuarioController extends Controller
             'mensaje' => $message,
             'entitiesRelacionadas' => $entitiesRelacionadas
         ));
+    }
+
+    public function resetPasswordAction($token = null)
+    {
+        if ($token == null) {
+            return $this->render('BoletinesBundle:Login:login.html.twig',array('error' => false, 'last_username' => false));
+        }
+
+        return $this->render('BoletinesBundle:Usuario:emailReset.html.twig', array('token' => $token));
+    }
+
+    public function emailRecoveryPasswordAction()
+    {
+        return $this->render('BoletinesBundle:Usuario:emailRecover.html.twig');
+    }
+
+    public function doResetPasswordAction(Request $request)
+    {
+        $token = $request->request->get('token');
+        $pass = $request->request->get('password');
+        $em = $this->getDoctrine()->getManager();
+        $tokenEntity = $em->getRepository('BoletinesBundle:Token')->findOneBy(array('token' => $token));
+
+        if($tokenEntity instanceof Token) {
+            $user = $tokenEntity->getUsuario();
+            $user->setPassword($pass);
+            $tokenEntity->setToken("");
+            $tokenEntity->setUsuario("");
+            $em->persist($user);
+            $em->persist($tokenEntity);
+            $em->flush();
+
+            return $this->render('BoletinesBundle:Login:login.html.twig', array('error' => false, 'last_username' => false));
+        }
+
+        return $this->render('BoletinesBundle:Login:login.html.twig' ,array('error' => false, 'last_username' => false));
+    }
+
+    public function sendEmailRecoveryPasswordAction(Request $request)
+    {
+        $email = $request->request->get('email');
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('email' => $email));
+
+        if($user instanceof Usuario) {
+            $token = new Token();
+            $token->setToken($email);
+            $token->setUsuario($user);
+            $em->persist($token);
+            $em->flush();
+
+//            $link = 'ingresa a ' . $token->getToken();
+//            mail($email,'recuperar pass', $link);
+
+        }
+
+        return $this->render('BoletinesBundle:Login:login.html.twig',array('error' => false, 'last_username' => false) );
     }
 
     private function editEntity($data, $id)
