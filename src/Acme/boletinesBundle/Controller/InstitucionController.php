@@ -50,12 +50,12 @@ class InstitucionController extends Controller
             if($institucion != null)
             {
                 $creacionService =  $this->get('boletines.servicios.creacion');
-                $establecimiento = $creacionService->crearEstablecimiento();
+                $establecimiento = $creacionService->crearEstablecimiento($request, $institucion);
 
-                if($request->request->has("finalizar")){
-                    return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion));
-                }else{
-                    //TODO: redirección a la creacion de establecimientos
+                if ($request->request->has("finalizar")){
+                    return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
+                } else{
+                    return new RedirectResponse($this->generateUrl('establecimiento_new_with_institucion', array('institucionId' => $institucion->getId())));
                 }
             } else {
                 $error = "Errores alta institucion";
@@ -87,32 +87,6 @@ class InstitucionController extends Controller
         $em->flush();
 
         return $institucion;
-    }
-/*
- * BORRAR cuando se pase al service
- * */
-    private function createEstablecimiento($data, $institucion = null)
-    {
-        $establecimiento = new Establecimiento();
-        $establecimiento->setNombre($data->request->get('nombreEstablecimiento'));
-        $establecimiento->setMaximoFaltas((int) $data->request->get('maximoFaltas'));
-        $establecimiento->setTardesFaltas((int) $data->request->get('tardesFaltas'));
-        if ($institucion) {
-            $establecimiento->setInstitucion($institucion);
-            $institucion->addEstablecimiento($establecimiento);
-        }
-
-        if ($data->request->get('fechaInauguracion')) {
-            $fecha = new \DateTime($data->request->get('fechaInauguracion'));
-            $establecimiento->setFechaInauguracion($fecha);
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($establecimiento);
-        $em->persist($institucion);
-        $em->flush();
-
-        return $establecimiento;
     }
 
     public function deleteAction($id)
@@ -153,7 +127,7 @@ class InstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if (!($request->getMethod() == 'POST' && $request->request->get('search'))) {
-            exit('sin nada');
+            return new RedirectResponse($this->generateUrl('institucion'));
         }
         $repo = $em->getRepository('BoletinesBundle:Institucion');
         $query = $repo->createQueryBuilder('inst')

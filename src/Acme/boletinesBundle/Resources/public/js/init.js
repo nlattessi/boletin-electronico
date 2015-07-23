@@ -130,6 +130,7 @@
     $('.datepicker').pickadate({selectYears: 20});
     $('select').not('.disabled').material_select();
     $('.tooltipped').tooltip({delay: 25});
+    
         $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,

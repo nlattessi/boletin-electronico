@@ -23,7 +23,7 @@
     <field name="tardesFaltas" type="integer" column="tardes_faltas" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
-    <many-to-one field="ciudad" target-entity="Ciudad">
+    <many-to-one field="ciudad" target-entity="Ciudad" inversed-by="establecimientos">
       <join-columns>
         <join-column name="ciudad_id" referenced-column-name="id"/>
       </join-columns>

@@ -20,6 +20,11 @@ class HomeController extends Controller
         return $this->render('BoletinesBundle:Home:father.html.twig', array());
     }
 
+    public function fatherAsistenciaAction()
+    {
+        return $this->render('BoletinesBundle:Home:father.asistencia.html.twig', array());
+    }
+
     public function adminAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -49,8 +54,29 @@ class HomeController extends Controller
     {
         return $this->render('BoletinesBundle:Home:under_construction.html.twig', array());
     }
+
     public function alumnoAction()
     {
         return $this->render('BoletinesBundle:Home:alumno.html.twig', array());
+    }
+
+    public function alumnoAsistenciaAction()
+    {
+        return $this->render('BoletinesBundle:Home:alumno.asistencia.html.twig', array());
+    }
+
+    public function directivoAlumnosAction()
+    {
+        return $this->render('BoletinesBundle:Home:directivo.alumnos.html.twig', array());
+    }
+
+    public function directivoAlumnoDatosAction()
+    {
+        return $this->render('BoletinesBundle:Home:directivo.alumno.datos.html.twig', array());
+    }
+
+    public function directivoAlumnoEditarAction()
+    {
+        return $this->render('BoletinesBundle:Home:directivo.alumno.editar.html.twig', array());
     }
 }

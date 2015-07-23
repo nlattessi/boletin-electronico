@@ -2,10 +2,6 @@ establecimiento:
     path:     /
     defaults: { _controller: BoletinesBundle:Establecimiento:index }
 
-establecimiento_new:
-    path:    /new
-    defaults: { _controller: BoletinesBundle:Establecimiento:new }
-
 establecimiento_new_with_institucion:
     path:    /{institucionId}/new
     defaults: { _controller: BoletinesBundle:Establecimiento:newWithInstitucion }

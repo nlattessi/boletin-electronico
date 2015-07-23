@@ -55,7 +55,8 @@ class Token
      */
     public function setToken($token)
     {
-        $this->token = md5($token);
+        //http://www.sitepoint.com/generating-one-time-use-urls/
+        $this->token = sha1(uniqid($token, true));
 
         return $this;
     }
@@ -63,7 +64,7 @@ class Token
     /**
      * Get token
      *
-     * @return string 
+     * @return string
      */
     public function getToken()
     {
@@ -86,7 +87,7 @@ class Token
     /**
      * Get expirationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpirationTime()
     {
@@ -96,7 +97,7 @@ class Token
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,7 +120,7 @@ class Token
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {

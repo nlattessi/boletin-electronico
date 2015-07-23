@@ -35,6 +35,23 @@ class UsuarioController extends Controller
         return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities));
     }
 
+    public function indexConInstitucionSearchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!($request->getMethod() == 'POST' && $request->request->get('search'))) {
+            return new RedirectResponse($this->generateUrl('usuario_index_admin'));
+        }
+        $repo = $em->getRepository('BoletinesBundle:Institucion');
+        $query = $repo->createQueryBuilder('inst')
+            ->where('inst.nombre LIKE :search')
+            ->setParameter('search', '%'.$request->request->get('search').'%')
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities));
+    }
+
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -156,12 +173,12 @@ class UsuarioController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $tokenEntity = $em->getRepository('BoletinesBundle:Token')->findOneBy(array('token' => $token));
-        if($tokenEntity instanceof Token) {
-            return $this->render('BoletinesBundle:Usuario:emailReset.html.twig', array('token' => $token));
+        if ($tokenEntity instanceof Token) {
+            return $this->render('BoletinesBundle:Usuario:emailReset.html.twig', array('token' => $token, 'error' => null));
         } else {
             $this->get('session')->getFlashBag()->add(
                 'token',
-                'Token no encontrado.'
+                'Token ingresado es incorrecto o ha expirado.'
             );
             return new RedirectResponse($this->generateUrl('login_index'));
         }
@@ -172,10 +189,32 @@ class UsuarioController extends Controller
         return $this->render('BoletinesBundle:Usuario:emailRecover.html.twig');
     }
 
+    public function viewTokensAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $repo = $em->getRepository('BoletinesBundle:Token');
+        $query = $repo->createQueryBuilder('t')
+            ->where('t.usuario IS NOT NULL')
+            ->getQuery()
+        ;
+
+        $tokens = $query->getResult();
+
+        return $this->render('BoletinesBundle:Usuario:viewTokens.html.twig', array('tokens' => $tokens));
+    }
+
     public function doResetPasswordAction(Request $request)
     {
         $token = $request->request->get('token');
+
         $pass = $request->request->get('password');
+        $pass2 = $request->request->get('password2');
+
+        if ($pass != $pass2) {
+            return $this->render('BoletinesBundle:Usuario:emailReset.html.twig', array('token' => $token, 'error' => 'Las contraseñas que ha ingresado no concuerdan.'));
+        }
+
         $em = $this->getDoctrine()->getManager();
         $tokenEntity = $em->getRepository('BoletinesBundle:Token')->findOneBy(array('token' => $token));
 
@@ -190,14 +229,14 @@ class UsuarioController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'token',
-                'Password actualizado.'
+                'Su contraseña se ha cambiado exitosamente.'
             );
             return new RedirectResponse($this->generateUrl('login_index'));
         }
 
         $this->get('session')->getFlashBag()->add(
             'token',
-            'Token no encontrado.'
+            'Se ha producido un error.'
         );
         return new RedirectResponse($this->generateUrl('login_index'));
     }
@@ -220,17 +259,21 @@ class UsuarioController extends Controller
             $em->persist($token);
             $em->flush();
 
+            //$url = 'http://localhost:8000/usuario/resetpassword/' . $token->getToken(); //HARDCODEADO PARA TEST
+            $url = 'http://communitas-dev.herokuapp.com/usuario/resetpassword/' . $token->getToken();
+
             $message = \Swift_Message::newInstance()
                 ->setSubject('Reset password')
                 ->setFrom('help@communitas.com')
-                ->setTo(array('n_lattessi@hotmail.com', 'fclarat@gmail.com', 'federico.gonzalezc@gmail.com')) //HARDCODEADO PARA TEST
-                ->setBody('Para modificar tu password de Communitas ingresa a http://localhost:8000/usuario/resetpassword/' . $token->getToken()) //HARDCODEADO PARA TEST
+                //->setTo(array('n_lattessi@hotmail.com', 'fclarat@gmail.com', 'federico.gonzalezc@gmail.com')) //HARDCODEADO PARA TEST
+                ->setTo($email) //HARDCODEADO PARA TEST
+                ->setBody('Para modificar tu password de Communitas ingresa a <a href="' . $url . '">' . $url . '</a>', 'text/html') //HARDCODEADO PARA TEST
             ;
             $this->get('mailer')->send($message);
 
             $this->get('session')->getFlashBag()->add(
                 'token',
-                'Email enviado.'
+                'El correo de recuperación ha sido enviado correctamente.'
             );
 
             return new RedirectResponse($this->generateUrl('login_index'));
@@ -238,7 +281,7 @@ class UsuarioController extends Controller
 
         $this->get('session')->getFlashBag()->add(
             'token',
-            'Usuario no encontrado.'
+            'No ha sido posible recuperar la contraseña con la direccion de email solicitada.'
         );
         return new RedirectResponse($this->generateUrl('login_index'));
     }

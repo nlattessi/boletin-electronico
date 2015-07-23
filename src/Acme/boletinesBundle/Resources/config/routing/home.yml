@@ -2,6 +2,10 @@ home_father:
     pattern:   /padre
     defaults:  { _controller: BoletinesBundle:Home:father}
 
+home_father_asistencia:
+    pattern:   /padre/asistencia
+    defaults:  { _controller: BoletinesBundle:Home:fatherAsistencia}
+
 home_inst_manuel_belgrano:
     pattern:   /institucion/inst_manuel_belgrano
     defaults:  { _controller: BoletinesBundle:Home:inst_manuel_belgrano}
@@ -21,3 +25,19 @@ home_admin:
 home_alumno:
     pattern:   /alumno
     defaults:  { _controller: BoletinesBundle:Home:alumno}
+
+home_alumno_asistencia:
+    pattern:   /alumno/asistencia
+    defaults:  { _controller: BoletinesBundle:Home:alumnoAsistencia}
+
+home_directivo_alumnos:
+    pattern:   /directivo/alumnos
+    defaults:  { _controller: BoletinesBundle:Home:directivoAlumnos}
+
+home_directivo_alumno_datos:
+    pattern:   /directivo/alumno/datos
+    defaults:  { _controller: BoletinesBundle:Home:directivoAlumnoDatos}
+
+home_directivo_alumno_editar:
+    pattern:   /directivo/alumno/editar
+    defaults:  { _controller: BoletinesBundle:Home:directivoAlumnoEditar}

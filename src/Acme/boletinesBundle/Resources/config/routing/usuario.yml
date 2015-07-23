@@ -34,6 +34,10 @@ usuario_index_admin:
     path:     /indexPorInstitucion/
     defaults: { _controller: BoletinesBundle:Usuario:indexConInstitucion }
 
+usuario_index_admin_search:
+    path:     /indexPorInstitucionSearch/
+    defaults: { _controller: BoletinesBundle:Usuario:indexConInstitucionSearch }
+
 usuario_edit_institucion:
     path:     /{institucionId}/edit
     defaults: { _controller: BoletinesBundle:Usuario:editConInstitucion }
@@ -49,6 +53,10 @@ usuario_edit2:
 usuario_new2:
     path:     /new2/
     defaults: { _controller: BoletinesBundle:Usuario:new2 }
+
+usuario_view_tokens:
+    path:     /viewTokens/
+    defaults: { _controller: BoletinesBundle:Usuario:viewTokens }
 
 usuario_show:
     path:     /{id}

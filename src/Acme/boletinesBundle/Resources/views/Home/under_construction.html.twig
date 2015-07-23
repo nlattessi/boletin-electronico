@@ -2,17 +2,7 @@
 
 {% block body -%}
 
-  {% if app.user %}
-    {% if is_granted('ROLE_ADMIN') %}
-      {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-      {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': ''}) }}
-    {% else %}
-      {% if is_granted('ROLE_PADRE') %}
-        {{ include('BoletinesBundle::Padre/fixed_nav.html.twig') }}
-        {{ include('BoletinesBundle::Padre/main_nav.html.twig') }}
-      {% endif %}
-    {% endif %}
-  {% endif %}
+  
 
  <!-- startMain content-->
 <div class="container">
@@ -20,7 +10,7 @@
     <div class="col s12 m8 l12 center-align">
       <i class="icon-linear-brain icon-uc-size"></i>
       <h3 class="">Esta página se está diseñando</h3>
-      <h5 class="">Estará disponible en la próxima demo</h5>
+      <h5 class="">Estará disponible proximamente...</h5>
     </div>
   </div>
 </div>
