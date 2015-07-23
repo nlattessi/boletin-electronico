@@ -31,8 +31,8 @@ class CreacionService {
 
         $establecimiento->setDireccion($data->request->get('direccion'));
         $establecimiento->setCodigoPostal($data->request->get('codigoPostal'));
-        $establecimiento->setLongitud($data->request->get('longitud'));
-        $establecimiento->setLatitud($data->request->get('latitud'));
+        $establecimiento->setLongitud((float) $data->request->get('longitud'));
+        $establecimiento->setLatitud((float) $data->request->get('latitud'));
         $establecimiento->setCodigoPais($data->request->get('codigoPais'));
         $establecimiento->setCodigoArea($data->request->get('codigoArea'));
         $establecimiento->setTelefono($data->request->get('telefono'));
@@ -73,8 +73,8 @@ class CreacionService {
 
         $establecimiento->setDireccion($data->request->get('direccion'));
         $establecimiento->setCodigoPostal($data->request->get('codigoPostal'));
-        $establecimiento->setLongitud($data->request->get('longitud'));
-        $establecimiento->setLatitud($data->request->get('latitud'));
+        $establecimiento->setLongitud((float) $data->request->get('longitud'));
+        $establecimiento->setLatitud((float) $data->request->get('latitud'));
         $establecimiento->setCodigoPais($data->request->get('codigoPais'));
         $establecimiento->setCodigoArea($data->request->get('codigoArea'));
         $establecimiento->setTelefono($data->request->get('telefono'));
