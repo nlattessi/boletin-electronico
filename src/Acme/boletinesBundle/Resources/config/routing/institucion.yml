@@ -1,3 +1,7 @@
+institucion_autocompletar:
+    path:     /autocompletar
+    defaults: { _controller: BoletinesBundle:Institucion:autocompletar }
+
 institucion_search:
     path:     /search
     defaults: { _controller: BoletinesBundle:Institucion:search }

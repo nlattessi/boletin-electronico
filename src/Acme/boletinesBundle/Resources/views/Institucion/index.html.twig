@@ -36,7 +36,14 @@
                   </form>
               </div>
         </div>
+          <div class="input-field col s11">
+          <i class="icon-linear-magnifier prefix"></i>
+          <input id="autocompletarInput" type="text" class="validate" name="search">
+          <label for="icon_prefix">Buscar institución autocompletar</label>
 
+          <div id="autocompletarDiv">
+              -
+          </div>
           <div class="row">
             <div class="col s12">
 
@@ -85,9 +92,9 @@
   </div>
 </div>
 </div>
+</div>
  <!-- end Main content-->
 
    {{ include('::footer.html.twig') }}
-
 
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Institucion;
 use Acme\boletinesBundle\Entity\Establecimiento;
+use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -38,6 +39,28 @@ class InstitucionController extends Controller
         $establecimientosCount = count($establecimientos);
 
         return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion, 'establecimientosCount' => $establecimientosCount));
+    }
+
+    public function autocompletarAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!($request->getMethod() == 'POST' && $request->request->get('search'))) {
+            exit('sin nada');
+        }
+        $repo = $em->getRepository('BoletinesBundle:Institucion');
+        $query = $repo->createQueryBuilder('inst')
+            ->select('inst.nombre')
+            ->where('inst.nombre LIKE :search')
+            ->setParameter('search', '%'.$request->request->get('search').'%')
+            ->getQuery();
+        $entities = $query->getResult();
+
+        $autocompletar = "";
+        foreach($entities as $entitie){
+            $autocompletar .= $entitie['nombre'] . ",";
+        }
+
+        return new Response($autocompletar);
     }
 
     public function newAction(Request $request)
