@@ -40,6 +40,24 @@ class InstitucionController extends Controller
         return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion, 'establecimientosCount' => $establecimientosCount));
     }
 
+    public function getalumnosAction($id)
+    {
+        $alumnos = array();
+        $em = $this->getDoctrine()->getManager();
+
+        $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
+        $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
+
+        foreach ($establecimientos as $establecimiento) {
+            $alumnosAux =  $em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimientoId' => $establecimiento));
+            foreach ($alumnosAux as $alumno) {
+                $alumnos[] = $alumno;
+            }
+        }
+
+        return $this->render('BoletinesBundle:Institucion:alumnos.html.twig', array('alumnos' => $alumnos));
+    }
+
     public function newAction(Request $request)
     {
         $error = "";
