@@ -22,9 +22,11 @@
                         </div>
 
                         <div class="input-field col s11 mar-top-soft">
+                            <form action="{{ path('usuario_index_admin_search') }}" method="post" enctype="multipart/form-data">
                             <i class="icon-linear-magnifier prefix"></i>
-                            <input id="icon_prefix" type="text" class="validate">
+                            <input id="icon_prefix" type="text" class="validate" name="search">
                             <label for="icon_prefix">Buscar institución</label>
+                            </form>
                         </div>
 
                     </div>

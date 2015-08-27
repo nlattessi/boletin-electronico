@@ -129,7 +129,7 @@ class Establecimiento
     /**
      * @var \Acme\boletinesBundle\Entity\Ciudad
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Ciudad")
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Ciudad", inversedBy="establecimientos")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ciudad_id", referencedColumnName="id")
      * })
@@ -144,6 +144,10 @@ class Establecimiento
     protected $institucion;
 
 
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+    }
 
     /**
      * Set nombre
@@ -539,7 +543,7 @@ class Establecimiento
     /**
      * Get institucion
      *
-     * @return \Acme\boletinesBundle\Entity\Institucion 
+     * @return \Acme\boletinesBundle\Entity\Institucion
      */
     public function getInstitucion()
     {

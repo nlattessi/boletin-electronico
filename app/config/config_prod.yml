@@ -23,3 +23,8 @@ monolog:
 #            path:  "%kernel.logs_dir%/%kernel.environment%.log"
             path: "php://stderr"
             level: debug
+
+swiftmailer:
+    transport: gmail
+    username:  communitas.recoverpass@gmail.com
+    password:  passwordrecoverpass2015communitas

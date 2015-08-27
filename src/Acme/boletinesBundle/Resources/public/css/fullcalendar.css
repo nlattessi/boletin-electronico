@@ -748,6 +748,7 @@ a.fc-more:hover {
 
 .fc-toolbar .fc-left {
 	float: left;
+	display: none;
 }
 
 .fc-toolbar .fc-right {

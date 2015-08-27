@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Communitas - Comunidad educativa virtual ">
+    <title>Communitas</title>
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/boletines/images/favicon/apple-touch-icon-152x152.png') }}">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <link rel="icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <!-- CSS-->
+    <link href="{{ asset('bundles/boletines/css/prism.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/boletines/css/ghpages-materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="{{ asset('bundles/boletines/css/animate.css') }}" rel="stylesheet">
+
+<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic' rel='stylesheet' type='text/css'>
+
+
+  </head>
+  <body>
+
+ <header>
+ <!-- Fixed nav -->
+<div class="navbar-fixed">
+
+<ul id="dropdown1" class="dropdown-content drop-user">
+  <li><a href="/logout" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
+
+</ul>
+<ul id="dropdown2" class="dropdown-content drop-notification">
+  <span class="circle dot"></span>
+  <div clasS="notifi"><h6>Notificaciones</h6></div>
+  <li><a href="#!" class="t-s">Las asistencias han sido actualizadas<br><span class="ts-s">Hace 20 minutos</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s">Su hijo se porto mal<br><span class="ts-s">Hace 2 horas</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s">Suspensión de clases<br><span class="ts-s">Ayer</span></a></li>
+</ul>
+<ul id="dropdown3" class="dropdown-content drop-messages">
+  <span class="circle dot"></span>
+  <div clasS="notifi"><h6>Mensajes</h6></div>
+  <li><a href="#!" class="t-s"><b>Don Carlos</b> te ha enviado un mensaje<br><span class="ts-s">Hace 10 minutos.</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s"><b>John Pol</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s"><b>Marta Sanchez</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper">
+  <div class=""><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
+
+    <ul class="breadcrumb left hide-on-small-only">
+
+      <li><a href="#" class="">Usuarios</a></li>
+      <li><i class="icon-linear-chevron-right bread-i"></i></li>
+      <li><a href="{{ path('home_directivo_alumnos') }}" class="">Alumnos</a></li>
+      <li><i class="icon-linear-chevron-right bread-i"></i></li>
+      <li><a href="#" class="b-focus">Editar alumno</a></li>
+    </ul>
+
+    <ul class="right fix">
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">3</span></i></a></li>
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">1</span></i></a></li>
+
+
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">{{ app.user.nombre }}<i class="icon-linear-chevron-down right"></i></a></li>
+    </ul>
+  </div>
+  </div>
+</nav>
+</div>
+ <!-- Main nav -->
+
+
+
+
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a href="#!" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png') }}"></a>
+            </li>
+      <li class="main-nav-pad"><a href="{{ path('home_directivo_alumnos') }}"><i class="icon-linear-history icon-nav-size"></i> <span>Inicio</span></a></li>
+
+          <li class="no-padding main-nav-pad ">
+      <ul class="collapsible collapsible-accordion">
+        <li>
+          <a class="collapsible-header active"><i class="icon-linear-users-plus icon-nav-size"></i> <span>Usuarios</span></a>
+          <div class="collapsible-body">
+            <ul>
+              <li class="active "><a href="{{ path('home_directivo_alumnos') }}">Alumnos</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Docentes</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Padres</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Bedeles</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span>Grupos</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-users icon-nav-size"></i> <span>Grupos de alumnos</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span>Materias</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span>Calificaciones</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span>Convivencia</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span>Calendario</span></a></li>
+      </ul>
+ </header>
+ <!-- startMain content-->
+
+ <main> <!-- startMain content-->
+<div class="container">
+  <div class="row mar-top-soft">
+    <div class="col s12 m12 l12">
+        <div class="row">
+          <div class="col s10 m10 l10">
+            <h3 class="header">Editar datos del alumno</h3>
+            <h5 class="header">Datos obligatorios</h5>
+          </div>
+        </div>
+
+              <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="nombre_inst" type="text" class="validate">
+                        <label for="nombre_inst">Nombre/s</label>
+                    </div>
+                      <div class="input-field col s12 m6 l6">
+                        <input id="tel" type="text" class="validate">
+                        <label for="apellido" data-error="" data-success="Correcto">Apellido/s</label>
+                        </div>
+              </div>
+              <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input id="nombre_inst" type="text" class="validate">
+                        <label for="nombre_inst">DNI</label>
+                    </div>
+                      <div class="input-field col s12 m6 l6">
+                            <i class="icon-linear-magnifier prefix"></i>
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Grupo de alumnos</label>
+                      </div>
+              </div>
+                <div class="divider mar-bot-top col s12 m12 l12"></div>
+                    <div class="row">
+                      <div class="col s10 m10 l10">
+                        <h5 class="header">Datos adicionales</h5>
+                      </div>
+                    </div>
+
+                      <div class="row mar-bot">
+                       <div class=" col s12 m6 l6">
+                       <h6 class="header">Género</h6>
+                              <form action="#">
+                               <div class="row">
+                                <div class=" col s6">
+                                  <p>
+                                    <input name="group1" type="radio" id="test1" />
+                                    <label for="test1">Masculino</label>
+                                  </p>
+                                  </div>
+                                  <div class=" col s6">
+                                  <p>
+                                    <input name="group1" type="radio" id="test2" />
+                                    <label for="test2">Femenino</label>
+                                  </p>
+                                  </div>
+                                </div>
+                              </form>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                       <div class=" col s12 m6 l6">
+                          <i class="icon-linear-calendar-insert"></i>
+                          <label for="birthdate" class="">Fecha de nacimiento</label>
+                           <input type="date" class="datepicker">
+                       </div>
+
+                       <div class=" col s12 m6 l6">
+                          <i class="icon-linear-calendar-insert"></i>
+                          <label for="birthdate" class="">Fecha de ingreso</label>
+                           <input type="date" class="datepicker">
+                       </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                              <i class="icon-linear-magnifier prefix"></i>
+                              <input id="icon_prefix" type="text" class="validate">
+                              <label for="icon_prefix">Nombre del padre</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                              <i class="icon-linear-magnifier prefix"></i>
+                              <input id="icon_prefix" type="text" class="validate">
+                              <label for="icon_prefix">Nombre de la madre</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                          <select>
+                            <option value="" disabled selected>Pais</option>
+                            <option value="1">Argentina</option>
+                            <option value="2">Colombia</option>
+                          </select>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                          <select>
+                            <option value="" disabled selected>Ciudad</option>
+                            <option value="1">Buenos Aires</option>
+                            <option value="2">Mar del Plata</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input  id="number" type="text" class="validate">
+                            <label for="number">Dirección</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Código postal</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Código país</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Código de área</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Teléfono</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Teléfono de emergencia</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input  id="number" type="email" class="validate">
+                            <label for="number">Email</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input  id="number" type="text" class="validate">
+                            <label for="number">Obra social</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Obra social (número de afiliado).</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                              <i class="icon-linear-magnifier prefix"></i>
+                              <input id="icon_prefix" type="text" class="validate">
+                              <label for="icon_prefix">Especialidad</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                              <i class="icon-linear-magnifier prefix"></i>
+                              <input id="icon_prefix" type="text" class="validate">
+                              <label for="icon_prefix">Establecimiento</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <form action="#">
+                                <div class="file-field input-field">
+                                  <input class="file-path validate" type="text"/>
+                                  <label for="logo_img">Foto del alumno</label>
+                                  <div class="btn-large">
+                                    <span>Elegir archivo</span>
+                                    <input type="file" />
+                                  </div>
+                               </div>
+                            </form>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input  id="number" type="text" class="validate">
+                            <label for="number">Grupo sanguíneo</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input  id="number" type="number" class="validate">
+                            <label for="number">Apodo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12 mar-top-soft">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Observaciones</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center-align mar-top-soft"><a href="{{ path('home_under_construction') }}" class="btn-large waves-effect waves-light center-align mar-right">Guardar</a>
+
+                    </div>
+
+
+   </div><!--  end col  -->
+  </div><!--  end row  -->
+</div><!--  end container  -->
+
+
+  </main><!-- end Main content-->
+<footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2015 Communitas - Comunidad educativa virtual
+            <a class="grey-text text-lighten-4 right" href="#!">Ayuda</a>
+            </div>
+          </div>
+</footer>
+
+
+
+
+
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{{ asset('bundles/boletines/js/jquery.timeago.min.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/prism.js') }}"></script>
+<script src="{{ asset('bundles/boletines/bin/materialize.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/init.js') }}"></
+
+  </body>
+</html>

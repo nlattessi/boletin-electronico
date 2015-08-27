@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Ciudad
@@ -38,6 +39,17 @@ class Ciudad
      */
     private $provincia;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Establecimiento", mappedBy="ciudad")
+     */
+    protected $establecimientos;
+
+
+    public function __construct()
+    {
+        $this->establecimientos = new ArrayCollection();
+    }
+
 
 
     /**
@@ -56,7 +68,7 @@ class Ciudad
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -66,7 +78,7 @@ class Ciudad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +101,7 @@ class Ciudad
     /**
      * Get provincia
      *
-     * @return \Acme\boletinesBundle\Entity\Provincia 
+     * @return \Acme\boletinesBundle\Entity\Provincia
      */
     public function getProvincia()
     {

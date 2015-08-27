@@ -1,36 +1,128 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Establecimiento edit</h1>
 
-    <h2>{{ mensaje }}</h2>
+  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
 
-    <form action="{{ path('establecimiento_edit', {'id':establecimiento.idEstablecimiento }) }}" method="post">
-        <input type="text" value="{{ establecimiento.idEstablecimiento }}" hidden="hidden" name="id"><br/>
-        <input type="text" value="{{ establecimiento.nombreEstablecimiento }}" placeholder="nombre" name="nombreEstablecimiento"><br/>
-        <input type="text" value="{{ establecimiento.direccionEstablecimiento }}" placeholder="direccion" name="direccionEstablecimiento"><br/>
-        <input type="text" value="{{ establecimiento.emailEstablecimiento }}" placeholder="email" name="emailEstablecimiento"><br/>
-        <input type="text" value="{{ establecimiento.telefonoEstablecimiento }}" placeholder="telefono" name="telefonoEstablecimiento"><br/>
-        {% if establecimiento.institucion != null %}
-            <p>Institucion Asociado</p>
-            <p>{{ establecimiento.institucion.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idInstitucion">
-            {% for institucion in entitiesRelacionadas %}
 
-                <option value="{{institucion.idInstitucion}}">{{institucion.__toString()}}</option>
+  <div class="container">
 
-            {% endfor %}
-            <option value="-1" selected="selected">No seleccionar ninguna</option>
-        </select>
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('establecimiento') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
-{% endblock %}
+    <div class="row mar-top-soft">
+              <div class="col s10 m10 l10">
+          <h3 class="header">Editar establecimiento</h3>
+          <h4 class="header">Datos de establecimiento</h4>
+        </div>
+    </div>
+
+    {% if error %}
+      <div class="error-msg center-align"><i class="icon-linear-cross"></i> Alguno de los datos ingresados son incorrectos o no fueron ingresados</div>
+    {% endif %}
+    <form action="{{ path('establecimiento_edit', {'id': establecimiento.id }) }}" method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="input-field col s12 m6 l6">
+            <input id="nombre" name="nombre" type="text" class="validate" value="{{ establecimiento.nombre }}">
+            <label for="nombre">Nombre del establecimiento</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <div class="select-wrapper initialized"><i class="mdi-navigation-arrow-drop-down active"></i>
+                <ul id="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" class="dropdown-content select-dropdown" style="width: 499px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;"><li class="disabled active"><span>Seleccionar ciudad</span></li><li class=""><span>Buenos Aires</span></li><li class=""><span>Mar del Plata</span></li><li class=""><span>Río Grande</span></li></ul>
+                <select class="initialized" name="ciudad">
+                    <option value="" disabled="" selected="">Seleccionar ciudad</option>
+                    <option value="1" {% if establecimiento.ciudad.id == 1 %}selected{% endif %}>Buenos Aires</option>
+                    <option value="2" {% if establecimiento.ciudad.id == 2 %}selected{% endif %}>Mar del Plata</option>
+                    <option value="3" {% if establecimiento.ciudad.id == 3 %}selected{% endif %}>Río Grande</option>
+                </select></div>
+
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="direccion" name="direccion" type="text" class="validate" value="{{ establecimiento.direccion }}">
+            <label for="direccion">Dirección</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoPostal" name="codigoPostal" type="text" class="validate"  value="{{ establecimiento.codigoPostal }}">
+            <label for="codigoPostal">Código postal</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="longitud" name="longitud" type="number" class="validate" value="{{ establecimiento.longitud }}">
+            <label for="longitud">Longitud</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="latitud" name="latitud" type="number" class="validate" value="{{ establecimiento.latitud }}">
+            <label for="latitud">Latitud</label>
+        </div>
+
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoPais" name="codigoPais" type="text" class="validate" value="{{ establecimiento.codigoPais }}">
+            <label for="codigoPais">Código país</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoArea" name="codigoArea" type="text" class="validate" value="{{ establecimiento.codigoArea }}">
+            <label for="codigoArea">Código area</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="telefono" name="telefono" type="text" class="validate" value="{{ establecimiento.telefono }}">
+            <label for="telefono">Teléfono</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="email" name="email" type="email" class="validate" value="{{ establecimiento.email }}">
+            <label for="email">Correo electrónico oficial</label>
+        </div>
+        <div class=" col s12 m6 l6">
+            <i class="icon-linear-calendar-full"></i>
+            <label for="birthdate" class="">Fecha de inaguración</label>
+            <input type="date" class="datepicker" name="fechaInauguracion">
+
+        </div>
+        <div class="divider mar-bot-top col s12 m12 l12"></div>
+        <div class="col s12 m12 l12"> <h4 class="header">Importante!</h4><p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
+            <div class="input-field col s12 m6 l6">
+                <input id="maximoFaltas" name="maximoFaltas" type="number" class="validate" value="{{ establecimiento.maximoFaltas }}">
+                <label for="maximoFaltas" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <input id="tardesFaltas" name="tardesFaltas" type="number" class="validate" value="{{ establecimiento.tardesFaltas }}">
+                <label for="tardesFaltas" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
+            </div>
+            <div class="input-field col s12 mar-top-soft">
+                <textarea id="observaciones" name="observaciones" class="materialize-textarea" value="{{ establecimiento.observaciones }}"></textarea>
+                <label for="observaciones">Observaciones</label>
+            </div>
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col s12 center-align mar-top-soft">
+      <button type="submit"class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
+    </div>
+</div>
+
+</form>
+  </div>
+
+
+  {{ include('::footer.html.twig') }}
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script>
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        formatSubmit : 'yyyy-mm-dd',
+        hiddenName : true
+      });
+      var $input = $('.datepicker').pickadate();
+      var picker = $input.pickadate('picker');
+      var date = {{ establecimiento.fechaInauguracion | localizeddate('none', 'none', 'es_AR', null, "Y-MM-dd")|json_encode|raw }};
+      picker.set('select', date, {format: 'yyyy-mm-dd'});
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('select').material_select();
+      });
+    </script>
+    {% endblock %}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Communitas - Comunidad educativa virtual ">
+    <title>Communitas</title>
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/boletines/images/favicon/apple-touch-icon-152x152.png') }}">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <link rel="icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <!-- CSS-->
+    <link href="{{ asset('bundles/boletines/css/prism.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/boletines/css/ghpages-materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="{{ asset('bundles/boletines/css/animate.css') }}" rel="stylesheet">
+
+<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic' rel='stylesheet' type='text/css'>
+
+
+  </head>
+  <body>
+
+ <header>
+ <!-- Fixed nav -->
+<div class="navbar-fixed">
+
+<ul id="dropdown1" class="dropdown-content drop-user">
+  <li><a href="/logout" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
+
+</ul>
+<ul id="dropdown2" class="dropdown-content drop-notification">
+  <span class="circle dot"></span>
+  <div clasS="notifi"><h6>Notificaciones</h6></div>
+  <li><a href="#!" class="t-s">Las asistencias han sido actualizadas<br><span class="ts-s">Hace 20 minutos</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s">Su hijo se porto mal<br><span class="ts-s">Hace 2 horas</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s">Suspensión de clases<br><span class="ts-s">Ayer</span></a></li>
+</ul>
+<ul id="dropdown3" class="dropdown-content drop-messages">
+  <span class="circle dot"></span>
+  <div clasS="notifi"><h6>Mensajes</h6></div>
+  <li><a href="#!" class="t-s"><b>Don Carlos</b> te ha enviado un mensaje<br><span class="ts-s">Hace 10 minutos.</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s"><b>John Pol</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+  <li class="divider"></li>
+  <li><a href="#!" class="t-s"><b>Marta Sanchez</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper">
+  <div class=""><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
+
+    <ul class="breadcrumb left hide-on-small-only">
+
+      <li><a href="#" class="">Usuarios</a></li>
+      <li><i class="icon-linear-chevron-right bread-i"></i></li>
+      <li><a href="{{ path('home_directivo_alumnos') }}" class="">Alumnos</a></li>
+      <li><i class="icon-linear-chevron-right bread-i"></i></li>
+      <li><a href="#" class="b-focus">Datos del alumno</a></li>
+    </ul>
+
+    <ul class="right fix">
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">3</span></i></a></li>
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">1</span></i></a></li>
+
+
+      <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">{{ app.user.nombre }}<i class="icon-linear-chevron-down right"></i></a></li>
+    </ul>
+  </div>
+  </div>
+</nav>
+</div>
+ <!-- Main nav -->
+
+
+
+
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a href="#!" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png') }}"></a>
+            </li>
+      <li class="main-nav-pad"><a href="{{ path('home_directivo_alumnos') }}"><i class="icon-linear-history icon-nav-size"></i> <span>Inicio</span></a></li>
+
+          <li class="no-padding main-nav-pad ">
+      <ul class="collapsible collapsible-accordion">
+        <li>
+          <a class="collapsible-header active"><i class="icon-linear-users-plus icon-nav-size"></i> <span>Usuarios</span></a>
+          <div class="collapsible-body">
+            <ul>
+              <li class="active "><a href="{{ path('home_directivo_alumnos') }}">Alumnos</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Docentes</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Padres</a></li>
+              <li><a href="{{ path('home_under_construction') }}">Bedeles</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span>Grupos</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-users icon-nav-size"></i> <span>Grupos de alumnos</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span>Materias</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span>Calificaciones</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span>Convivencia</span></a></li>
+      <li class="main-nav-pad"><a href="{{ path('home_under_construction') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span>Calendario</span></a></li>
+      </ul>
+ </header>
+ <!-- startMain content-->
+
+ <main> <!-- startMain content-->
+<div class="container">
+  <div class="row mar-top-soft">
+    <div class="col s12 m12 l12">
+        <div class="row">
+            <div class="col s12 m4 l2 center-align">
+            <img src="{{ asset('bundles/boletines/images/child.jpg') }}" alt="as" class="circle-child circle inst-thumb mar-top-soft">
+            </div>
+            <div class="col s12 m4 l6">
+            <h3 class="header">Juan Rodriguez</h3>
+            <h5 class="header">Florida Day School</h5>
+            </div>
+
+            <div class="col s12 m4 l2 left">
+            <img src="{{ asset('bundles/boletines/images/belgranods.jpg') }}" alt="as" class="inst-thumb mar-top-soft">
+            </div>
+        </div>
+        <div class="divider mar-bot-top"></div>
+        <div class="row">
+            <div class="col s10 m10 l10">
+                 <h4 class="header">Datos del alumno</h4>
+                </div>
+                <div class="col s2 m2 l2">
+                 <a href="{{ path('home_directivo_alumno_editar') }}" data-position="left" data-delay="25" data-tooltip="Editar alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                </div>
+          </div>
+          <div class="row">
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Nombre/s: <span class="span-s"> Juan Eugenio</span></h5>
+                    <h5 class="header">DNI: <span class="span-s"> 36172134</span></h5>
+                    <h5 class="header">Género: <span class="span-s"> Masculino</span></h5>
+                    <h5 class="header">Fecha de nacimiento: <span class="span-s"> 16/06/2001</span></h5>
+
+                    <h5 class="header">Nombre del padre:<span class="span-s"> Roberto Rodriguez</span></h5>
+                    <h5 class="header">País: <span class="span-s"> Argentina</span></h5>
+                    <h5 class="header">Código postal: <span class="span-s"> 1428</span></h5>
+                    <h5 class="header">Teléfono de emergencia: <span class="span-s"> 43345345</span></h5>
+                    <h5 class="header">Email: <span class="span-s"> juan@rodriguez.com</span></h5>
+                    <h5 class="header">Establecimiento: <span class="span-s"> -</span></h5>
+                    <h5 class="header">Especialidad <span class="span-s"> -</span></h5>
+                    </div>
+                    <div class="col s12 m6 l6">
+                    <h5 class="header">Apellido/s: <span class="span-s"> Rodriguez</span> </h5>
+                    <h5 class="header">Grupo de alumnos: <span class="span-s"> -</span></h5>
+                    <h5 class="header">Fecha de ingreso: <span class="span-s"> -</span></h5>
+                    <h5 class="header">Nombre de la madre: <span class="span-s"> Juana Leta</span></h5>
+                    <h5 class="header">Ciudad: <span class="span-s"> Buenos Aires</span></h5>
+                    <h5 class="header">Dirección: <span class="span-s"> Av Cabildo 123</span></h5>
+                    <h5 class="header">Teléfono: <span class="span-s"> 43345345</span></h5>
+                    <h5 class="header">Obra social: <span class="span-s"> Swiss Medical</span></h5>
+                    <h5 class="header">Número de afiliado: <span class="span-s"> 2423432</span></h5>
+                    <h5 class="header">Grupo sanguíneo: <span class="span-s"> A-</span></h5>
+                    <h5 class="header">Apodo: <span class="span-s"> -</span></h5>
+                   </div>
+                    <div class="col s12 m6 l6">
+                    <h5 class="header">Observaciones: <span class="span-s"> Juan Rodriguez .........................................</span> </h5>
+                   </div>
+
+          </div>
+
+
+
+
+
+   </div><!--  end col  -->
+  </div><!--  end row  -->
+</div><!--  end container  -->
+
+
+  </main><!-- end Main content-->
+<footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container">
+            © 2015 Communitas - Comunidad educativa virtual
+            <a class="grey-text text-lighten-4 right" href="#!">Ayuda</a>
+            </div>
+          </div>
+</footer>
+
+
+
+
+
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{{ asset('bundles/boletines/js/jquery.timeago.min.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/prism.js') }}"></script>
+<script src="{{ asset('bundles/boletines/bin/materialize.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/init.js') }}"></script>
+
+  </body>
+</html>

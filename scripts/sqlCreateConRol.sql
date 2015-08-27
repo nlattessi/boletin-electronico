@@ -824,7 +824,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `email`) VALUES ('admin', 'admin', '1', 'admin@admin.com');
-INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('spacecraft', 'spacecraft', '2', '1', 'padre@padre.con');
+INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('speacecraft', 'speacecraft', '2', '1', 'padre@padre.con');
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('juancarlos', 'juancarlos', '3', '1', 'alumno@alumno.com');
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `id_entidad_asociada`, `email`) VALUES ('anadacol', 'anadacol', '4', '1', 'docente@docente.com');
 INSERT INTO `boletines`.`usuario` (`nombre`, `password`, `rol_id`, `email`) VALUES ('dorita', 'dorita', '5', 'director@director.com');

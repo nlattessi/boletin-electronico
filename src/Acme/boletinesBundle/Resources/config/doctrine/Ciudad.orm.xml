@@ -13,5 +13,7 @@
         <join-column name="provincia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <one-to-many field="establecimientos" target-entity="Establecimiento" mapped-by="ciudad">
+    </one-to-many>
   </entity>
 </doctrine-mapping>

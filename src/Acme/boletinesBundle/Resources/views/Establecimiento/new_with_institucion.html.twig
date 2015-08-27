@@ -1,49 +1,125 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-  <h1>establecimiento_new_with_institucion</h1>
 
-  <p>
-    {{ institucion.nombre }}
-  </p>
+  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
+  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
 
-  <!-- startMain content-->
- <div class="container">
-   <div class="row mar-top-soft">
-         <div class="col s10 m10 l10">
-           <h3 class="header">Nuevo establecimiento</h3>
-         </div>
-   </div>
 
-   <form action="{{ path('establecimiento_new_with_institucion', {'institucionId': institucion.id}) }}" method="post" enctype="multipart/form-data">
+  <div class="container">
 
-   <div class="row">
-         <div class="input-field col s12 m6 l6">
-             <input id="nombre_inst" type="text" class="validate" name="nombre">
-             <label for="nombre_inst">Nombre</label>
-         </div>
-   </div>
-   <div class="row">
-         <div class="input-field col s12 m6 l6">
-             <input id="nombre_inst" type="number" class="validate" name="maximoFaltas">
-             <label for="nombre_inst">Maximo faltas</label>
-         </div>
-   </div>
-   <div class="row">
-         <div class="input-field col s12 m6 l6">
-             <input id="nombre_inst" type="number" class="validate" name="tardesFaltas">
-             <label for="nombre_inst">Cuanta falta es un tarde</label>
-         </div>
-   </div>
+    <div class="row mar-top-soft">
+              <div class="col s10 m10 l10">
+          <h3 class="header">Añadir establecimiento</h3>
+          <h4 class="header">Datos de establecimiento</h4>
+        </div>
+    </div>
 
-     <div class="row">
-       <div class="col s12 center-align">
-         <button type="submit" name="finalizar" value="true" class="btn-large waves-effect waves-light center-align">Guardar</button>
-         <button type="submit" name="agregarOtro" value="true" class="btn-large waves-effect waves-light center-align">Guardar y agregar otro</button></div>
-     </div>
+    {% if error %}
+      <div class="error-msg center-align"><i class="icon-linear-cross"></i> Alguno de los datos ingresados son incorrectos o no fueron ingresados</div>
+    {% endif %}
+    <form action="{{ path('establecimiento_new_with_institucion', {'institucionId': institucionId }) }}" method="post" enctype="multipart/form-data">
 
-   </form>
+    <div class="row">
+        <div class="input-field col s12 m6 l6">
+            <input id="nombre" name="nombre" type="text" class="validate">
+            <label for="nombre">Nombre del establecimiento</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <div class="select-wrapper initialized"><i class="mdi-navigation-arrow-drop-down active"></i>
+                <ul id="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" class="dropdown-content select-dropdown" style="width: 499px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;"><li class="disabled active"><span>Seleccionar ciudad</span></li><li class=""><span>Buenos Aires</span></li><li class=""><span>Mar del Plata</span></li><li class=""><span>Río Grande</span></li></ul>
+                <select class="initialized" name="ciudad">
+                    <option value="" disabled="" selected="">Seleccionar ciudad</option>
+                    <option value="1">Buenos Aires</option>
+                    <option value="2">Mar del Plata</option>
+                    <option value="3">Río Grande</option>
+                </select></div>
 
-</div>   <!-- end container-->
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="direccion" name="direccion" type="text" class="validate">
+            <label for="direccion">Dirección</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoPostal" name="codigoPostal" type="text" class="validate">
+            <label for="codigoPostal">Código postal</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="longitud" name="longitud" type="number" class="validate">
+            <label for="longitud">Longitud</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="latitud" name="latitud" type="number" class="validate">
+            <label for="latitud">Latitud</label>
+        </div>
 
-{% endblock %}
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoPais" name="codigoPais" type="text" class="validate">
+            <label for="codigoPais">Código país</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="codigoArea" name="codigoArea" type="text" class="validate">
+            <label for="codigoArea">Código area</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="telefono" name="telefono" type="text" class="validate">
+            <label for="telefono">Teléfono</label>
+        </div>
+        <div class="input-field col s12 m6 l6">
+            <input id="email" name="email" type="email" class="validate">
+            <label for="email">Correo electrónico oficial</label>
+        </div>
+        <div class=" col s12 m6 l6">
+            <i class="icon-linear-calendar-full"></i>
+            <label for="birthdate" class="">Fecha de inaguración</label>
+            <input type="date" class="datepicker" name="fechaInauguracion">
+
+        </div>
+        <div class="divider mar-bot-top col s12 m12 l12"></div>
+        <div class="col s12 m12 l12"> <h4 class="header">Importante!</h4><p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
+            <div class="input-field col s12 m6 l6">
+                <input id="maximoFaltas" name="maximoFaltas" type="number" class="validate">
+                <label for="maximoFaltas" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <input id="tardesFaltas" name="tardesFaltas" type="number" class="validate">
+                <label for="tardesFaltas" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
+            </div>
+            <div class="input-field col s12 mar-top-soft">
+                <textarea id="observaciones" name="observaciones" class="materialize-textarea"></textarea>
+                <label for="observaciones">Observaciones</label>
+            </div>
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col s12 center-align mar-top-soft">
+                 <button type="submit" name="finalizar" value="true" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</button>
+                   <button type="submit" name="otro" value="true" class="btn-large waves-effect waves-light center-align">Agregar otro Establecimiento</button>
+    </div>
+</div>
+
+</form>
+  </div>
+
+
+  {{ include('::footer.html.twig') }}
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script>
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year
+        formatSubmit : 'yyyy-mm-dd',
+        hiddenName : true
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+        $('select').material_select();
+      });
+    </script>
+    {% endblock %}
