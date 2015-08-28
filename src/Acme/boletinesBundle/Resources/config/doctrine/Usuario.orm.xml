@@ -24,5 +24,15 @@
         <join-column name="institucion_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <many-to-many field="actividades" target-entity="Actividad">
+      <join-table name="usuario_actividad">
+        <join-columns>
+          <join-column name="usuario_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="actividad_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
   </entity>
 </doctrine-mapping>

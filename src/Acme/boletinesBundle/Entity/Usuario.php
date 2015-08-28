@@ -325,4 +325,36 @@ class Usuario implements UserInterface, \Serializable
             // $this->salt
         ) = unserialize($serialized);
     }
+
+    private $actividades;
+
+
+    public function getActividades()
+    {
+        return $this->actividades;
+    }
+
+    public function addActividad(\Acme\boletinesBundle\Entity\Actividad $actividad = null)
+    {
+        if (! $this->actividades->actividades-contains($actividad)) {
+            $this->actividades->add($actividad);
+        }
+
+        return $this;
+    }
+
+    public function removeActividad(\Acme\boletinesBundle\Entity\Actividad $actividad = null)
+    {
+        if ($this->actividades->contains($actividad)) {
+            $this->actividades->removeElement($actividad);
+        }
+
+        return $this;
+    }
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }
