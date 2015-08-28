@@ -345,4 +345,52 @@ class UsuarioController extends Controller
     {
         return $this->render('BoletinesBundle:Usuario:edit2.html.twig', array());
     }
+
+    public function getCalendarioAction()
+    {
+        $events = array(
+            'events' => []
+        );
+        $actividades = array();
+        $user = $this->getUser();
+
+        if ($user->esPadre($user)) {
+            $users = $this->getHijos($user);
+            foreach($users as $user) {
+                foreach ($user->getActividades() as $actividades_aux) {
+                    $actividades[] = $actividades_aux;
+                }
+            }
+
+        } else {
+            $actividades = $user->getActividades();
+        }
+
+        $i = 0;
+        foreach($actividades as $actividad) {
+            $events['events'][$i]['title'] = $actividad->getNombre();
+            $events['events'][$i]['start'] = date_format($actividad->getFechaHoraInicio(), 'Y-m-d\TH:i:s');
+            $events['events'][$i]['end'] = date_format($actividad->getFechaHoraFin(), 'Y-m-d\TH:i:s');
+            $i++;
+        }
+        echo json_encode($events, true);exit();
+    }
+
+
+    private function getHijos($user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findBy(array('usuario' => $user));
+        $hijos1 = $em->getRepository('BoletinesBundle:Alumno')->findBy(array('padre1' => $padre));
+        $hijos2 = $em->getRepository('BoletinesBundle:Alumno')->findBy(array('padre2' => $padre));
+
+        $hijos = array_merge($hijos1, $hijos2);
+        $hijos = array_merge($hijos, $padre);
+
+        foreach ($hijos as $hijo) {
+            $usuarios[] = $hijo->getUsuario();
+        }
+
+        return $usuarios;
+    }
 }
