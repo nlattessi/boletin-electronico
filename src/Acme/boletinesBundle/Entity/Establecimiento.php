@@ -136,7 +136,6 @@ class Establecimiento
      */
     private $ciudad;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Institucion", inversedBy="establecimientos")
      * @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
