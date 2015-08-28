@@ -52,6 +52,35 @@ class Materia
      */
     private $tipoMateria;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Institucion
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
+     * })
+     */
+    //private $institucion;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
+
+    private $alumnos;
+
 
 
     /**
@@ -70,7 +99,7 @@ class Materia
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -93,7 +122,7 @@ class Materia
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -116,7 +145,7 @@ class Materia
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -126,7 +155,7 @@ class Materia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -149,10 +178,108 @@ class Materia
     /**
      * Get tipoMateria
      *
-     * @return \Acme\boletinesBundle\Entity\TipoMateria 
+     * @return \Acme\boletinesBundle\Entity\TipoMateria
      */
     public function getTipoMateria()
     {
         return $this->tipoMateria;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Rol
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set institucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $institucion
+     * @return Usuario
+     */
+    // public function setInstitucion(\Acme\boletinesBundle\Entity\Institucion $institucion = null)
+    // {
+    //     $this->institucion = $institucion;
+    //
+    //     return $this;
+    // }
+
+    /**
+     * Get institucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion
+     */
+    // public function getInstitucion()
+    // {
+    //     return $this->institucion;
+    // }
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return Materia
+     */
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento = null)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
+    }
+
+    public function getAlumnos()
+    {
+        return $this->alumnos;
+    }
+
+    public function addAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno = null)
+    {
+        if (! $this->alumnos->alumnos-contains($alumno)) {
+            $this->alumnos->add($alumno);
+        }
+
+        return $this;
+    }
+
+    public function removeAlumno(\Acme\boletinesBundle\Entity\Alumno $alumno = null)
+    {
+        if ($this->alumnos->contains($alumno)) {
+            $this->alumnos->removeElement($alumno);
+        }
+
+        return $this;
+    }
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

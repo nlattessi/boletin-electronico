@@ -140,12 +140,28 @@ class Establecimiento
      * @ORM\ManyToOne(targetEntity="Institucion", inversedBy="establecimientos")
      * @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      */
-    protected $institucion;
+    private $institucion;
+
+    private $tiposMateria;
+
+    private $materias;
 
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
+        $this->tiposMateria = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getTiposMateria()
+    {
+        return $this->tiposMateria;
+    }
+
+    public function getMaterias()
+    {
+        return $this->materias;
     }
 
     /**

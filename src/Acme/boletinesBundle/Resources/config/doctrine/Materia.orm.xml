@@ -10,10 +10,22 @@
     <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <field name="descripcion" type="string" column="descripcion" length="255" nullable="true"/>
     <many-to-one field="tipoMateria" target-entity="TipoMateria">
       <join-columns>
         <join-column name="tipo_materia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <!-- <many-to-one field="institucion" target-entity="Institucion">
+      <join-columns>
+        <join-column name="institucion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one> -->
+    <many-to-one field="establecimiento" target-entity="Establecimiento" inversed-by="materias">
+      <join-columns>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="alumnos" mapped-by="materias" target-entity="Alumno"/>
   </entity>
 </doctrine-mapping>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TiposMateria</title>
+
+  <!-- JS -->
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/moment/min/moment.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+
+</head>
+<body>
+
+  <main class="container">
+    <!-- ANGULAR VIEWS -->
+
+    <div class="page-header">
+      <h1>
+        TipoMaterias del instituto {{ institucion.nombre }}
+        <a href="{{ path('tipoMateria_new') }}" class="btn btn-default">
+          <span class="glyphicon glyphicon-plus"></span>
+            New TipoMateria
+        </a>
+      </h1>
+    </div>
+
+    <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+    <th>_id</th>
+    <th>Nombre</th>
+    <th>Establecimiento</th>
+    <th class="col-sm-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- LOOP OVER THE USERS -->
+    {% for tipoMateria in tiposMateria %}
+    <tr>
+    <td>{{ tipoMateria.id }}</td>
+    <td>{{ tipoMateria.nombre }}</td>
+    <td>{{ tipoMateria.establecimiento.nombre }}</td>
+    <td class="col-sm-2">
+    <a href="{{ path('tipoMateria_delete', {'id': tipoMateria.id}) }}" class="btn btn-primary">Remover</a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+  </main>
+
+</body>
+</html>

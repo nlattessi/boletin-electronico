@@ -229,6 +229,8 @@ class Alumno
      */
     private $usuario;
 
+    private $materias;
+
 
 
     /**
@@ -247,7 +249,7 @@ class Alumno
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -270,7 +272,7 @@ class Alumno
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -293,7 +295,7 @@ class Alumno
     /**
      * Get dni
      *
-     * @return string 
+     * @return string
      */
     public function getDni()
     {
@@ -316,7 +318,7 @@ class Alumno
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -339,7 +341,7 @@ class Alumno
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -362,7 +364,7 @@ class Alumno
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -385,7 +387,7 @@ class Alumno
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -408,7 +410,7 @@ class Alumno
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -431,7 +433,7 @@ class Alumno
     /**
      * Get nacionalidad
      *
-     * @return string 
+     * @return string
      */
     public function getNacionalidad()
     {
@@ -454,7 +456,7 @@ class Alumno
     /**
      * Get sexo
      *
-     * @return string 
+     * @return string
      */
     public function getSexo()
     {
@@ -477,7 +479,7 @@ class Alumno
     /**
      * Get obraSocial
      *
-     * @return string 
+     * @return string
      */
     public function getObraSocial()
     {
@@ -500,7 +502,7 @@ class Alumno
     /**
      * Get obraSocialNumeroAfiliado
      *
-     * @return string 
+     * @return string
      */
     public function getObraSocialNumeroAfiliado()
     {
@@ -523,7 +525,7 @@ class Alumno
     /**
      * Get telefonoEmergencia
      *
-     * @return string 
+     * @return string
      */
     public function getTelefonoEmergencia()
     {
@@ -546,7 +548,7 @@ class Alumno
     /**
      * Get apodo
      *
-     * @return string 
+     * @return string
      */
     public function getApodo()
     {
@@ -569,7 +571,7 @@ class Alumno
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -592,7 +594,7 @@ class Alumno
     /**
      * Get avatarId
      *
-     * @return integer 
+     * @return integer
      */
     public function getAvatarId()
     {
@@ -615,7 +617,7 @@ class Alumno
     /**
      * Get fechaIngreso
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaIngreso()
     {
@@ -638,7 +640,7 @@ class Alumno
     /**
      * Get fechaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -661,7 +663,7 @@ class Alumno
     /**
      * Get especialidadId
      *
-     * @return integer 
+     * @return integer
      */
     public function getEspecialidadId()
     {
@@ -684,7 +686,7 @@ class Alumno
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -707,7 +709,7 @@ class Alumno
     /**
      * Get establecimientoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstablecimientoId()
     {
@@ -730,7 +732,7 @@ class Alumno
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -753,7 +755,7 @@ class Alumno
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -776,7 +778,7 @@ class Alumno
     /**
      * Get grupoSanguineo
      *
-     * @return string 
+     * @return string
      */
     public function getGrupoSanguineo()
     {
@@ -786,7 +788,7 @@ class Alumno
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -809,7 +811,7 @@ class Alumno
     /**
      * Get padre2
      *
-     * @return \Acme\boletinesBundle\Entity\Padre 
+     * @return \Acme\boletinesBundle\Entity\Padre
      */
     public function getPadre2()
     {
@@ -832,7 +834,7 @@ class Alumno
     /**
      * Get padre1
      *
-     * @return \Acme\boletinesBundle\Entity\Padre 
+     * @return \Acme\boletinesBundle\Entity\Padre
      */
     public function getPadre1()
     {
@@ -855,7 +857,7 @@ class Alumno
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -878,10 +880,39 @@ class Alumno
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    public function getMaterias()
+    {
+        return $this->materias;
+    }
+
+    public function addMateria(\Acme\boletinesBundle\Entity\Materia $materia = null)
+    {
+        if (! $this->materias->materias-contains($materia)) {
+            $this->materias->add($materia);
+        }
+
+        return $this;
+    }
+
+    public function removeMateria(\Acme\boletinesBundle\Entity\Materia $materia = null)
+    {
+        if ($this->materias->contains($materia)) {
+            $this->materias->removeElement($materia);
+        }
+
+        return $this;
+    }
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }
