@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Establecimiento;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\EstablecimientoType;
+use Acme\boletinesBundle\Entity\Especialidad;
 
 class EstablecimientoController extends Controller
 {
@@ -100,5 +101,72 @@ class EstablecimientoController extends Controller
         }
 
         return $this->render('BoletinesBundle:Establecimiento:edit.html.twig', array('establecimiento' => $establecimiento, 'error' => $error));
+    }
+
+    public function addEspecialidadAction($id, Request $request)
+    {
+        $error = "";
+
+        if ($request->getMethod() == 'POST') {
+
+            $em = $this->getDoctrine()->getManager();
+            $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
+
+            $especialidad = $this->crearEspecialidad($establecimiento, $request);
+
+            if ($especialidad != null) {
+                return new RedirectResponse($this->generateUrl('establecimiento_show_especialidades', array('id' => $establecimiento->getId())));
+            } else {
+                $error = "Errores";
+            }
+
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
+        }
+
+        return $this->render('BoletinesBundle:Establecimiento:add_especialidad.html.twig', array('establecimiento' => $establecimiento, 'error' => $error));
+    }
+
+    private function crearEspecialidad($establecimiento, $data)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $especialidad = new Especialidad();
+
+        $especialidad->setNombre($data->request->get('nombre'));
+        $especialidad->setDescripcion($data->request->get('descripcion'));
+        $especialidad->setEstablecimiento($establecimiento);
+
+        $em->persist($especialidad);
+        $em->flush();
+
+        return $especialidad;
+    }
+
+    public function removeEspecialidadAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $especialidad = $em->getRepository('BoletinesBundle:Especialidad')->findOneBy(array('id' => $id));
+
+        if ($especialidad instanceof Especialidad) {
+            $em->remove($especialidad);
+            $em->flush();
+        }
+
+        return new RedirectResponse($this->generateUrl('establecimiento_show_especialidades', array('id' => $especialidad->getEstablecimiento()->getId())));
+    }
+
+    public function showEspecialidadesAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
+        $especialidades = $em->getRepository('BoletinesBundle:Especialidad')->findBy(array('establecimiento' => $establecimiento));
+
+        return $this->render('BoletinesBundle:Establecimiento:show_especialidades.html.twig', array(
+            'establecimiento' => $establecimiento,
+            'especialidades' => $especialidades
+        ));
     }
 }

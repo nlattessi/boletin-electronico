@@ -30,9 +30,11 @@
                 <ul id="select-options-7e283156-d9a9-ca30-3c81-7d0ea0a96105" class="dropdown-content select-dropdown" style="width: 499px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;"><li class="disabled active"><span>Seleccionar ciudad</span></li><li class=""><span>Buenos Aires</span></li><li class=""><span>Mar del Plata</span></li><li class=""><span>Río Grande</span></li></ul>
                 <select class="initialized" name="ciudad">
                     <option value="" disabled="" selected="">Seleccionar ciudad</option>
-                    <option value="1" {% if establecimiento.ciudad.id == 1 %}selected{% endif %}>Buenos Aires</option>
-                    <option value="2" {% if establecimiento.ciudad.id == 2 %}selected{% endif %}>Mar del Plata</option>
-                    <option value="3" {% if establecimiento.ciudad.id == 3 %}selected{% endif %}>Río Grande</option>
+                    {% if establecimiento.ciudad %}
+                      <option value="1" {% if establecimiento.ciudad.id == 1 %}selected{% endif %}>Buenos Aires</option>
+                      <option value="2" {% if establecimiento.ciudad.id == 2 %}selected{% endif %}>Mar del Plata</option>
+                      <option value="3" {% if establecimiento.ciudad.id == 3 %}selected{% endif %}>Río Grande</option>
+                    {% endif %}
                 </select></div>
 
         </div>

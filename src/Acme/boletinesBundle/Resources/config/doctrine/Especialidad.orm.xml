@@ -8,5 +8,10 @@
     <field name="descripcion" type="string" column="descripcion" length="255" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
+    <many-to-one field="establecimiento" target-entity="Establecimiento">
+      <join-columns>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

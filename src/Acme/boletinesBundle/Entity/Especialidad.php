@@ -50,7 +50,6 @@ class Especialidad
     private $id;
 
 
-
     /**
      * Set nombre
      *
@@ -67,7 +66,7 @@ class Especialidad
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -90,7 +89,7 @@ class Especialidad
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -113,7 +112,7 @@ class Especialidad
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -136,7 +135,7 @@ class Especialidad
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -146,10 +145,43 @@ class Especialidad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return Actividad
+     */
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento = null)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
     }
 }
