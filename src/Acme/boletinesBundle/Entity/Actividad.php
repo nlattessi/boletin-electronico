@@ -121,7 +121,7 @@ class Actividad
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -144,7 +144,7 @@ class Actividad
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -167,7 +167,7 @@ class Actividad
     /**
      * Get fechaHoraInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaHoraInicio()
     {
@@ -190,7 +190,7 @@ class Actividad
     /**
      * Get fechaHoraFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaHoraFin()
     {
@@ -213,7 +213,7 @@ class Actividad
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -236,7 +236,7 @@ class Actividad
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -246,7 +246,7 @@ class Actividad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -269,7 +269,7 @@ class Actividad
     /**
      * Get establecimiento
      *
-     * @return \Acme\boletinesBundle\Entity\Establecimiento 
+     * @return \Acme\boletinesBundle\Entity\Establecimiento
      */
     public function getEstablecimiento()
     {
@@ -292,7 +292,7 @@ class Actividad
     /**
      * Get institucion
      *
-     * @return \Acme\boletinesBundle\Entity\Institucion 
+     * @return \Acme\boletinesBundle\Entity\Institucion
      */
     public function getInstitucion()
     {
@@ -315,7 +315,7 @@ class Actividad
     /**
      * Get archivo
      *
-     * @return \Acme\boletinesBundle\Entity\Archivo 
+     * @return \Acme\boletinesBundle\Entity\Archivo
      */
     public function getArchivo()
     {
@@ -338,10 +338,18 @@ class Actividad
     /**
      * Get usuarioCarga
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuarioCarga()
     {
         return $this->usuarioCarga;
+    }
+
+
+    /* CONSTRUCTOR */
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->updateTime = new \DateTime();
     }
 }
