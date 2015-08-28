@@ -108,7 +108,7 @@ class Padre
      *
      * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
      */
-    private $establecimientoId;
+    private $establecimiento;
 
     /**
      * @var \DateTime
@@ -154,6 +154,13 @@ class Padre
     private $usuario;
 
 
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->updateTime = new \DateTime();
+    }
+
 
     /**
      * Set nombre
@@ -171,7 +178,7 @@ class Padre
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -194,7 +201,7 @@ class Padre
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -217,7 +224,7 @@ class Padre
     /**
      * Get dni
      *
-     * @return string 
+     * @return string
      */
     public function getDni()
     {
@@ -240,7 +247,7 @@ class Padre
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -263,7 +270,7 @@ class Padre
     /**
      * Get direccionLaboral
      *
-     * @return string 
+     * @return string
      */
     public function getDireccionLaboral()
     {
@@ -286,7 +293,7 @@ class Padre
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -309,7 +316,7 @@ class Padre
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -332,7 +339,7 @@ class Padre
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -355,7 +362,7 @@ class Padre
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -378,7 +385,7 @@ class Padre
     /**
      * Get celular
      *
-     * @return string 
+     * @return string
      */
     public function getCelular()
     {
@@ -401,7 +408,7 @@ class Padre
     /**
      * Get telefonoLaboral
      *
-     * @return string 
+     * @return string
      */
     public function getTelefonoLaboral()
     {
@@ -424,7 +431,7 @@ class Padre
     /**
      * Get ocupacion
      *
-     * @return string 
+     * @return string
      */
     public function getOcupacion()
     {
@@ -447,7 +454,7 @@ class Padre
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -455,26 +462,26 @@ class Padre
     }
 
     /**
-     * Set establecimientoId
+     * Set establecimiento
      *
-     * @param integer $establecimientoId
+     * @param integer $establecimiento
      * @return Padre
      */
-    public function setEstablecimientoId($establecimientoId)
+    public function setEstablecimiento($establecimiento)
     {
-        $this->establecimientoId = $establecimientoId;
+        $this->establecimiento = $establecimiento;
 
         return $this;
     }
 
     /**
-     * Get establecimientoId
+     * Get establecimiento
      *
-     * @return integer 
+     * @return Establecimiento
      */
-    public function getEstablecimientoId()
+    public function getEstablecimiento()
     {
-        return $this->establecimientoId;
+        return $this->establecimiento;
     }
 
     /**
@@ -493,7 +500,7 @@ class Padre
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -516,7 +523,7 @@ class Padre
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -526,7 +533,7 @@ class Padre
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -549,7 +556,7 @@ class Padre
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -572,7 +579,7 @@ class Padre
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {

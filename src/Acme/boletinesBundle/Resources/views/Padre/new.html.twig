@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Alumno</title>
+  <title>Padre</title>
 
   <!-- JS -->
   <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -20,9 +20,9 @@
     <!-- ANGULAR VIEWS -->
 
     <div class="page-header">
-      <h1>Alumno new</h1>
+      <h1>Padre new</h1>
     </div>
-    <form class="form-horizontal" method="post" action="{{ path('alumno_new')}}">
+    <form class="form-horizontal" method="post" action="{{ path('padre_new')}}">
 
       <div class="form-group">
         <label class="col-sm-2 control-label">Nombre</label>
@@ -49,6 +49,13 @@
         <label class="col-sm-2 control-label">direccion</label>
         <div class="col-sm-6">
           <input type="text" class="form-control" name="direccion">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">direccion laboral</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="direccionLaboral">
         </div>
       </div>
 
@@ -93,68 +100,31 @@
       </div>
 
       <div class="form-group">
-        <label class="col-sm-2 control-label">nacionalidad</label>
+        <label class="col-sm-2 control-label">celular</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="nacionalidad">
+          <input type="text" class="form-control" name="celular">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="tipoMateria" class="col-sm-2 control-label">Sexo</label>
+        <label class="col-sm-2 control-label">telefono laboral</label>
         <div class="col-sm-6">
-          <select class="form-control" id="sexo" name="sexo">
-            <option value="h">Hombre</option>
-            <option value="m">Mujer</option>
-          </select>
+          <input type="text" class="form-control" name="telefonoLaboral">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-sm-2 control-label">grupoSanguineo</label>
+        <label class="col-sm-2 control-label">ocupacion</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="grupoSanguineo">
+          <input type="text" class="form-control" name="ocupacion">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-sm-2 control-label">obraSocial</label>
+        <label class="col-sm-2 control-label">observaciones</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" name="obraSocial">
+          <input type="textArea" class="form-control" name="observaciones">
         </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-sm-2 control-label">obraSocialNumeroAfiliado</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="obraSocialNumeroAfiliado">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-sm-2 control-label">telefonoEmergencia</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="telefonoEmergencia">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-sm-2 control-label">fechaIngreso</label>
-          <div class='col-sm-6 input-group date' id='datetimepicker1'>
-              <input type='text' class="form-control" name="fechaIngreso">
-              <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-          </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-sm-2 control-label">fechaNacimiento</label>
-          <div class='col-sm-6 input-group date' id='datetimepicker2'>
-              <input type='text' class="form-control" name="fechaNacimiento">
-              <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-          </div>
       </div>
 
       <div class="form-group">
@@ -170,44 +140,8 @@
       </div>
 
       <div class="form-group">
-        <label for="tipoMateria" class="col-sm-2 control-label">Especialidad</label>
-        <div class="col-sm-6">
-          <select class="form-control" id="especialidad" name="especialidad">
-            <option></option>
-            {% for especialidad in especialidades %}
-              <option class="item" data-establecimiento="{{ especialidad.establecimiento.id }}" value="{{ especialidad.id }}">{{ especialidad.nombre }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="tipoMateria" class="col-sm-2 control-label">Padre 1</label>
-        <div class="col-sm-6">
-          <select class="form-control" id="padre_1" name="padre_1">
-            <option></option>
-            {% for padre in padres %}
-              <option value="{{ padre.id }}">{{ padre.nombre }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="tipoMateria" class="col-sm-2 control-label">Padre 2</label>
-        <div class="col-sm-6">
-          <select class="form-control" id="padre_2" name="padre_2">
-            <option></option>
-            {% for padre in padres %}
-              <option value="{{ padre.id }}">{{ padre.nombre }}</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
-          <button type="submit" class="btn btn-success btn-lg btn-block">Create Alumno</button>
+          <button type="submit" class="btn btn-success btn-lg btn-block">Create Padre</button>
         </div>
       </div>
     </form>
@@ -217,19 +151,7 @@
 </body>
 
 <script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker();
-        $('#datetimepicker2').datetimepicker();
-    });
 
-    $(document).ready(function () {
-      $('.item').hide();
-      $('#establecimiento').on('change', function () {
-        var elems = $('option[data-establecimiento="' + this.value + '"]');
-        $('.item').not(elems).hide();
-        elems.show();
-      });
-    });
 </script>
 
 </html>

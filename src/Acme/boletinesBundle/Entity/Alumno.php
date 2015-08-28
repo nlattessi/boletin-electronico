@@ -143,7 +143,7 @@ class Alumno
      *
      * @ORM\Column(name="especialidad_id", type="integer", nullable=true)
      */
-    private $especialidadId;
+    private $especialidad;
 
     /**
      * @var string
@@ -157,7 +157,7 @@ class Alumno
      *
      * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
      */
-    private $establecimientoId;
+    private $establecimiento;
 
     /**
      * @var \DateTime
@@ -230,6 +230,14 @@ class Alumno
     private $usuario;
 
     private $materias;
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
+        $this->updateTime = new \DateTime();
+    }
 
 
 
@@ -648,26 +656,26 @@ class Alumno
     }
 
     /**
-     * Set especialidadId
+     * Set especialidad
      *
-     * @param integer $especialidadId
+     * @param Especialidad $especialidad
      * @return Alumno
      */
-    public function setEspecialidadId($especialidadId)
+    public function setEspecialidad($especialidad)
     {
-        $this->especialidadId = $especialidadId;
+        $this->especialidad = $especialidad;
 
         return $this;
     }
 
     /**
-     * Get especialidadId
+     * Get especialidad
      *
-     * @return integer
+     * @return Especialidad
      */
-    public function getEspecialidadId()
+    public function getEspecialidad()
     {
-        return $this->especialidadId;
+        return $this->especialidad;
     }
 
     /**
@@ -694,26 +702,26 @@ class Alumno
     }
 
     /**
-     * Set establecimientoId
+     * Set establecimiento
      *
-     * @param integer $establecimientoId
+     * @param integer $establecimiento
      * @return Alumno
      */
-    public function setEstablecimientoId($establecimientoId)
+    public function setEstablecimiento($establecimiento)
     {
-        $this->establecimientoId = $establecimientoId;
+        $this->establecimiento = $establecimiento;
 
         return $this;
     }
 
     /**
-     * Get establecimientoId
+     * Get establecimiento
      *
-     * @return integer
+     * @return Establecimiento
      */
-    public function getEstablecimientoId()
+    public function getEstablecimiento()
     {
-        return $this->establecimientoId;
+        return $this->establecimiento;
     }
 
     /**
@@ -908,11 +916,5 @@ class Alumno
         }
 
         return $this;
-    }
-
-    /* CONSTRUCT */
-    public function __construct()
-    {
-        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

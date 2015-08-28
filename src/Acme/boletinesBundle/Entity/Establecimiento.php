@@ -146,12 +146,21 @@ class Establecimiento
 
     private $materias;
 
+    private $especialidades;
+
+    private $padres;
+
+    private $alumnos;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
         $this->tiposMateria = new \Doctrine\Common\Collections\ArrayCollection();
         $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->especialidades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->padres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getTiposMateria()
@@ -162,6 +171,21 @@ class Establecimiento
     public function getMaterias()
     {
         return $this->materias;
+    }
+
+    public function getEspecialidades()
+    {
+        return $this->especialidades;
+    }
+
+    public function getPadres()
+    {
+        return $this->padres;
+    }
+
+    public function getAlumnos()
+    {
+        return $this->alumnos;
     }
 
     /**

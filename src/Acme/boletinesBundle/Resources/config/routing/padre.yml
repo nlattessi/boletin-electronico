@@ -1,0 +1,19 @@
+padre:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Padre:index }
+
+padre_new:
+    path:    /new
+    defaults: { _controller: BoletinesBundle:Padre:new }
+
+padre_delete:
+    path:     /delete/{id}
+    defaults: { _controller: BoletinesBundle:Padre:delete }
+
+padre_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Padre:getOne }
+
+padre_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Padre:edit }
