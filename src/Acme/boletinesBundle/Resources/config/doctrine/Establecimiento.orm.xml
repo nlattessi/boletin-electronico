@@ -33,5 +33,10 @@
         <join-column name="institucion_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <one-to-many field="tiposMateria" mapped-by="establecimiento" target-entity="TipoMateria"/>
+    <one-to-many field="materias" mapped-by="establecimiento" target-entity="Materia"/>
+    <one-to-many field="especialidades" mapped-by="establecimiento" target-entity="Especialidad"/>
+    <one-to-many field="padres" mapped-by="establecimiento" target-entity="Padre"/>
+    <one-to-many field="alumnos" mapped-by="establecimiento" target-entity="Alumno"/>
   </entity>
 </doctrine-mapping>

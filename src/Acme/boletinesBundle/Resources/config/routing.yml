@@ -34,6 +34,10 @@ boletines_alumno:
     resource: "@BoletinesBundle/Resources/config/routing/alumno.yml"
     prefix:   /alumno
 
+boletines_padre:
+    resource: "@BoletinesBundle/Resources/config/routing/padre.yml"
+    prefix:   /padre
+
 boletines_calificacion:
     resource: "@BoletinesBundle/Resources/config/routing/calificacion.yml"
     prefix:   /calificacion

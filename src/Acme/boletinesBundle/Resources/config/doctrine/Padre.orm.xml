@@ -21,9 +21,13 @@
     <field name="telefonoLaboral" type="string" column="telefono_laboral" length="12" nullable="false"/>
     <field name="ocupacion" type="string" column="ocupacion" length="45" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="250" nullable="true"/>
-    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
+    <many-to-one field="establecimiento" target-entity="Establecimiento" inversed-by="padres">
+      <join-columns>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="ciudad" target-entity="Ciudad">
       <join-columns>
         <join-column name="ciudad_id" referenced-column-name="id"/>

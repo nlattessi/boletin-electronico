@@ -42,6 +42,26 @@ class TipoMateria
      */
     private $id;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Institucion
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Institucion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
+     * })
+     */
+    //private $institucion;
+
+    /**
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
+
 
 
     /**
@@ -60,7 +80,7 @@ class TipoMateria
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -83,7 +103,7 @@ class TipoMateria
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -106,7 +126,7 @@ class TipoMateria
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -116,10 +136,56 @@ class TipoMateria
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set institucion
+     *
+     * @param \Acme\boletinesBundle\Entity\Institucion $institucion
+     * @return Usuario
+     */
+    // public function setInstitucion(\Acme\boletinesBundle\Entity\Institucion $institucion = null)
+    // {
+    //     $this->institucion = $institucion;
+    //
+    //     return $this;
+    // }
+
+    /**
+     * Get institucion
+     *
+     * @return \Acme\boletinesBundle\Entity\Institucion
+     */
+    // public function getInstitucion()
+    // {
+    //     return $this->institucion;
+    // }
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return Usuario
+     */
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento = null)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
     }
 }

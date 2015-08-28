@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Materia</title>
+
+  <!-- JS -->
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/moment/min/moment.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+
+</head>
+<body>
+
+  <main class="container">
+    <!-- ANGULAR VIEWS -->
+
+    <div class="page-header">
+      <h1>Materia new</h1>
+    </div>
+    <form class="form-horizontal" method="post" action="{{ path('materia_new')}}">
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="nombre">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Descripcion</label>
+        <div class="col-sm-6">
+          <input type="textArea" class="form-control" name="descripcion">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tipoMateria" class="col-sm-2 control-label">Establecimiento</label>
+        <div class="col-sm-6">
+          <select class="form-control" id="establecimiento" name="establecimiento">
+            <option></option>
+            {% for establecimiento in establecimientos %}
+              <option value="{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tipoMateria" class="col-sm-2 control-label">TipoMateria</label>
+        <div class="col-sm-6">
+          <select class="form-control" id="tipoMateria" name="tipoMateria">
+            <option></option>
+            {% for tipoMateria in tiposMateria %}
+              <option class="item" value="{{ tipoMateria.id }}" data-establecimiento="{{ tipoMateria.establecimiento.id }}">{{ tipoMateria.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+          <button type="submit" class="btn btn-success btn-lg btn-block">Create Materia</button>
+        </div>
+      </div>
+    </form>
+
+  </main>
+
+</body>
+
+<script type="text/javascript">
+    // $(function () {
+    //     $('#datetimepicker1').datetimepicker();
+    // });
+
+    $(document).ready(function () {
+      $('#establecimiento').on('change', function () {
+        var elems = $('option[data-establecimiento="' + this.value + '"]');
+        console.log(elems);
+        $('.item').not(elems).hide();
+        elems.show();
+      });
+    });
+
+</script>
+
+</html>

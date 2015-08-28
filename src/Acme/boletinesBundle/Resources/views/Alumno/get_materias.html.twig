@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Materias del alumno</title>
+
+  <!-- JS -->
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/moment/min/moment.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('bundles/boletines/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+
+</head>
+<body>
+
+  <main class="container">
+    <!-- ANGULAR VIEWS -->
+
+    <div class="page-header">
+      <h1>Materias del alumno {{ alumno.nombre }} {{ alumno.apellido }}</h1>
+    </div>
+
+    <table class="table table-bordered table-striped" ng-show="user.users">
+    <thead>
+    <tr>
+    <th>_id</th>
+    <th>Nombre</th>
+    <th class="col-sm-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- LOOP OVER THE USERS -->
+    {% for materia in alumno.materias %}
+    <tr>
+    <td>{{ materia.id }}</td>
+    <td>{{ materia.nombre }}</td>
+    <td class="col-sm-2">
+    <a href="{{ path('alumno_remover_materia', {'idAlumno': alumno.id, 'idMateria': materia.id}) }}" class="btn btn-primary">Remover</a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+  </main>
+
+</body>
+</html>
