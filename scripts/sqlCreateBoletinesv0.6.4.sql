@@ -906,6 +906,15 @@ ALTER TABLE tipo_materia CHANGE institucion_id establecimiento_id INT DEFAULT NU
 ALTER TABLE tipo_materia ADD CONSTRAINT FK_7E09732471B61351 FOREIGN KEY (establecimiento_id) REFERENCES establecimiento (id);
 CREATE INDEX IDX_7E09732471B61351 ON tipo_materia (establecimiento_id);
 
+ALTER TABLE alumno CHANGE establecimiento_id establecimiento_id INT DEFAULT NULL;
+ALTER TABLE alumno ADD CONSTRAINT FK_1435D52D71B61351 FOREIGN KEY (establecimiento_id) REFERENCES establecimiento (id);
+CREATE INDEX IDX_1435D52D71B61351 ON alumno (establecimiento_id);
+
+ALTER TABLE alumno ADD CONSTRAINT FK_1435D52D16A490EC FOREIGN KEY (especialidad_id) REFERENCES especialidad (id);
+CREATE INDEX IDX_1435D52D16A490EC ON alumno (especialidad_id);
+ALTER TABLE padre CHANGE establecimiento_id establecimiento_id INT DEFAULT NULL;
+ALTER TABLE padre ADD CONSTRAINT FK_D3656AEB71B61351 FOREIGN KEY (establecimiento_id) REFERENCES establecimiento (id);
+CREATE INDEX IDX_D3656AEB71B61351 ON padre (establecimiento_id);
 
 
 
