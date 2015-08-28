@@ -22,3 +22,7 @@ institucion_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Institucion:edit }
 
+institucion_ver_alumnos:
+    path:     /{id}/alumnos
+    defaults: { _controller: BoletinesBundle:Institucion:getalumnos }
+
