@@ -14,18 +14,15 @@
         <tbody>
         {% for mensaje in entities %}
             <tr>
-                <td>{{ mensaje.idMensaje }}</td>
-                <td><a href="{{ path('mensaje_show', { 'id': mensaje.idMensaje }) }}">{{ mensaje.__toString() }}</a></td>
+                <td>{{ mensaje.id }}</td>
+                <td>{{ mensaje.titulo }} </td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('mensaje_show', { 'id': mensaje.idMensaje }) }}">Ver</a>
+                        <a href="{{ path('mensaje_show', { 'id': mensaje.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('mensaje_edit', { 'id': mensaje.idMensaje }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('mensaje_delete', { 'id': mensaje.idMensaje }) }}">Borrar</a>
+                        <a href="{{ path('mensaje_delete', { 'id': mensaje.id }) }}">Borrar</a>
                     </li>
                 </ul>
                 </td>
