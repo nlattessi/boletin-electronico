@@ -229,6 +229,34 @@ class Alumno
      */
     private $usuario;
 
+    /**
+     * @ManyToMany(targetEntity="Acme\boletinesBundle\Entity\Materia")
+     * @JoinTable(name="alumno_materia",
+     *      joinColumns={@JoinColumn(name="alumno_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="materia_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $materias;
+
+    public function __construct() {
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaterias()
+    {
+        return $this->materias;
+    }
+
+    /**
+     * @param mixed $materias
+     */
+    public function setMaterias($materias)
+    {
+        $this->materias = $materias;
+    }
 
 
     /**

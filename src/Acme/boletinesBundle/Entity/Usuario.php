@@ -82,7 +82,16 @@ class Usuario implements UserInterface, \Serializable
      *   @ORM\JoinColumn(name="institucion_id", referencedColumnName="id")
      * })
      */
-    protected $institucion;
+    private $institucion;
+
+    private $actividades;
+
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set nombre
@@ -326,9 +335,6 @@ class Usuario implements UserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
-    private $actividades;
-
-
     public function getActividades()
     {
         return $this->actividades;
@@ -336,7 +342,7 @@ class Usuario implements UserInterface, \Serializable
 
     public function addActividad(\Acme\boletinesBundle\Entity\Actividad $actividad = null)
     {
-        if (! $this->actividades->actividades-contains($actividad)) {
+        if (! $this->actividades->contains($actividad)) {
             $this->actividades->add($actividad);
         }
 
@@ -352,9 +358,7 @@ class Usuario implements UserInterface, \Serializable
         return $this;
     }
 
-    /* CONSTRUCT */
-    public function __construct()
-    {
-        $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+    public function esPadre(Usuario $usuario) {
+        return $usuario->getRol()->getNombre() == 'ROLE_PADRE';
     }
 }

@@ -14,6 +14,11 @@ usuario_do_reset_password:
     path:     /resetpassword/
     defaults: { _controller: BoletinesBundle:Usuario:doResetPassword }
 
+usuario_calendario:
+    path:     /calendario
+    defaults: { _controller: BoletinesBundle:Usuario:getCalendario }
+
+
 usuario:
     path:     /
     defaults: { _controller: BoletinesBundle:Usuario:index }
