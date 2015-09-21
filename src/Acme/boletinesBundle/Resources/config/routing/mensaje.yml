@@ -2,6 +2,10 @@ mensaje:
     path:     /
     defaults: { _controller: BoletinesBundle:Mensaje:index }
 
+mensaje_autocompletar:
+    path:     /autocompletar
+    defaults: { _controller: BoletinesBundle:Mensaje:autocompletar }
+
 mensaje_new:
     path:    /new
     defaults: { _controller: BoletinesBundle:Mensaje:new }

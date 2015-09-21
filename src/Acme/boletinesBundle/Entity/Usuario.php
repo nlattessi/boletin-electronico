@@ -42,6 +42,13 @@ class Usuario implements UserInterface, \Serializable
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido", type="string", length=65, nullable=true)
+     */
+    private $apellido;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_time", type="datetime", nullable=true)
@@ -361,4 +368,22 @@ class Usuario implements UserInterface, \Serializable
     public function esPadre(Usuario $usuario) {
         return $usuario->getRol()->getNombre() == 'ROLE_PADRE';
     }
+
+    /**
+     * @return string
+     */
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    /**
+     * @param string $apellido
+     */
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+    }
+
+
 }

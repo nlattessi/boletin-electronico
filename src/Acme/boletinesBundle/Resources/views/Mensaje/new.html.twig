@@ -1,23 +1,25 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Mensaje creation</h1>
+    <h1>Enviar mensaje</h1>
+    <div class="container">
+        <div class="row">
+            <div class="span4 well">
+                <legend>Destinatarios:</legend>
+                <form action="" method="post">
+                    <input id="typeahead" type="text" class="span4" data-provide="typeahead" autocomplete="off" placeholder="Buscar usuario">
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <form action="{{ path('mensaje_new') }}" method="post">
-
+        <ul id="destinatarios" class="unstyled"></ul>
         <input type="text" placeholder="titular" name="tituloMensaje"><br/>
         <input type="text" placeholder="texto" name="textoMensaje"><br/>
 
-        <select name="idUsuarioRecibe">
-            {% for usuario in entitiesRelacionadas %}
-
-                <option value="{{usuario.id}}">{{usuario.__toString()}}</option>
-
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione una usuario creada</option>
-        </select>
-        <br/><br/><br/>
+        <br/><br/>
 
         <button type="submit" >Crear Mensaje</button>
 
