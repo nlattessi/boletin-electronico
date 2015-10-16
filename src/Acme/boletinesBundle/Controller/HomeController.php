@@ -15,6 +15,10 @@ use Acme\boletinesBundle\Form\UsuarioType;
 class HomeController extends Controller
 {
 
+    public function defaultAction(){
+        return $this->render('BoletinesBundle:Default:home.html.twig');
+    }
+
     public function fatherAction()
     {
         return $this->render('BoletinesBundle:Home:father.html.twig', array());

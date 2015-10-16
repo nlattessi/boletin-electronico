@@ -1,0 +1,26 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+
+{% block page %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if app.user.rol == 'ROLE_ADMIN' %}
+            {{ include('BoletinesBundle:Home:role_admin.html.twig') }}
+        {% endif %}
+        {% if app.user.rol == 'ROLE_DIRECTIVO' %}
+            {{ include('BoletinesBundle:Home:role_directivo.html.twig') }}
+        {% endif %}
+        {% if app.user.rol == 'ROLE_DOCENTE' %}
+            {{ include('BoletinesBundle:Home:role_docente.html.twig') }}
+        {% endif %}
+        {% if app.user.rol == 'ROLE_PADRE' %}
+            {{ include('BoletinesBundle:Home:role_padre.html.twig') }}
+        {% endif %}
+        {% if app.user.rol == 'ROLE_ALUMNO' %}
+            {{ include('BoletinesBundle:Home:role_alumno.html.twig') }}
+        {% endif %}
+        {% if app.user.rol == 'ROLE_BEDEL' %}
+            {{ include('BoletinesBundle:Home:role_bedel.html.twig') }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
