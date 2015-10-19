@@ -221,4 +221,8 @@ class AlumnoAsistencia
     {
         return $this->alumno;
     }
+
+    public function __toString(){
+        return $this->getId();
+    }
 }

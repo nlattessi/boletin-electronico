@@ -19,7 +19,23 @@ class AsistenciaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $idAlumno = $session->get('alumnoActivo');
+
+            if($idAlumno){
+                $asistenciaService =  $this->get('boletines.servicios.asistencia');
+                $entities = $asistenciaService->obtenerAsistenciaAlumno($idAlumno);
+
+            }else{
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+            }
+        }else{
+            $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
+        }
+
 
         return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities));
     }
@@ -130,6 +146,23 @@ class AsistenciaController extends Controller
         $em->flush();
 
         return $asistencia;
+    }
+
+    public function obtenerInasistencias($alumnoId)
+    {
+
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $inasistencias = $muchosAMuchos->obtenerInasistenciasPorAlumno($alumnoId);
+
+        return $inasistencias;
+    }
+    public function obtenerTardes($alumnoId)
+    {
+
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $inasistencias = $muchosAMuchos->obtenerTardesPorAlumno($alumnoId);
+
+        return $inasistencias;
     }
 }
 

@@ -22,6 +22,8 @@ use Doctrine\ORM\EntityManager;
 class MuchosAmuchosService {
 
     protected $em;
+    const VALOR_INASISTENCIA = 'A';
+    const VALOR_TARDE = 'T';
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
@@ -120,7 +122,7 @@ class MuchosAmuchosService {
 
         return $alumnoAsistencia;
     }
-
+//REPLICADA EN AasistenciaSservice
     public function obtenerAsistenciasPorAlumno($alumno){
         $asistenciaes = array();
 
@@ -130,6 +132,9 @@ class MuchosAmuchosService {
         }
         return $asistenciaes;
     }
+
+
+
     public function obtenerAlumnosPorAsistencia($asistencia){
         $alumnos = array();
 

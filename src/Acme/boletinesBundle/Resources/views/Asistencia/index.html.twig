@@ -1,7 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Asistencia list</h1>
+    <h1>Asistencia list </h1>
+{% if mensaje is defined %}
+    {{ mensaje }}
+{% endif %}
 
     <table class="records_list">
         <thead>
@@ -14,18 +17,18 @@
         <tbody>
         {% for asistencia in entities %}
             <tr>
-                <td>{{ asistencia.idAsistencia }}</td>
-                <td><a href="{{ path('asistencia_show', { 'id': asistencia.idAsistencia }) }}">{{ asistencia.__toString() }}</a></td>
+                <td>{{ asistencia.id }}</td>
+                <td><a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">{{ asistencia.id }}</a></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('asistencia_show', { 'id': asistencia.idAsistencia }) }}">Ver</a>
+                        <a href="{{ path('asistencia_show', { 'id': asistencia.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('asistencia_edit', { 'id': asistencia.idAsistencia }) }}">Editar</a>
+                        <a href="{{ path('asistencia_edit', { 'id': asistencia.id }) }}">Editar</a>
                     </li>
                     <li>
-                        <a href="{{ path('asistencia_delete', { 'id': asistencia.idAsistencia }) }}">Borrar</a>
+                        <a href="{{ path('asistencia_delete', { 'id': asistencia.id }) }}">Borrar</a>
                     </li>
                 </ul>
                 </td>
