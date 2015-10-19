@@ -22,7 +22,7 @@ class AsistenciaService {
     /**
      * @param $alumno
      * @return array
-     * Devuelve una lista de Asistencias
+     * Devuelve una lista de AlumnoAsistencias
      */
     public function obtenerAsistenciaAlumno($alumno){
 
@@ -31,11 +31,11 @@ class AsistenciaService {
             ->where('d.alumno = ?1')
             ->setParameter(1, $alumno);
         $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
-
+/*
         foreach($asistenciasAlumno as $asistenciaAlumno){
            array_push($asistenciaes,$asistenciaAlumno->getAsistencia() ) ;
-        }
-        return $asistenciaes;
+        }*/
+        return $asistenciasAlumno;
     }
 
 

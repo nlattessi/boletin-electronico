@@ -153,11 +153,14 @@ class Alumno
     private $observaciones;
 
     /**
-     * @var integer
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
      *
-     * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="$establecimiento_id", referencedColumnName="id")
+     * })
      */
-    private $establecimientoId;
+    private $establecimiento;
 
     /**
      * @var \DateTime
@@ -720,27 +723,22 @@ class Alumno
     }
 
     /**
-     * Set establecimientoId
-     *
-     * @param integer $establecimientoId
-     * @return Alumno
+     * @return Establecimiento
      */
-    public function setEstablecimientoId($establecimientoId)
+    public function getEstablecimiento()
     {
-        $this->establecimientoId = $establecimientoId;
-
-        return $this;
+        return $this->establecimiento;
     }
 
     /**
-     * Get establecimientoId
-     *
-     * @return integer 
+     * @param Establecimiento $establecimiento
      */
-    public function getEstablecimientoId()
+    public function setEstablecimiento($establecimiento)
     {
-        return $this->establecimientoId;
+        $this->establecimiento = $establecimiento;
     }
+
+
 
     /**
      * Set creationTime
@@ -911,5 +909,10 @@ class Alumno
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    public function __toString()
+    {
+        return $this->getApellido() .', '. $this->getNombre();
     }
 }

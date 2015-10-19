@@ -1,5 +1,8 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-
+{% block css_include %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
+{% endblock %}
+{% block breadcrumb %}Inicio{% endblock %}
 
 {% block page %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

@@ -23,11 +23,11 @@ class AsistenciaController extends Controller
             $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
             $request = $this->getRequest();
             $session = $request->getSession();
-            $idAlumno = $session->get('alumnoActivo');
+            $alumno = $session->get('alumnoActivo');
 
-            if($idAlumno){
+            if($alumno){
                 $asistenciaService =  $this->get('boletines.servicios.asistencia');
-                $entities = $asistenciaService->obtenerAsistenciaAlumno($idAlumno);
+                $entities = $asistenciaService->obtenerAsistenciaAlumno($alumno->getId());
 
             }else{
                 return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
@@ -36,8 +36,7 @@ class AsistenciaController extends Controller
             $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
         }
 
-
-        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,));
     }
 
     public function getOneAction($id)

@@ -548,4 +548,9 @@ class Establecimiento
     {
         return $this->institucion;
     }
+
+    public function  __toString()
+    {
+        return 'dfsdfsdfsdf';
+    }
 }

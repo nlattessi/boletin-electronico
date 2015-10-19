@@ -578,4 +578,9 @@ class Padre
     {
         return $this->usuario;
     }
+
+    public function __toString()
+    {
+        return $this->getApellido() .', '. $this->getNombre();
+    }
 }
