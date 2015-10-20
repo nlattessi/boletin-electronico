@@ -1,15 +1,21 @@
 <div class="navbar-fixed">
 
     <ul id="dropdown1" class="dropdown-content drop-user-f">
+        {% if (app.user.rol == 'ROLE_PADRE' ) %}
         <div clasS="notifi"><h6>Seleccionar hijo</h6></div>
-        <li><a href="#!" class="t-s duactive"><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-nav-drop circle1"> Antonella peacecraft</a></li>
+            {% for hijo in app.session.get('hijos')  %}
+        <li>
+            <a href="{{ path('cambiar_hijo', { 'id': hijo.id }) }}" class="t-s duactive">
+                <img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-nav-drop circle1">
+                {{ hijo }}
+            </a>
+        </li>
         <li class="divider"></li>
-        <li><a href="#!" class="t-s "><img src="{{ asset('bundles/boletines/images/student-avatar-m.png')}}" alt="as" class="avatar-nav-drop circle1"> Juan Peacecraft</a></li>
-        <li class="divider"></li>
-        <li><a href="#!" class="t-s "><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-nav-drop circle1"></i> Relena Peacecraft</a></li>
-        <li class="divider"></li>
+        {% endfor %}
+
+        {% endif %}
         <li><a href="#!" class="t-s du"><i class="icon-linear-user-plus left"></i> Editar perfil</a></li>
-        <li><a href="#!" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
+        <li><a href="logout" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
     </ul>
     <ul id="dropdown2" class="dropdown-content drop-notification">
         <span class="circle dot"></span>

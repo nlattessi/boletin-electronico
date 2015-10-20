@@ -84,3 +84,7 @@ logout:
 login_index:
     pattern:   /
     defaults:  { _controller: BoletinesBundle:Login:login }
+
+cambiar_hijo:
+    pattern:  /home/{id}
+    defaults: { _controller: BoletinesBundle:Login:cambiarHijo }

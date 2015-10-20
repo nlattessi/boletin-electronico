@@ -37,6 +37,8 @@ class LoginController extends Controller
         if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE'  ) {
             $session = $this->getRequest()->getSession();
             $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
+            $hijos = $sessionService->obtenerHijos($this->getUser()->getIdEntidadAsociada());
+            $session->set('hijos',  $hijos);
         }
         if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')
         {
@@ -54,5 +56,13 @@ class LoginController extends Controller
         } else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
             return $this->redirect($this->generateUrl('home_directivo_alumnos'));
         }*/
+    }
+
+    public function cambiarHijoAction($id){
+        $sessionService =  $this->get('boletines.servicios.sesion');
+        $session = $this->getRequest()->getSession();
+        $sessionService->cambiarAlumnoSesion($session, $id);
+
+        return $this->redirect($this->generateUrl('home'));
     }
 }
