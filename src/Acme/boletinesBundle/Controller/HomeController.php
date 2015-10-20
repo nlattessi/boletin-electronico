@@ -24,16 +24,25 @@ class HomeController extends Controller
             $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO' ) {
             $asistenciaService =  $this->get('boletines.servicios.asistencia');
             $calificacionesService =  $this->get('boletines.servicios.calificacion');
+            $convivenciaService =  $this->get('boletines.servicios.convivencia');
+
             $alumno = $session->get('alumnoActivo');
             $establecimiento = $session->get('establecimientoActivo');
+            //Asistencia
             $tardes = $asistenciaService->obtenerTardesPorAlumno($alumno->getId());
             $faltas = $asistenciaService->obtenerFaltasTotales($alumno->getId(),$establecimiento->getTardesFaltas());
-
+            //Calificaciones
             $ultimasCalificaciones = $calificacionesService->obtenerUltimasCalificaciones($alumno->getId());
+
+            //Convivencia
+            $convivenciaPositiva = $convivenciaService->obtenerConvivenciaPositivaAlumno($alumno->getId());
+            $convivenciaNegativa = $convivenciaService->obtenerConvivenciaNegativaAlumno($alumno->getId());
 
             return $this->render('BoletinesBundle:Default:home.html.twig', array('tardes' => count($tardes),
                 'faltas' => $faltas,
-                'calificaciones' => $ultimasCalificaciones));
+                'calificaciones' => $ultimasCalificaciones,
+                'conPos' => count($convivenciaPositiva),
+                'conNeg' => count($convivenciaNegativa),));
             $session = $this->getRequest()->getSession();
             $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
         }

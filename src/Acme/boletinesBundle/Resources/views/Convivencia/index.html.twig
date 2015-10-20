@@ -1,44 +1,58 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Convivencia{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m7 l7">
+            <h3 class="header">Planilla de convivencia</h3>
+        </div>
+        {% if app.user.rol == 'ROLE_PADRE' %}
+            <div class="col s12 m5 l5">
+                <h5 class="right-ch"><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-main circle1"> {{ app.session.get('alumnoActivo') }}</h5>
+            </div>
+        {% endif %}
 
-{% block body -%}
-    <h1>Convivencia list</h1>
+    </div>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Convivencia</th>
-                <th>Nombre convivencia</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for convivencia in entities %}
-            <tr>
-                <td>{{ convivencia.idConvivencia }}</td>
-                <td><a href="{{ path('convivencia_show', { 'id': convivencia.idConvivencia }) }}">{{ convivencia.__toString() }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('convivencia_show', { 'id': convivencia.idConvivencia }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('convivencia_edit', { 'id': convivencia.idConvivencia }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('convivencia_delete', { 'id': convivencia.idConvivencia }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('convivencia_new') }}">
-                Crear Nueva Convivencia
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <div class="row">
+
+
+            <div class="col s12 m12 l12 mar-bot-top"> <!-- start table 2-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th data-field="">Convivencia</th>
+                                <th data-field="">Comentarios</th>
+                                <th data-field="">Fecha</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for convivencia in entities %}
+                                <tr>
+                                    <td>
+                                        {% if(convivencia.valor) %}
+                                            <i class="icon-linear-wink news-i-g conv-i"></i>
+                                        {% else %}
+                                            <i class="icon-linear-mad news-i-b conv-i"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ convivencia.comentario }}
+                                    </td>
+                                    <td>
+                                        {{ convivencia.fechaSuceso|date('d/m/Y') }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div><!-- end table 2-->
+        </div><!-- end student 1-->
+    </div>
+{% endblock %}

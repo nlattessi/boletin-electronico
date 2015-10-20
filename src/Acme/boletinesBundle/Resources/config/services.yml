@@ -30,6 +30,10 @@ services:
           class: Acme\boletinesBundle\Servicios\CalificacionService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.convivencia:
+          class: Acme\boletinesBundle\Servicios\ConvivenciaService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
       twig.extension.intl:
           class: Twig_Extensions_Extension_Intl
           tags:

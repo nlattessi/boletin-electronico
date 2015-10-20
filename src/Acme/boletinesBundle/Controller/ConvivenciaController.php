@@ -14,8 +14,22 @@ class ConvivenciaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
+            if($alumno){
+                $asistenciaService =  $this->get('boletines.servicios.convivencia');
+                $entities = $asistenciaService->obtenerConvivenciaAlumno($alumno->getId());
+                return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,));
+            }else{
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+            }
+        }else{
+            $entities = $em->getRepository('BoletinesBundle:Convivencia')->findAll();
+        }
 
-        $entities = $em->getRepository('BoletinesBundle:Convivencia')->findAll();
 
         return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities));
     }
