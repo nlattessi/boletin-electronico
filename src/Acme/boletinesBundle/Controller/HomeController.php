@@ -16,6 +16,23 @@ class HomeController extends Controller
 {
 
     public function defaultAction(){
+        $request = $this->getRequest();
+        $session = $request->getSession();
+
+
+        if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO' ) {
+            $asistenciaService =  $this->get('boletines.servicios.asistencia');
+            $alumno = $session->get('alumnoActivo');
+            $establecimiento = $session->get('establecimientoActivo');
+            $tardes = $asistenciaService->obtenerTardesPorAlumno($alumno->getId());
+            $faltas = $asistenciaService->obtenerFaltasTotales($alumno->getId(),$establecimiento->getTardesFaltas());
+            return $this->render('BoletinesBundle:Default:home.html.twig', array('tardes' => count($tardes),
+                'faltas' => $faltas));
+            $session = $this->getRequest()->getSession();
+            $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
+        }
+
         return $this->render('BoletinesBundle:Default:home.html.twig');
     }
 

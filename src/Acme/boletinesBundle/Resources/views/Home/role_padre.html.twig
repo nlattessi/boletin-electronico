@@ -76,12 +76,12 @@
                                 <div class="col s12 m12 l12"> <div class="row">
                                         <div class="col s6 m6 l6">
 
-                                            <h1 class="asist-m">3<span class="asist-widget-span">/25</span></h1>
+                                            <h1 class="asist-m">{{ faltas }}<span class="asist-widget-span">/{{ app.session.get('establecimientoActivo').maximoFaltas }}</span></h1>
                                             <h6 class="">Inasistencias</h6>
                                         </div>
                                         <div class="col s6 m6 l6">
 
-                                            <h1 class="asist-m">4<span class="asist-widget-span-lates"> </span></h1>
+                                            <h1 class="asist-m">{{ tardes }}<span class="asist-widget-span-lates"> </span></h1>
                                             <h6 class="">Llegadas tarde</h6>
                                         </div></div>
                                 </div>

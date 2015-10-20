@@ -27,12 +27,12 @@
                             <div class="col s12 m12 l12"> <div class="row">
                                     <div class="col s12 m6 l6 border-r">
 
-                                        <h1 class="asist-m">3 <span class="asist-widget-span-in">Inasistencias </span></h1>
+                                        <h1 class="asist-m">{{ faltas }}<span class="asist-widget-span-in"> Faltas </span></h1>
                                         <h6>De un total de  {{ app.session.get('establecimientoActivo').maximoFaltas }}</h6>
                                     </div>
                                     <div class="col s12 m6 l6">
 
-                                        <h1 class="asist-m">4<span class="asist-widget-span-in"> Llegadas tarde</span></h1>
+                                        <h1 class="asist-m">{{ tardes }}<span class="asist-widget-span-in"> Llegadas tarde</span></h1>
                                         <h6 class=""> {{ app.session.get('establecimientoActivo').tardesFaltas }} tardes equivalen a 1 falta</h6>
                                     </div></div>
                             </div>

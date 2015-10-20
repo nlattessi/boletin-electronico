@@ -22,8 +22,6 @@ use Doctrine\ORM\EntityManager;
 class MuchosAmuchosService {
 
     protected $em;
-    const VALOR_INASISTENCIA = 'A';
-    const VALOR_TARDE = 'T';
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;

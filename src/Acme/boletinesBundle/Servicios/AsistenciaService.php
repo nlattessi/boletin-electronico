@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityManager;
 class AsistenciaService {
 
     protected $em;
+    const VALOR_INASISTENCIA = 'A';
+    const VALOR_TARDE = 'T';
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
@@ -71,5 +73,13 @@ class AsistenciaService {
 
         $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
         return $asistenciasAlumno;
+    }
+
+    public function obtenerFaltasTotales($alumno, $tardesFaltas){
+        $ausentes = $this->obtenerInasistenciasPorAlumno($alumno);
+        $tardes = $this->obtenerTardesPorAlumno($alumno);
+        $faltas = count($ausentes) + count($tardes) / $tardesFaltas;
+        return $faltas;
+
     }
 }
