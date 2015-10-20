@@ -62,4 +62,15 @@ class SesionService {
         $session->set('establecimientoActivo',  $establecimiento);
     }
 
+    public function obtenerHijos($idPadre)
+    {
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Alumno')->createQueryBuilder('a')
+            ->where('a.padre1 = ?1')
+            ->orWhere('a.padre2 = ?1')
+            ->setParameter(1, $idPadre);
+        $hijos = $queryBuilder->getQuery()->getResult();
+
+        return $hijos;
+    }
+
 }
