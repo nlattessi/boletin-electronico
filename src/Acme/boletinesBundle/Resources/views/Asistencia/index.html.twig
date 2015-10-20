@@ -1,44 +1,95 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Asistencia{% endblock %}
+{% block page %}
+<div class="row">
+    <div class="col s12 m7 l7">
+        <h3 class="header">Planilla de asistencias</h3>
+        <h6 class="">Las llegadas tardes que suman una falta completa ya estan contempladas en la totalidad de las faltas.</h6>
+    </div>
+    {% if app.user.rol == 'ROLE_PADRE' %}
+        <div class="col s12 m5 l5">
+            <h5 class="right-ch"><img src="images/student-avatar-f.png" alt="as" class="avatar-main circle1"> {{ app.session.get('alumnoActivo') }}</h5>
+        </div>
+    {% endif %}
 
-{% block body -%}
-    <h1>Asistencia list</h1>
+</div>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Asistencia</th>
-                <th>Nombre asistencia</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for asistencia in entities %}
-            <tr>
-                <td>{{ asistencia.idAsistencia }}</td>
-                <td><a href="{{ path('asistencia_show', { 'id': asistencia.idAsistencia }) }}">{{ asistencia.__toString() }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('asistencia_show', { 'id': asistencia.idAsistencia }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('asistencia_edit', { 'id': asistencia.idAsistencia }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('asistencia_delete', { 'id': asistencia.idAsistencia }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('asistencia_new') }}">
-                Crear Nueva Asistencia
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+<div class="row mar-top-soft">
+
+    <div class="col s12 ">
+        <div class="col s12 m12 l12"> <!-- startWidget 2-->
+            <div class="row">
+                <div class="col s12">
+                    <div class="">
+
+                        <div class="panel-body2 center-align">
+                            <div class="col s12 m12 l12"> <div class="row">
+                                    <div class="col s12 m6 l6 border-r">
+
+                                        <h1 class="asist-m">{{ faltas }}<span class="asist-widget-span-in"> Faltas </span></h1>
+                                        <h6>De un total de  {{ app.session.get('establecimientoActivo').maximoFaltas }}</h6>
+                                    </div>
+                                    <div class="col s12 m6 l6">
+
+                                        <h1 class="asist-m">{{ tardes }}<span class="asist-widget-span-in"> Llegadas tarde</span></h1>
+                                        <h6 class=""> {{ app.session.get('establecimientoActivo').tardesFaltas }} tardes equivalen a 1 falta</h6>
+                                    </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- endWidget 2-->
+
+        <div class="col s12 m12 l12 mar-bot-top"> <!-- start table 2-->
+            <div class="row">
+                <div class="col s12">
+                    <table class="striped">
+                        <thead>
+                        <tr>
+                            <th data-field="">Fecha</th>
+                            <th data-field="">Asistencia</th>
+                            <th data-field="">En horario</th>
+                        {% if app.user.rol == 'ROLE_PADRE' %}
+                            <th data-field="">Acciones</th>
+                        {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for asistencia in entities %}
+                            <tr>
+                                <td>{{ asistencia.asistencia.fecha|date('d/m/Y') }}</td>
+                                <td>
+                                    {% if(asistencia.valor == 'A') %}
+                                        <i class="icon-linear-cross2 cross-r"></i>
+                                    {% else %}
+                                        <i class="icon-linear-check check-g"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if(asistencia.valor == 'P') %}
+                                        <i class="icon-linear-alarm-check check-g"></i>
+                                    {% else %}
+                                        <i class="icon-linear-alarm-error cross-r"></i>
+                                    {% endif %}
+                                </td>
+                            {% if app.user.rol == 'ROLE_PADRE' %}
+                                <td>
+                                    {% if(asistencia.valor != 'P') %}
+                                        <a data-position="top" data-delay="25" data-tooltip="Cargar justificación" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-paperclip"></i></a>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div><!-- end table 2-->
+    </div><!-- end student 1-->
+</div>
+{% endblock %}

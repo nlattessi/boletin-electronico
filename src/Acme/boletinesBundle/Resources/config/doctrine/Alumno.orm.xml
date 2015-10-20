@@ -6,6 +6,7 @@
       <index name="FK_direccion_ciudad_id" columns="ciudad_id"/>
       <index name="FK_padre_1_id" columns="padre1_id"/>
       <index name="FK_padre_2_id" columns="padre2_id"/>
+      <index name="FK_establecimiento" columns="establecimiento_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -30,7 +31,6 @@
     <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="false"/>
     <field name="especialidadId" type="integer" column="especialidad_id" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
-    <field name="establecimientoId" type="integer" column="establecimiento_id" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
     <field name="grupoSanguineo" type="string" column="grupo_sanguineo" length="12" nullable="true"/>
@@ -42,6 +42,11 @@
     <many-to-one field="padre1" target-entity="Padre">
       <join-columns>
         <join-column name="padre1_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="establecimiento" target-entity="Establecimiento">
+      <join-columns>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="ciudad" target-entity="Ciudad">

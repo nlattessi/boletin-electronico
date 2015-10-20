@@ -155,4 +155,8 @@ class Materia
     {
         return $this->tipoMateria;
     }
+
+    public function __toString(){
+        return $this->getNombre();
+    }
 }

@@ -120,7 +120,7 @@ class MuchosAmuchosService {
 
         return $alumnoAsistencia;
     }
-
+//REPLICADA EN AasistenciaSservice
     public function obtenerAsistenciasPorAlumno($alumno){
         $asistenciaes = array();
 
@@ -130,6 +130,9 @@ class MuchosAmuchosService {
         }
         return $asistenciaes;
     }
+
+
+
     public function obtenerAlumnosPorAsistencia($asistencia){
         $alumnos = array();
 

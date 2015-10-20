@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Communitas - Comunidad educativa virtual ">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <title>Communitas</title>
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/boletines/images/favicon/apple-touch-icon-152x152.png') }}">
+
+    <link rel="icon" href="{{ asset('bundles/boletines/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+
+    <!-- CSS-->
+    <link href="{{ asset('bundles/boletines/css/prism.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/boletines/css/ghpages-materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="{{ asset('bundles/boletines/css/animate.css') }}" rel="stylesheet">
+
+    <!--  Full Calendar-->
+    <!-- <link rel="stylesheet" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}">
+<script src="{{ asset('bundles/boletines/js/jquery.min.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/moment.min.js') }}"></script>
+<script src="{{ asset('bundles/boletines/js/fullcalendar.js') }}"></script> -->
+
+    <script type="text/javascript" src="{{ asset('bundles/boletines/js/moment.min.js') }}"></script>
+    <!--[if lt IE 9]>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="{{ asset('bundles/boletines/js/jquery.min.js') }}"></script>
+    <!--<![endif]-->
+    <script type="text/javascript" src="{{ asset('bundles/boletines/js/fullcalendar.js') }}"></script>
+    <script src='{{ asset('bundles/boletines/js/es.js')}}'></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic' rel='stylesheet' type='text/css'>
+
+    <!-- Core  -->
+    <script src="{{ asset('bundles/boletines/js/jquery.timeago.min.js') }}"></script>
+    <script src="{{ asset('bundles/boletines/js/prism.js') }}"></script>
+    <script src="{{ asset('bundles/boletines/bin/materialize.js') }}"></script>
+    <script src="{{ asset('bundles/boletines/js/init.js') }}"></script>
+    {% block css_include %}{% endblock %}
+
+
+</head>
+
+<body >
+    <header>
+        {%  include 'BoletinesBundle:NavBars:menu_usuario.html.twig' with {breadcrumb: block('breadcrumb')}%}
+        {{ include('BoletinesBundle:NavBars:navbar.html.twig') }}
+    </header>
+    <main> <!-- startMain content-->
+        <div class="container fadeIn animated">
+              {% block page %}{% endblock %}
+           </div>
+    </main>
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2015 Communitas - Comunidad Educativa Virtual
+                <a class="grey-text text-lighten-4 right" href="under-construction.html">Ayuda</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+   {% block javascript %}
+   {% endblock %}
+
+</body>
+</html>

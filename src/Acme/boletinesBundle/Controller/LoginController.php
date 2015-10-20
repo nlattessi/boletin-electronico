@@ -33,7 +33,19 @@ class LoginController extends Controller
 
     public function redirectAction()
     {
-        if($this->getUser()->getRol()->getNombre() == 'ROLE_ADMIN') {
+        $sessionService =  $this->get('boletines.servicios.sesion');
+        if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE'  ) {
+            $session = $this->getRequest()->getSession();
+            $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
+        }
+        if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')
+        {
+            $session = $this->getRequest()->getSession();
+            $sessionService->cambiarAlumnoSesion($session, $this->getUser()->getIdEntidadAsociada());
+        }
+
+        return $this->redirect($this->generateUrl('home'));
+        /*if($this->getUser()->getRol()->getNombre() == 'ROLE_ADMIN') {
             return $this->redirect($this->generateUrl('home_admin'));
         } else if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE') {
             return $this->redirect($this->generateUrl('home_father'));
@@ -41,6 +53,6 @@ class LoginController extends Controller
             return $this->redirect($this->generateUrl('home_alumno'));
         } else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
             return $this->redirect($this->generateUrl('home_directivo_alumnos'));
-        }
+        }*/
     }
 }

@@ -18,10 +18,32 @@ class AsistenciaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $tardes = [];
+        $ausentes = [];
 
-        $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
+            $establecimiento = $session->get('establecimientoActivo');
 
-        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities));
+            if($alumno){
+                $asistenciaService =  $this->get('boletines.servicios.asistencia');
+                $entities = $asistenciaService->obtenerAsistenciaAlumno($alumno->getId());
+                $tardes = $asistenciaService->obtenerTardesPorAlumno($alumno->getId());
+                $faltas = $asistenciaService->obtenerFaltasTotales($alumno->getId(),$establecimiento->getTardesFaltas());
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,
+                    'tardes' => count($tardes),
+                    'faltas' => $faltas));
+            }else{
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+            }
+        }else{
+            $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
+        }
+
+        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,));
     }
 
     public function getOneAction($id)
@@ -130,6 +152,23 @@ class AsistenciaController extends Controller
         $em->flush();
 
         return $asistencia;
+    }
+
+    public function obtenerInasistencias($alumnoId)
+    {
+
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $inasistencias = $muchosAMuchos->obtenerInasistenciasPorAlumno($alumnoId);
+
+        return $inasistencias;
+    }
+    public function obtenerTardes($alumnoId)
+    {
+
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $inasistencias = $muchosAMuchos->obtenerTardesPorAlumno($alumnoId);
+
+        return $inasistencias;
     }
 }
 
