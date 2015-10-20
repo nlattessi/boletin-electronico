@@ -8,7 +8,7 @@
     </div>
     {% if app.user.rol == 'ROLE_PADRE' %}
         <div class="col s12 m5 l5">
-            <h5 class="right-ch"><img src="images/student-avatar-f.png" alt="as" class="avatar-main circle1"> {{ app.session.get('alumnoActivo') }}</h5>
+            <h5 class="right-ch"><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-main circle1"> {{ app.session.get('alumnoActivo') }}</h5>
         </div>
     {% endif %}
 

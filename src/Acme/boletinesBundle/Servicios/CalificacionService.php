@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManager;
 class CalificacionService {
 
     protected $em;
+    const N_ULTIMA = 4;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
@@ -22,10 +23,22 @@ class CalificacionService {
      * Devuelve lista de calificaciones
      */
     public function obtenerCalificaciones($alumnoId){
-        $queryBuilder = $this->$em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
+            ->andWhere('c.validada = true')
             ->setParameter(1, $alumnoId)
-            ->setParameter(2, self::VALOR_INASISTENCIA);
+            ->addOrderBy('c.fecha','DESC');
+
+        $calificaciones = $queryBuilder->getQuery()->getResult();
+        return $calificaciones;
+    }
+    public function obtenerUltimasCalificaciones($alumnoId){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
+            ->where('c.alumno = ?1')
+            ->andWhere('c.validada = true')
+            ->setParameter(1, $alumnoId)
+        ->setMaxResults(self::N_ULTIMA)
+        ->addOrderBy('c.fecha','DESC');
 
         $calificaciones = $queryBuilder->getQuery()->getResult();
         return $calificaciones;
