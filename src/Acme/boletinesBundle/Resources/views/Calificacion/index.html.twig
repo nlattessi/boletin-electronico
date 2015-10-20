@@ -1,44 +1,63 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Calificaciones{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m7 l7">
+            <h3 class="header">Planilla de calificaciones</h3>
+        </div>
+        {% if app.user.rol == 'ROLE_PADRE' %}
+            <div class="col s12 m5 l5">
+                <h5 class="right-ch"><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-main circle1"> {{ app.session.get('alumnoActivo') }}</h5>
+            </div>
+        {% endif %}
 
-{% block body -%}
-    <h1>Calificacion list</h1>
+    </div>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Calificacion</th>
-                <th>Valor de la calificacion</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for calificacion in entities %}
-            <tr>
-                <td>{{ calificacion.idCalificacion }}</td>
-                <td><a href="{{ path('calificacion_show', { 'id': calificacion.idCalificacion }) }}">{{ calificacion.__toString() }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('calificacion_show', { 'id': calificacion.idCalificacion }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('calificacion_edit', { 'id': calificacion.idCalificacion }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('calificacion_delete', { 'id': calificacion.idCalificacion }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('calificacion_new') }}">
-                Crear Nueva Calificacion
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <div class="row ">
+
+        <div class="col s12 ">
+
+
+            <div class="col s12 m12 l12 mar-bot-top"> <!-- start table 2-->
+                <div class="row">
+                    <div class="col s12  m12 l12">
+                        <table class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th data-field="">Fecha</th>
+                                <th data-field="">Materia</th>
+                                <th data-field="">Calificación</th>
+                                <th data-field="">Observaciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for calificacion in entities %}
+                                <tr>
+                                    <td>{{ calificacion.fecha|date('d/m/Y') }}</td>
+                                    <td>
+                                        {{ calificacion.evaluacion.materia }}
+                                    </td>
+                                    <td>
+                                        {{ calificacion.valor }}
+                                    </td>
+                                    <td>
+                                        {% if (calificacion.comentario) %}
+                                            {{ calificacion.comentario }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div><!-- end table 2-->
+        </div><!-- end student 1-->
+    </div>
+{% endblock %}

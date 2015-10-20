@@ -17,8 +17,22 @@ class CalificacionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
 
-        $entities = $em->getRepository('BoletinesBundle:Calificacion')->findAll();
+            if($alumno){
+                $calificacionService =  $this->get('boletines.servicios.calificacion');
+                $entities = $calificacionService->obtenerCalificaciones($alumno->getId());
+            }else{
+                return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+            }
+        }else{
+            $entities = $em->getRepository('BoletinesBundle:Calificacion')->findAll();
+        }
+
 
         return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => $entities));
     }
