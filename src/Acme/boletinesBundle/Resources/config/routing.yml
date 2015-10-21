@@ -88,3 +88,7 @@ login_index:
 cambiar_hijo:
     pattern:  /home/{id}
     defaults: { _controller: BoletinesBundle:Login:cambiarHijo }
+
+antibullyng:
+    pattern:  /antibullyng/{id}
+    defaults: { _controller: BoletinesBundle:Alumno:antybullyng }
