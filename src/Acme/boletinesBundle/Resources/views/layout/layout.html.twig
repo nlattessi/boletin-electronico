@@ -54,6 +54,22 @@
         {{ include('BoletinesBundle:NavBars:navbar.html.twig') }}
     </header>
     <main> <!-- startMain content-->
+        {% if app.user.rol == 'ROLE_ALUMNO' %}
+            <div id="modal1" class="modal">
+                <div class="modal-content center-align">
+                    <h1 class="w-red"><i class="icon-linear-notification"></i></h1>
+                    <p>Usted está a punto de generar una alerta.<br> El directivo será informado de esta situación y se contactará para analizarla.
+                    </p>
+                    <h5>¿Desea continuar?</h5>
+                </div>
+                <div class="modal-footer center-align">
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                    <a href="{{ path('antibullyng', { 'id': app.user.idEntidadAsociada }) }}" class=" modal-action modal-close waves-effect waves-green btn-flat">Continuar</a>
+                </div>
+            </div>
+        {% endif %}
+
+
         <div class="container fadeIn animated">
               {% block page %}{% endblock %}
            </div>
