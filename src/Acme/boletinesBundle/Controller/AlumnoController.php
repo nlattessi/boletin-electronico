@@ -148,5 +148,10 @@ class AlumnoController extends Controller
 
         return $alumno;
     }
+
+    public function antybullyngAction($id, Request $request = null){
+        //notificar Directivo
+        return $this->redirect($request->headers->get('referer'));
+    }
 }
 
