@@ -52,6 +52,16 @@ class Materia
      */
     private $tipoMateria;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
+
 
 
     /**
@@ -70,7 +80,7 @@ class Materia
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -93,7 +103,7 @@ class Materia
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -116,7 +126,7 @@ class Materia
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -126,7 +136,7 @@ class Materia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -149,7 +159,7 @@ class Materia
     /**
      * Get tipoMateria
      *
-     * @return \Acme\boletinesBundle\Entity\TipoMateria 
+     * @return \Acme\boletinesBundle\Entity\TipoMateria
      */
     public function getTipoMateria()
     {
@@ -158,5 +168,28 @@ class Materia
 
     public function __toString(){
         return $this->getNombre();
+    }
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimiento
+     * @return Materia
+     */
+    public function setEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimiento = null)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Acme\boletinesBundle\Entity\Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
     }
 }

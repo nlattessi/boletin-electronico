@@ -142,10 +142,13 @@ class Establecimiento
      */
     protected $institucion;
 
+    private $materias;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -552,5 +555,10 @@ class Establecimiento
     public function  __toString()
     {
         return 'dfsdfsdfsdf';
+    }
+
+    public function getMaterias()
+    {
+        return $this->materias;
     }
 }
