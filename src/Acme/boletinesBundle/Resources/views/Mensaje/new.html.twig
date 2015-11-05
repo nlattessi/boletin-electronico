@@ -61,14 +61,4 @@
 
 {% block javascript %}
   <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
-
-  <script type="text/javascript">
-    function validateForm() {
-      var titulo = document.forms['nuevoMensajeForm']['tituloMensaje'].value;
-      if (titulo == null) {
-        alert("El titulo se encuentra vacio!");
-        return false;
-      }
-    }
-  </script>
 {% endblock %}

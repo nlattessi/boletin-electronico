@@ -97,7 +97,7 @@
                      </div>#}
 
                    <div class="col s12 center-align mar-top-soft">
-                       <button type="submit" class="btn-large waves-effect waves-light center-align mar-right">enviar</button>
+                       <button type="submit" class="btn-large waves-effect waves-light center-align mar-right" id="newMensajeSubmit">enviar</button>
                        {#<a data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>#}
                    </div>
 
@@ -120,6 +120,10 @@
   <script>
   $(".noAgregar").click(function(){
     $(this).parent().remove();
+    if ($('#destinatarios li').length < 1) {
+      $('#newMensajeSubmit').addClass("disabled");
+      $('#newMensajeSubmit').prop("disabled", true);
+    }
   });
   </script>
 
