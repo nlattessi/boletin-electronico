@@ -266,9 +266,9 @@ class MuchosAmuchosService {
     public function obtenerEstablecimientosPorUsuario($usuario){
         $establecimientos = array();
 
-        $establecimientosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('id' => $usuario));
+        $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findBy(array('usuario' => $usuario));
         foreach($establecimientosUsuario as $establecimientoUsuario){
-            $establecimientos= $establecimientoUsuario->getEstablecimiento();
+            $establecimientos[] = $establecimientoUsuario->getEstablecimiento();
         }
         return $establecimientos;
     }
@@ -277,7 +277,7 @@ class MuchosAmuchosService {
 
         $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('idEstablecimiento' => $establecimiento));
         foreach($establecimientosUsuario as $establecimientoUsuario){
-            $usuarios= $establecimientoUsuario->getUsuario();
+            $usuarios = $establecimientoUsuario->getUsuario();
         }
         return $usuarios;
     }
@@ -311,6 +311,61 @@ class MuchosAmuchosService {
         }
         return $usuarios;
     }
+
+    public function obtenerAlumnosPorEstablecimientos($establecimientos)
+    {
+        $alumnos = array();
+        foreach($establecimientos as $establecimiento) {
+            $alumnosEstablecimientos = $this->em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimiento' => $establecimiento));
+            $alumnos = array_merge($alumnosEstablecimientos, $alumnos);
+        }
+
+        return $alumnos;
+    }
+
+    public function obtenerPadresPorEstablecimientos($establecimientos)
+    {
+        $padres = array();
+        foreach($establecimientos as $establecimiento) {
+            $padresEstablecimientos = $this->em->getRepository('BoletinesBundle:Padre')->findBy(array('establecimientoId' => $establecimiento));
+            $padres = array_merge($padresEstablecimientos, $padres);
+        }
+
+        return $padres;
+    }
+
+    public function obtenerDocentesPorEstablecimientos($establecimientos)
+    {
+        $docentes = array();
+        foreach($establecimientos as $establecimiento) {
+            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Docente')->findBy(array('establecimientoId' => $establecimiento));
+            $docentes = array_merge($docenteEstablecimientos, $docentes);
+        }
+
+        return $docentes;
+    }
+
+    public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
+    {
+        $repository = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento');
+
+        $bedeles = array();
+        foreach($establecimientos as $establecimiento) {
+            $query = $repository->createQueryBuilder('ue')
+                ->select('u')
+                ->innerJoin('BoletinesBundle:Usuario', 'u' , 'WITH', 'u.id = ue.usuario')
+                ->innerJoin('BoletinesBundle:Rol', 'r', 'WITH', 'r.id = u.rol')
+                ->where('ue.establecimiento = :establecimiento')
+                ->andWhere('r.nombre = :rol')
+                ->setParameter('establecimiento', $establecimiento)
+                ->setParameter('rol', $rol)
+                ->getQuery();
+            $bedeles = array_merge($query->getResult(), $bedeles);
+        }
+
+        return $bedeles;
+    }
+
 
 
 }

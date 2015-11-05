@@ -42,6 +42,8 @@ class LoginController extends Controller
         {
             $session = $this->getRequest()->getSession();
             $sessionService->cambiarAlumnoSesion($session, $this->getUser()->getIdEntidadAsociada());
+        }  else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
+            return $this->redirect($this->generateUrl('director'));
         }
 
         return $this->redirect($this->generateUrl('home'));

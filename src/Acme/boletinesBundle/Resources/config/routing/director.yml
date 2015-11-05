@@ -1,0 +1,19 @@
+director:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Director:index }
+
+director_alumnos:
+    path:     /usuarios/alumno
+    defaults: { _controller: BoletinesBundle:Director:getAlumnos }
+
+directivo_docentes:
+    path:     /usuarios/docentes
+    defaults: { _controller: BoletinesBundle:Director:getDocentes }
+
+directivo_padres:
+    path:     /usuarios/padres
+    defaults: { _controller: BoletinesBundle:Director:getPadres }
+
+directivo_bedeles:
+    path:     /usuarios/bedeles
+    defaults: { _controller: BoletinesBundle:Director:getBedeles }

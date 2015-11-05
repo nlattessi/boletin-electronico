@@ -111,9 +111,12 @@ class Docente
     private $observaciones;
 
     /**
-     * @var integer
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
      *
-     * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
      */
     private $establecimientoId;
 
