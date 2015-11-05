@@ -128,9 +128,8 @@
     $('.modal-trigger').leanModal();
     $('.button-collapse').sideNav({'edge': 'left'});
     $('.datepicker').pickadate({selectYears: 20});
-    $('select').not('.disabled').material_select();
+    $('select').material_select();
     $('.tooltipped').tooltip({delay: 25});
-    
         $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -140,6 +139,7 @@
       belowOrigin: false // Displays dropdown below the button
     }
   );
+
     $(document).ready(function(){
     $('ul.tabs').tabs();
   });

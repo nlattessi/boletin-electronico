@@ -1,41 +1,201 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Mensajes{% endblock %}
+{% block page %}
+  <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+          <h4 class="header">Mensajes</h4>
+        </div>
+  </div>
 
-{% block body -%}
-    <h1>Mensaje list</h1>
+    <div class="row">  <!-- row contenedor de #test1 #test2 #test3 #test4 -->
+<!-- start nav-inbox -->
+    <div class="col s12 mar-top">
+      <ul class="tabs">
+        <li class="tab col s3 m3 l3 mailbox"><a class="active fail-cheat" href="#recibido"><i class="icon-linear-inbox2 icon-mailbox-size"></i><p class="no-mar">Recibido</p></a></li>
+        <li class="tab col s3 m3 l3 mailbox"><a href="#enviado" class="fail-cheat" ><i class="icon-linear-paper-plane icon-mailbox-size"></i><p class="no-mar">Enviado</p></a></li>
+        <li class="tab col s3 m3 l3 mailbox"><a href="#papelera" class="fail-cheat"><i class="icon-linear-trash2 icon-mailbox-size"></i><p class="no-mar">Papelera</p></a></li>
+      </ul>
+    </div>
+ <!-- end nav-inbox-->
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Mensaje</th>
-                <th>Titulo mensaje</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for mensaje in entities %}
-            <tr>
-                <td>{{ mensaje.id }}</td>
-                <td>{{ mensaje.titulo }} </td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('mensaje_show', { 'id': mensaje.id }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('mensaje_delete', { 'id': mensaje.id }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+ <!-- start inbox-->
+ <div id="recibido" class="fadeIn animated"> <!-- start #recibido-->
 
-        <ul>
-        <li>
-            <a href="{{ path('mensaje_new') }}">
-                Crear Nueva Mensaje
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+   <div class="col s12 mb-actions-container valign-wrapper mar-top">
+                  <div class="col s12 mb-actions-container valign-wrapper">
+                        <div class="col s2 m1 l1">
+                          <form action="#">
+                              <p>
+                                <input type="checkbox" id="select-all" class="filled-in">
+                                <label for="select-all"></label>
+                              </p>
+                          </form>
+                        </div>
+                        <div class="col s2 l1">
+                          <a onclick="deleteMensajes('{{ path('mensaje_delete_checked') }}');" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+                        </div>
+                        <div class="col s2 l5">
+                          <a href="{{ path('mensaje_new') }}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+                        </div>
+                  </div>
+                </div>
+
+    <div class="col s12 mar-top-soft">
+
+        {% for mensaje in mensajes %}
+        <div class="col s12 mb-container mb-container{% if not mensaje.leido %}-new{% endif %} valign-wrapper">
+               <div class="col s2 m1 l1">
+                 <form action="#">
+                     <p>
+                       <input type="checkbox" id="{{ mensaje.id }}" class="filled-in">
+                       <label for="{{ mensaje.id }}"></label>
+                     </p>
+                 </form>
+               </div>
+                 <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_show', {'id': mensaje.mensaje.id}) }}';">
+                     <p class="truncate mb-name">{{ mensaje.mensaje.usuario.getNombreCompleto }}</p>
+                     <p class="truncate mb-st">{% if mensaje.mensaje.titulo %}{{ mensaje.mensaje.titulo }}{% else %}&lt;&lt;Sin titulo&gt;&gt;{% endif %}</p>
+                     <p class="truncate mb-t">{% if mensaje.mensaje.texto %}{{ mensaje.mensaje.texto[:20] }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}</p>
+                 </div>
+               <div class="col s2 m1 l1">
+                   <p class="pull-right center-align">{{ mensaje.mensaje.fechaEnvio|date('d') }}<br>{{ mensaje.mensaje.fechaEnvio|date('M') }}</p></a>
+               </div>
+         </div>
+         {% endfor %}
+
+    </div>
+</div>  <!-- end #recibido-->
+
+    <div id="enviado" class="fadeIn animated"> <!-- start #enviado-->
+              <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
+                  <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
+                        <div class="col s2 l5">
+                          <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+                        </div>
+                  </div>
+                </div>
+
+    <div class="col s12 mar-top-soft">
+      {% for mensaje in mensajesEnviados %}
+      <div class="col s12 mb-container mb-container valign-wrapper">
+               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_show', {'id': mensaje.id}) }}';">
+                   <p class="truncate mb-name">{{ mensaje.usuario.getNombreCompleto }}</p>
+                   <p class="truncate mb-st">{{ mensaje.titulo }}</p>
+                   <p class="truncate mb-t">{{ mensaje.texto[:20] }}</p>
+               </div>
+             <div class="col s2 m1 l1">
+                 <p class="pull-right center-align">{{ mensaje.fechaEnvio|date('d') }}<br>{{ mensaje.fechaEnvio|date('M') }}</p></a>
+             </div>
+       </div>
+       {% endfor %}
+    </div>
+    </div><!-- end #enviado-->
+
+    <div id="papelera" class="fadeIn animated"> <!-- start #papelera-->
+              <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
+                  <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
+                        <div class="col s2 l5">
+                          <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+                        </div>
+                  </div>
+                </div>
+
+    <div class="col s12 mar-top-soft">
+      {% for mensaje in mensajesBorrados %}
+      <div class="col s12 mb-container mb-container valign-wrapper">
+
+               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_show', {'id': mensaje.id}) }}';">
+                   <p class="truncate mb-name">{{ mensaje.mensaje.usuario.nombre }}</p>
+                   <p class="truncate mb-st">{{ mensaje.mensaje.titulo }}</p>
+                   <p class="truncate mb-t">{{ mensaje.mensaje.texto[:20] }}</p>
+               </div>
+             <div class="col s2 m1 l1">
+                 <p class="pull-right center-align">{{ mensaje.mensaje.fechaEnvio|date('d') }}<br>{{ mensaje.mensaje.fechaEnvio|date('M') }}</p></a>
+             </div>
+       </div>
+       {% endfor %}
+    </div>
+    </div><!-- end #papelera-->
+  </div> <!-- end row contenedor de #test1 #test2 #test3 #test4 -->
+ <!-- end inbox-->
+  {% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+  function post(path, params, method) {
+    method = method || 'post';
+
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    console.log(params);
+
+    params.forEach(function(m) {
+      var hiddenField = document.createElement("input");
+      hiddenField.setAttribute("type", "hidden");
+      hiddenField.setAttribute("name", "idMensajeBorrar[]");
+      hiddenField.setAttribute("value", m);
+
+      form.appendChild(hiddenField);
+    });
+
+
+
+    // for (var key in params) {
+    //   if (params.hasOwnProperty(key)) {
+    //
+    //     //name="idUsuarioRecibe[]"
+    //
+    //     var hiddenField = document.createElement("input");
+    //     hiddenField.setAttribute("type", "hidden");
+    //     hiddenField.setAttribute("name", key);
+    //     hiddenField.setAttribute("value", params[key]);
+    //
+    //     form.appendChild(hiddenField);
+    //   }
+    // }
+
+    console.log(form);
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+</script>
+
+<script type="text/javascript">
+  function deleteMensajes(path) {
+    var mensajesABorrar = [];
+
+    $("input:checkbox:checked").each(function(){
+      mensajesABorrar.push($(this).attr('id'));
+    });
+
+    console.log(mensajesABorrar);
+
+    console.log(path);
+
+    post(path, mensajesABorrar);
+  }
+</script>
+
+<script type="text/javascript">
+  function clickCheck($id) {
+    console.log($('#' + $id));
+  }
+</script>
+
+<script type="text/javascript">
+// Listen for click on toggle checkbox
+$('#select-all').click(function(event) {
+  if(this.checked) {
+      // Iterate each checkbox
+      $(':checkbox').each(function() {
+          this.checked = true;
+      });
+  }
+});
+</script>
+
+{% endblock %}

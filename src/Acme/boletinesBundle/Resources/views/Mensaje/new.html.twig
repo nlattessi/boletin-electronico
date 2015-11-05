@@ -1,37 +1,74 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Mensajes{% endblock %}
+{% block page %}
 
-{% block body -%}
-    <h1>Enviar mensaje</h1>
-    <div class="container">
-        <div class="row">
-            <div class="span4 well">
-                <legend>Destinatarios:</legend>
-                <form action="" method="post">
-                    <input id="typeahead" type="text" class="span4" data-provide="typeahead" autocomplete="off" placeholder="Buscar usuario">
-                </form>
-            </div>
+<div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+          <h4 class="header">Nuevo mensaje</h4>
         </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+
+      <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm">
+
+      <div class="input-field col s12">
+            <input id="typeahead" type="text" class="validate" data-provide="typeahead">
+            <label for="nombre_inst" class="">Para:</label>
+      </div>
+
+      <div class="input-field col s12">
+        <ul id="destinatarios" class="unstyled"></ul>
+      </div>
+
+      <div class="input-field col s12">
+            <input id="tituloMensaje" type="text" class="validate" name="tituloMensaje">
+            <label for="tituloMensaje" class="">Asunto:</label>
+      </div>
+
+      <div class="input-field col s12">
+        <textarea id="textoMensaje" class="materialize-textarea" length="1200" name="textoMensaje"></textarea>
+        <label for="textoMensaje">Mensaje:</label>
+      </div>
+
+        {#<div class="col s12">
+
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Adjuntar archivos</span>
+                  <input type="file" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Seleccione uno o más archivos">
+                </div>
+              </div>
+
+        </div>#}
+
+      <div class="col s12 center-align mar-top-soft">
+          <button type="submit" class="btn-large waves-effect waves-light center-align mar-right disabled" id="newMensajeSubmit" disabled>enviar</button>
+          {#<a data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>#}
+      </div>
+
+      </form>
+
+
+      </div>
     </div>
 
+{% endblock %}
 
-    <form action="{{ path('mensaje_new') }}" method="post">
-        <ul id="destinatarios" class="unstyled"></ul>
-        <input type="text" placeholder="titular" name="tituloMensaje"><br/>
-        <input type="text" placeholder="texto" name="textoMensaje"><br/>
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
 
-        <br/><br/>
-
-        <button type="submit" >Crear Mensaje</button>
-
-
-        <br/>
-    </form>
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('mensaje') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+  <script type="text/javascript">
+    function validateForm() {
+      var titulo = document.forms['nuevoMensajeForm']['tituloMensaje'].value;
+      if (titulo == null) {
+        alert("El titulo se encuentra vacio!");
+        return false;
+      }
+    }
+  </script>
 {% endblock %}

@@ -2,17 +2,12 @@
 
 namespace Acme\boletinesBundle\Controller;
 
-use Acme\boletinesBundle\Entity\MensajeUsuario;
-use Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Acme\boletinesBundle\Entity\Mensaje;
-use Acme\boletinesBundle\Entity\Calendario;
 use Symfony\Component\HttpFoundation\Response;
-use Acme\boletinesBundle\Form\MensajeType;
+
+use Acme\boletinesBundle\Entity\Usuario;
+
 
 class MensajeController extends Controller
 {
@@ -20,134 +15,117 @@ class MensajeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $usuario = $usuario = $this->getUser();
-        $mensajesUsuario = $em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(array('usuario' => $usuario, 'borrado' => false));
 
-        $mensajes = array();
-        foreach ($mensajesUsuario as $mensajeUsuario) {
-            $mensajes[] = $mensajeUsuario->getMensaje();
-        }
+        $mensajeService =  $this->get('boletines.servicios.mensaje');
 
-        return $this->render('BoletinesBundle:Mensaje:index.html.twig', array('entities' => $mensajes));
+        $mensajes = $mensajeService->getMensajes($usuario);
+
+        $mensajesNotLeidos = $mensajeService->getMensajesNotLeidos($usuario);
+
+        $mensajesEnviados = $mensajeService->getMensajesEnviados($usuario);
+
+        $mensajesBorrados = $mensajeService->getMensajesBorrados($usuario);
+
+        return $this->render('BoletinesBundle:Mensaje:index.html.twig', array(
+            'mensajes' => $mensajes,
+            'mensajesNotLeidos' => $mensajesNotLeidos,
+            'mensajesEnviados' => $mensajesEnviados,
+            'mensajesBorrados' => $mensajesBorrados
+        ));
     }
 
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $usuario = $this->getUser();
-        $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id));
-        $mensajeUsuario = $em->getRepository('BoletinesBundle:MensajeUsuario')->findOneBy(array('mensaje' => $mensaje, 'usuario' => $usuario, 'borrado' => false));
-        if($mensajeUsuario instanceof MensajeUsuario) {
-            $mensajeUsuario->setLeido(true);
-            $em->persist($mensajeUsuario);
-            $em->flush();
-            $mensaje = $mensajeUsuario->getMensaje();
-        }
-        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array('mensaje' => $mensaje));
+
+        $mensajeService =  $this->get('boletines.servicios.mensaje');
+
+        $mensajeUsuario = $mensajeService->readMensaje($usuario, $id);
+
+        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array('mensaje' => $mensajeUsuario));
     }
 
     public function newAction(Request $request)
     {
         $message = "";
+
         if ($request->getMethod() == 'POST') {
-            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $mensaje = $this->createEntity($request);
-            if($mensaje != null) {
-                return $this->indexAction();
+
+            if ($mensaje != null ) {
+                return $this->redirect($this->generateUrl('mensaje'), 301);
             } else {
                 $message = "Errores";
             }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Mensaje:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Mensaje:new.html.twig', array());
     }
+
+
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
 
         if($usuario instanceof Usuario){
-            $usersIds = $data->request->get('idUsuarioRecibe');
-            $date = new \DateTime('now');
+          $mensajeService =  $this->get('boletines.servicios.mensaje');
 
-            foreach ($usersIds as $userId) {
-                $userRecibe = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
-                if($userRecibe instanceof Usuario){
-                    $mensaje = new Mensaje();
-                    $mensaje->setTitulo($data->request->get('tituloMensaje'));
-                    $mensaje->setTexto($data->request->get('textoMensaje'));
-                    $mensaje->setFechaEnvio($date);
-                    $mensaje->setUsuario($usuario);
+          $mensaje = $mensajeService->newMensaje(
+              $usuario,
+              $data->request->get('tituloMensaje'),
+              $data->request->get('textoMensaje')
+          );
 
-                    $em->persist($mensaje);
-                    $em->flush();
+          $usersIds = $data->request->get('idUsuarioRecibe');
 
-                    $mensajeUsuario = new MensajeUsuario();
-                    $mensajeUsuario->setBorrado(false);
-                    $mensajeUsuario->setLeido(false);
-                    $mensajeUsuario->setMensaje($mensaje);
-                    $mensajeUsuario->setCreationTime($date);
-                    $mensajeUsuario->setUpdateTime($date);
-                    $mensajeUsuario->setUsuario($userRecibe);
-
-                    $em->persist($mensajeUsuario);
-                    $em->flush();
-                }
-            }
+          foreach ($usersIds as $userId) {
+              $userRecibe = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+              if($userRecibe instanceof Usuario){
+                  $mensajeService->newMensajeUsuario($userRecibe, $mensaje);
+              }
+          }
         } else {
-            //Todo Go TO LOGIN
-            exit();
+            return $this->redirect($this->generateUrl('login'), 301);
         }
 
         return true;
     }
 
-
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $usuario = $usuario = $this->getUser();
-        $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id, 'usuario' => $usuario));
 
-        if($mensaje instanceof Mensaje) {
-            $mensajeUsuario = $em->getRepository('BoletinesBundle:MensajeUsuario')->findOneBy(array('mensaje' => $mensaje));
-            $mensajeUsuario->setBorrado(true);
-            $em->persist($mensajeUsuario);
-            $em->flush();
-        }
-        return $this->indexAction();
+        $mensajeService =  $this->get('boletines.servicios.mensaje');
+        $mensajeUsuario = $mensajeService->deleteMensaje($usuario, $id);
+
+        return $this->redirect($this->generateUrl('mensaje'), 301);
     }
 
-
-    public function editAction($id = null, Request $request = null)
+    public function deleteCheckedMensajesAction(Request $request)
     {
-        $message = "";
         if ($request->getMethod() == 'POST') {
-            $mensaje = $this->editEntity($request, $id);
-            if($mensaje != null) {
-                return $this->render('BoletinesBundle:Mensaje:show.html.twig', array('mensaje' => $mensaje));
-            } else {
-                $message = "Errores";
-            }
-        } else {
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id));
+          $em = $this->getDoctrine()->getManager();
+          $usuario = $usuario = $this->getUser();
+
+          $mensajesIds = $request->request->get('idMensajeBorrar');
+
+          if (! empty($mensajesIds)) {
+              $mensajeService =  $this->get('boletines.servicios.mensaje');
+              $mensajeService->deleteMensajesUsuario($mensajesIds);
+          }
         }
 
-        return $this->render('BoletinesBundle:Mensaje:edit.html.twig', array('mensaje' => $mensaje,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->redirect($this->generateUrl('mensaje'), 301);
     }
 
     public function autocompletarAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $institucion = $this->getUser()->getInstitucion();
-
 
         $query = $em->createQueryBuilder()
             ->select('u.nombre', 'u.apellido', 'u.id')
@@ -162,31 +140,4 @@ class MensajeController extends Controller
 
         return new Response(json_encode($entities));
     }
-
-    private function editEntity($data, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
-
-        $mensaje = $em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id));
-
-        $mensaje->setTituloMensaje($data->request->get('tituloMensaje'));
-        $mensaje->setTextoMensaje($data->request->get('textoMensaje'));
-        $mensaje->setUsuarioEnvia($sesionService->obtenerUsuario());
-        $mensaje->setFechaEnvio(new \DateTime('now'));
-        $mensaje->setBorrado(false);
-
-        $idUsuario = $data->request->get('idUsuarioRecibe');
-        if($idUsuario > 0){
-            //Selecciono otra Usuario, hay que buscarla y persistirla
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuario));
-            $mensaje->setUsuarioRecibe($usuario);
-        }
-
-        $em->persist($mensaje);
-        $em->flush();
-
-        return $mensaje;
-    }
 }
-

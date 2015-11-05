@@ -22,7 +22,8 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "ext-intl": "*",
-        "brandonwamboldt/utilphp": "1.1.*"
+        "brandonwamboldt/utilphp": "1.1.*",
+        "knplabs/knp-time-bundle": "^1.5"
     },
     "scripts": {
         "post-install-cmd": [
