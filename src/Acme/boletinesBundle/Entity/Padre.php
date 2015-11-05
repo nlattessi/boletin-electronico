@@ -104,9 +104,12 @@ class Padre
     private $observaciones;
 
     /**
-     * @var integer
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
      *
-     * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
      */
     private $establecimientoId;
 
@@ -455,24 +458,24 @@ class Padre
     }
 
     /**
-     * Set establecimientoId
+     * Set EstablecimientoId
      *
-     * @param integer $establecimientoId
+     * @param integer $establecimiento
      * @return Padre
      */
-    public function setEstablecimientoId($establecimientoId)
+    public function setEstablecimiento($establecimiento)
     {
-        $this->establecimientoId = $establecimientoId;
+        $this->establecimientoId = $establecimiento;
 
         return $this;
     }
 
     /**
-     * Get establecimientoId
+     * Get Establecimiento
      *
      * @return integer 
      */
-    public function getEstablecimientoId()
+    public function getEstablecimiento()
     {
         return $this->establecimientoId;
     }
