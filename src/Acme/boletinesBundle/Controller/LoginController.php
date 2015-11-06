@@ -40,10 +40,15 @@ class LoginController extends Controller
             $hijos = $sessionService->obtenerHijos($this->getUser()->getIdEntidadAsociada());
             $session->set('hijos',  $hijos);
         }
-        if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')
+        else if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')
         {
             $session = $this->getRequest()->getSession();
             $sessionService->cambiarAlumnoSesion($session, $this->getUser()->getIdEntidadAsociada());
+        }
+        else if( $this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
+        {
+            $session = $this->getRequest()->getSession();
+            $sessionService->setearDocenteSesion($session, $this->getUser()->getIdEntidadAsociada());
         }
 
         return $this->redirect($this->generateUrl('home'));

@@ -52,6 +52,21 @@ class Materia
      */
     private $tipoMateria;
 
+    private $alumnos;
+
+    private $gruposAlumnos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MateriaDiaHorario", mappedBy="materia", cascade={"remove"})
+     */
+    private $horarios;
+
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->horarios = new ArrayCollection();
+    }
 
 
     /**
@@ -155,6 +170,66 @@ class Materia
     {
         return $this->tipoMateria;
     }
+
+    /**
+     * @return array
+     */
+    public function getAlumnos()
+    {
+        return $this->alumnos;
+    }
+
+    /**
+     * @param array $alumnos
+     */
+    public function setAlumnos($alumnos)
+    {
+        $this->alumnos = $alumnos;
+    }
+
+    public function getCantidadAlumnos(){
+        return count($this->alumnos);
+    }
+
+    /**
+     * @return array
+     */
+    public function getGruposAlumnos()
+    {
+        return $this->gruposAlumnos;
+    }
+
+    /**
+     * @param array $gruposAlumnos
+     */
+    public function setGruposAlumnos($gruposAlumnos)
+    {
+        $this->gruposAlumnos = $gruposAlumnos;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getHorarios()
+    {
+        return $this->horarios;
+    }
+
+    /**
+     * @param mixed $horarios
+     */
+    public function addHorarios(MateriaDiaHorario $e)
+    {
+        $this->horarios[] = $e;
+        $e->setMateria($this);
+
+        return $this;
+    }
+
+
 
     public function __toString(){
         return $this->getNombre();

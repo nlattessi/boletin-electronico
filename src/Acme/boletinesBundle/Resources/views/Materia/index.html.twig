@@ -1,44 +1,43 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Materias{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Materias asignadas</h4>
+        </div>
+    </div>
 
-{% block body -%}
-    <h1>Materia list</h1>
+    <div class="row mar-top-soft">
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Materia</th>
-                <th>Nombre materia</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.idMateria }}</td>
-                <td><a href="{{ path('materia_show', { 'id': entity.idMateria }) }}">{{ entity.__toString() }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('materia_show', { 'id': entity.idMateria }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('materia_edit', { 'id': entity.idMateria }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('materia_delete', { 'id': entity.idMateria }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for entity in entities %}
+        <div class="col s12 m12 l12"> <!-- start materia-->
+            <div class="panel-mini panel-assigment">
+                <div class="row">
+                    <div class="col s6">
+                        <h5 class="panel-title">{{ entity.__toString() }} </h5>
+                        <h4>
+                            {% for grupo in entity.gruposAlumnos %}
+                                {{ grupo ~ ' ' }}
+                            {% endfor %}
+                        </h4>
+                    </div>
+                    <div class="col s6 right-align">
+                        <h5><i class="icon-linear-users2 d-d-i"></i> {{ entity.cantidadAlumnos }}</h5>
+                        <h6>Alumnos</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 row mar-top-low right-align">
+                        <i class="icon-linear-clock "></i>
+                        {% for horario in entity.horarios %}
+                            <span class="widget-time-date"> {{ horario}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- end materia-->
+       {% endfor %}
+    </div>
 
-        <ul>
-        <li>
-            <a href="{{ path('materia_new') }}">
-                Crear Nueva Materia
-            </a>
-        </li>
-    </ul>
+
     {% endblock %}

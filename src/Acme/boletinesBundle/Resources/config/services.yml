@@ -34,6 +34,18 @@ services:
           class: Acme\boletinesBundle\Servicios\ConvivenciaService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.grupoAlumno:
+          class: Acme\boletinesBundle\Servicios\GrupoAlumnoService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.materia:
+          class: Acme\boletinesBundle\Servicios\MateriaService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.evaluacion:
+          class: Acme\boletinesBundle\Servicios\EvaluacionService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
       twig.extension.intl:
           class: Twig_Extensions_Extension_Intl
           tags:

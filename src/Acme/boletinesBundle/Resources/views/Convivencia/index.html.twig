@@ -26,6 +26,10 @@
                                 <th data-field="">Convivencia</th>
                                 <th data-field="">Comentarios</th>
                                 <th data-field="">Fecha</th>
+                                {% if app.user.rol == 'ROLE_DOCENTE' %}
+                                    <th data-field="">Alumno</th>
+                                    <th data-field="">Acciones</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -44,6 +48,22 @@
                                     <td>
                                         {{ convivencia.fechaSuceso|date('d/m/Y') }}
                                     </td>
+                                    {% if app.user.rol == 'ROLE_DOCENTE' %}
+                                        <td>
+                                            <a href="{{ path('alumno_show', { 'id': convivencia.alumno.id }) }}">{{ convivencia.alumno }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('convivencia_show', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Detalle" class="tooltipped  btn-small btn waves-effect waves-light">
+                                                <i class="icon-linear-eye"></i>
+                                            </a>
+                                            <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light">
+                                                <i class="icon-linear-pencil"></i>
+                                            </a>
+                                            <a href="{{ path('convivencia_delete', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light">
+                                                <i class="icon-linear-trash2"></i>
+                                            </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
 

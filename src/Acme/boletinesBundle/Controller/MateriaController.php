@@ -17,8 +17,19 @@ class MateriaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
+        {
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $docente = $session->get('docenteActivo');
+            $entities = $materiaService->listaMateriasPorDocente($docente->getId());
+        }
+        else{
+            $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+        }
 
-        $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+
 
         return $this->render('BoletinesBundle:Materia:index.html.twig', array('entities' => $entities));
     }

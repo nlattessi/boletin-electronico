@@ -158,4 +158,8 @@ class GrupoAlumnoMateria
     {
         return $this->grupoAlumno;
     }
+    public function __toString(){
+        return $this->getId() . "";
+    }
+
 }

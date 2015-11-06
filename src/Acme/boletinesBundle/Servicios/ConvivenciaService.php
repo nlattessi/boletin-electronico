@@ -26,8 +26,8 @@ class ConvivenciaService {
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
-        $calificaciones = $queryBuilder->getQuery()->getResult();
-        return $calificaciones;
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
     }
 
     public function obtenerConvivenciaPositivaAlumno($alumnoId){
@@ -38,8 +38,8 @@ class ConvivenciaService {
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
-        $calificaciones = $queryBuilder->getQuery()->getResult();
-        return $calificaciones;
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
     }
 
     public function obtenerConvivenciaNegativaAlumno($alumnoId){
@@ -50,7 +50,19 @@ class ConvivenciaService {
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
-        $calificaciones = $queryBuilder->getQuery()->getResult();
-        return $calificaciones;
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
+    }
+
+    public function obtenerConvivenciaPorUsuario($usuarioId){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
+            ->where('c.usuarioCarga = ?1')
+            ->andWhere('c.validado = true')
+            ->andWhere('c.valor = true')
+            ->setParameter(1, $usuarioId)
+            ->addOrderBy('c.fechaSuceso','DESC');
+
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
     }
 }

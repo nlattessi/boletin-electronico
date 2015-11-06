@@ -38,7 +38,7 @@ class MuchosAmuchosService {
     public function obtenerMateriasPorAlumno($alumno){
         $materias = array();
 
-        $alumnosMaterias = $this->$em->getRepository('BoletinesBundle:AlumnoMateria')->find(array('idAlumno' => $alumno));
+        $alumnosMaterias = $this->em->getRepository('BoletinesBundle:AlumnoMateria')->find(array('idAlumno' => $alumno));
         foreach($alumnosMaterias as $alumnoMateria){
             $materias = $alumnoMateria->getMateria();
         }
@@ -49,9 +49,9 @@ class MuchosAmuchosService {
     public function obtenerAlumnosPorMateria($materia){
         $alumnos = array();
 
-        $alumnosMaterias = $this->$em->getRepository('BoletinesBundle:AlumnoMateria')->find(array('idMateria' => $materia));
+        $alumnosMaterias = $this->em->getRepository('BoletinesBundle:AlumnoMateria')->findBy(array('materia' => $materia));
         foreach($alumnosMaterias as $alumnoMateria){
-           $alumnos = $alumnoMateria->getAlumno();
+            array_push($alumnos, $alumnoMateria->getAlumno());
         }
         return $alumnos;
     }
@@ -69,7 +69,7 @@ class MuchosAmuchosService {
     public function obtenerActividadesPorMateria($calendario){
         $actividades = array();
 
-        $actividadesMateria = $this->$em->getRepository('BoletinesBundle:MateriaActividad')->find(array('idMateria' => $calendario));
+        $actividadesMateria = $this->em->getRepository('BoletinesBundle:MateriaActividad')->find(array('idMateria' => $calendario));
         foreach($actividadesMateria as $actividadMateria){
             $actividades= $actividadMateria->getActividad();
         }
@@ -97,7 +97,7 @@ class MuchosAmuchosService {
     public function obtenerAlumnosPorGrupoAlumno($grupoAlumno){
         $alumnos = array();
 
-        $alumnosGrupoAlumnos = $this->$em->getRepository('BoletinesBundle:AlumnoGrupoAlumno')->find(array('idGrupoAlumno' => $grupoAlumno));
+        $alumnosGrupoAlumnos = $this->em->getRepository('BoletinesBundle:AlumnoGrupoAlumno')->find(array('idGrupoAlumno' => $grupoAlumno));
         foreach($alumnosGrupoAlumnos as $alumnoGrupoAlumno){
             $alumnos = $alumnoGrupoAlumno->getAlumno();
         }
@@ -124,7 +124,7 @@ class MuchosAmuchosService {
     public function obtenerAsistenciasPorAlumno($alumno){
         $asistenciaes = array();
 
-        $asistenciasAlumno = $this->$em->getRepository('BoletinesBundle:AlumnoAsistencia')->find(array('idAlumno' => $alumno));
+        $asistenciasAlumno = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->find(array('idAlumno' => $alumno));
         foreach($asistenciasAlumno as $asistenciaAlumno){
             $asistenciaes= $asistenciaAlumno->getAsistencia();
         }
@@ -155,7 +155,7 @@ class MuchosAmuchosService {
     public function obtenerMateriasPorDocente($docente){
         $materiaes = array();
 
-        $materiasDocente = $this->$em->getRepository('BoletinesBundle:DocenteMateria')->find(array('idDocente' => $docente));
+        $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->find(array('idDocente' => $docente));
         foreach($materiasDocente as $materiaDocente){
             $materiaes= $materiaDocente->getMateria();
         }
@@ -182,7 +182,7 @@ class MuchosAmuchosService {
     public function obtenerArchivosPorExamen($examen){
         $archivos = array();
 
-        $examenArchivos = $this->$em->getRepository('BoletinesBundle:ExamenArchivo')->find(array('idExamen' => $examen));
+        $examenArchivos = $this->em->getRepository('BoletinesBundle:ExamenArchivo')->find(array('idExamen' => $examen));
         foreach($examenArchivos as $archivoExamen){
             $archivos= $archivoExamen->getArchivo();
         }
@@ -210,21 +210,24 @@ class MuchosAmuchosService {
     public function obtenerMateriasPorGrupoAlumno($grupoAlumno){
         $materias = array();
 
-        $materiasGrupoAlumno = $this->$em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->find(array('idGrupoAlumno' => $grupoAlumno));
+        $materiasGrupoAlumno = $this->em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findBy(array('grupoAlumno' => $grupoAlumno));
         foreach($materiasGrupoAlumno as $materiaGrupoAlumno){
             $materias= $materiaGrupoAlumno->getMateria();
         }
         return $materias;
     }
-    public function obtenerGrupoAlumnosPorMateria($materia){
+    public function obtenerGrupoAlumnosPorMateria($idMateria){
         $grupoAlumnos = array();
 
-        $materiasGrupoAlumno = $this->em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->find(array('idMateria' => $materia));
+        $materiasGrupoAlumno = $this->em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findBy(array('materia' => $idMateria));
+
         foreach($materiasGrupoAlumno as $materiaGrupoAlumno){
-            $grupoAlumnos= $materiaGrupoAlumno->getGrupoAlumno();
+            array_push( $grupoAlumnos, $materiaGrupoAlumno->getGrupoAlumno());
         }
         return $grupoAlumnos;
     }
+
+
 
     public function asociarMateriaArchivo($materia, $archivo){
         $materiaArchivo = new MateriaArchivo($materia, $archivo);
@@ -238,7 +241,7 @@ class MuchosAmuchosService {
     public function obtenerArchivoesPorMateria($materia){
         $archivos = array();
 
-        $archivosMateria = $this->$em->getRepository('BoletinesBundle:MateriaArchivo')->find(array('idMateria' => $materia));
+        $archivosMateria = $this->em->getRepository('BoletinesBundle:MateriaArchivo')->find(array('idMateria' => $materia));
         foreach($archivosMateria as $archivoMateria){
             $archivos= $archivoMateria->getArchivo();
         }
@@ -266,7 +269,7 @@ class MuchosAmuchosService {
     public function obtenerEstablecimientosPorUsuario($usuario){
         $establecimientos = array();
 
-        $establecimientosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('id' => $usuario));
+        $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('id' => $usuario));
         foreach($establecimientosUsuario as $establecimientoUsuario){
             $establecimientos= $establecimientoUsuario->getEstablecimiento();
         }
@@ -296,7 +299,7 @@ class MuchosAmuchosService {
     public function obtenerGrupoUsuarioesPorUsuario($usuario){
         $grupoUsuarios = array();
 
-        $grupoUsuariosUsuario = $this->$em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->find(array('id' => $usuario));
+        $grupoUsuariosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->find(array('id' => $usuario));
         foreach($grupoUsuariosUsuario as $grupoUsuarioUsuario){
             $grupoUsuarios= $grupoUsuarioUsuario->getGrupoUsuario();
         }

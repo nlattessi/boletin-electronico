@@ -73,4 +73,11 @@ class SesionService {
         return $hijos;
     }
 
+    public function setearDocenteSesion($session, $idDocente){
+        $docente = $this->em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $idDocente));
+        $session->set('docenteActivo',  $docente);/*
+        $establecimiento =  $this->em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $docente->getEstablecimiento()->getId()));
+        $session->set('establecimientoActivo',  $establecimiento);*/
+    }
+
 }

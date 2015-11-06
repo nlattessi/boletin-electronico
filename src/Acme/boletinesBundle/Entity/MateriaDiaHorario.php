@@ -57,12 +57,8 @@ class MateriaDiaHorario
     private $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\Materia
-     *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="Materia", inversedBy="horarios")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
      */
     private $materia;
 
@@ -215,4 +211,8 @@ class MateriaDiaHorario
     {
         return $this->materia;
     }
+    public function __toString(){
+        return $this->getDia() . ' de ' . $this->getHoraInicio() . ' hasta ' . $this->getHoraFin();
+    }
+
 }

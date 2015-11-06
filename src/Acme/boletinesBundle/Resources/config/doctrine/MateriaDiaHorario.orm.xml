@@ -12,9 +12,9 @@
     <field name="horaFin" type="integer" column="hora_fin" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
-    <many-to-one field="materia" target-entity="Materia">
+    <many-to-one field="materia" target-entity="Materia" inversed-by="horarios">
       <join-columns>
-        <join-column name="materia_id" referenced-column-name="id"/>
+        <join-column name="materia_id" referenced-column-name="id" />
       </join-columns>
     </many-to-one>
   </entity>
