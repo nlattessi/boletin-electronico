@@ -7,6 +7,7 @@
  */
 
 namespace Acme\boletinesBundle\Servicios;
+use Acme\boletinesBundle\Entity\Materia;
 use Doctrine\ORM\EntityManager;
 
 class MateriaService {
@@ -90,6 +91,26 @@ class MateriaService {
             array_push($materias,$materia );
         }
         return $materias;
+    }
+
+    public function listaDocentesPorMateria($idMateria){
+        $docentes = $this->muchosService->obtenerDocentesPorMateria($idMateria);
+
+        return $docentes;
+    }
+
+    public function listaArchivosPorMateria($idMateria){
+        $archivos = $this->muchosService->obtenerArchivosPorMateria($idMateria);
+
+        return $archivos;
+    }
+
+    public function materiaLoad(Materia $materia){
+        $materia->setAlumnos($this->listaAlumnos($materia->getId()));
+        $materia->setArchivos($this->listaArchivosPorMateria($materia->getId()));
+        $materia->setDocentes($this->listaDocentesPorMateria($materia->getId()));
+
+        return $materia;
     }
 
 }

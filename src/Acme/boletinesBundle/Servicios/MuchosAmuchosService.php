@@ -164,9 +164,9 @@ class MuchosAmuchosService {
     public function obtenerDocentesPorMateria($materia){
         $docentes = array();
 
-        $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->find(array('idMateria' => $materia));
+        $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->findBy(array('materia' => $materia));
         foreach($materiasDocente as $materiaDocente){
-            $docentes= $materiaDocente->getDocente();
+            array_push($docentes, $materiaDocente->getDocente());
         }
         return $docentes;
     }
@@ -238,12 +238,12 @@ class MuchosAmuchosService {
         return $materiaArchivo;
     }
 
-    public function obtenerArchivoesPorMateria($materia){
+    public function obtenerArchivosPorMateria($materia){
         $archivos = array();
 
-        $archivosMateria = $this->em->getRepository('BoletinesBundle:MateriaArchivo')->find(array('idMateria' => $materia));
+        $archivosMateria = $this->em->getRepository('BoletinesBundle:MateriaArchivo')->findBy(array('materia' => $materia));
         foreach($archivosMateria as $archivoMateria){
-            $archivos= $archivoMateria->getArchivo();
+            array_push( $archivos, $archivoMateria->getArchivo());
         }
         return $archivos;
     }

@@ -3,7 +3,13 @@
 {% block page %}
     <div class="row">
         <div class="col s12 m7 l7">
+        {% if app.user.rol == 'ROLE_PADRE' || app.user.rol == 'ROLE_ALUMNO' %}
             <h3 class="header">Planilla de convivencia</h3>
+        {% elseif  app.user.rol == 'ROLE_DOCENTE' %}
+            <h3 class="header">Intervenciones</h3>
+        {% else %}
+            <h3 class="header">CONVIVENCIA</h3>
+        {% endif %}
         </div>
         {% if app.user.rol == 'ROLE_PADRE' %}
             <div class="col s12 m5 l5">

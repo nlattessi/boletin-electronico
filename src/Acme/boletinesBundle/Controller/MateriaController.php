@@ -38,7 +38,13 @@ class MateriaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+
+        if($materia){
+            $materiaService =  $this->get('boletines.servicios.materia');
+           $materia = $materiaService->materiaLoad($materia);
+        }
+
 
         return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
     }

@@ -53,19 +53,26 @@ class Materia
     private $tipoMateria;
 
     private $alumnos;
-
     private $gruposAlumnos;
+    private $archivos;
+    private $docentes;
 
     /**
      * @ORM\OneToMany(targetEntity="MateriaDiaHorario", mappedBy="materia", cascade={"remove"})
      */
     private $horarios;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Evaluacion", mappedBy="materia", cascade={"remove"})
+     */
+    private $evaluaciones;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
         $this->horarios = new ArrayCollection();
+        $this->evaluaciones = new ArrayCollection();
     }
 
 
@@ -220,6 +227,8 @@ class Materia
 
     /**
      * @param mixed $horarios
+     *
+     *
      */
     public function addHorarios(MateriaDiaHorario $e)
     {
@@ -229,7 +238,63 @@ class Materia
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEvaluaciones()
+    {
+        return $this->evaluaciones;
+    }
 
+    public function addEvaluaciones(Evaluacion $e)
+    {
+        $this->evaluaciones[] = $e;
+        $e->setMateria($this);
+
+        return $this;
+    }
+    /**
+     * @param mixed $evaluaciones
+     */
+    public function setEvaluaciones($evaluaciones)
+    {
+        $this->evaluaciones = $evaluaciones;
+    }
+
+
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getArchivos()
+    {
+        return $this->archivos;
+    }
+
+    /**
+     * @param ArrayCollection $archivos
+     */
+    public function setArchivos($archivos)
+    {
+        $this->archivos = $archivos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDocentes()
+    {
+        return $this->docentes;
+    }
+
+    /**
+     * @param mixed $docentes
+     */
+    public function setDocentes($docentes)
+    {
+        $this->docentes = $docentes;
+    }
 
     public function __toString(){
         return $this->getNombre();

@@ -61,11 +61,9 @@ class Evaluacion
 
     /**
      * @var \Acme\boletinesBundle\Entity\Materia
+     * @ORM\ManyToOne(targetEntity="Materia", inversedBy="evaluaciones")
+     * @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
      *
-     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
-     * })
      */
     private $materia;
 
