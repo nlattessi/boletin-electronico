@@ -14,10 +14,10 @@ mensaje_delete:
     path:     /delete/{id}
     defaults: { _controller: BoletinesBundle:Mensaje:delete }
 
+mensaje_delete_checked:
+    path:     /deleteCheckedMensajes
+    defaults: { _controller: BoletinesBundle:Mensaje:deleteCheckedMensajes }
+
 mensaje_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOne }
-
-mensaje_edit:
-    path:     /edit/{id}
-    defaults: { _controller: BoletinesBundle:Mensaje:edit }

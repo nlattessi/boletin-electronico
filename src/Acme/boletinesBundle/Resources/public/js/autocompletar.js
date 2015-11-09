@@ -1,5 +1,4 @@
-(function($){
-  $(function(){
+(function(window, document, $) {
     $('#typeahead').typeahead({
       minLength: 3,
       source: function (query, process) {
@@ -7,23 +6,31 @@
           url: 'autocompletar',
           type: 'GET',
           data: {
-            query: query
+            query: query,
           },
           dataType: 'json',
           success: function(result) {
             var data = [];
             $.each(result, function(i, obj) {
-              var item = { id: obj.id, nombre: obj.nombre + ' ' + obj.apellido};
+              var item = {
+                id: obj.id,
+                query: obj.nombre + ' ' + obj.apellido,
+                nombre: obj.nombre,
+                apellido: obj.apellido,
+              };
               data.push(JSON.stringify(item));
             });
 
             return process(data);
+          },
+          error: function(result) {
+            console.log('error');
           }
         });
       },
       matcher: function(obj) {
         var item = JSON.parse(obj);
-        if (item.nombre.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
+        if (item.query.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
             return true;
         }
       },
@@ -33,7 +40,7 @@
       highlighter: function (obj) {
         var item = JSON.parse(obj);
         var regex = new RegExp( '(' + this.query + ')', 'gi' );
-        return item.nombre.replace( regex, "<strong>$1</strong>" );
+        return item.query.replace( regex, "<strong>$1</strong>" );
       },
       updater: function (obj) {
         var item = JSON.parse(obj);
@@ -45,6 +52,7 @@
           }
         });
         if(!exists) {
+
           $('#destinatarios').append(
               '<li><input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
               + item.nombre
@@ -53,11 +61,16 @@
           );
           $(".noAgregar").click(function(){
             $(this).parent().remove();
+            if ($('#destinatarios li').length < 1) {
+              $('#newMensajeSubmit').addClass("disabled");
+              $('#newMensajeSubmit').prop("disabled", true);
+            }
           });
+          $('#newMensajeSubmit').removeClass("disabled");
+          $('#newMensajeSubmit').prop("disabled", false);
         }
 
-        return;
+        return '';
       }
     });
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
+})(window, document, jQuery);
