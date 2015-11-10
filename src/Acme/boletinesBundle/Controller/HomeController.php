@@ -43,8 +43,19 @@ class HomeController extends Controller
                 'calificaciones' => $ultimasCalificaciones,
                 'conPos' => count($convivenciaPositiva),
                 'conNeg' => count($convivenciaNegativa),));
-            $session = $this->getRequest()->getSession();
-            $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
+
+        }
+        else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
+            $docente = $session->get('docenteActivo');
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $evaluacionService =  $this->get('boletines.servicios.evaluacion');
+
+            $materias = $materiaService->listaMateriasPorDocente($docente->getId());
+            $evaluaciones = $evaluacionService->evaluacionesPorDocente($docente->getId());
+
+            return $this->render('BoletinesBundle:Default:home.html.twig', array('materias' => $materias,
+                'evaluaciones' => $evaluaciones,
+                ));
         }
 
         return $this->render('BoletinesBundle:Default:home.html.twig');

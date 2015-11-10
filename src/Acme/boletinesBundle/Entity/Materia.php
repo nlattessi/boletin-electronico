@@ -61,7 +61,29 @@ class Materia
      * })
      */
     private $establecimiento;
+    private $alumnos;
+    private $gruposAlumnos;
+    private $archivos;
+    private $docentes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MateriaDiaHorario", mappedBy="materia", cascade={"remove"})
+     */
+    private $horarios;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Evaluacion", mappedBy="materia", cascade={"remove"})
+     */
+    private $evaluaciones;
+
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->horarios = new ArrayCollection();
+        $this->evaluaciones = new ArrayCollection();
+    }
 
 
     /**
@@ -164,6 +186,124 @@ class Materia
     public function getTipoMateria()
     {
         return $this->tipoMateria;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAlumnos()
+    {
+        return $this->alumnos;
+    }
+
+    /**
+     * @param array $alumnos
+     */
+    public function setAlumnos($alumnos)
+    {
+        $this->alumnos = $alumnos;
+    }
+
+    public function getCantidadAlumnos(){
+        return count($this->alumnos);
+    }
+
+    /**
+     * @return array
+     */
+    public function getGruposAlumnos()
+    {
+        return $this->gruposAlumnos;
+    }
+
+    /**
+     * @param array $gruposAlumnos
+     */
+    public function setGruposAlumnos($gruposAlumnos)
+    {
+        $this->gruposAlumnos = $gruposAlumnos;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getHorarios()
+    {
+        return $this->horarios;
+    }
+
+    /**
+     * @param mixed $horarios
+     *
+     *
+     */
+    public function addHorarios(MateriaDiaHorario $e)
+    {
+        $this->horarios[] = $e;
+        $e->setMateria($this);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvaluaciones()
+    {
+        return $this->evaluaciones;
+    }
+
+    public function addEvaluaciones(Evaluacion $e)
+    {
+        $this->evaluaciones[] = $e;
+        $e->setMateria($this);
+
+        return $this;
+    }
+    /**
+     * @param mixed $evaluaciones
+     */
+    public function setEvaluaciones($evaluaciones)
+    {
+        $this->evaluaciones = $evaluaciones;
+    }
+
+
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getArchivos()
+    {
+        return $this->archivos;
+    }
+
+    /**
+     * @param ArrayCollection $archivos
+     */
+    public function setArchivos($archivos)
+    {
+        $this->archivos = $archivos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDocentes()
+    {
+        return $this->docentes;
+    }
+
+    /**
+     * @param mixed $docentes
+     */
+    public function setDocentes($docentes)
+    {
+        $this->docentes = $docentes;
     }
 
     public function __toString(){

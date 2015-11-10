@@ -17,8 +17,19 @@ class MateriaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
+        {
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $docente = $session->get('docenteActivo');
+            $entities = $materiaService->listaMateriasPorDocente($docente->getId());
+        }
+        else{
+            $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+        }
 
-        $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+
 
         return $this->render('BoletinesBundle:Materia:index.html.twig', array('entities' => $entities));
     }
@@ -27,7 +38,13 @@ class MateriaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+
+        if($materia){
+            $materiaService =  $this->get('boletines.servicios.materia');
+           $materia = $materiaService->materiaLoad($materia);
+        }
+
 
         return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
     }
