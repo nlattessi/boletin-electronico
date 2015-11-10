@@ -14,6 +14,10 @@ services:
           class: Acme\boletinesBundle\Servicios\NotificacionService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.mensaje:
+          class: Acme\boletinesBundle\Servicios\MensajeService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
       boletines.servicios.creacion:
           class: Acme\boletinesBundle\Servicios\CreacionService
           arguments:

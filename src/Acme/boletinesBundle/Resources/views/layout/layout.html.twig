@@ -43,6 +43,7 @@
     <script src="{{ asset('bundles/boletines/js/prism.js') }}"></script>
     <script src="{{ asset('bundles/boletines/bin/materialize.js') }}"></script>
     <script src="{{ asset('bundles/boletines/js/init.js') }}"></script>
+    <script src="{{ asset('bundles/boletines/js/bootstrap3-typeahead.min.js') }}"></script>
     {% block css_include %}{% endblock %}
 
 
@@ -69,6 +70,7 @@
             </div>
         {% endif %}
 
+        {% block banner_mensaje %}{% endblock %}
 
         <div class="container fadeIn animated">
               {% block page %}{% endblock %}

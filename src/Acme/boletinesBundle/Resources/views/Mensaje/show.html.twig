@@ -1,38 +1,161 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Mensajes{% endblock %}
 
-{% block body -%}
-    <h1>Mensaje</h1>
+{% block banner_mensaje %}
+<div class="section fadeIn animated" id="index-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9 l10">
+        <h4 class="header center-on-small-only" id="mensajeTitulo">{% if mensaje.titulo %}{{ mensaje.titulo }}{% else %}&lt;&lt;Sin titulo&gt;&gt;{% endif %}</h4>
+      </div>
+      <div class="col s12 m3 l2 mar-top-soft center-align">
+          <a href="{{ path('mensaje_delete', {'id': mensaje.id}) }}"data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+          <a onclick="window.print();" data-position="top" data-delay="25" data-tooltip="Imprimir" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id Mensaje</th>
-            <td>{{ mensaje.id }}</td>
-        </tr>
-        <tr>
-            <th>Titulo Mensaje</th>
-            <td>{{ mensaje.titulo }}</td>
+{% block page %}
+   <div class="row">
+       <div class="col s12 m12 l12 mar-top-soft ">
+             <div class="col s12 m9 l9 center-on-small-only">
+               <span class="mb-name" id="mensajeUsuario">{{ mensaje.usuario.getNombreCompleto }}</span><br>
+             </div>
+             <div class="col s12 m2 l2 center-align">
+              <span class="weak" id="mensajeFecha">{{ mensaje.fechaEnvio|localizeddate('none', 'none', app.request.locale, null, "d MMMM") }}</span>
+             </div>
+             <div class="col s12 m12 l12">
+               <p class="header" style="white-space: pre;" id="mensajeTexto">{% if mensaje.texto %}{{ mensaje.texto[:20] }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}<br><br></p>
 
-        </tr>
-        <tr>
-            <th>Mensaje</th>
-            <td>{{ mensaje.texto }}</td>
+                   {#<div class="mail-attachments">
+                     <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#">Descargar todos</a></p>
+                     <p><i class="icon-linear-paperclip"></i> Adjuntos</p>
+                     <ul class="list-group">
+                       <li class="list-group-item">
+                         <span class="name">Rstuvwxyz.mp4</span>
+                         <span class="size">(2.40M)</span>
+                         <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+                       </li>
+                       <li class="list-group-item">
+                         <span class="name">Demo.doc</span>
+                         <span class="size">(2.40M)</span>
+                         <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+                       </li>
+                     </ul>
+                   </div>#}
+             </div>
+       </div>
+     </div>  <!-- end row-->
 
-        </tr>
-        <tr>
-            <th>Enviado el dia</th>
-        </tr>
-        <tr>
-            <th>Enviado por</th>
-        </tr>
-        </tbody>
-    </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('mensaje') }}">
-           Volver a la lista
-        </a>
-    </li>
-</ul>
+<div class="col s12 m12 l12">
+     <ul class="collapsible mar-top-soft" data-collapsible="expandable">
+   <li class="">
+     <div class="collapsible-header"><h5 class="panel-title"><i class="icon-linear-reply"></i> Responder</h5></div>
+
+     <div class="collapsible-body" > <!--  start user 1  -->
+           <div class="row">
+             <div class="col s12 mar-bot-top">
+
+               <form action="{{ path('mensaje_new')}}" method="post">
+
+                   <div class="input-field col s12">
+                         <input id="typeahead" type="text" class="validate" data-provide="typeahead">
+                         <label for="nombre_inst"  class="">Para:</label>
+                   </div>
+
+                   <div class="input-field col s12">
+                     <ul id="destinatarios" class="unstyled">
+                       <li>
+                         <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">{{ mensaje.usuario.getNombreCompleto }}<button class="btn btn-mini noAgregar">[X]</button>
+                       </li>
+                     </ul>
+                   </div>
+
+                   <div class="input-field col s12">
+                         <input value="RE: {{ mensaje.titulo }}" id="nombre_inst" type="text" class="validate truncate" name="tituloMensaje">
+                         <label for="nombre_inst" class="">Asunto:</label>
+                   </div>
+
+                   <div class="input-field col s12">
+                     <textarea id="textarea1" class="materialize-textarea" length="1200" name="textoMensaje"></textarea>
+                     <label for="textarea1">Mensaje:</label>
+                   </div>
+
+                     {#<div class="col s12">
+                           <div class="file-field input-field">
+                             <div class="btn">
+                               <span>Adjuntar archivos</span>
+                               <input type="file" multiple="">
+                             </div>
+                             <div class="file-path-wrapper">
+                               <input class="file-path validate" type="text" placeholder="Seleccione uno o más archivos">
+                             </div>
+                           </div>
+                     </div>#}
+
+                   <div class="col s12 center-align mar-top-soft">
+                       <button type="submit" class="btn-large waves-effect waves-light center-align mar-right" id="newMensajeSubmit">enviar</button>
+                       {#<a data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>#}
+                   </div>
+
+                   </form>
+
+               </div>
+             </div>
+     </div> <!--  end user 1  -->
+   </li>
+
+
+ </ul>
+
+   </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
+
+  <script>
+  $(".noAgregar").click(function(){
+    $(this).parent().remove();
+    if ($('#destinatarios li').length < 1) {
+      $('#newMensajeSubmit').addClass("disabled");
+      $('#newMensajeSubmit').prop("disabled", true);
+    }
+  });
+  </script>
+
+  <script type="text/javascript">
+  function printDiv() {
+      var titulo = document.getElementById("mensajeTitulo").innerHTML;
+      var texto = document.getElementById("mensajeTexto").innerHTML;
+      var usuario = document.getElementById("mensajeUsuario").innerHTML;
+      var fecha = document.getElementById("mensajeFecha").innerHTML;
+
+      var frame1 = document.createElement('iframe');
+      frame1.name = "frame1";
+      frame1.style.position = "absolute";
+      frame1.style.top = "-1000000px";
+      document.body.appendChild(frame1);
+      var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+      frameDoc.document.open();
+      frameDoc.document.write('<html><head><title>DIV Contents</title>');
+      frameDoc.document.write('</head><body>');
+      frameDoc.document.write(usuario + ' - ' + fecha);
+      frameDoc.document.write('<br><br>');
+      frameDoc.document.write(titulo);
+      frameDoc.document.write('<br><br>');
+      frameDoc.document.write(texto);
+      frameDoc.document.write('</body></html>');
+      frameDoc.document.close();
+      setTimeout(function () {
+          window.frames["frame1"].focus();
+          window.frames["frame1"].print();
+          document.body.removeChild(frame1);
+      }, 500);
+      return false;
+  }
+  </script>
 {% endblock %}

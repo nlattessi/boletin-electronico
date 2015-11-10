@@ -15,7 +15,7 @@
 
         {% endif %}
         <li><a href="#!" class="t-s du"><i class="icon-linear-user-plus left"></i> Editar perfil</a></li>
-        <li><a href="logout" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
+        <li><a href="{{ path('logout') }}" class="t-s du"><i class="icon-linear-exit-left left"></i> Cerrar sesión</a></li>
     </ul>
     <ul id="dropdown2" class="dropdown-content drop-notification">
         <span class="circle dot"></span>
@@ -27,13 +27,17 @@
         <li><a href="#!" class="t-s">Suspensión de clases<br><span class="ts-s">Ayer</span></a></li>
     </ul>
     <ul id="dropdown3" class="dropdown-content drop-messages">
-        <span class="circle dot"></span>
-        <div clasS="notifi"><h6>Mensajes</h6></div>
-        <li><a href="#!" class="t-s"><b>Javier alonso</b> te ha enviado un mensaje<br><span class="ts-s">Hace 10 minutos.</span></a></li>
+      <span class="circle dot"></span>
+      <li class="notifi"><h6>Mensajes</h6></li>
+      {% if app.user.getMensajesNoLeidos|length > 0 %}
+        {% for mensaje in app.user.getMensajesNoLeidos %}
+          <li><a href="{{ path('mensaje_show', {'id': mensaje.mensaje.id}) }}" class="t-s"><b>{{ mensaje.mensaje.usuario.nombre }}</b> te ha enviado un mensaje<br><span class="ts-s">{{ mensaje.mensaje.fechaEnvio|ago }}</span></a></li>
+          <li class="divider"></li>
+        {% endfor %}
+      {% else %}
         <li class="divider"></li>
-        <li><a href="#!" class="t-s"><b>John Pol</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
-        <li class="divider"></li>
-        <li><a href="#!" class="t-s"><b>Eugenia Leto</b> te ha enviado un mensaje<br><span class="ts-s">Hace 20 minutos.</span></a></li>
+      {% endif %}
+      <li class="notifii"><a href="{{ path('mensaje') }}"><h6>Ver todos</h6></a></li>
     </ul>
     <nav>
         <div class="nav-wrapper">
@@ -50,7 +54,7 @@
                 </ul>
                 <ul class="right fix">
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">3</span></i></a></li>
-                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">1</span></i></a></li>
+                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">{{ app.user.getMensajesNoLeidos|length }}</span></i></a></li>
 
 
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">{{ app.user.nombre }}<i class="icon-linear-chevron-down right"></i></a></li>

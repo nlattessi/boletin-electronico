@@ -93,11 +93,17 @@ class Usuario implements UserInterface, \Serializable
 
     private $actividades;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MensajeUsuario", mappedBy="usuario")
+     */
+    protected $mensajes;
+
 
     /* CONSTRUCT */
     public function __construct()
     {
         $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -385,5 +391,20 @@ class Usuario implements UserInterface, \Serializable
         $this->apellido = $apellido;
     }
 
+    public function getNombreCompleto()
+    {
+        return $this->getNombre() . ' ' . $this->getApellido();
+    }
 
+    public function getMensajes()
+    {
+        return $this->mensajes;
+    }
+
+    public function getMensajesNoLeidos()
+    {
+        return $this->mensajes->filter(function($mensaje) {
+          return ($mensaje->getLeido() == false && $mensaje->getBorrado() == false);
+        });
+    }
 }
