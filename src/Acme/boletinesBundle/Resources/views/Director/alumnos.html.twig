@@ -1,0 +1,123 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block css_include %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
+{% endblock %}
+
+{% block page %}
+    <div class="container fadeIn animated">
+        <div class="row">
+
+            <div class="col s12 m12 l12">
+
+                <!--  Tables Section-->
+
+
+                <div id="striped" >
+                    <div class="row">
+                        <div class="col s10 m10 l10">
+                            <h3 class="header">Alumnos inscriptos</h3>
+
+                        </div>
+
+
+                        <div class="input-field col s6">
+                            <i class="icon-linear-magnifier prefix"></i>
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Buscar alumnos</label>
+                        </div>
+                        <div class="input-field col s4 right">
+                            <select>
+                                <option value="" disabled selected>Filtrar por grupo</option>
+                                <option value="1">El autocompletar esta pendiente</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 mar-top-soft">
+
+                            <table class="striped">
+                                <thead>
+                                    <tr class="new-student">
+                                        <th data-field="id">Nombre</th>
+                                        <th data-field="id">Apellido</th>
+                                        <th data-field="name">DNI</th>
+                                        <th data-field="price">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {#<tr class="new-student">#}
+                                    {#<td>#}
+                                        {#<div class="input-field col s12">#}
+                                            {#<input id="last_name" type="text" class="validate">#}
+                                            {#<label for="last_name">Nombre</label>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-field col s12">#}
+                                            {#<input id="last_name" type="text" class="validate">#}
+                                            {#<label for="last_name">Apellido</label>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-field col s12">#}
+                                            {#<input id="last_name" type="text" class="validate">#}
+                                            {#<label for="last_name">DNI</label>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-field col s12">#}
+                                            {#<i class="icon-linear-magnifier prefix"></i>#}
+                                            {#<input id="icon_prefix" type="text" class="validate">#}
+                                            {#<label for="icon_prefix">Grupo</label>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td class="center-align">#}
+                                        {#<a href="#" data-position="top" data-delay="25" data-tooltip="Crear alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>#}
+
+                                    {#</td>#}
+
+
+                                {#</tr>#}
+                                {% for alumno in alumnos %}
+                                    <tr>
+                                        <td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.nombre}}</a></td>
+                                        <td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.apellido}}</a></td>
+                                        <td>{{alumno.dni}}</td>
+                                        <td>
+                                            <a href="usuarios-editar-alumno_directivo.html" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                                            <a data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--  End Tables Section  -->
+            <div class="row">
+
+                <div class="col s12 m12 l12 mar-top-soft">
+                    <ul class="pagination pagi-pad">
+                        <li class="disabled"><a href="under-construction.html"><i class="icon-linear-chevron-left"></i></a></li>
+                        <li class="active"><a href="under-construction.html">1</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">2</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">3</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">4</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">5</a></li>
+                        <li class="waves-effect"><a href="under-construction.html"><i class="icon-linear-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

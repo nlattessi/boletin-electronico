@@ -1,0 +1,89 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block css_include %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
+{% endblock %}
+
+{% block page %}
+ {##}
+                {#<tr>#}
+                    {#<td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.nombre}}</a></td>#}
+                    {#<td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.apellido}}</a></td>#}
+                    {#<td>{{alumno.dni}}</td>#}
+                    {#<td>#}
+                        {#<a href="usuarios-editar-alumno_directivo.html" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>#}
+                        {#<a data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>#}
+                    {#</td>#}
+                {#</tr>#}
+
+
+    <div class="container fadeIn animated">
+        <div class="row">
+
+            <div class="col s12 m12 l12">
+
+                <!--  Tables Section-->
+
+
+                <div id="striped" >
+                    <div class="row">
+                        <div class="col s10 m10 l10">
+                            <h3 class="header">Bedeles</h3>
+                        </div>
+                        <div class="col s2 m2 l2">
+                            <a href="usuarios-bedel-nuevo_directivo.html" data-position="left" data-delay="25" data-tooltip="Crear nuevo Bedel" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+                        </div>
+
+
+
+                        <div class="input-field col s6">
+                            <i class="icon-linear-magnifier prefix"></i>
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Buscar Bedeles</label>
+                        </div>
+                        <div class="input-field col s4 right">
+                            <select>
+                                <option value="" disabled selected>Filtrar por grupo</option>
+                                <option value="1">El autocompletar esta pendiente</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12 mar-top-soft">
+
+                            <ul class="collection">
+                                {% for bedele in bedeles %}
+
+                                    <li class="collection-item avatar">
+                                        <a href="usuarios-bedeles-ficha_directivo.html" class="collection-a"><span class="title truncate">{{ bedele.nombre }} {{ bedele.apellido }}</span></a>
+                                        <a href="usuarios-bedeles-editar_directivo.html" data-position="left" data-delay="25" data-tooltip="Editar" class="secondary-content tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--  End Tables Section  -->
+            <div class="row">
+
+                <div class="col s12 m12 l12 mar-top-soft">
+                    <ul class="pagination pagi-pad">
+                        <li class="disabled"><a href="under-construction.html"><i class="icon-linear-chevron-left"></i></a></li>
+                        <li class="active"><a href="under-construction.html">1</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">2</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">3</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">4</a></li>
+                        <li class="waves-effect"><a href="under-construction.html">5</a></li>
+                        <li class="waves-effect"><a href="under-construction.html"><i class="icon-linear-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
