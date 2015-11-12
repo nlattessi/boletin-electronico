@@ -30,9 +30,9 @@ boletines_usuario:
     resource: "@BoletinesBundle/Resources/config/routing/usuario.yml"
     prefix:   /usuario
 
-boletines_examen:
-    resource: "@BoletinesBundle/Resources/config/routing/examen.yml"
-    prefix:   /examen
+boletines_evaluacion:
+    resource: "@BoletinesBundle/Resources/config/routing/evaluacion.yml"
+    prefix:   /evaluacion
 
 boletines_alumno:
     resource: "@BoletinesBundle/Resources/config/routing/alumno.yml"

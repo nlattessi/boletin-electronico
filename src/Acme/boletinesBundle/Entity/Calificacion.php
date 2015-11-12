@@ -34,13 +34,6 @@ class Calificacion
     private $comentario;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="validada", type="boolean", nullable=false)
-     */
-    private $validada;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)

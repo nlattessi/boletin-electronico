@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Evaluacion list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id Evaluacion</th>
+                <th>Nombre evaluacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evaluacion in entities %}
+            <tr>
+                <td>{{ evaluacion.id }}</td>
+                <td><a href="{{ path('evaluacion_show', { 'id': evaluacion.id }) }}">{{ evaluacion.__toString() }}</a></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('evaluacion_show', { 'id': evaluacion.id }) }}">Ver</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('evaluacion_edit', { 'id': evaluacion.id }) }}">Editar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('evaluacion_delete', { 'id': evaluacion.id }) }}">Borrar</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('evaluacion_new') }}">
+                Crear Nueva Evaluacion
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

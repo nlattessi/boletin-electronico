@@ -249,4 +249,8 @@ class Evaluacion
     {
         return $this->docente;
     }
+
+    public function __toString(){
+        return $this->getNombre();
+    }
 }

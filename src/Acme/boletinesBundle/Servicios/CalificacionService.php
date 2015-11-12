@@ -23,10 +23,19 @@ class CalificacionService {
      * Devuelve lista de calificaciones
      */
     public function obtenerCalificaciones($alumnoId){
+    $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
+        ->where('c.alumno = ?1')
+        ->setParameter(1, $alumnoId)
+        ->addOrderBy('c.fecha','DESC');
+
+    $calificaciones = $queryBuilder->getQuery()->getResult();
+    return $calificaciones;
+}
+
+    public function obtenerCalificacionesPorEvaluacion($evaluacionId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
-            ->where('c.alumno = ?1')
-            ->andWhere('c.validada = true')
-            ->setParameter(1, $alumnoId)
+            ->where('c.evaluacion = ?1')
+            ->setParameter(1, $evaluacionId)
             ->addOrderBy('c.fecha','DESC');
 
         $calificaciones = $queryBuilder->getQuery()->getResult();
@@ -35,7 +44,6 @@ class CalificacionService {
     public function obtenerUltimasCalificaciones($alumnoId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
-            ->andWhere('c.validada = true')
             ->setParameter(1, $alumnoId)
         ->setMaxResults(self::N_ULTIMA)
         ->addOrderBy('c.fecha','DESC');
