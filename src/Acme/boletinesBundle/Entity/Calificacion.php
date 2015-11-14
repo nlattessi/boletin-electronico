@@ -20,9 +20,7 @@ class Calificacion
     private $fecha;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="valor", type="string", length=10, nullable=true)
+     * @var \Acme\boletinesBundle\Entity\ValorCalificacion
      */
     private $valor;
 
@@ -32,13 +30,6 @@ class Calificacion
      * @ORM\Column(name="comentario", type="string", length=250, nullable=true)
      */
     private $comentario;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="validada", type="boolean", nullable=false)
-     */
-    private $validada;
 
     /**
      * @var \DateTime
@@ -121,7 +112,7 @@ class Calificacion
     /**
      * Set valor
      *
-     * @param string $valor
+     * @param ValorCalificacion $valor
      * @return Calificacion
      */
     public function setValor($valor)
@@ -134,7 +125,7 @@ class Calificacion
     /**
      * Get valor
      *
-     * @return string 
+     * @return ValorCalificacion
      */
     public function getValor()
     {
@@ -311,4 +302,10 @@ class Calificacion
     {
         return $this->alumno;
     }
+    /**
+     * @var boolean
+     */
+    private $validada;
+
+
 }

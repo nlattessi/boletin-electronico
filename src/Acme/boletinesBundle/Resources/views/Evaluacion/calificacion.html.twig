@@ -1,0 +1,76 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Calificar{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Calificaciones</h4>
+
+        </div>
+        <div class="col s12 m10 l10'">
+            <h5 class="header">{{ evaluacion.materia }}</h5>
+        </div>
+        <div class="col s12 m2 l2 right">
+            <h5><i class="icon-linear-users2 d-d-i"></i> {{ evaluacion.materia.cantidadAlumnos }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="input-field col s12 m6 l6 mar-top-input-fix">
+                <h4 class="">{{ evaluacion.nombre }}</h4>
+            </div>
+            <div class=" col s12 m6 l6">
+                <i class="icon-linear-calendar-insert"></i>
+                <h4  class="">{{ evaluacion.fecha|date('d/m/Y') }}</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <form action="{{ path('evaluacion_recalificar', { 'id': evaluacion.id }) }}" method="post">
+                <table class="striped">
+                    <thead>
+                    <tr>
+                        <th data-field="id">Alumno</th>
+                        <th data-field="name">Calificación</th>
+                        <th data-field="name">Comentario</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for calificacion in calificaciones %}
+                        <tr>
+                            <td>{{ calificacion.alumno.nombre }}</td>
+                            <td>
+                                <div class="select-wrapper">
+                                    <select class="initialized" name="{{ calificacion.id }}cal">
+                                        {% for valorC in valoresCalificacion %}
+                                            {% if calificacion.valor.id == valorC.id %}
+                                                <option selected="selected" value="{{valorC.id}}">{{valorC.__toString()}}</option>
+                                            {% else %}
+                                                <option value="{{valorC.id}}">{{valorC.__toString()}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <label for="{{ calificacion.id }}cal" class="">Calificación</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field col col s4 m2 l2">
+                                    <input value="{{ calificacion.comentario }}" id="{{ calificacion.id }}com" name="{{ calificacion.id }}com" type="text" class="validate">
+                                    <label for="{{ calificacion.id }}com" class="">Comentario</label>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="col s12 center-align mar-top-soft">
+                    <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

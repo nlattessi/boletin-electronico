@@ -3,7 +3,7 @@ calificacion:
     defaults: { _controller: BoletinesBundle:Calificacion:index }
 
 calificacion_new:
-    path:    /new
+    path:    /new/{id}
     defaults: { _controller: BoletinesBundle:Calificacion:new }
 
 calificacion_delete:

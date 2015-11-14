@@ -5,16 +5,21 @@
       <index name="FK_8A3AF218320260C0" columns="alumno_id"/>
       <index name="fk_calificacion_evaluacion" columns="evaluacion_id"/>
       <index name="fk_usuario_calificacion_idx" columns="usuario_carga_id"/>
+      <index name="fk_calificacion_valor_idx" columns="valor"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="fecha" type="datetime" column="fecha" nullable="true"/>
-    <field name="valor" type="string" column="valor" length="10" nullable="true"/>
     <field name="comentario" type="string" column="comentario" length="250" nullable="true"/>
-    <field name="validada" type="boolean" column="validada" nullable="false"/>
     <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
     <field name="fechaActualizacion" type="datetime" column="fecha_actualizacion" nullable="true"/>
+    <field name="validada" type="boolean" column="validada" nullable="true"/>
+    <many-to-one field="valor" target-entity="ValorCalificacion">
+      <join-columns>
+        <join-column name="valor" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="usuarioCarga" target-entity="Usuario">
       <join-columns>
         <join-column name="usuario_carga_id" referenced-column-name="id"/>

@@ -49,7 +49,7 @@ class InstitucionController extends Controller
         $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
 
         foreach ($establecimientos as $establecimiento) {
-            $alumnosAux =  $em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimientoId' => $establecimiento));
+            $alumnosAux =  $em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimiento' => $establecimiento));
             foreach ($alumnosAux as $alumno) {
                 $alumnos[] = $alumno;
             }

@@ -142,6 +142,12 @@ class Establecimiento
      */
     protected $institucion;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="EsquemaCalificacion")
+     * @ORM\JoinColumn(name="esquema_calificacion_id", referencedColumnName="id")
+     */
+    protected $esquemaCalificacion;
+
     private $materias;
 
 
@@ -552,9 +558,27 @@ class Establecimiento
         return $this->institucion;
     }
 
+    /**
+     * @return \Acme\boletinesBundle\Entity\EsquemaCalificacion
+     */
+    public function getEsquemaCalificacion()
+    {
+        return $this->esquemaCalificacion;
+    }
+
+    /**
+     * @param \Acme\boletinesBundle\Entity\EsquemaCalificacion $esquemaCalificacion
+     */
+    public function setEsquemaCalificacion($esquemaCalificacion)
+    {
+        $this->esquemaCalificacion = $esquemaCalificacion;
+    }
+
+
+
     public function  __toString()
     {
-        return 'dfsdfsdfsdf';
+        return $this->getNombre();
     }
 
     public function getMaterias()

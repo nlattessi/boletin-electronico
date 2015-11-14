@@ -328,7 +328,7 @@ class MuchosAmuchosService {
     {
         $padres = array();
         foreach($establecimientos as $establecimiento) {
-            $padresEstablecimientos = $this->em->getRepository('BoletinesBundle:Padre')->findBy(array('establecimientoId' => $establecimiento));
+            $padresEstablecimientos = $this->em->getRepository('BoletinesBundle:Padre')->findBy(array('establecimiento' => $establecimiento));
             $padres = array_merge($padresEstablecimientos, $padres);
         }
 
@@ -339,7 +339,7 @@ class MuchosAmuchosService {
     {
         $docentes = array();
         foreach($establecimientos as $establecimiento) {
-            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Docente')->findBy(array('establecimientoId' => $establecimiento));
+            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Docente')->findBy(array('establecimiento' => $establecimiento));
             $docentes = array_merge($docenteEstablecimientos, $docentes);
         }
 

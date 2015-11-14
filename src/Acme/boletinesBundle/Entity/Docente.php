@@ -118,7 +118,7 @@ class Docente
      *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
      * })
      */
-    private $establecimientoId;
+    private $establecimiento;
 
     /**
      * @var \DateTime
@@ -488,26 +488,26 @@ class Docente
     }
 
     /**
-     * Set establecimientoId
+     * Set establecimiento
      *
-     * @param integer $establecimientoId
+     * @param integer $establecimiento
      * @return Docente
      */
-    public function setEstablecimientoId($establecimientoId)
+    public function setEstablecimiento($establecimiento)
     {
-        $this->establecimientoId = $establecimientoId;
+        $this->establecimiento = $establecimiento;
 
         return $this;
     }
 
     /**
-     * Get establecimientoId
+     * Get establecimiento
      *
      * @return integer 
      */
-    public function getEstablecimientoId()
+    public function getEstablecimiento()
     {
-        return $this->establecimientoId;
+        return $this->establecimiento;
     }
 
     /**
