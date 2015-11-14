@@ -12,6 +12,7 @@ class CalificacionService {
 
     protected $em;
     const N_ULTIMA = 4;
+    const ESQUEMA_GENERAL_ID = 1;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
@@ -50,6 +51,17 @@ class CalificacionService {
 
         $calificaciones = $queryBuilder->getQuery()->getResult();
         return $calificaciones;
+    }
+
+    public function valoresAceptados($establecimiento){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:ValorCalificacion')->createQueryBuilder('c')
+            ->where('c.esquemaCalificacion = ?1')
+            ->orWhere('c.esquemaCalificacion = ?2')
+            ->setParameter(1, $establecimiento->getEsquemaCalificacion()->getId())
+            ->setParameter(2, self::ESQUEMA_GENERAL_ID);
+
+        $valores = $queryBuilder->getQuery()->getResult();
+        return $valores;
     }
 
 }

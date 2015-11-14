@@ -25,9 +25,9 @@ class ValorCalificacion
     private $id;
 
     /**
-     * @var \Acme\boletinesBundle\Entity\EsquemaEvaluacion
+     * @var \Acme\boletinesBundle\Entity\EsquemaCalificacion
      */
-    private $esquemaEvaluacion;
+    private $esquemaCalificacion;
 
 
     /**
@@ -87,25 +87,29 @@ class ValorCalificacion
     }
 
     /**
-     * Set esquemaEvaluacion
+     * Set esquemaCalificacion
      *
-     * @param \Acme\boletinesBundle\Entity\EsquemaEvaluacion $esquemaEvaluacion
+     * @param \Acme\boletinesBundle\Entity\EsquemaCalificacion $esquemaCalificacion
      * @return ValorCalificacion
      */
-    public function setEsquemaEvaluacion(\Acme\boletinesBundle\Entity\EsquemaEvaluacion $esquemaEvaluacion = null)
+    public function setEsquemaCalificacion(\Acme\boletinesBundle\Entity\EsquemaCalificacion $esquemaCalificacion = null)
     {
-        $this->esquemaEvaluacion = $esquemaEvaluacion;
+        $this->esquemaCalificacion = $esquemaCalificacion;
 
         return $this;
     }
 
     /**
-     * Get esquemaEvaluacion
+     * Get esquemaCalificacion
      *
-     * @return \Acme\boletinesBundle\Entity\EsquemaEvaluacion 
+     * @return \Acme\boletinesBundle\Entity\EsquemaCalificacion 
      */
-    public function getEsquemaEvaluacion()
+    public function getEsquemaCalificacion()
     {
-        return $this->esquemaEvaluacion;
+        return $this->esquemaCalificacion;
+    }
+
+    public function __toString(){
+        return $this->getNombre();
     }
 }

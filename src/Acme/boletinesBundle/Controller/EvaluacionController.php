@@ -125,7 +125,11 @@ class EvaluacionController extends Controller
     }
 
     public function calificarAction($id = null, Request $request = null){
-
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $establecimiento = $session->get('establecimientoActivo');
+        $calificacionService =  $this->get('boletines.servicios.calificacion');
+        $valoresCalificacion = $calificacionService->valoresAceptados($establecimiento);
         if ($request->getMethod() == 'POST') {
             $message = "Las calificaciones fueron cargadas correctamente";
             $em = $this->getDoctrine()->getManager();
@@ -141,7 +145,8 @@ class EvaluacionController extends Controller
                 $calificacion->setUsuarioCarga($this->getUser());
                 $calificacion->setFecha($evaluacion->getFecha());
                 $calificacion->setFechaCreacion(new \DateTime("NOW"));
-                $calificacion->setValor($request->get($alumno->getId() . "cal"));
+                $valorId = $request->get($alumno->getId() . "cal");
+                $calificacion->setValor($em->getRepository('BoletinesBundle:ValorCalificacion')->findOneBy(array('id' => $valorId)));
                 $calificacion->setComentario($request->get($alumno->getId() . "com"));
                 $em->persist($calificacion);
                 array_push($calificaciones,$calificacion );
@@ -152,15 +157,18 @@ class EvaluacionController extends Controller
             return $this->render('BoletinesBundle:Evaluacion:calificacion.html.twig',
                 array('evaluacion' => $evaluacion,
                     'mensaje' => $message,
-                    'calificaciones' => $calificaciones,));
+                    'calificaciones' => $calificaciones,
+                    'valoresCalificacion' => $valoresCalificacion,));
         } else {
             $em = $this->getDoctrine()->getManager();
             $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
             $materiaService =  $this->get('boletines.servicios.materia');
             $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
 
+
         }
-        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion, ));
+        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion,
+            'valoresCalificacion' => $valoresCalificacion,));
 
     }
 
@@ -169,15 +177,21 @@ class EvaluacionController extends Controller
         $message = "Las calificaciones fueron actualizadas correctamente";
         $em = $this->getDoctrine()->getManager();
         $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $establecimiento = $session->get('establecimientoActivo');
 
         $calificacionService =  $this->get('boletines.servicios.calificacion');
+        $valoresCalificacion = $calificacionService->valoresAceptados($establecimiento);
         $calificaciones = $calificacionService->obtenerCalificacionesPorEvaluacion($id);
 
         foreach($calificaciones as $calificacion){
             //TODO: agregar el isset en el request por seguridad
             $calificacion->setUsuarioCarga($this->getUser());
             $calificacion->setFechaActualizacion(new \DateTime("NOW"));
-            $calificacion->setValor($request->get($calificacion->getId() . "cal"));
+            $valorId = $request->get($calificacion->getId() . "cal");
+            $calificacion->setValor($em->getRepository('BoletinesBundle:ValorCalificacion')->findOneBy(array('id' => $valorId)));
+
             $calificacion->setComentario($request->get($calificacion->getId() . "com"));
             $em->persist($calificacion);
         }
@@ -187,7 +201,8 @@ class EvaluacionController extends Controller
         return $this->render('BoletinesBundle:Evaluacion:calificacion.html.twig',
             array('evaluacion' => $evaluacion,
                 'mensaje' => $message,
-                'calificaciones' => $calificaciones,));
+                'calificaciones' => $calificaciones,
+                'valoresCalificacion' => $valoresCalificacion,));
     }
 
 

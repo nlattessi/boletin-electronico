@@ -5,9 +5,9 @@ namespace Acme\boletinesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EsquemaEvaluacion
+ * EsquemaCalificacion
  */
-class EsquemaEvaluacion
+class EsquemaCalificacion
 {
     /**
      * @var string
@@ -24,7 +24,7 @@ class EsquemaEvaluacion
      * Set nombre
      *
      * @param string $nombre
-     * @return EsquemaEvaluacion
+     * @return EsquemaCalificacion
      */
     public function setNombre($nombre)
     {

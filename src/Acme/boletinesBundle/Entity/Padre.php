@@ -111,7 +111,7 @@ class Padre
      *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
      * })
      */
-    private $establecimientoId;
+    private $establecimiento;
 
     /**
      * @var \DateTime
@@ -458,14 +458,14 @@ class Padre
     }
 
     /**
-     * Set EstablecimientoId
+     * Set Establecimiento
      *
      * @param integer $establecimiento
      * @return Padre
      */
     public function setEstablecimiento($establecimiento)
     {
-        $this->establecimientoId = $establecimiento;
+        $this->establecimiento = $establecimiento;
 
         return $this;
     }
@@ -477,7 +477,7 @@ class Padre
      */
     public function getEstablecimiento()
     {
-        return $this->establecimientoId;
+        return $this->establecimiento;
     }
 
     /**

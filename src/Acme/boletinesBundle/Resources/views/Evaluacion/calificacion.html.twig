@@ -43,8 +43,16 @@
                         <tr>
                             <td>{{ calificacion.alumno.nombre }}</td>
                             <td>
-                                <div class="input-field col col s4 m2 l2">
-                                    <input value="{{ calificacion.valor }}" id="{{ calificacion.id }}cal" name="{{ calificacion.id }}cal" type="text" class="validate">
+                                <div class="select-wrapper">
+                                    <select class="initialized" name="{{ calificacion.id }}cal">
+                                        {% for valorC in valoresCalificacion %}
+                                            {% if calificacion.valor.id == valorC.id %}
+                                                <option selected="selected" value="{{valorC.id}}">{{valorC.__toString()}}</option>
+                                            {% else %}
+                                                <option value="{{valorC.id}}">{{valorC.__toString()}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                     <label for="{{ calificacion.id }}cal" class="">Calificación</label>
                                 </div>
                             </td>
