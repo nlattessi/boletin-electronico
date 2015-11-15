@@ -6,7 +6,9 @@
             <h4 class="header">Detalle Evaluacion</h4>
         </div>
         <div class="col s12 m10 l10'">
-            <h5 class="header">{{ evaluacion.materia }}</h5>
+            <h5 class="header"><a href="{{ path('materia_show', { 'id': evaluacion.materia.id }) }}">
+                {{ evaluacion.materia }}
+            </a></h5>
             <h5 class="header">
                 {% for grupo in evaluacion.materia.gruposAlumnos %}
                     {{ grupo ~ ' ' }}
