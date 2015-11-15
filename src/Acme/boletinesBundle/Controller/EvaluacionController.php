@@ -85,7 +85,9 @@ class EvaluacionController extends Controller
         $request = $this->getRequest();
         $session = $request->getSession();
         $docente = $session->get('docenteActivo');
-        //$evaluacion->setDocente($docente);TODO: chequear que onda esto
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $docente->getId()));
+        $evaluacion->setDocente($docente);//TODO: chequear que onda esto
+        $evaluacion->setCalificada(false);
         /*
         $evaluacion->setActividad($actividadService->crearActividad($evaluacion->getNombre(),
             "Actividad automatica del evaluacion", $evaluacion->getFecha(),$evaluacion->getFecha(),
