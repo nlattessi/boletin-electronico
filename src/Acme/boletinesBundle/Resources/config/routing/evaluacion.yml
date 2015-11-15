@@ -3,7 +3,7 @@ evaluacion:
     defaults: { _controller: BoletinesBundle:Evaluacion:index }
 
 evaluacion_new:
-    path:    /new
+    path:    /new/{id}
     defaults: { _controller: BoletinesBundle:Evaluacion:new }
 
 evaluacion_delete:
@@ -21,7 +21,3 @@ evaluacion_edit:
 evaluacion_calificar:
     path:     /calificar/{id}
     defaults: { _controller: BoletinesBundle:Evaluacion:calificar }
-
-evaluacion_recalificar:
-    path:     /recalificar/{id}
-    defaults: { _controller: BoletinesBundle:Evaluacion:recalificar }

@@ -77,7 +77,10 @@ class Evaluacion
      */
     private $docente;
 
-
+    /**
+     * @var boolean
+     */
+    private $calificada;
 
     /**
      * Set nombre
@@ -249,6 +252,24 @@ class Evaluacion
     {
         return $this->docente;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isCalificada()
+    {
+        return $this->calificada;
+    }
+
+    /**
+     * @param boolean $calificada
+     */
+    public function setCalificada($calificada)
+    {
+        $this->calificada = $calificada;
+    }
+
+
 
     public function __toString(){
         return $this->getNombre();

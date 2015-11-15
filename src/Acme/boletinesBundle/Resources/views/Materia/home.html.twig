@@ -43,7 +43,7 @@
 
             <div class="col s12 m6 l4 mar-top-soft">
                 <h5 class="panel-title">Evaluaciones</h5>
-                <div class="center-align"><a href=".html" data-position="top" data-delay="25" data-tooltip="Crear nueva instancia de evaluación" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+                <div class="center-align"><a href="{{ path('evaluacion_new', { 'id': materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Crear nueva instancia de evaluación" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
                 </div>
                 {% for evaluacion in materia.evaluaciones %}
                 <div class="panel-mini2 panel-assigment">
@@ -53,9 +53,21 @@
                             <h6><strong>{{ evaluacion.fecha|date('d/m/Y') }}</strong></h6>
                         </div>
                         <div class="col s2 right-align">
-                            <a data-position="top" data-delay="25" data-tooltip="Calificar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-list3"></i></a>
-                            <a data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
-                            <a data-position="top" data-delay="25" data-tooltip="Ver" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-eye"></i></a>
+                            <a href="{{ path('evaluacion_calificar', { 'id': evaluacion.id }) }}"
+                               data-position="top" data-delay="25" data-tooltip="Calificar"
+                               class="tooltipped  btn-small btn waves-effect waves-light">
+                                <i class="icon-linear-list3"></i>
+                            </a>
+                            <a href="{{ path('evaluacion_edit', { 'id': evaluacion.id }) }}"
+                               data-position="top" data-delay="25" data-tooltip="Editar"
+                               class="tooltipped  btn-small btn waves-effect waves-light">
+                                <i class="icon-linear-pencil"></i>
+                            </a>
+                            <a href="{{ path('evaluacion_show', { 'id': evaluacion.id }) }}"
+                               data-position="top" data-delay="25" data-tooltip="Ver"
+                               class="tooltipped  btn-small btn waves-effect waves-light">
+                                <i class="icon-linear-eye"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
