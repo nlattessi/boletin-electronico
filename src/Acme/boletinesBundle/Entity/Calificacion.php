@@ -84,6 +84,10 @@ class Calificacion
      */
     private $alumno;
 
+    /**
+     * @var boolean
+     */
+    private $validada;
 
 
     /**
@@ -302,10 +306,7 @@ class Calificacion
     {
         return $this->alumno;
     }
-    /**
-     * @var boolean
-     */
-    private $validada;
+
 
 
 }

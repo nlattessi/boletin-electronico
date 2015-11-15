@@ -2358,6 +2358,8 @@ td, th {
       min-height: 84px;
       padding-left: 72px;
       position: relative; }
+    .collection .collection-item.student-list {
+      min-height: 62px; }
       .collection .collection-item.avatar .circle {
         position: absolute;
         width: 42px;
@@ -11554,10 +11556,8 @@ a.button-collapse.top-nav {
   text-align: center;
   height: 48px;
   width: 48px;
-  
-  
   margin-left: 1.5rem;
-  color: black;
+  color: #676767;
   font-size: 32px;
   z-index: 3;
   visibility: hidden; }
@@ -11575,7 +11575,7 @@ a.button-collapse.top-nav {
    min-width: 150px !important; 
 }
   a.button-collapse.top-nav {
-    left: 5%; } }
+    } }
 
 @media only screen and (max-width : 992px) {
   nav .nav-wrapper {
@@ -12122,10 +12122,13 @@ body.parallax-demo footer {
    }
 .mar-right {margin-right: 1rem; }
 .mar-bot-btn-xsmall {margin-bottom: 1rem; }
-
+    
 .mar-top {
     margin-top: 3.5rem !important;
-}    
+}
+.student-list-fix {
+    margin-top: 12px;
+}   
 .mar-top-input-fix {
     margin-top: 22px !important;
 } .mar-top-low {
@@ -12160,7 +12163,9 @@ body.parallax-demo footer {
 .mar-bot {
   margin-bottom: 30px;
 }  
-
+.mar-bot-soft {
+  margin-bottom: 25px;
+}  
 .mar-bot-top {
   margin: 2rem 0rem 2rem 0rem;
 }  
@@ -12541,7 +12546,18 @@ vertical-align: sub;}
     -ms-transition: .2s ease-out;
     transition: .2s ease-out;
   }
-  .panel-mini:hover {
+.panel-mini2 {
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 1px solid #D8E2E7;
+    border-top: 1px solid #F39A6D;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    -o-transition: .2s ease-out;
+    -ms-transition: .2s ease-out;
+    transition: .2s ease-out;
+  }
+  .panel-mini:hover, .panel-mini2:hover {
   
   border: 1px solid #F39A6D;
   }

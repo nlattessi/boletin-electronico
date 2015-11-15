@@ -36,6 +36,7 @@
 	#calendar {
 		float: right;
 		width: 900px;
+		height: 100% !important;
 	}
 
 .fc {
@@ -81,10 +82,11 @@ thead {
 
 th {
   padding: 15px 0px 15px 0px !important;
-    border: 0 !important;
-    font-size: 1.8rem;
+  border: 0 !important;
+  font-size: 1.4rem;
   font-weight: 300;
   text-align: center;
+  text-transform: uppercase;
 }
 
 tr {
@@ -1135,3 +1137,26 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-resizer:after {
 	content: "=";
 }
+
+@media only screen and (max-width : 600px){
+th {
+    /* padding: 15px 0px 15px 0px !important; */
+    font-size: 1rem !important;
+}
+
+  .fc-toolbar {
+    margin-bottom: 20px;
+  }
+  .fc-toolbar .fc-center {
+    white-space: nowrap;
+    margin-top: 15px;
+  }
+  .fc-toolbar .fc-right {
+    top: 50px;
+  }
+.fc-time-grid-container, .fc-time-grid {
+    height: 145rem !important
+}
+}
+
+
