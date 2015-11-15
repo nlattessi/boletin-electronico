@@ -611,4 +611,8 @@ class Docente
     {
         return $this->usuario;
     }
+
+    public function __toString(){
+        return $this->getNombre() . ', ' . $this->getApellido();
+    }
 }

@@ -215,4 +215,8 @@ class Archivo
     {
         return $this->usuarioCarga;
     }
+
+    public function __toString(){
+        return $this->getNombreParaMostrar();
+    }
 }

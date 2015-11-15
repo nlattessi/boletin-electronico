@@ -46,7 +46,7 @@ class MateriaController extends Controller
         }
 
 
-        return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
+        return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia));
     }
 
     public function newAction(Request $request)

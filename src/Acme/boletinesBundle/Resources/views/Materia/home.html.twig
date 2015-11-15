@@ -1,0 +1,106 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Detalle Materia{% endblock %}
+{% block page %}
+
+    <div class="container fadeIn animated">
+        <div class="row">
+            <div class="col s12 m12 l12 mar-top-soft">
+                <h4 class="header">Detalle de materia</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m12 l12"> <!-- start materia-->
+                <div class="panel-mini panel-assigment">
+                    <div class="row">
+                        <div class="col s6">
+                            <h5 class="panel-title">{{ materia.nombre }} </h5>
+                            <h4>{% for grupo in materia.gruposAlumnos %}
+                                    {{ grupo ~ ' ' }}
+                                {% endfor %}
+                            </h4>
+                        </div>
+                        <div class="col s6 right-align">
+                            <h5><i class="icon-linear-users2 d-d-i"></i> {{ materia.cantidadAlumnos }}</h5>
+                            <h6>Alumnos</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col s12 m6 l4 mar-top-soft">
+                <h5 class="panel-title">Alumnos</h5>
+                <ul class="collection">
+                 {% for alumno in materia.alumnos %}
+                    <li class="collection-item avatar student-list">
+                        <a href="usuarios-datos-alumno_directivo.html" class="collection-a"><img src="images/child.jpg" alt="" class="circle">
+                            <span class="title truncate student-list-fix">{{ alumno }}</span></a>
+                    </li>
+              {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col s12 m6 l4 mar-top-soft">
+                <h5 class="panel-title">Evaluaciones</h5>
+                <div class="center-align"><a href=".html" data-position="top" data-delay="25" data-tooltip="Crear nueva instancia de evaluación" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+                </div>
+                {% for evaluacion in materia.evaluaciones %}
+                <div class="panel-mini2 panel-assigment">
+                    <div class="row">
+                        <div class="col s10">
+                            <h5 class="panel-title">{{ evaluacion }}</h5>
+                            <h6><strong>{{ evaluacion.fecha|date('d/m/Y') }}</strong></h6>
+                        </div>
+                        <div class="col s2 right-align">
+                            <a data-position="top" data-delay="25" data-tooltip="Calificar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-list3"></i></a>
+                            <a data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                            <a data-position="top" data-delay="25" data-tooltip="Ver" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-eye"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+            <div class="col s12 m6 l4 mar-top-soft">
+                <h5 class="panel-title">Archivos</h5>
+                <div class="mail-attachments">
+                    <p><i class="icon-linear-paperclip"></i> <a href="#">Descargar todos</a></p>
+                    <ul class="list-group">
+                        {% for archivo in materia.archivos %}
+                        <li class="list-group-item">
+                            <span class="name">{{ archivo }}</span>
+                            <span class="size">(2.40MB)</span>
+                            <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="file-field input-field">
+                        <input class="file-path validate" type="text">
+                        <label for="logo_img">Subir nuevo archivo</label>
+                        <div class="btn-xsmall">
+                            <span>Elegir archivo</span>
+                            <input type="file">
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="panel-title mar-top">Docentes</h5>
+                <ul class="collection">
+                    {% for docente in materia.docentes %}
+                    <li class="collection-item avatar student-list">
+                        <a href="usuarios-docentes-ficha_directivo.html" class="collection-a"><img src="images/portraits/1.jpg" alt="" class="circle">
+                            <span class="title truncate student-list-fix">{{ docente }}</span></a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
