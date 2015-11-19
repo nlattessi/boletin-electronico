@@ -12,8 +12,12 @@ asistencia_delete:
 
 asistencia_show:
     path:     /{id}
-    defaults: { _controller: BoletinesBundle:Asistencia:getOne }
+    defaults: { _controller: BoletinesBundle:Asistencia:verUltimas }
 
 asistencia_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Asistencia:edit }
+
+asistencia_tomar:
+    path:     /tomar/{id}
+    defaults: { _controller: BoletinesBundle:Asistencia:tomarAsistencia }

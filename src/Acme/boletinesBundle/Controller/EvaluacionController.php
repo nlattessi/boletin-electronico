@@ -66,7 +66,8 @@ class EvaluacionController extends Controller
         $evaluacion = new Evaluacion();
         $evaluacion->setNombre($data->request->get('nombre'));
          $fechaEvaluacion = $data->request->get('fecha');
-
+        print $fechaEvaluacion;
+        exit;
         //hasta que no tengamos el controller de fechas no vale la pena formatear el string
         //$evaluacion->setFecha($fechaEvaluacion);
         $evaluacion->setFecha(new \DateTime('now'));
