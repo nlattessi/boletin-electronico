@@ -14,7 +14,11 @@
             <div class="panel-mini panel-assigment">
                 <div class="row">
                     <div class="col s6">
-                        <h5 class="panel-title">{{ entity.__toString() }} </h5>
+                        <h5 class="panel-title">
+                            <a href="{{ path('materia_show', {'id':entity.id }) }}">
+                            {{ entity.__toString() }}
+                            </a>
+                        </h5>
                         <h4>
                             {% for grupo in entity.gruposAlumnos %}
                                 {{ grupo ~ ' ' }}

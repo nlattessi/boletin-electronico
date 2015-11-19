@@ -1,0 +1,56 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Asistencia{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Materias asignadas</h4>
+        </div>
+    </div>
+
+    <div class="row mar-top-soft">
+
+        {% for entity in entities %}
+            <div class="col s12 m12 l12"> <!-- start materia-->
+                <div class="panel-mini panel-assigment">
+                    <div class="row">
+                        <div class="col s6">
+                            <h5 class="panel-title">
+                                <a href="{{ path('materia_show', {'id':entity.id }) }}">
+                                    {{ entity.__toString() }}
+                                </a> </h5>
+                            <h4>
+                                {% for grupo in entity.gruposAlumnos %}
+                                    {{ grupo ~ ' ' }}
+                                {% endfor %}
+                            </h4>
+                        </div>
+                        <div class="col s6 right-align">
+                            <a href="{{ path('asistencia_tomar', { 'id': entity.id }) }}" data-position="top"
+                               data-delay="25" data-tooltip="Tomar lista"
+                               class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg">
+                                <i class="icon-linear-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 row mar-top-low right-align">
+                            <form action="{{ path('asistencia_edit', { 'id': entity.id }) }}" method="get">
+                                <div class=" col s12 m6 l6">
+                                    <i class="icon-linear-calendar-insert"></i>
+                                    <label for="fecha" class="">Fecha</label>
+                                    <input name="fecha" type="fecha" class="datepicker"/>
+                                </div>
+                                <a href="#" onclick="$(this).closest('form').submit()"
+                                   data-position="top" data-delay="25" data-tooltip="Editar Asistencia"
+                                   class="tooltipped  btn-small btn waves-effect waves-light">
+                                    <i class="icon-linear-pencil"></i>
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end materia-->
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

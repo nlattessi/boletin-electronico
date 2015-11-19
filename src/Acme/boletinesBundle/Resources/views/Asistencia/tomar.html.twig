@@ -1,0 +1,86 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Tomar Asistencia{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Tomar asistencia</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m12 l12"> <!-- start materia-->
+            <div class="panel-mini panel-assigment">
+                <div class="row">
+                    <div class="col s6">
+                        <h5 class="panel-title">{{ materia.__toString() }} </h5>
+                        <h4>
+                            {% for grupo in materia.gruposAlumnos %}
+                                {{ grupo ~ ' ' }}
+                            {% endfor %}
+                        </h4>
+                    </div>
+                    <div class="col s6 right-align">
+                        <h5><i class="icon-linear-users2 d-d-i"></i> {{ materia.cantidadAlumnos }}</h5>
+                        <h6>Alumnos</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 row mar-top-low right-align">
+                        <i class="icon-linear-clock "></i>
+                        {% for horario in materia.horarios %}
+                            <span class="widget-time-date"> {{ horario}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form  action="{{ path('asistencia_tomar', { 'id': materia.id }) }}" method="post">
+        <table class="striped">
+            <thead>
+            <tr>
+                <th data-field="id">Nombre y apellido</th>
+                <th data-field="price">{{ hoy|date('d/m/Y') }}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno }}</td>
+                <td>
+                    <input type="hidden" id="{{ alumno.id }}" name="{{ alumno.id }}"/>
+                    <a id="{{ alumno.id }}A" href="javascript:ausente($,{{ alumno.id }})" data-position="top" data-delay="25" data-tooltip="Ausente" class="btn-small btn "><i class="icon-linear-cross-circle"></i></a>
+                    <a id="{{ alumno.id }}T" href="javascript:tarde($,{{ alumno.id }})" data-position="top" data-delay="25" data-tooltip="Tarde" class="btn-small btn"><i class="icon-linear-percent-circle"></i></a>
+                    <a id="{{ alumno.id }}P" href="javascript:presente($,{{ alumno.id }})" data-position="top" data-delay="25" data-tooltip="Presente" class="btn-small btn "><i class="icon-linear-checkmark-circle"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            <div class="col s12 center-align mar-top-soft">
+                <a href="#" onclick="$(this).closest('form').submit()" class="btn-large waves-effect waves-light center-align mar-right">Guardar</a>
+                <a href="{{ path('asistencia') }}" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</a>
+            </div>
+        </form>
+
+
+    </div>
+<script>
+    function ausente($, id){
+        $('#' + id).val('A');
+        $('#' + id + 'P').hide();
+        $('#' + id + 'T').hide();
+    }
+    function tarde($, id){
+        $('#' + id).val('T');
+        $('#' + id + 'P').hide();
+        $('#' + id + 'A').hide();
+    }
+    function presente($, id){
+        $('#' + id).val('P');
+        $('#' + id + 'A').hide();
+        $('#' + id + 'T').hide();
+    }
+
+</script>
+{% endblock %}

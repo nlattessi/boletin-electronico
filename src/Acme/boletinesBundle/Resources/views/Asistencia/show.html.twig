@@ -1,45 +1,59 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Asistencia{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Ultimos días de asistencia</h4>
+        </div>
+    </div>
 
-{% block body -%}
-    <h1>Asistencia</h1>
+    <div class="row">
+        <div class="col s12 m12 l12"> <!-- start materia-->
+            <div class="panel-mini panel-assigment">
+                <div class="row">
+                    <div class="col s6">
+                        <h5 class="panel-title">{{ materia.__toString() }} </h5>
+                        <h4>
+                            {% for grupo in materia.gruposAlumnos %}
+                                {{ grupo ~ ' ' }}
+                            {% endfor %}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form  action="{{ path('asistencia_tomar', { 'id': materia.id }) }}" method="post">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th data-field="id">Nombre y apellido</th>
+                    {% for asistencia in asistencias  %}
+                    <th data-field="price">{{  asistencia.fecha|date('d/m/Y')}}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id Asistencia</th>
-            <td>{{ asistencia.idAsistencia }}</td>
-        </tr>
-        <tr>
-            <th>Asistencia</th>
-            <td>{{ asistencia.fechaAsistencia|date('d-m-Y') }}</td>
-        </tr>
-        {% if asistencia.materia != null %}
-        <tr>
-            <th>Materia Asociado</th>
-            <td>{{ asistencia.materia.__toString() }}</td>
-        </tr>
-        {% endif %}
-        {% if asistencia.usuarioCargador != null %}
-            <tr>
-                <th>Cargado por</th>
-                <td>{{ asistencia.usuarioCargador.__toString() }}</td>
-            </tr>
-        {% endif %}
+                <tbody>
+                {% for wrapper in asistenciasMostrables %}
+                    <tr>
+                        <td>{{ wrapper.alumno }}</td>
+                        {% for asistencia in wrapper.asistencias %}
+                        <td>
+                            {% if asistencia.valor == 'P' %}
+                            <i class="icon-linear-checkmark-circle"></i>
+                            {% elseif asistencia.valor == 'A'  %}
+                            <i class="icon-linear-cross-circle"></i>
+                            {% else %}
+                            <i class="icon-linear-percent-circle"></i>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </form>
 
-        </tbody>
-    </table>
+    </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('asistencia') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('asistencia_edit', { 'id': asistencia.idAsistencia }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('asistencia_delete', { 'id': asistencia.idAsistencia }) }}">Borrar</a></li>
-</ul>
 {% endblock %}

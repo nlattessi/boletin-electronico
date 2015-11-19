@@ -2,6 +2,8 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\AlumnoAsistencia;
+use Acme\boletinesBundle\Utils\Herramientas;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -9,8 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Asistencia;
 use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\AsistenciaType;
-use Symfony\Component\Validator\Constraints\DateTime;
+
+use Acme\boletinesBundle\Utils\WrapperAlumnoAsistencia;
 
 class AsistenciaController extends Controller
 {
@@ -39,7 +41,23 @@ class AsistenciaController extends Controller
             }else{
                 return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
             }
-        }else{
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $docente = $session->get('docenteActivo');
+            $entities = $materiaService->listaMateriasPorDocente($docente->getId());
+            $ahora = new \DateTime('now');
+            return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
+                'hoy' =>$ahora ,));
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_BEDEL'){
+            $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+            $ahora = new \DateTime('now');
+            return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
+                'hoy' =>$ahora ,));
+        }
+
+        else{
             $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
         }
 
@@ -114,21 +132,30 @@ class AsistenciaController extends Controller
 
     public function editAction($id = null, Request $request = null)
     {
-        $message = "";
+        $em = $this->getDoctrine()->getManager();
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+        $asistenciaService =  $this->get('boletines.servicios.asistencia');
+
         if ($request->getMethod() == 'POST') {
-            $asistencia = $this->editEntity($request, $id);
-            if($asistencia != null) {
-                return $this->render('BoletinesBundle:Asistencia:show.html.twig', array('asistencia' => $asistencia));
-            } else {
-                $message = "Errores";
+            $fecha = $request->request->get('fecha');
+            $fecha = Herramientas::textoADatetime($fecha);
+            $alumnoAsistencia = $asistenciaService->obtenerAlumnoAsistenciaDelDia($fecha->format('Y-m-d'), $id);
+            foreach($alumnoAsistencia as $alas){
+                $valorModificado = $request->request->get($alas->getId());
+                if($valorModificado){
+                    $alas->setValor($valorModificado);
+                }
             }
+            $em->flush();
         } else {
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Materia')->findAll();
-            $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->findOneBy(array('idAsistencia' => $id));
+            $fecha = $_GET['fecha'];
+            $fecha = Herramientas::textoADatetime($fecha);
+            $alumnoAsistencia = $asistenciaService->obtenerAlumnoAsistenciaDelDia($fecha->format('Y-m-d'), $id);
         }
 
-        return $this->render('BoletinesBundle:Asistencia:edit.html.twig', array('asistencia' => $asistencia, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Asistencia:edit.html.twig', array('asistencias' => $alumnoAsistencia,
+            'fecha' => $fecha,
+            'materia' => $materia,));
     }
     private function editEntity($data, $id)
     {
@@ -154,21 +181,58 @@ class AsistenciaController extends Controller
         return $asistencia;
     }
 
-    public function obtenerInasistencias($alumnoId)
-    {
 
-        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-        $inasistencias = $muchosAMuchos->obtenerInasistenciasPorAlumno($alumnoId);
+    public function tomarAsistenciaAction($id = null, Request $request = null){
+        //el id es el de la materia
+        $em = $this->getDoctrine()->getManager();
+        $materiaService =  $this->get('boletines.servicios.materia');
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+        $alumnos = $materiaService->listaAlumnos($id);
+        $ahora = new \DateTime('now');
+        if ($request->getMethod() == 'POST') {
+            $asistencia = new Asistencia();
+            $asistencia->setFechaCarga($ahora);
+            $asistencia->setFechaActualizacion($ahora);
+            $fechaAsistencia = $request->request->get('fecha');
+            // $asistencia->setFecha($fechaAsistencia);
+            $asistencia->setFecha($ahora);
+            $asistencia->setMateria($materia);
+            $asistencia->setUsuarioCargador($this->getUser());
+            $em->persist($asistencia);
+            foreach($alumnos as $alumno){
+                $alAsis = new AlumnoAsistencia();
+                $alAsis->setAlumno($alumno);
+                $alAsis->setAsistencia($asistencia);
+                $alAsis->setValor($request->get($alumno->getId()));
+                $alAsis->setCreationTime($ahora);
+                $em->persist($alAsis);
+            }
+            $em->flush();
+            return $this->verUltimasAction($id, $request);
+        }
 
-        return $inasistencias;
+        return  $this->render('BoletinesBundle:Asistencia:tomar.html.twig',
+            array('alumnos' => $alumnos, 'hoy' =>$ahora , 'materia' => $materia));
     }
-    public function obtenerTardes($alumnoId)
-    {
 
-        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-        $inasistencias = $muchosAMuchos->obtenerTardesPorAlumno($alumnoId);
+    public function verUltimasAction($id = null, Request $request = null){
+        $em = $this->getDoctrine()->getManager();
+        $asistenciaService =  $this->get('boletines.servicios.asistencia');
+        $materiaService =  $this->get('boletines.servicios.materia');
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+        $asistencias = $asistenciaService->obtenerUltimasMateria($id);
+        $alumnos = $materiaService->listaAlumnos($id);
+        $asistenciasMostrables = array();
+        foreach($alumnos as $alumno){
+            $asistenciasAlumno = $asistenciaService->obtenerAsistenciaAlumnoLimite($alumno->getId(), 7);
+            $wrapperAlumnoAsistencia = new WrapperAlumnoAsistencia();
+            $wrapperAlumnoAsistencia->setAlumno($alumno);
+            $wrapperAlumnoAsistencia->setAsistencias($asistenciasAlumno);
+            array_push($asistenciasMostrables,$wrapperAlumnoAsistencia );
+        }
 
-        return $inasistencias;
+        return $this->render('BoletinesBundle:Asistencia:show.html.twig',
+            array('asistencias' => $asistencias, 'asistenciasMostrables' =>$asistenciasMostrables , 'materia' => $materia));
     }
 }
 

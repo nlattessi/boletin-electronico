@@ -27,16 +27,23 @@ class AsistenciaService {
      * Devuelve una lista de AlumnoAsistencias
      */
     public function obtenerAsistenciaAlumno($alumno){
+        return $this->obtenerAsistenciaAlumnoLimite($alumno, null);
+    }
+
+    public function obtenerAsistenciaAlumnoLimite($alumno, $limite){
 
         $asistenciaes = array();
         $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
             ->where('d.alumno = ?1')
             ->setParameter(1, $alumno);
+        if($limite){
+            $queryBuilder->setMaxResults($limite);
+        }
         $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
-/*
-        foreach($asistenciasAlumno as $asistenciaAlumno){
-           array_push($asistenciaes,$asistenciaAlumno->getAsistencia() ) ;
-        }*/
+        /*
+                foreach($asistenciasAlumno as $asistenciaAlumno){
+                   array_push($asistenciaes,$asistenciaAlumno->getAsistencia() ) ;
+                }*/
         return $asistenciasAlumno;
     }
 
@@ -57,6 +64,7 @@ class AsistenciaService {
         $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
         return $asistenciasAlumno;
     }
+
 
     /**
      * @param $alumno
@@ -82,4 +90,47 @@ class AsistenciaService {
         return $faltas;
 
     }
+
+    /**
+     * @param $alumno
+     * @return array
+     * Devuelve una lista de AlumnoAsistencias
+     */
+    public function obtenerUltimasMateria($materiaId){
+
+        $asistenciaes = array();
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Asistencia')->createQueryBuilder('d')
+            ->where('d.materia = ?1')
+            ->setParameter(1, $materiaId)
+        ->orderBy('d.fecha','DESC')
+        ->setMaxResults(7);
+        $asistenciasMateria = $queryBuilder->getQuery()->getResult();
+        /*
+                foreach($asistenciasAlumno as $asistenciaAlumno){
+                   array_push($asistenciaes,$asistenciaAlumno->getAsistencia() ) ;
+                }*/
+        return $asistenciasMateria;
+    }
+
+    public function obtenerAlumnoAsistenciaDelDia($fecha, $idMateria){
+
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Asistencia')->createQueryBuilder('d')
+            ->where('d.fecha = ?1')
+            ->andWhere('d.materia = ?2')
+            ->setParameter(1, $fecha)
+            ->setParameter(2, $idMateria)
+            ->setMaxResults(1);
+        $asistencia = $queryBuilder->getQuery()->getOneOrNullResult();
+        $asistenciasAlumno = array();
+        if($asistencia){
+            $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
+                ->where('d.asistencia = ?1')
+                ->setParameter(1, $asistencia->getId());
+            $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
+        }
+
+
+        return $asistenciasAlumno;
+    }
+
 }
