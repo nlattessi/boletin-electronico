@@ -1,12 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Instituciones{% endblock %}
 
-{% block body -%}
+{% block page %}
 
-  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
-
- <!-- startMain content-->
-<div class="container">
   <div class="row mar-top-soft">
         <div class="col s10 m10 l10">
           <h3 class="header">Nueva institución</h3>
@@ -119,8 +115,5 @@
       </div>
   </div>
   </form>
-  </div>   <!-- end container-->
 
- <!-- end Main content-->
-{{ include('::footer.html.twig') }}
 {% endblock %}
