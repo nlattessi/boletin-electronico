@@ -74,14 +74,14 @@ class ConvivenciaController extends Controller
         $sesionService = $this->get('boletines.servicios.sesion');
 
         $convivencia = new Convivencia();
-        $convivencia->setComentarioDocente($data->request->get('comentarioDocente'));
-        $convivencia->setDescargoAlumno($data->request->get('descargoAlumno'));
+        $convivencia->setComentario($data->request->get('comentarioDocente'));
+        //$convivencia->setDescargoAlumno($data->request->get('descargoAlumno'));
         $convivencia->setDocente($sesionService->obtenerMiEntidadRelacionada());
         $convivencia->setValor($data->request->get('valor'));
         $convivencia->setFechaCarga(new \DateTime('now'));
-        //TODO cambiar por parametro
-        //$convivencia->setFechaSuceso($data->request->get('fechaSuceso'));
-        $convivencia->setFechaSuceso(new \DateTime('now'));
+        $fecha = $data->request->get('fechaSuceso');
+        $fecha = Herramientas::textoADatetime($fecha);
+        $convivencia->setFechaSuceso($fecha);
 
         $idAlumno = $data->request->get('idAlumno');
         if($idAlumno > 0){
@@ -141,9 +141,9 @@ class ConvivenciaController extends Controller
         $convivencia->setDescargoAlumno($data->request->get('descargoAlumno'));
         $convivencia->setDocente($sesionService->obtenerMiEntidadRelacionada());
         $convivencia->setFechaCarga(new \DateTime('now'));
-        //TODO cambiar por parametro
-        //$convivencia->setFechaSuceso($data->request->get('fechaSuceso'));
-        $convivencia->setFechaSuceso(new \DateTime('now'));
+        $fecha = $data->request->get('fechaSuceso');
+        $fecha = Herramientas::textoADatetime($fecha);
+        $convivencia->setFechaSuceso($fecha);
 
         $idAlumno = $data->request->get('idAlumno');
         if($idAlumno > 0){

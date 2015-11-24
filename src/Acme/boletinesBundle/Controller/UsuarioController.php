@@ -96,8 +96,10 @@ class UsuarioController extends Controller
                 $message = "Errores";
             }
         }
+        $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Rol')->findAll();
         return $this->render('BoletinesBundle:Usuario:new2.html.twig', array(
-            'institucion' => $institucion));
+            'institucion' => $institucion,
+            'entitiesRelacionadas' => $entitiesRelacionadas));
     }
 
     public function deleteAction($id)
@@ -134,6 +136,7 @@ class UsuarioController extends Controller
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DIRECTIVO'));
         $creacionService =  $this->get('boletines.servicios.creacion');
         $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+            $data->request->get('apellido'),
             $data->request->get('email'),
             $data->request->get('password'),
             $rol,

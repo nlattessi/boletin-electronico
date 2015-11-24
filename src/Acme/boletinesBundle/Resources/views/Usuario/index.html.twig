@@ -1,18 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Usuarios{% endblock %}
 
-{% block body -%}
+{% block page %}
 
-  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'usuarios'}) }}
-
- <!-- startMain content-->
-<div class="container">
   <div class="row">
 
     <div class="col s12 m12 l12">
-
-      <!--  Tables Section-->
-
 
       <div id="striped" >
         <div class="row mar-top-soft">
@@ -66,10 +59,8 @@
 
     </div><!--  End Tables Section  -->
 </div>
-</div>
- <!-- end Main content-->
 
-   {{ include('::footer.html.twig') }}
+
 
 
 {% endblock %}
