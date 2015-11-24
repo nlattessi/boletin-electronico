@@ -5,6 +5,7 @@ namespace Acme\boletinesBundle\Controller;
 use Acme\boletinesBundle\Entity\Calificacion;
 use Acme\boletinesBundle\Servicios\ActividadService;
 use Acme\boletinesBundle\Servicios\SesionService;
+use Acme\boletinesBundle\Utils\Herramientas;
 use Doctrine\Common\Collections\ArrayCollection;
 use Proxies\__CG__\Acme\boletinesBundle\Entity\Materia;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,12 +66,12 @@ class EvaluacionController extends Controller
 
         $evaluacion = new Evaluacion();
         $evaluacion->setNombre($data->request->get('nombre'));
-         $fechaEvaluacion = $data->request->get('fecha');
-        print $fechaEvaluacion;
-        exit;
-        //hasta que no tengamos el controller de fechas no vale la pena formatear el string
-        //$evaluacion->setFecha($fechaEvaluacion);
-        $evaluacion->setFecha(new \DateTime('now'));
+
+        $fecha = $data->request->get('fecha');
+        $fecha = Herramientas::textoADatetime($fecha);
+
+        $evaluacion->setFecha($fecha);
+
         $idMateria = $data->request->get('idMateria');
         if($idMateria > 0){
             //Selecciono una Materia
@@ -128,8 +129,8 @@ class EvaluacionController extends Controller
         } else {
             $em = $this->getDoctrine()->getManager();
             $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
-            $materiaService =  $this->get('boletines.servicios.materia');
-            $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
+           // $materiaService =  $this->get('boletines.servicios.materia');
+           // $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
 
         }
 
@@ -185,7 +186,7 @@ class EvaluacionController extends Controller
             $materiaService =  $this->get('boletines.servicios.materia');
             $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
         }
-        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion,
+        return $this->render('BoletinesBundle:Evaluacion:calificacion.html.twig', array('evaluacion' => $evaluacion,
             'valoresCalificacion' => $valoresCalificacion,));
 
     }
@@ -230,10 +231,12 @@ class EvaluacionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
 
-        $evaluacion->setNombreEvaluacion($data->request->get('nombreEvaluacion'));
-       // $fechaEvaluacion = $data->request->get('fechaEvaluacion');
+        $evaluacion->setNombre($data->request->get('nombre'));
+        $fecha = $data->request->get('fecha');
+
+        $fecha = Herramientas::textoADatetime($fecha);
         //hasta que no tengamos el controller de fechas no vale la pena formatear el string
-        $evaluacion->setFechaEvaluacion(new \DateTime('now'));
+        $evaluacion->setFecha($fecha);
 
         $idMateria = $data->request->get('idMateria');
         if($idMateria > 0){

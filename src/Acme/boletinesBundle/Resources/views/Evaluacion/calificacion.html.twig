@@ -41,6 +41,7 @@
                     </thead>
 
                     <tbody>
+                    {% if calificaciones is defined %}
                     {% for calificacion in calificaciones %}
                         <tr>
                             <td>{{ calificacion.alumno.nombre }}</td>
@@ -66,6 +67,29 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    {% else %}
+                        {% for alumno in evaluacion.materia.alumnos %}
+                            <tr>
+                                <td>{{ alumno.nombre }}</td>
+                                <td>
+                                    <div class="select-wrapper">
+                                        <select class="initialized" id="{{ alumno.id }}cal" name="{{ alumno.id }}cal">
+                                            {% for valorC in valoresCalificacion %}
+                                                <option value="{{valorC.id}}">{{valorC.__toString()}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="{{ alumno.id }}cal" class="">Calificación</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-field col col s4 m2 l2">
+                                        <input  id="{{ alumno.id }}com" name="{{ alumno.id }}com" type="text" class="validate">
+                                        <label for="{{ alumno.id }}com" class="">Comentario</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                     </tbody>
                 </table>
                 <div class="col s12 center-align mar-top-soft">
