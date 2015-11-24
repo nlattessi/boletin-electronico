@@ -56,6 +56,15 @@ class HomeController extends Controller
             return $this->render('BoletinesBundle:Default:home.html.twig', array('materias' => $materias,
                 'evaluaciones' => $evaluaciones,
                 ));
+        }else if ($this->getUser()->getRol()->getNombre() == 'ROLE_ADMIN'){
+            $em = $this->getDoctrine()->getManager();
+
+            $alumnos = $em->getRepository('BoletinesBundle:Alumno')->findAll();
+            $instituciones=$em->getRepository('BoletinesBundle:Institucion')->findAll();
+
+            return $this->render('BoletinesBundle:Default:home.html.twig', array('instituciones' => $instituciones,
+                'alumnos' => $alumnos,
+            ));
         }
 
         return $this->render('BoletinesBundle:Default:home.html.twig');

@@ -97,9 +97,10 @@ class CreacionService {
         return $establecimiento;
     }
 
-    public function crearUsuario($nombre, $email, $password, $rol, $institucion){
+    public function crearUsuario($nombre, $apellido, $email, $password, $rol, $institucion){
         $usuario = new Usuario();
         $usuario->setNombre($nombre);
+        $usuario->setApellido($apellido);
         $usuario->setEmail($email);
         $usuario->setPassword($password);
 

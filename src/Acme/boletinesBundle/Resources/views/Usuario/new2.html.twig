@@ -1,13 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Usuarios{% endblock %}
 
-{% block body -%}
+{% block page %}
 
-{{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-{{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'usuarios'}) }}
-
-
- <!-- startMain content-->
-<div class="container">
   <div class="row mar-top-soft">
 
     <div class="col s12 m8 l8">
@@ -25,23 +20,27 @@
     <div class="row mar-top-soft">
 
     <div class="col s12 m8 l12">
-    <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario</h3>
+    <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario Directivo</h3>
     <h5 class="header">Todos los campos son obligatorios</h5>
     </div>
     <form action="{{ path('usuario_new_institucion',  {'institucionId': institucion.id }) }}" method="post">
       <div class="row">
         <div class="input-field col s12 m6 l6">
             <input name="nombre" id="nombre" type="text" class="validate">
-            <label for="nombre">Nombre de usuario</label>
+            <label for="nombre">Nombre</label>
         </div>
+          <div class="input-field col s12 m6 l6">
+              <input name="apellido" id="apellido" type="text" class="validate">
+              <label for="apellido">Apellido</label>
+          </div>
         <div class="input-field col s12 m6 l6">
             <input name="email" id="email" type="text" class="validate">
             <label for="email">Email</label>
         </div>
-        <div class="input-field col s12 m6 l6">
-            <input name="password" id="password" type="password" class="validate">
-            <label for="password">Contraseña</label>
-        </div>
+          <div class="input-field col s12 m6 l6">
+              <input name="password" id="password" type="text" class="validate">
+              <label for="password">Password</label>
+          </div>
   </div>
         <div class="row">
             <button type="submit" class="btn-large waves-effect waves-light center-align">Crear Usuario</button>
@@ -54,10 +53,6 @@
 </div>
 
 
-</div>
- <!-- end Main content-->
-
-   {{ include('footer.html.twig') }}
 
 
 {% endblock %}
