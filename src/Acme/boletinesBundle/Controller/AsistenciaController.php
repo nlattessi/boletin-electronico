@@ -151,6 +151,12 @@ class AsistenciaController extends Controller
             $fecha = $_GET['fecha'];
             $fecha = Herramientas::textoADatetime($fecha);
             $alumnoAsistencia = $asistenciaService->obtenerAlumnoAsistenciaDelDia($fecha->format('Y-m-d'), $id);
+            if(!$alumnoAsistencia){
+                $materiaService =  $this->get('boletines.servicios.materia');
+                $alumnos = $materiaService->listaAlumnos($id);
+                return  $this->render('BoletinesBundle:Asistencia:tomar.html.twig',
+                    array('alumnos' => $alumnos, 'fecha' =>$fecha , 'materia' => $materia));
+            }
         }
 
         return $this->render('BoletinesBundle:Asistencia:edit.html.twig', array('asistencias' => $alumnoAsistencia,
@@ -173,6 +179,7 @@ class AsistenciaController extends Controller
             //Selecciono otra Materia, hay que buscarla y persistirla
             $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $idMateria));
             $asistencia->setMateria($materia);
+
         }
 
         $em->persist($asistencia);
@@ -193,9 +200,9 @@ class AsistenciaController extends Controller
             $asistencia = new Asistencia();
             $asistencia->setFechaCarga($ahora);
             $asistencia->setFechaActualizacion($ahora);
-            $fechaAsistencia = $request->request->get('fecha');
-            // $asistencia->setFecha($fechaAsistencia);
-            $asistencia->setFecha($ahora);
+            $fecha = $request->request->get('fecha');
+            $fecha = Herramientas::textoADatetime($fecha);
+            $asistencia->setFecha($fecha);
             $asistencia->setMateria($materia);
             $asistencia->setUsuarioCargador($this->getUser());
             $em->persist($asistencia);
@@ -212,7 +219,7 @@ class AsistenciaController extends Controller
         }
 
         return  $this->render('BoletinesBundle:Asistencia:tomar.html.twig',
-            array('alumnos' => $alumnos, 'hoy' =>$ahora , 'materia' => $materia));
+            array('alumnos' => $alumnos, 'fecha' =>$ahora , 'materia' => $materia));
     }
 
     public function verUltimasAction($id = null, Request $request = null){

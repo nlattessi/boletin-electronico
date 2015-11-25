@@ -35,11 +35,12 @@
             </div>
         </div>
         <form  action="{{ path('asistencia_tomar', { 'id': materia.id }) }}" method="post">
+            <input type="hidden" name="fecha" value="{{ fecha|date('d/m/Y') }}" />
         <table class="striped">
             <thead>
             <tr>
                 <th data-field="id">Nombre y apellido</th>
-                <th data-field="price">{{ hoy|date('d/m/Y') }}</th>
+                <th data-field="price">{{ fecha|date('d/m/Y') }}</th>
             </tr>
             </thead>
 
