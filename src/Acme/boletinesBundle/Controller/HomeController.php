@@ -51,7 +51,7 @@ class HomeController extends Controller
             $evaluacionService =  $this->get('boletines.servicios.evaluacion');
 
             $materias = $materiaService->listaMateriasPorDocente($docente->getId());
-            $evaluaciones = $evaluacionService->evaluacionesPorDocente($docente->getId());
+            $evaluaciones = $evaluacionService->proximasNEvaluacionesPorDocente($docente->getId(),null);
 
             return $this->render('BoletinesBundle:Default:home.html.twig', array('materias' => $materias,
                 'evaluaciones' => $evaluaciones,
