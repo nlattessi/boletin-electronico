@@ -10,7 +10,7 @@
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <!--  Android 5 Chrome Color-->
     <meta name="theme-color" content="#EE6E73">
-    <title>Communitas</title>
+    <title> {% block title %}{% endblock %}</title>
     <!-- Favicons-->
     <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/boletines/images/favicon/apple-touch-icon-152x152.png') }}">
 
@@ -51,48 +51,27 @@
 </head>
 
 <body >
-    <header>
-        {%  include 'BoletinesBundle:NavBars:menu_usuario.html.twig' with {breadcrumb: block('breadcrumb')}%}
-        {{ include('BoletinesBundle:NavBars:navbar.html.twig') }}
-    </header>
-    <main> <!-- startMain content-->
-        {% if app.user.rol == 'ROLE_ALUMNO' %}
-            <div id="modal1" class="modal">
-                <div class="modal-content center-align">
-                    <h1 class="w-red"><i class="icon-linear-notification"></i></h1>
-                    <p>Usted está a punto de generar una alerta.<br> El directivo será informado de esta situación y se contactará para analizarla.
-                    </p>
-                    <h5>¿Desea continuar?</h5>
-                </div>
-                <div class="modal-footer center-align">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                    <a href="{{ path('antibullyng', { 'id': app.user.idEntidadAsociada }) }}" class=" modal-action modal-close waves-effect waves-green btn-flat">Continuar</a>
-                </div>
-            </div>
-        {% endif %}
 
-        {% block banner_mensaje %}{% endblock %}
-
-        <div class="container fadeIn animated">
-              {% block page %}{% endblock %}
-           </div>
-    </main>
-    <!-- Footer -->
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="container">
-                © 2015 Communitas - Comunidad Educativa Virtual
-                <a class="grey-text text-lighten-4 right" href="under-construction.html">Ayuda</a>
-            </div>
+<main>
+    <div class="container fadeIn animated">
+        {% block page %}{% endblock %}
+    </div>
+</main>
+<!-- Footer -->
+<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2015 Communitas - Comunidad Educativa Virtual
+            <a class="grey-text text-lighten-4 right" href="under-construction.html">Ayuda</a>
         </div>
-    </footer>
+    </div>
+</footer>
 
 
 
 
-   {% block javascript %}
-   {% endblock %}
-
+{% block javascript %}
+{% endblock %}
 
 </body>
 </html>
