@@ -3,7 +3,54 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
 {% endblock %}
 {% block breadcrumb %}Inicio{% endblock %}
-
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                defaultDate: '2015-07-01',
+                defaultView: 'agendaWeek',
+                events: [
+                    {
+                        title: 'Matematica',
+                        start: '2015-07-01T09:30:00',
+                        end: '2015-07-01T10:45:00'
+                    },
+                    {
+                        title: 'Geografía',
+                        start: '2015-07-01T11:00:00',
+                        end: '2015-07-01T12:20:00'
+                    },
+                    {
+                        title: 'Historia',
+                        start: '2015-07-01T13:20:00',
+                        end: '2015-07-01T14:30:00'
+                    },
+                    {
+                        title: 'Recreo',
+                        start: '2015-07-01T10:45:00',
+                        end: '2015-07-01T11:00:00'
+                    },
+                    {
+                        title: 'Lengua',
+                        start: '2015-07-03T08:30:00',
+                        end: '2015-07-03T9:30:00'
+                    },
+                    {
+                        title: 'Excursion a La Serenisima',
+                        start: '2015-07-02T08:30:00',
+                        end: '2015-07-02T12:30:00',
+                        url: 'http://www.laserenisima.com.ar/'
+                    }
+                ]
+            })
+        });
+    </script>
+{% endblock %}
 {% block page %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% if app.user.rol == 'ROLE_ADMIN' %}
