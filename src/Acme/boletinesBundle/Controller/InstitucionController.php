@@ -25,7 +25,8 @@ class InstitucionController extends Controller
 
         $entities = $em->getRepository('BoletinesBundle:Institucion')->findAll();
 
-        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities,
+            'css_active' => 'institucion',));
     }
 
     public function getOneAction($id)
@@ -37,7 +38,9 @@ class InstitucionController extends Controller
         $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
         $establecimientosCount = count($establecimientos);
 
-        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion, 'establecimientosCount' => $establecimientosCount));
+        return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion,
+            'establecimientosCount' => $establecimientosCount,
+            'css_active' => 'institucion',));
     }
 
     public function getalumnosAction($id)
@@ -55,7 +58,8 @@ class InstitucionController extends Controller
             }
         }
 
-        return $this->render('BoletinesBundle:Institucion:alumnos.html.twig', array('alumnos' => $alumnos));
+        return $this->render('BoletinesBundle:Institucion:alumnos.html.twig', array('alumnos' => $alumnos,
+            'css_active' => 'institucion',));
     }
 
     public function newAction(Request $request)
@@ -80,7 +84,8 @@ class InstitucionController extends Controller
             }
         }
 
-        return $this->render('BoletinesBundle:Institucion:new.html.twig', array('error' => $error));
+        return $this->render('BoletinesBundle:Institucion:new.html.twig', array('error' => $error,
+            'css_active' => 'institucion',));
     }
 
     private function createEntity($data)
@@ -138,7 +143,9 @@ class InstitucionController extends Controller
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
         }
 
-        return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion, 'mensaje' => $message));
+        return $this->render('BoletinesBundle:Institucion:edit.html.twig', array('institucion' => $institucion,
+            'mensaje' => $message,
+            'css_active' => 'institucion',));
     }
 
     public function searchAction(Request $request)
@@ -155,7 +162,8 @@ class InstitucionController extends Controller
 
         $entities = $query->getResult();
 
-        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities,
+            'css_active' => 'institucion',));
     }
 
     private function editEntity($data, $id)

@@ -26,7 +26,7 @@ class EvaluacionController extends Controller
 
         $entities = $em->getRepository('BoletinesBundle:Evaluacion')->findAll();
 
-        return $this->render('BoletinesBundle:Evaluacion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Evaluacion:index.html.twig', array('entities' => $entities,'css_active' => 'materia',));
     }
 
     public function getOneAction($id)
@@ -35,7 +35,7 @@ class EvaluacionController extends Controller
 
         $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion));
+        return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,'css_active' => 'materia',));
     }
 
     public function newAction($id = null, Request $request = null)
@@ -45,7 +45,8 @@ class EvaluacionController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $evaluacion = $this->createEntity($request);
             if($evaluacion != null) {
-                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion));
+                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
+                    'css_active' => 'materia',));
             } else {
                 $message = "Errores";
             }
@@ -56,7 +57,8 @@ class EvaluacionController extends Controller
             $materia->setGruposAlumnos($materiaService->listaGruposAlumnoPorMateria($id));
         }
 
-        return $this->render('BoletinesBundle:Evaluacion:new.html.twig', array('materia' => $materia));
+        return $this->render('BoletinesBundle:Evaluacion:new.html.twig', array('materia' => $materia,
+            'css_active' => 'materia',));
     }
     private function createEntity($data)
     {
@@ -122,7 +124,8 @@ class EvaluacionController extends Controller
             $evaluacion = $this->editEntity($request, $id);
             if($evaluacion != null) {
 
-                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion));
+                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
+                    'css_active' => 'materia',));
             } else {
                 $message = "Errores";
             }
@@ -134,7 +137,9 @@ class EvaluacionController extends Controller
 
         }
 
-        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion, 'mensaje' => $message,));
+        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion,
+            'mensaje' => $message,
+            'css_active' => 'materia',));
     }
 
     public function calificarAction($id = null, Request $request = null){
@@ -180,14 +185,16 @@ class EvaluacionController extends Controller
                 array('evaluacion' => $evaluacion,
                     'mensaje' => $message,
                     'calificaciones' => $calificaciones,
-                    'valoresCalificacion' => $valoresCalificacion,));
+                    'valoresCalificacion' => $valoresCalificacion,
+                    'css_active' => 'materia',));
         } else {
             //Primera vez que entro a calificar, no hay calificaciones le voy a dar una lista de alumnos
             $materiaService =  $this->get('boletines.servicios.materia');
             $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
         }
         return $this->render('BoletinesBundle:Evaluacion:calificacion.html.twig', array('evaluacion' => $evaluacion,
-            'valoresCalificacion' => $valoresCalificacion,));
+            'valoresCalificacion' => $valoresCalificacion,
+            'css_active' => 'materia',));
 
     }
 
@@ -222,7 +229,8 @@ class EvaluacionController extends Controller
             array('evaluacion' => $evaluacion,
                 'mensaje' => $message,
                 'calificaciones' => $calificaciones,
-                'valoresCalificacion' => $valoresCalificacion,));
+                'valoresCalificacion' => $valoresCalificacion,
+                'css_active' => 'materia',));
     }
 
 

@@ -37,9 +37,12 @@ class AsistenciaController extends Controller
                 $faltas = $asistenciaService->obtenerFaltasTotales($alumno->getId(),$establecimiento->getTardesFaltas());
                 return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,
                     'tardes' => count($tardes),
-                    'faltas' => $faltas));
+                    'faltas' => $faltas,
+                    'css_active' => 'asistencia',));
             }else{
-                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'asistencia',));
             }
         }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
             $materiaService =  $this->get('boletines.servicios.materia');
@@ -49,19 +52,22 @@ class AsistenciaController extends Controller
             $entities = $materiaService->listaMateriasPorDocente($docente->getId());
             $ahora = new \DateTime('now');
             return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
-                'hoy' =>$ahora ,));
+                'hoy' =>$ahora ,
+                'css_active' => 'asistencia',));
         }else if($this->getUser()->getRol()->getNombre() == 'ROLE_BEDEL'){
             $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
             $ahora = new \DateTime('now');
             return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
-                'hoy' =>$ahora ,));
+                'hoy' =>$ahora ,
+                'css_active' => 'asistencia',));
         }
 
         else{
             $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,));
+        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,
+            'css_active' => 'asistencia',));
     }
 
     public function getOneAction($id)
@@ -70,7 +76,8 @@ class AsistenciaController extends Controller
 
         $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->findOneBy(array('idAsistencia' => $id));
 
-        return $this->render('BoletinesBundle:Asistencia:show.html.twig', array('asistencia' => $asistencia));
+        return $this->render('BoletinesBundle:Asistencia:show.html.twig', array('asistencia' => $asistencia,
+            'css_active' => 'asistencia',));
     }
 
     public function newAction(Request $request)
@@ -80,7 +87,8 @@ class AsistenciaController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $asistencia = $this->createEntity($request);
             if($asistencia != null) {
-                return $this->render('BoletinesBundle:Asistencia:show.html.twig', array('asistencia' => $asistencia));
+                return $this->render('BoletinesBundle:Asistencia:show.html.twig', array('asistencia' => $asistencia,
+                    'css_active' => 'asistencia',));
             } else {
                 $message = "Errores";
             }
@@ -155,13 +163,15 @@ class AsistenciaController extends Controller
                 $materiaService =  $this->get('boletines.servicios.materia');
                 $alumnos = $materiaService->listaAlumnos($id);
                 return  $this->render('BoletinesBundle:Asistencia:tomar.html.twig',
-                    array('alumnos' => $alumnos, 'fecha' =>$fecha , 'materia' => $materia));
+                    array('alumnos' => $alumnos, 'fecha' =>$fecha , 'materia' => $materia,
+                        'css_active' => 'asistencia',));
             }
         }
 
         return $this->render('BoletinesBundle:Asistencia:edit.html.twig', array('asistencias' => $alumnoAsistencia,
             'fecha' => $fecha,
-            'materia' => $materia,));
+            'materia' => $materia,
+            'css_active' => 'asistencia',));
     }
     private function editEntity($data, $id)
     {
@@ -219,7 +229,7 @@ class AsistenciaController extends Controller
         }
 
         return  $this->render('BoletinesBundle:Asistencia:tomar.html.twig',
-            array('alumnos' => $alumnos, 'fecha' =>$ahora , 'materia' => $materia));
+            array('alumnos' => $alumnos, 'fecha' =>$ahora , 'materia' => $materia,'css_active' => 'asistencia',));
     }
 
     public function verUltimasAction($id = null, Request $request = null){
@@ -239,7 +249,8 @@ class AsistenciaController extends Controller
         }
 
         return $this->render('BoletinesBundle:Asistencia:show.html.twig',
-            array('asistencias' => $asistencias, 'asistenciasMostrables' =>$asistenciasMostrables , 'materia' => $materia));
+            array('asistencias' => $asistencias, 'asistenciasMostrables' =>$asistenciasMostrables , 'materia' => $materia,
+                'css_active' => 'asistencia',));
     }
 }
 

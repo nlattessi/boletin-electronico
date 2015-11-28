@@ -31,7 +31,8 @@ class MateriaController extends Controller
 
 
 
-        return $this->render('BoletinesBundle:Materia:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Materia:index.html.twig', array('entities' => $entities,
+            'css_active' => 'materia',));
     }
 
     public function getOneAction($id)
@@ -46,7 +47,8 @@ class MateriaController extends Controller
         }
 
 
-        return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia));
+        return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia,
+            'css_active' => 'materia',));
     }
 
     public function newAction(Request $request)
@@ -56,7 +58,8 @@ class MateriaController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $materia = $this->createEntity($request);
             if($materia != null) {
-                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
+                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia,
+                    'css_active' => 'materia',));
             } else {
                 $message = "Errores";
             }
@@ -65,7 +68,9 @@ class MateriaController extends Controller
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Materia:new.html.twig', array('mensaje' => $message, 'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Materia:new.html.twig', array('mensaje' => $message,
+            'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'materia',));
     }
 
     public function deleteAction($id)
@@ -131,7 +136,9 @@ class MateriaController extends Controller
             $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
         }
 
-        return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia,
+            'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'materia',));
     }
     private function editEntity($data, $id)
     {
