@@ -55,6 +55,7 @@ class MensajeController extends Controller
             $mensaje = $this->createEntity($request);
 
             if ($mensaje != null ) {
+                $this->get('session')->getFlashBag()->add('success', 'Enviado con éxito');
                 return $this->redirect($this->generateUrl('mensaje'), 301);
             } else {
                 $message = "Errores";
@@ -102,6 +103,7 @@ class MensajeController extends Controller
         $mensajeService =  $this->get('boletines.servicios.mensaje');
         $mensajeUsuario = $mensajeService->deleteMensaje($usuario, $id);
 
+        $this->get('session')->getFlashBag()->add('success', 'Borrado con éxito');
         return $this->redirect($this->generateUrl('mensaje'), 301);
     }
 
@@ -119,6 +121,7 @@ class MensajeController extends Controller
           }
         }
 
+        $this->get('session')->getFlashBag()->add('success', 'Borrados con éxito');
         return $this->redirect($this->generateUrl('mensaje'), 301);
     }
 
