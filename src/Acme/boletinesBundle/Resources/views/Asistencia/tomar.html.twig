@@ -1,5 +1,9 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Tomar Asistencia{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('asistencia') }}" class="">Asistencia</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Tomar Asistencia</a></li>
+{% endblock %}
 {% block page %}
     <div class="row">
         <div class="col s12 m12 l12 mar-top-soft">
@@ -12,16 +16,15 @@
             <div class="panel-mini panel-assigment">
                 <div class="row">
                     <div class="col s6">
-                        <h5 class="panel-title">{{ materia.__toString() }} </h5>
+                        <h5 class="panel-title">
+                            <a href="{{ path('materia_show', {'id':materia.id }) }}">
+                                {{ materia.__toString() }}
+                            </a> </h5>
                         <h4>
                             {% for grupo in materia.gruposAlumnos %}
                                 {{ grupo ~ ' ' }}
                             {% endfor %}
                         </h4>
-                    </div>
-                    <div class="col s6 right-align">
-                        <h5><i class="icon-linear-users2 d-d-i"></i> {{ materia.cantidadAlumnos }}</h5>
-                        <h6>Alumnos</h6>
                     </div>
                 </div>
                 <div class="row">
@@ -47,7 +50,12 @@
             <tbody>
             {% for alumno in alumnos %}
             <tr>
-                <td>{{ alumno }}</td>
+                <td>
+                    <div class="col s12">
+                        <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle avatar-table">
+                            <span class="title truncate table-img-mar">{{ alumno}}</span></a>
+                    </div>
+                </td>
                 <td>
                     <input type="hidden" id="{{ alumno.id }}" name="{{ alumno.id }}"/>
                     <a id="{{ alumno.id }}A" href="javascript:ausente($,{{ alumno.id }})" data-position="top" data-delay="25" data-tooltip="Ausente" class="btn-small btn "><i class="icon-linear-cross-circle"></i></a>

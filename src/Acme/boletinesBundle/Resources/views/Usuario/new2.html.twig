@@ -1,5 +1,9 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Usuarios{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('usuario_index_admin') }}" class="">Usuarios</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Nuevo Usuario</a></li>
+{% endblock %}
 
 {% block page %}
 
