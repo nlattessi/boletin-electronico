@@ -27,14 +27,17 @@ class CalificacionController extends Controller
                 $calificacionService =  $this->get('boletines.servicios.calificacion');
                 $entities = $calificacionService->obtenerCalificaciones($alumno->getId());
             }else{
-                return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+                return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'calificacion',));
             }
         }else{
             $entities = $em->getRepository('BoletinesBundle:Calificacion')->findAll();
         }
 
 
-        return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => $entities,
+            'css_active' => 'calificacion',));
     }
 
     public function getOneAction($id)
@@ -43,7 +46,8 @@ class CalificacionController extends Controller
 
         $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
 
-        return $this->render('BoletinesBundle:Calificacion:show.html.twig', array('calificacion' => $calificacion));
+        return $this->render('BoletinesBundle:Calificacion:show.html.twig', array('calificacion' => $calificacion,
+            'css_active' => 'calificacion',));
     }
 
     public function newAction($id = null,Request $request)
@@ -68,7 +72,8 @@ class CalificacionController extends Controller
                 $em->persist($calificacion);
             }
             $em->flush();
-            return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion));
+            return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
+                'css_active' => 'materia',));
         }else{
             //no lo llama nunca por ahora, fail safe
             $em = $this->getDoctrine()->getManager();
@@ -76,7 +81,9 @@ class CalificacionController extends Controller
             $alumnosDelEvaluacion = $em->getRepository('BoletinesBundle:Alumno')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Calificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'alumnosDelEvaluacion' => $alumnosDelEvaluacion));
+        return $this->render('BoletinesBundle:Calificacion:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas,
+            'alumnosDelEvaluacion' => $alumnosDelEvaluacion,
+            'css_active' => 'materia',));
     }
     private function createEntity($id = null, Request $request = null)
     {
@@ -133,7 +140,10 @@ class CalificacionController extends Controller
             $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
         }
 
-        return $this->render('BoletinesBundle:Calificacion:edit.html.twig', array('calificacion' => $calificacion, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas, 'alumnosDelEvaluacion' => $alumnosDelEvaluacion));
+        return $this->render('BoletinesBundle:Calificacion:edit.html.twig', array('calificacion' => $calificacion,
+            'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas,
+            'alumnosDelEvaluacion' => $alumnosDelEvaluacion,
+            'css_active' => 'materia',));
     }
     private function editEntity($data, $id)
     {

@@ -16,7 +16,7 @@ class CalendarioController extends Controller
     {
 
 
-        return $this->render('BoletinesBundle:Calendario:index.html.twig', array());
+        return $this->render('BoletinesBundle:Calendario:index.html.twig', array('css_active' => 'calendario',));
     }
 
     public function getOneAction($id)
@@ -25,7 +25,7 @@ class CalendarioController extends Controller
 
         $calendario = $em->getRepository('BoletinesBundle:Calendario')->findOneBy(array('idCalendario' => $id));
 
-        return $this->render('BoletinesBundle:Calendario:show.html.twig', array('calendario' => $calendario));
+        return $this->render('BoletinesBundle:Calendario:show.html.twig', array('calendario' => $calendario, 'css_active' => 'calendario',));
     }
 
     public function newAction(Request $request)
@@ -35,7 +35,8 @@ class CalendarioController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $calendario = $this->createEntity($request);
             if($calendario != null) {
-                return $this->render('BoletinesBundle:Calendario:show.html.twig', array('calendario' => $calendario));
+                return $this->render('BoletinesBundle:Calendario:show.html.twig', array('calendario' => $calendario,
+                    'css_active' => 'calendario',));
             } else {
                 $message = "Errores";
             }

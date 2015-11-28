@@ -17,8 +17,8 @@
                 <div class="row">
                     <div class="col s6">
                         <h5 class="panel-title">
-                            <a href="{{ path('materia_show', {'id':entity.id }) }}">
-                                {{ entity.__toString() }}
+                            <a href="{{ path('materia_show', {'id':materia.id }) }}">
+                                {{ materia.__toString() }}
                             </a> </h5>
                         <h4>
                             {% for grupo in materia.gruposAlumnos %}

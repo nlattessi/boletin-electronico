@@ -22,23 +22,28 @@ class ConvivenciaController extends Controller
             if($alumno){
                 $convivenciaService =  $this->get('boletines.servicios.convivencia');
                 $entities = $convivenciaService->obtenerConvivenciaAlumno($alumno->getId());
-                return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,));
+                return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+                    'css_active' => 'convivencia',));
             }else{
-                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null, 'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador"));
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'convivencia',));
             }
         }
         else if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
         {
             $convivenciaService =  $this->get('boletines.servicios.convivencia');
             $entities = $convivenciaService->obtenerConvivenciaPorUsuario($this->getUser()->getId());
-            return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,));
+            return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+                'css_active' => 'convivencia',));
         }
         else{
             $entities = $em->getRepository('BoletinesBundle:Convivencia')->findAll();
         }
 
 
-        return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+            'css_active' => 'convivencia',));
     }
 
     public function getOneAction($id)
@@ -57,7 +62,8 @@ class ConvivenciaController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $convivencia = $this->createEntity($request);
             if($convivencia != null) {
-                return $this->render('BoletinesBundle:Convivencia:show.html.twig', array('convivencia' => $convivencia));
+                return $this->render('BoletinesBundle:Convivencia:show.html.twig', array('convivencia' => $convivencia,
+                    'css_active' => 'convivencia',));
             } else {
                 $message = "Errores";
             }
@@ -66,7 +72,8 @@ class ConvivenciaController extends Controller
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Alumno')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Convivencia:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Convivencia:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'convivencia',));
     }
     private function createEntity($data)
     {
@@ -118,7 +125,8 @@ class ConvivenciaController extends Controller
         if ($request->getMethod() == 'POST') {
             $convivencia = $this->editEntity($request, $id);
             if($convivencia != null) {
-                return $this->render('BoletinesBundle:Convivencia:show.html.twig', array('convivencia' => $convivencia));
+                return $this->render('BoletinesBundle:Convivencia:show.html.twig', array('convivencia' => $convivencia,
+                    'css_active' => 'convivencia',));
             } else {
                 $message = "Errores";
             }
@@ -128,7 +136,9 @@ class ConvivenciaController extends Controller
             $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('idConvivencia' => $id));
         }
 
-        return $this->render('BoletinesBundle:Convivencia:edit.html.twig', array('convivencia' => $convivencia, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Convivencia:edit.html.twig', array('convivencia' => $convivencia,
+            'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'convivencia',));
     }
     private function editEntity($data, $id)
     {

@@ -42,7 +42,8 @@ class HomeController extends Controller
                 'faltas' => $faltas,
                 'calificaciones' => $ultimasCalificaciones,
                 'conPos' => count($convivenciaPositiva),
-                'conNeg' => count($convivenciaNegativa),));
+                'conNeg' => count($convivenciaNegativa),
+                'css_active' => 'home',));
 
         }
         else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
@@ -55,6 +56,7 @@ class HomeController extends Controller
 
             return $this->render('BoletinesBundle:Default:home.html.twig', array('materias' => $materias,
                 'evaluaciones' => $evaluaciones,
+                'css_active' => 'home',
                 ));
         }else if ($this->getUser()->getRol()->getNombre() == 'ROLE_ADMIN'){
             $em = $this->getDoctrine()->getManager();
@@ -64,6 +66,7 @@ class HomeController extends Controller
 
             return $this->render('BoletinesBundle:Default:home.html.twig', array('instituciones' => $instituciones,
                 'alumnos' => $alumnos,
+                'css_active' => 'home',
             ));
         }
 
@@ -92,7 +95,9 @@ class HomeController extends Controller
 
         $alumnosCount = 7650; //HARDCODEADO PARA DEMO2
 
-        return $this->render('BoletinesBundle:Home:admin.html.twig', array('institucionesCount' => $institucionesCount, 'alumnosCount' => $alumnosCount));
+        return $this->render('BoletinesBundle:Home:admin.html.twig', array('institucionesCount' => $institucionesCount,
+            'alumnosCount' => $alumnosCount,
+            'css_active' => 'home',));
     }
 
     public function inst_manuel_belgranoAction()
