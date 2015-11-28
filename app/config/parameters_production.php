@@ -12,7 +12,7 @@ $container->setParameter('database_name', $db);
 $container->setParameter('database_user', $url['user']);
 $container->setParameter('database_password', $url['pass']);
 $container->setParameter('secret', getenv('SECRET'));
-$container->setParameter('locale', 'en');
+$container->setParameter('locale', 'es_AR');
 $container->setParameter('mailer_transport', null);
 $container->setParameter('mailer_host', null);
 $container->setParameter('mailer_user', null);
