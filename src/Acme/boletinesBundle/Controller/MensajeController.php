@@ -130,7 +130,7 @@ class MensajeController extends Controller
         $query = $em->createQueryBuilder()
             ->select('u.nombre', 'u.apellido', 'u.id')
             ->from('BoletinesBundle:Usuario', 'u')
-            ->where('upper(u.nombre) LIKE :query OR upper(u.apellido) LIKE upper(:query)')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
             ->andWhere('u.institucion = :institucion')
             ->setParameter('query', '%'.$request->query->get('query').'%')
             ->setParameter('institucion', $institucion)
