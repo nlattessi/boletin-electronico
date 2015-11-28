@@ -1,5 +1,9 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Detalle Materia{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('materia') }}" class="">Materias</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Detalle materia</a></li>
+{% endblock %}
 {% block page %}
 
     <div class="container fadeIn animated">
@@ -34,7 +38,7 @@
                 <ul class="collection">
                  {% for alumno in materia.alumnos %}
                     <li class="collection-item avatar student-list">
-                        <a href="#" class="collection-a"><img src="images/child.jpg" alt="" class="circle">
+                        <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle">
                             <span class="title truncate student-list-fix">{{ alumno }}</span></a>
                     </li>
               {% endfor %}

@@ -12814,7 +12814,15 @@ vertical-align: sub;}
   border-radius: 35px;
     margin: 10px 0px 10px 0px;
     }
-
+.error-msg2 {
+      
+ color: #EE8277;
+  background-color: #fff;
+  border: 1px solid #EE8277;
+  padding: 16px;
+  border-radius: 35px;
+    margin: 10px 0px 10px 0px;
+    }
     .success-msg {
       
   color: #fff;
@@ -13110,6 +13118,20 @@ table.highlight > tbody > tr:hover {
    
   }   
 
+.table-img-mar {
+
+   margin: 0px 0px 0px 70px;
+   
+  }   
+
+.avatar-table {
+
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    margin-top: -10px;
+   
+  }   
 
 
 
