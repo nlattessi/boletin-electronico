@@ -26,25 +26,22 @@
 
  <!-- start inbox-->
  <div id="recibido" class="fadeIn animated"> <!-- start #recibido-->
-
-   <div class="col s12 mb-actions-container valign-wrapper mar-top">
-                  <div class="col s12 mb-actions-container valign-wrapper">
-                        <div class="col s2 m1 l1">
-                          <form action="#">
-                              <p>
-                                <input type="checkbox" id="select-all" class="filled-in">
-                                <label for="select-all"></label>
-                              </p>
-                          </form>
-                        </div>
-                        <div class="col s2 l1">
-                          <a onclick="deleteMensajes('{{ path('mensaje_delete_checked') }}');" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
-                        </div>
-                        <div class="col s2 l5">
-                          <a href="{{ path('mensaje_new') }}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
-                        </div>
-                  </div>
-                </div>
+    <div class="col s12 mb-actions-container valign-wrapper mar-top">
+          <div class="col s2 m1 l1">
+            <form action="#">
+                <p>
+                  <input type="checkbox" id="select-all" class="filled-in">
+                  <label for="select-all"></label>
+                </p>
+            </form>
+          </div>
+          <div class="col s2 l1">
+            <a onclick="deleteMensajes('{{ path('mensaje_delete_checked') }}');" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+          </div>
+          <div class="col s2 l5">
+            <a href="{{ path('mensaje_new') }}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+          </div>
+    </div>
 
     <div class="col s12 mar-top-soft">
 
@@ -73,13 +70,11 @@
 </div>  <!-- end #recibido-->
 
     <div id="enviado" class="fadeIn animated"> <!-- start #enviado-->
-              <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
-                  <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
-                        <div class="col s2 l5">
-                          <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
-                        </div>
-                  </div>
-                </div>
+      <div class="col s12 mb-actions-container valign-wrapper mar-top">
+            <div class="col s2 l5">
+              <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+            </div>
+      </div>
 
     <div class="col s12 mar-top-soft">
       {% for mensaje in mensajesEnviados %}
@@ -98,13 +93,11 @@
     </div><!-- end #enviado-->
 
     <div id="papelera" class="fadeIn animated"> <!-- start #papelera-->
-              <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
-                  <div class="col s12 mb-actions-container valign-wrapper mar-top-soft">
-                        <div class="col s2 l5">
-                          <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
-                        </div>
-                  </div>
-                </div>
+      <div class="col s12 mb-actions-container valign-wrapper mar-top">
+            <div class="col s2 l5">
+              <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+            </div>
+      </div>
 
     <div class="col s12 mar-top-soft">
       {% for mensaje in mensajesBorrados %}
@@ -136,8 +129,6 @@
     form.setAttribute("method", method);
     form.setAttribute("action", path);
 
-    console.log(params);
-
     params.forEach(function(m) {
       var hiddenField = document.createElement("input");
       hiddenField.setAttribute("type", "hidden");
@@ -147,30 +138,10 @@
       form.appendChild(hiddenField);
     });
 
-
-
-    // for (var key in params) {
-    //   if (params.hasOwnProperty(key)) {
-    //
-    //     //name="idUsuarioRecibe[]"
-    //
-    //     var hiddenField = document.createElement("input");
-    //     hiddenField.setAttribute("type", "hidden");
-    //     hiddenField.setAttribute("name", key);
-    //     hiddenField.setAttribute("value", params[key]);
-    //
-    //     form.appendChild(hiddenField);
-    //   }
-    // }
-
-    console.log(form);
-
     document.body.appendChild(form);
     form.submit();
-  }
-</script>
+  };
 
-<script type="text/javascript">
   function deleteMensajes(path) {
     var mensajesABorrar = [];
 
@@ -178,35 +149,23 @@
       mensajesABorrar.push($(this).attr('id'));
     });
 
-    console.log(mensajesABorrar);
-
-    console.log(path);
-
     post(path, mensajesABorrar);
-  }
-</script>
+  };
 
-<script type="text/javascript">
-  function clickCheck($id) {
-    console.log($('#' + $id));
-  }
-</script>
-
-<script type="text/javascript">
-// Listen for click on toggle checkbox
-$('#select-all').click(function(event) {
-  if(this.checked) {
-    // Iterate each checkbox
-    $(':checkbox').each(function() {
-        this.checked = true;
-    });
-  } else {
-    // Iterate each checkbox
-    $(':checkbox').each(function() {
-        this.checked = false;
-    });
-  }
-});
+  // Listen for click on toggle checkbox
+  $('#select-all').click(function(event) {
+    if(this.checked) {
+      // Iterate each checkbox
+      $(':checkbox').each(function() {
+          this.checked = true;
+      });
+    } else {
+      // Iterate each checkbox
+      $(':checkbox').each(function() {
+          this.checked = false;
+      });
+    }
+  });
 </script>
 
 {% endblock %}
