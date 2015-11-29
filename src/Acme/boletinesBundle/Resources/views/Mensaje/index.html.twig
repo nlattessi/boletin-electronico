@@ -79,7 +79,7 @@
     <div class="col s12 mar-top-soft">
       {% for mensaje in mensajesEnviados %}
       <div class="col s12 mb-container mb-container valign-wrapper">
-               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_show', {'id': mensaje.id}) }}';">
+               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_enviado_show', {'id': mensaje.id}) }}';">
                    <p class="truncate mb-name">{{ mensaje.usuario.getNombreCompleto }}</p>
                    <p class="truncate mb-st">{{ mensaje.titulo }}</p>
                    <p class="truncate mb-t">{{ mensaje.texto[:20] }}</p>
@@ -103,7 +103,7 @@
       {% for mensaje in mensajesBorrados %}
       <div class="col s12 mb-container mb-container valign-wrapper">
 
-               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_show', {'id': mensaje.id}) }}';">
+               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_borrado_show', {'id': mensaje.id}) }}';">
                    <p class="truncate mb-name">{{ mensaje.mensaje.usuario.nombre }}</p>
                    <p class="truncate mb-st">{{ mensaje.mensaje.titulo }}</p>
                    <p class="truncate mb-t">{{ mensaje.mensaje.texto[:20] }}</p>

@@ -21,3 +21,11 @@ mensaje_delete_checked:
 mensaje_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOne }
+
+mensaje_enviado_show:
+    path:     /enviado/{id}
+    defaults: { _controller: BoletinesBundle:Mensaje:getOneEnviado }
+
+mensaje_borrado_show:
+    path:     /borrado/{id}
+    defaults: { _controller: BoletinesBundle:Mensaje:getOneBorrado }

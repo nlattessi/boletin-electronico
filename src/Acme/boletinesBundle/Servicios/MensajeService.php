@@ -8,6 +8,11 @@ use Doctrine\ORM\EntityManager;
 
 class MensajeService
 {
+    const RECIBIDO = 'recibido';
+    const ENVIADO = 'enviado';
+    const BORRADO = 'borrado';
+    const ANTERIOR = 'ant';
+    const SIGUIENTE = 'sig';
 
     protected $em;
 
@@ -16,7 +21,7 @@ class MensajeService
         $this->em = $entityManager;
     }
 
-    public function getMensajes($user)
+    public function getMensajesUsuario($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(
             array('usuario' => $user, 'borrado' => false),
@@ -26,7 +31,7 @@ class MensajeService
         return $mensajes;
     }
 
-    public function getMensajesNotLeidos($user)
+    public function getMensajesUsuarioNotLeidos($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(array(
             'usuario' => $user, 'borrado' => false, 'leido' => false),
@@ -46,7 +51,7 @@ class MensajeService
         return $mensajes;
     }
 
-    public function getMensajesBorrados($user)
+    public function getMensajesUsuarioBorrados($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(
             array('usuario' => $user, 'borrado' => true),
@@ -117,14 +122,51 @@ class MensajeService
 
         $this->mensajeUsuarioSetLeido($mensajeUsuario);
 
-        // if ($this->mensajeUsuarioSetLeido($mensajeUsuario)) {
-        //   return $mensaje;
-        // }
-
         return $mensaje;
     }
 
-    private function getMensajeById($id)
+    private function getAnterior($mensaje, $mensajes)
+    {
+        $result = array_search($mensaje, $mensajes);
+
+        $result = ($result > 0) ? ($result - 1) : $result;
+
+        return $mensajes[$result];
+    }
+
+    private function getSiguiente($mensaje, $mensajes)
+    {
+        $result = array_search($mensaje, $mensajes);
+
+        $result = ($result < count($mensajes) - 1) ? ($result + 1) : $result;
+
+        return $mensajes[$result];
+    }
+
+    public function getAnteriorOSiguienteMensaje($user, $mensaje, $type = self::RECIBIDO, $direccion = self::ANTERIOR)
+    {
+        switch ($type) {
+            case self::RECIBIDO:
+                $mensajes = $this->getMensajesUsuario($user);
+                break;
+
+            case self::ENVIADO:
+                $mensajes = $this->getMensajesEnviados($user);
+                break;
+
+            case self::BORRADO:
+                $mensajes = $this->getMensajesUsuarioBorrados($user);
+
+            default:
+              break;
+        }
+
+        $mensaje = ($type == self::ENVIADO) ? $mensaje : $this->getMensajeUsuarioByUsuarioAndMensaje($user, $mensaje);
+
+        return ($direccion == self::ANTERIOR) ? $this->getAnterior($mensaje, $mensajes) : $this->getSiguiente($mensaje, $mensajes);
+    }
+
+    public function getMensajeById($id)
     {
         $mensaje = $this->em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id));
 

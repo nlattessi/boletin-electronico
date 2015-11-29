@@ -19,13 +19,13 @@ class MensajeController extends Controller
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
-        $mensajes = $mensajeService->getMensajes($usuario);
+        $mensajes = $mensajeService->getMensajesUsuario($usuario);
 
-        $mensajesNotLeidos = $mensajeService->getMensajesNotLeidos($usuario);
+        $mensajesNotLeidos = $mensajeService->getMensajesUsuarioNotLeidos($usuario);
 
         $mensajesEnviados = $mensajeService->getMensajesEnviados($usuario);
 
-        $mensajesBorrados = $mensajeService->getMensajesBorrados($usuario);
+        $mensajesBorrados = $mensajeService->getMensajesUsuarioBorrados($usuario);
 
         return $this->render('BoletinesBundle:Mensaje:index.html.twig', array(
             'mensajes' => $mensajes,
@@ -42,9 +42,75 @@ class MensajeController extends Controller
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
-        $mensajeUsuario = $mensajeService->readMensaje($usuario, $id);
+        $mensaje = $mensajeService->readMensaje($usuario, $id);
 
-        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array('mensaje' => $mensajeUsuario));
+        $mensajeAnterior = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensaje,
+            $mensajeService::RECIBIDO, $mensajeService::ANTERIOR
+        );
+
+        $mensajeSiguiente = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensaje,
+            $mensajeService::RECIBIDO, $mensajeService::SIGUIENTE
+        );
+
+        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array(
+          'mensaje' => $mensaje,
+          'mensaje_anterior' => $mensajeAnterior,
+          'mensaje_siguiente' => $mensajeSiguiente
+        ));
+    }
+
+    public function getOneEnviadoAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $usuario = $this->getUser();
+
+        $mensajeService =  $this->get('boletines.servicios.mensaje');
+
+        $mensajeEnviado = $mensajeService->getMensajeById($id);
+
+        $mensajeAnterior = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensajeEnviado,
+            $mensajeService::ENVIADO, $mensajeService::ANTERIOR
+        );
+
+        $mensajeSiguiente = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensajeEnviado,
+            $mensajeService::ENVIADO, $mensajeService::SIGUIENTE
+        );
+
+        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array(
+          'mensaje' => $mensajeEnviado,
+          'mensaje_enviado_anterior' => $mensajeAnterior,
+          'mensaje_enviado_siguiente' => $mensajeSiguiente
+        ));
+    }
+
+    public function getOneBorradoAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $usuario = $this->getUser();
+
+        $mensajeService =  $this->get('boletines.servicios.mensaje');
+
+        $mensajeBorrado = $mensajeService->getMensajeById($id);
+
+        $mensajeAnterior = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensajeBorrado,
+            $mensajeService::BORRADO, $mensajeService::ANTERIOR
+        );
+
+        $mensajeSiguiente = $mensajeService->getAnteriorOSiguienteMensaje(
+            $usuario, $mensajeBorrado,
+            $mensajeService::BORRADO, $mensajeService::SIGUIENTE
+        );
+
+        return $this->render('BoletinesBundle:Mensaje:show.html.twig', array(
+          'mensaje' => $mensajeBorrado,
+          'mensaje_borrado_anterior' => $mensajeAnterior,
+          'mensaje_borrado_siguiente' => $mensajeSiguiente
+        ));
     }
 
     public function newAction(Request $request)
