@@ -19,15 +19,24 @@
       </div>
 
       <div id="destinatarios">
+        {% if destinatarios is defined %}
+        {% for usuario in destinatarios %}
+          <div class="chip">
+            <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ usuario.id}}">
+            {{ usuario.getNombreCompleto }}
+            <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
+          </div>
+        {% endfor %}
+        {% endif %}
       </div>
 
       <div class="input-field col s12">
-            <input id="tituloMensaje" type="text" class="validate" name="tituloMensaje">
+            <input id="tituloMensaje" type="text" class="validate" name="tituloMensaje"{% if mensajeBorrador is defined %}value="{{ mensajeBorrador.titulo }}"{% endif %}>
             <label for="tituloMensaje" class="">Asunto:</label>
       </div>
 
       <div class="input-field col s12">
-        <textarea id="textoMensaje" class="materialize-textarea" length="1200" name="textoMensaje"></textarea>
+        <textarea id="textoMensaje" class="materialize-textarea" length="1200" name="textoMensaje">{% if mensajeBorrador is defined %}{{ mensajeBorrador.texto }}{% endif %}</textarea>
         <label for="textoMensaje">Mensaje:</label>
       </div>
 
@@ -47,7 +56,10 @@
 
       <div class="col s12 center-align mar-top-soft">
           <button type="submit" class="btn-large waves-effect waves-light center-align mar-right disabled" id="newMensajeSubmit" disabled>enviar</button>
-          {#<a data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>#}
+          <a onclick="saveBorrador('{{ path('mensaje_save_borrador') }}');" data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>
+          {% if mensajeBorrador is defined %}
+            <input type="hidden" name="idMensajeBorrador" value="{{ mensajeBorrador.id }}">
+          {% endif %}
       </div>
 
       </form>
@@ -60,4 +72,26 @@
 
 {% block javascript %}
   <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
+
+  <script>
+    function saveBorrador(path) {
+      var form = document.getElementById("nuevoMensajeForm");
+      form.setAttribute("action", path);
+      form.submit();
+    };
+
+    $(".noAgregar").click(function(e){
+      e.preventDefault();
+      $(this).parent().remove();
+      if ($('#destinatarios div').length < 1) {
+        $('#newMensajeSubmit').addClass("disabled");
+        $('#newMensajeSubmit').prop("disabled", true);
+      }
+    });
+
+    if ($('#destinatarios div').length > 0) {
+      $('#newMensajeSubmit').removeClass("disabled");
+      $('#newMensajeSubmit').prop("disabled", false);
+    }
+  </script>
 {% endblock %}

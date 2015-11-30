@@ -10,11 +10,11 @@
       </div>
       <div class="col s12 m3 l2 mar-top-soft center-align">
         {% if mensaje_anterior is defined %}
-          <a href="{{ path('mensaje_show', {'id': mensaje_anterior.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
+          <a href="{{ path('mensaje_show', {'id': mensaje_anterior.mensaje.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
           <span class="weak"></span>
         {% endif %}
         {% if mensaje_siguiente is defined %}
-          <a href="{{ path('mensaje_show', {'id': mensaje_siguiente.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
+          <a href="{{ path('mensaje_show', {'id': mensaje_siguiente.mensaje.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
           <br><br>
         {% endif %}
         {% if mensaje_enviado_anterior is defined %}
@@ -26,11 +26,11 @@
           <br><br>
         {% endif %}
         {% if mensaje_borrado_anterior is defined %}
-          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_anterior.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
+          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_anterior.mensaje.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
           <span class="weak"></span>
         {% endif %}
         {% if mensaje_borrado_siguiente is defined %}
-          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_siguiente.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
+          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_siguiente.mensaje.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
           <br><br>
         {% endif %}
           <a href="{{ path('mensaje_delete', {'id': mensaje.id}) }}"data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
@@ -93,12 +93,20 @@
                          <label for="nombre_inst"  class="">Para:</label>
                    </div>
 
-                   <div class="input-field col s12">
+                   {#<div class="input-field col s12">
                      <ul id="destinatarios" class="unstyled">
                        <li>
                          <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">{{ mensaje.usuario.getNombreCompleto }}<button class="btn btn-mini noAgregar">[X]</button>
                        </li>
                      </ul>
+                   </div>#}
+
+                   <div id="destinatarios">
+                     <div class="chip">
+                       <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">
+                       {{ mensaje.usuario.getNombreCompleto }}
+                       <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
+                     </div>
                    </div>
 
                    <div class="input-field col s12">
@@ -145,9 +153,10 @@
   <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
 
   <script>
-  $(".noAgregar").click(function(){
+  $(".noAgregar").click(function(e){
+    e.preventDefault();
     $(this).parent().remove();
-    if ($('#destinatarios li').length < 1) {
+    if ($('#destinatarios div').length < 1) {
       $('#newMensajeSubmit').addClass("disabled");
       $('#newMensajeSubmit').prop("disabled", true);
     }

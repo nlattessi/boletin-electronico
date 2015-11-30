@@ -19,6 +19,7 @@
       <ul class="tabs">
         <li class="tab col s3 m3 l3 mailbox"><a class="active fail-cheat" href="#recibido"><i class="icon-linear-inbox2 icon-mailbox-size"></i><p class="no-mar">Recibido</p></a></li>
         <li class="tab col s3 m3 l3 mailbox"><a href="#enviado" class="fail-cheat" ><i class="icon-linear-paper-plane icon-mailbox-size"></i><p class="no-mar">Enviado</p></a></li>
+        <li class="tab col s3 m3 l3 mailbox"><a href="#borrador" class="fail-cheat"><i class="icon-linear-archive2 icon-mailbox-size"></i><p class="no-mar">Borrador</p></a></li>
         <li class="tab col s3 m3 l3 mailbox"><a href="#papelera" class="fail-cheat"><i class="icon-linear-trash2 icon-mailbox-size"></i><p class="no-mar">Papelera</p></a></li>
       </ul>
     </div>
@@ -92,19 +93,36 @@
     </div>
     </div><!-- end #enviado-->
 
+    <div id="borrador" class="fadeIn animated">
+      <div class="col s12 mb-actions-container valign-wrapper mar-top mar-bot-soft">
+        <div class="col s2 l5">
+          <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
+        </div>
+      </div>
+      <div class="col s12 mar-top-soft">
+        {% for mensaje in mensajesBorradores %}
+        <div class="col s12 mb-container valign-wrapper">
+          <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_borrador_show', {'id': mensaje.id}) }}';">
+            <p class="truncate mb-name">{{ mensaje.usuario.getNombreCompleto }}
+            <p class="truncate mb-st">{{ mensaje.titulo }}</p>
+            <p class="truncate mb-t">{{ mensaje.texto[:20] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
     <div id="papelera" class="fadeIn animated"> <!-- start #papelera-->
       <div class="col s12 mb-actions-container valign-wrapper mar-top">
             <div class="col s2 l5">
               <a href="{{ path('mensaje_new')}}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
             </div>
       </div>
-
     <div class="col s12 mar-top-soft">
       {% for mensaje in mensajesBorrados %}
       <div class="col s12 mb-container mb-container valign-wrapper">
-
-               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_borrado_show', {'id': mensaje.id}) }}';">
-                   <p class="truncate mb-name">{{ mensaje.mensaje.usuario.nombre }}</p>
+               <div class="col s8 m10 l10" onclick="location.href='{{ path('mensaje_borrado_show', {'id': mensaje.mensaje.id}) }}';">
+                   <p class="truncate mb-name">{{ mensaje.mensaje.usuario.getNombreCompleto }}</p>
                    <p class="truncate mb-st">{{ mensaje.mensaje.titulo }}</p>
                    <p class="truncate mb-t">{{ mensaje.mensaje.texto[:20] }}</p>
                </div>
@@ -115,6 +133,7 @@
        {% endfor %}
     </div>
     </div><!-- end #papelera-->
+
   </div> <!-- end row contenedor de #test1 #test2 #test3 #test4 -->
  <!-- end inbox-->
   {% endblock %}

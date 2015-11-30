@@ -10,6 +10,10 @@ mensaje_new:
     path:    /new
     defaults: { _controller: BoletinesBundle:Mensaje:new }
 
+mensaje_save_borrador:
+    path:    /saveBorrador
+    defaults: { _controller: BoletinesBundle:Mensaje:saveBorrador }
+
 mensaje_delete:
     path:     /delete/{id}
     defaults: { _controller: BoletinesBundle:Mensaje:delete }
@@ -29,3 +33,7 @@ mensaje_enviado_show:
 mensaje_borrado_show:
     path:     /borrado/{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOneBorrado }
+
+mensaje_borrador_show:
+    path:     /borrador/{id}
+    defaults: { _controller: BoletinesBundle:Mensaje:getOneBorrador }

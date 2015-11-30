@@ -10,6 +10,7 @@
     </id>
     <field name="leido" type="boolean" column="leido" nullable="true"/>
     <field name="borrado" type="boolean" column="borrado" nullable="true"/>
+    <field name="borrador" type="boolean" column="borrador" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
     <many-to-one field="mensaje" target-entity="Mensaje">

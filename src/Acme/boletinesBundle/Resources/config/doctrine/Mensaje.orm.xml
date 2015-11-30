@@ -9,6 +9,7 @@
     </id>
     <field name="titulo" type="string" column="titulo" length="100" nullable="false"/>
     <field name="texto" type="string" column="texto" length="500" nullable="false"/>
+    <field name="borrador" type="boolean" column="borrador" nullable="true"/>
     <field name="fechaEnvio" type="datetime" column="fecha_envio" nullable="false"/>
     <many-to-one field="usuario" target-entity="Usuario">
       <join-columns>

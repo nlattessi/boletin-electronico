@@ -52,6 +52,13 @@ class Mensaje
      */
     private $usuario;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="borrador", type="boolean", nullable=true)
+     */
+    private $borrador;
+
 
 
     /**
@@ -70,7 +77,7 @@ class Mensaje
     /**
      * Get titulo
      *
-     * @return string 
+     * @return string
      */
     public function getTitulo()
     {
@@ -93,7 +100,7 @@ class Mensaje
     /**
      * Get texto
      *
-     * @return string 
+     * @return string
      */
     public function getTexto()
     {
@@ -116,7 +123,7 @@ class Mensaje
     /**
      * Get fechaEnvio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaEnvio()
     {
@@ -126,7 +133,7 @@ class Mensaje
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -149,10 +156,33 @@ class Mensaje
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * Set borrador
+     *
+     * @param boolean $borrador
+     * @return MensajeUsuario
+     */
+    public function setBorrador($borrador)
+    {
+        $this->borrador = $borrador;
+
+        return $this;
+    }
+
+    /**
+     * Get borrador
+     *
+     * @return boolean
+     */
+    public function getBorrador()
+    {
+        return $this->borrador;
     }
 }

@@ -5,6 +5,7 @@ namespace Acme\boletinesBundle\Servicios;
 use Acme\boletinesBundle\Entity\Mensaje;
 use Acme\boletinesBundle\Entity\MensajeUsuario;
 use Doctrine\ORM\EntityManager;
+use Acme\boletinesBundle\Entity\Usuario;
 
 class MensajeService
 {
@@ -24,7 +25,7 @@ class MensajeService
     public function getMensajesUsuario($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(
-            array('usuario' => $user, 'borrado' => false),
+            array('usuario' => $user, 'borrado' => false, 'borrador' => false),
             array('creationTime' => 'DESC')
         );
 
@@ -34,7 +35,17 @@ class MensajeService
     public function getMensajesUsuarioNotLeidos($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(array(
-            'usuario' => $user, 'borrado' => false, 'leido' => false),
+            'usuario' => $user, 'borrado' => false, 'leido' => false, 'borrador' => false),
+            array('creationTime' => 'DESC')
+        );
+
+        return $mensajes;
+    }
+
+    public function getMensajesUsuarioBorrados($user)
+    {
+        $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(
+            array('usuario' => $user, 'borrado' => true, 'borrador' => false),
             array('creationTime' => 'DESC')
         );
 
@@ -44,29 +55,30 @@ class MensajeService
     public function getMensajesEnviados($user)
     {
         $mensajes = $this->em->getRepository('BoletinesBundle:Mensaje')->findBy(
-            array('usuario' => $user),
+            array('usuario' => $user, 'borrador' => false),
             array('fechaEnvio' => 'DESC')
         );
 
         return $mensajes;
     }
 
-    public function getMensajesUsuarioBorrados($user)
+    public function getMensajesBorradores($user)
     {
-        $mensajes = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy(
-            array('usuario' => $user, 'borrado' => true),
-            array('creationTime' => 'DESC')
+        $mensajes = $this->em->getRepository('BoletinesBundle:Mensaje')->findBy(
+            array('usuario' => $user, 'borrador' => true),
+            array('fechaEnvio' => 'DESC')
         );
 
         return $mensajes;
     }
 
-    public function newMensaje($user, $titulo, $texto)
+    public function newMensaje($user, $titulo = "", $texto = "", $borrador = false)
     {
         $mensaje = new Mensaje();
         $mensaje->setUsuario($user);
         $mensaje->setTitulo($titulo);
         $mensaje->setTexto($texto);
+        $mensaje->setBorrador($borrador);
         $mensaje->setFechaEnvio(new \DateTime('now'));
 
         $this->em->persist($mensaje);
@@ -75,12 +87,13 @@ class MensajeService
         return $mensaje;
     }
 
-    public function newMensajeUsuario($user, $mensaje)
+    public function newMensajeUsuario($user, $mensaje, $borrador = false)
     {
         $mensajeUsuario = new MensajeUsuario();
         $mensajeUsuario->setUsuario($user);
         $mensajeUsuario->setBorrado(false);
         $mensajeUsuario->setLeido(false);
+        $mensajeUsuario->setBorrador($borrador);
         $mensajeUsuario->setMensaje($mensaje);
         $mensajeUsuario->setCreationTime(new \DateTime('now'));
         $mensajeUsuario->setUpdateTime(new \DateTime('now'));
@@ -171,6 +184,83 @@ class MensajeService
         $mensaje = $this->em->getRepository('BoletinesBundle:Mensaje')->findOneBy(array('id' => $id));
 
         return $mensaje;
+    }
+
+    public function saveBorrador($user, $titulo, $texto, $usersIds)
+    {
+        $mensaje = $this->newMensaje($user, $titulo, $texto, true);
+
+        if (isset($usersIds)) {
+            foreach ($usersIds as $userId) {
+                $userRecibe = $this->em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+                if($userRecibe instanceof Usuario){
+                    $this->newMensajeUsuario($userRecibe, $mensaje, true);
+                }
+            }
+        }
+    }
+
+    public function updateBorrador($user, $titulo, $texto, $usersIds, $id)
+    {
+        $mensaje = $this->getMensajeById($id);
+
+        $mensaje->setTitulo($titulo);
+        $mensaje->setTexto($texto);
+        $this->em->persist($mensaje);
+
+        $mensajesUsuarios = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy([
+            'mensaje' => $mensaje
+        ]);
+        foreach ($mensajesUsuarios as $mensajeUsuario) {
+            $this->em->remove($mensajeUsuario);
+        }
+
+        $this->em->flush();
+
+        if (isset($usersIds)) {
+            foreach ($usersIds as $userId) {
+                $userRecibe = $this->em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+                if($userRecibe instanceof Usuario){
+                    $this->newMensajeUsuario($userRecibe, $mensaje, true);
+                }
+            }
+        }
+    }
+
+    public function getMensajeBorradorParaEnviar($user, $titulo, $texto, $id)
+    {
+        $mensaje = $this->getMensajeById($id);
+
+        $mensaje->setTitulo($titulo);
+        $mensaje->setTexto($texto);
+        $mensaje->setBorrador(false);
+        $this->em->persist($mensaje);
+
+        $mensajesUsuarios = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy([
+            'mensaje' => $mensaje
+        ]);
+        foreach ($mensajesUsuarios as $mensajeUsuario) {
+            $this->em->remove($mensajeUsuario);
+        }
+
+        $this->em->flush();
+
+        return $mensaje;
+    }
+
+    public function getDestinatariosFromBorrador($borrador)
+    {
+        $mensajesUsuarios = $this->em->getRepository('BoletinesBundle:MensajeUsuario')->findBy([
+            'mensaje' => $borrador
+        ]);
+
+        $destinatarios = [];
+
+        foreach ($mensajesUsuarios as $mensajeUsuario) {
+            $destinatarios[] = $mensajeUsuario->getUsuario();
+        }
+
+        return $destinatarios;
     }
 
     private function getMensajeUsuarioById($id)

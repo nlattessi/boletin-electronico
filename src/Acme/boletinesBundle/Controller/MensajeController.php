@@ -15,7 +15,7 @@ class MensajeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $usuario = $this->getUser();
+        $usuario = $this->getUser();
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
@@ -25,12 +25,15 @@ class MensajeController extends Controller
 
         $mensajesEnviados = $mensajeService->getMensajesEnviados($usuario);
 
+        $mensajesBorradores = $mensajeService->getMensajesBorradores($usuario);
+
         $mensajesBorrados = $mensajeService->getMensajesUsuarioBorrados($usuario);
 
         return $this->render('BoletinesBundle:Mensaje:index.html.twig', array(
             'mensajes' => $mensajes,
             'mensajesNotLeidos' => $mensajesNotLeidos,
             'mensajesEnviados' => $mensajesEnviados,
+            'mensajesBorradores' => $mensajesBorradores,
             'mensajesBorrados' => $mensajesBorrados
         ));
     }
@@ -38,7 +41,7 @@ class MensajeController extends Controller
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $usuario = $this->getUser();
+        $usuario = $this->getUser();
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
@@ -64,7 +67,7 @@ class MensajeController extends Controller
     public function getOneEnviadoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $usuario = $this->getUser();
+        $usuario = $this->getUser();
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
@@ -90,7 +93,7 @@ class MensajeController extends Controller
     public function getOneBorradoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $usuario = $this->getUser();
+        $usuario = $this->getUser();
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
 
@@ -110,6 +113,23 @@ class MensajeController extends Controller
           'mensaje' => $mensajeBorrado,
           'mensaje_borrado_anterior' => $mensajeAnterior,
           'mensaje_borrado_siguiente' => $mensajeSiguiente
+        ));
+    }
+
+    public function getOneBorradorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+
+        $mensajeService = $this->get('boletines.servicios.mensaje');
+
+        $mensajeBorrador = $mensajeService->getMensajeById($id);
+
+        $destinatarios = $mensajeService->getDestinatariosFromBorrador($mensajeBorrador);
+
+        return $this->render('BoletinesBundle:Mensaje:new.html.twig', array(
+            'mensajeBorrador' => $mensajeBorrador,
+            'destinatarios' => $destinatarios
         ));
     }
 
@@ -140,11 +160,20 @@ class MensajeController extends Controller
         if($usuario instanceof Usuario){
           $mensajeService =  $this->get('boletines.servicios.mensaje');
 
-          $mensaje = $mensajeService->newMensaje(
-              $usuario,
-              $data->request->get('tituloMensaje'),
-              $data->request->get('textoMensaje')
-          );
+          if ($data->request->get('idMensajeBorrador')) {
+              $mensaje = $mensajeService->getMensajeBorradorParaEnviar(
+                  $usuario,
+                  $data->request->get('tituloMensaje'),
+                  $data->request->get('textoMensaje'),
+                  $data->request->get('idMensajeBorrador')
+              );
+          } else {
+              $mensaje = $mensajeService->newMensaje(
+                  $usuario,
+                  $data->request->get('tituloMensaje'),
+                  $data->request->get('textoMensaje')
+              );
+          }
 
           $usersIds = $data->request->get('idUsuarioRecibe');
 
@@ -161,10 +190,42 @@ class MensajeController extends Controller
         return true;
     }
 
+    public function saveBorradorAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = $this->getUser();
+
+        if ($usuario instanceof Usuario) {
+            $mensajeService = $this->get('boletines.servicios.mensaje');
+
+            $usersIds = $request->request->get('idUsuarioRecibe');
+
+            if ($request->request->get('idMensajeBorrador')) {
+                $mensajeService->updateBorrador(
+                    $usuario,
+                    $request->request->get('tituloMensaje'),
+                    $request->request->get('textoMensaje'),
+                    $usersIds,
+                    $request->request->get('idMensajeBorrador')
+                );
+            } else {
+                $mensajeService->saveBorrador(
+                    $usuario,
+                    $request->request->get('tituloMensaje'),
+                    $request->request->get('textoMensaje'),
+                    $usersIds
+                );
+            }
+        }
+
+        $this->get('session')->getFlashBag()->add('success', 'Borrador guardado con éxito');
+        return $this->redirect($this->generateUrl('mensaje'), 301);
+    }
+
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $usuario = $usuario = $this->getUser();
+        $usuario = $this->getUser();
 
         $mensajeService =  $this->get('boletines.servicios.mensaje');
         $mensajeUsuario = $mensajeService->deleteMensaje($usuario, $id);
@@ -177,7 +238,7 @@ class MensajeController extends Controller
     {
         if ($request->getMethod() == 'POST') {
           $em = $this->getDoctrine()->getManager();
-          $usuario = $usuario = $this->getUser();
+          $usuario = $this->getUser();
 
           $mensajesIds = $request->request->get('idMensajeBorrar');
 
