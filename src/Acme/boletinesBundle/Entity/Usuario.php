@@ -404,7 +404,10 @@ class Usuario implements UserInterface, \Serializable
     public function getMensajesNoLeidos()
     {
         return $this->mensajes->filter(function($mensaje) {
-          return ($mensaje->getLeido() == false && $mensaje->getBorrado() == false);
+          return ($mensaje->getLeido() == false
+              && $mensaje->getBorrado() == false
+              && $mensaje->getBorrador() == false
+          );
         });
     }
 }
