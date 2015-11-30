@@ -1,18 +1,38 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Calificar{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('materia') }}" class="">Materias</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="{{ path('materia_show', { 'id': evaluacion.materia.id }) }}" >Detalle materia</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Calificar</a></li>
+{% endblock %}
 {% block page %}
-    <div class="row">
-        <div class="col s12 m12 l12 mar-top-soft">
-            <h4 class="header">Calificaciones</h4>
-
-        </div>
-        <div class="col s12 m10 l10'">
-            <h5 class="header"><a href="{{ path('materia_show', { 'id': evaluacion.materia.id }) }}">
-                {{ evaluacion.materia }}
-            </a></h5>
-        </div>
-        <div class="col s12 m2 l2 right">
-            <h5><i class="icon-linear-users2 d-d-i"></i> {{ evaluacion.materia.cantidadAlumnos }}</h5>
+    <div class="col s12 m12 l12 mar-top-soft">
+        <h4 class="header">Calificar instancia de evaluación</h4>
+    </div>
+    <div class="col s12 m12 l12"> <!-- start materia-->
+        <div class="panel-mini panel-assigment">
+            <div class="row">
+                <div class="col s6">
+                    <h5 class="panel-title">
+                        <a href="{{ path('materia_show', {'id':evaluacion.materia.id }) }}">
+                            {{ evaluacion.materia.__toString() }}
+                        </a> </h5>
+                    <h4>
+                        {% for grupo in evaluacion.materia.gruposAlumnos %}
+                            {{ grupo ~ ' ' }}
+                        {% endfor %}
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 row mar-top-low right-align">
+                    <i class="icon-linear-clock "></i>
+                    {% for horario in evaluacion.materia.horarios %}
+                        <span class="widget-time-date"> {{ horario}}</span>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -21,15 +41,16 @@
                 <h4 class="">{{ evaluacion.nombre }}</h4>
             </div>
             <div class=" col s12 m6 l6">
-                <i class="icon-linear-calendar-insert"></i>
-                <h4  class="">{{ evaluacion.fecha|date('d/m/Y') }}</h4>
+                <h4  class="">
+                    <i class="icon-linear-calendar-insert icon-nav-size"></i>{{ evaluacion.fecha|date('d/m/Y') }}
+                </h4>
             </div>
         </div>
     </div>
 
 
     <div class="row">
-        <div class="col s12 m12 l12">
+        <div class="col s12 m12 l12 mar-top-soft">
             <form action="{{ path('evaluacion_calificar', { 'id': evaluacion.id }) }}" method="post">
                 <table class="striped">
                     <thead>
@@ -44,9 +65,14 @@
                     {% if calificaciones is defined %}
                     {% for calificacion in calificaciones %}
                         <tr>
-                            <td>{{ calificacion.alumno.nombre }}</td>
                             <td>
-                                <div class="select-wrapper">
+                                <div class="col s12">
+                                    <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle avatar-table">
+                                        <span class="title truncate table-img-mar">{{ calificacion.alumno.nombre }}</span></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field col s12">
                                     <select class="initialized" name="{{ calificacion.id }}cal">
                                         {% for valorC in valoresCalificacion %}
                                             {% if calificacion.valor.id == valorC.id %}
@@ -60,7 +86,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="input-field col col s4 m2 l2">
+                                <div class="input-field col col s12">
                                     <input value="{{ calificacion.comentario }}" id="{{ calificacion.id }}com" name="{{ calificacion.id }}com" type="text" class="validate">
                                     <label for="{{ calificacion.id }}com" class="">Comentario</label>
                                 </div>
@@ -70,9 +96,14 @@
                     {% else %}
                         {% for alumno in evaluacion.materia.alumnos %}
                             <tr>
-                                <td>{{ alumno.nombre }}</td>
                                 <td>
-                                    <div class="select-wrapper">
+                                    <div class="col s12">
+                                        <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle avatar-table">
+                                            <span class="title truncate table-img-mar">{{ alumno.nombre }}</span></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-field col s12">
                                         <select class="initialized" id="{{ alumno.id }}cal" name="{{ alumno.id }}cal">
                                             {% for valorC in valoresCalificacion %}
                                                 <option value="{{valorC.id}}">{{valorC.__toString()}}</option>
@@ -82,7 +113,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="input-field col col s4 m2 l2">
+                                    <div class="input-field col col s12">
                                         <input  id="{{ alumno.id }}com" name="{{ alumno.id }}com" type="text" class="validate">
                                         <label for="{{ alumno.id }}com" class="">Comentario</label>
                                     </div>
