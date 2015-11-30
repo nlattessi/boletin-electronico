@@ -27,6 +27,13 @@ class MensajeUsuario
     private $borrado;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="borrador", type="boolean", nullable=true)
+     */
+    private $borrador;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_time", type="datetime", nullable=true)
@@ -87,7 +94,7 @@ class MensajeUsuario
     /**
      * Get leido
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getLeido()
     {
@@ -110,11 +117,34 @@ class MensajeUsuario
     /**
      * Get borrado
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getBorrado()
     {
         return $this->borrado;
+    }
+
+    /**
+     * Set borrador
+     *
+     * @param boolean $borrador
+     * @return MensajeUsuario
+     */
+    public function setBorrador($borrador)
+    {
+        $this->borrador = $borrador;
+
+        return $this;
+    }
+
+    /**
+     * Get borrador
+     *
+     * @return boolean
+     */
+    public function getBorrador()
+    {
+        return $this->borrador;
     }
 
     /**
@@ -133,7 +163,7 @@ class MensajeUsuario
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -156,7 +186,7 @@ class MensajeUsuario
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -166,7 +196,7 @@ class MensajeUsuario
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -189,7 +219,7 @@ class MensajeUsuario
     /**
      * Get mensaje
      *
-     * @return \Acme\boletinesBundle\Entity\Mensaje 
+     * @return \Acme\boletinesBundle\Entity\Mensaje
      */
     public function getMensaje()
     {
@@ -212,7 +242,7 @@ class MensajeUsuario
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {

@@ -3,7 +3,7 @@
       minLength: 3,
       source: function (query, process) {
         return $.ajax({
-          url: 'autocompletar',
+          url: '/mensaje/autocompletar',
           type: 'GET',
           data: {
             query: query,
@@ -24,6 +24,7 @@
             return process(data);
           },
           error: function(result) {
+            console.log(result);
             console.log('error');
           }
         });
@@ -54,14 +55,15 @@
         if(!exists) {
 
           $('#destinatarios').append(
-              '<li><input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
+              '<div class="chip"><input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
               + item.nombre
-              + ' <button class="btn btn-mini noAgregar">[X]</button>'
-              + '</li>'
+              + ' <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>'
+              + '</div>'
           );
-          $(".noAgregar").click(function(){
+          $(".noAgregar").click(function(e){
+            e.preventDefault();
             $(this).parent().remove();
-            if ($('#destinatarios li').length < 1) {
+            if ($('#destinatarios div').length < 1) {
               $('#newMensajeSubmit').addClass("disabled");
               $('#newMensajeSubmit').prop("disabled", true);
             }
