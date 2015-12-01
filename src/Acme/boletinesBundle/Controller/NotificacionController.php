@@ -16,20 +16,22 @@ class NotificacionController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('BoletinesBundle:Notificacion')->findAll();
-
-        return $this->render('BoletinesBundle:Notificacion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Notificacion:index.html.twig', []);
     }
 
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $notificacion = $em->getRepository('BoletinesBundle:Notificacion')->findOneBy(array('idNotificacion' => $id));
+        $notificacionUsuario = $em->getRepository('BoletinesBundle:NotificacionUsuario')->find($id);
 
-        return $this->render('BoletinesBundle:Notificacion:show.html.twig', array('notificacion' => $notificacion));
+        if ($notificacionUsuario->getNotificado() == false) {
+            $notificacionUsuario->setNotificado(true);
+            $em->persist($notificacionUsuario);
+            $em->flush();
+        }
+
+        return $this->redirect($notificacionUsuario->getNotificacion()->getUrl(), 301);
     }
 
     public function newAction(Request $request)
@@ -131,4 +133,3 @@ class NotificacionController extends Controller
         return $notificacion;
     }
 }
-

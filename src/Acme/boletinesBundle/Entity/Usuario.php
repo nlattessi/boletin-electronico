@@ -98,6 +98,11 @@ class Usuario implements UserInterface, \Serializable
      */
     protected $mensajes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="NotificacionUsuario", mappedBy="usuario")
+     */
+    protected $notificaciones;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -404,10 +409,22 @@ class Usuario implements UserInterface, \Serializable
     public function getMensajesNoLeidos()
     {
         return $this->mensajes->filter(function($mensaje) {
-          return ($mensaje->getLeido() == false
-              && $mensaje->getBorrado() == false
-              && $mensaje->getBorrador() == false
-          );
+            return ($mensaje->getLeido() == false
+                && $mensaje->getBorrado() == false
+                && $mensaje->getBorrador() == false
+            );
+        });
+    }
+
+    public function getNotificaciones()
+    {
+        return $this->notificaciones;
+    }
+
+    public function getNotificacionesNoVistas()
+    {
+        return $this->notificaciones->filter(function($notificacion) {
+            return $notificacion->getNotificado() == false;
         });
     }
 }
