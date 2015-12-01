@@ -32,7 +32,7 @@
             <div class=" col s12 m6 l6">
                 <i class="icon-linear-calendar-insert"></i>
                 <label for="fecha" class="">Fecha</label>
-                <input name="fecha" type="fecha" class="datepicker" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
+                <input type="date" class="datepicker" name="fecha" id="fecha" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
             </div>
 
             <div class="col s12 center-align mar-top-soft">
