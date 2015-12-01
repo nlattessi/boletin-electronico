@@ -19,9 +19,17 @@
     </ul>
     <ul id="dropdown2" class="dropdown-content drop-notification">
         <span class="circle dot"></span>
-        <div clasS="notifi"><h6>Notificaciones</h6></div>
-        <li class="divider"></li>
-        <li class="notifii">><h6>No hay nuevas notificaciones</h6></li>
+        <li class="notifi"><h6>Notificaciones</h6></li>
+        {% if app.user.getNotificacionesNoVistas|length > 0 %}
+          {% import 'BoletinesBundle::_macros.html.twig' as macros %}
+          {% for notificacion in app.user.getNotificacionesNoVistas %}
+            {{ macros.show_notificacionUsuario(notificacion) }}
+            <li class="divider"></li>
+          {% endfor %}
+        {% else %}
+          <li class="divider"></li>
+        {% endif %}
+        <li class="notifii"><h6><a href="{{ path('notificacion') }}">Ver todas</a></h6></li>
     </ul>
     <ul id="dropdown3" class="dropdown-content drop-messages">
       <span class="circle dot"></span>
@@ -52,7 +60,7 @@
 
                 </ul>
                 <ul class="right fix">
-                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">0</span></i></a></li>
+                    <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">{{ app.user.getNotificacionesNoVistas|length }}</span></i></a></li>
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">{{ app.user.getMensajesNoLeidos|length }}</span></i></a></li>
 
 
