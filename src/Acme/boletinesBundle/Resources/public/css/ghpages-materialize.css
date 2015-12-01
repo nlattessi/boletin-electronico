@@ -12547,6 +12547,10 @@ vertical-align: sub;}
     -ms-transition: .2s ease-out;
     transition: .2s ease-out;
   }
+
+.val-fix {
+  margin-bottom: 5px !important;
+}
 .panel-mini2 {
     margin-bottom: 15px;
     background-color: #fff;
@@ -13144,6 +13148,7 @@ table.highlight > tbody > tr:hover {
   padding:0 12px;
   border-radius:16px;
   background-color:#e4e4e4;
+  margin-right: 0.4rem;
   }
 .chip img {
   float:left;
@@ -13166,3 +13171,25 @@ table.highlight > tbody > tr:hover {
   color: #F39A6D !important;
 }
 
+.dropdown-menu {
+    background-color: #F4F7F8;
+    display: none;
+    min-width: 100px;
+    max-height: 650px;
+    overflow-y: auto;
+    border-bottom: 1px solid #D8E2E7;
+    border-left: 1px solid #D8E2E7;
+    border-right: 1px solid #D8E2E7;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem;  
+}
+
+.dropdown-menu li a {
+    color: #3C3C3B !important;
+}
+
+.dropdown-menu li a:hover {
+    color: #DB8B63 !important;
+}
