@@ -1,44 +1,38 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
-    <h1>Notificacion list</h1>
-
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id Notificacion</th>
-                <th>Nombre notificacion</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for notificacion in entities %}
-            <tr>
-                <td>{{ notificacion.idNotificacion }}</td>
-                <td><a href="{{ path('notificacion_show', { 'id': notificacion.idNotificacion }) }}">{{ notificacion.__toString() }}</a></td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('notificacion_show', { 'id': notificacion.idNotificacion }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('notificacion_edit', { 'id': notificacion.idNotificacion }) }}">Editar</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('notificacion_delete', { 'id': notificacion.idNotificacion }) }}">Borrar</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}Notificaciones{% endblock %}
+{% block page %}
+<div class="row">
+    <div class="col s12 m12 l12 mar-top-soft">
+      <h4 class="header">Tus notificaciones</h4>
+    </div>
+</div>
+<div class="row">
+  <div class="col s12">
+      <ul class="notification-c">
+        {% for notificacion in app.user.getNotificaciones %}
+          <li><a href="#" class="t-s">{{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span></a></li>
+          <div class="divider"></div>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('notificacion_new') }}">
-                Crear Nueva Notificacion
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+      </ul>
+  </div>
+</div>
+{#
+<!-- loader del infinit scroll -->
+<div class="row">
+    <div class="col s12 center-align">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+<!-- loader del infinit scroll-->
+#}
+{% endblock %}

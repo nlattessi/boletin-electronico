@@ -40,5 +40,10 @@
         <order-by-field name="updateTime" direction="DESC" />
       </order-by>
     </one-to-many>
+    <one-to-many field="notificaciones" target-entity="NotificacionUsuario" mapped-by="usuario">
+      <order-by>
+        <order-by-field name="updateTime" direction="DESC" />
+      </order-by>
+    </one-to-many>
   </entity>
 </doctrine-mapping>

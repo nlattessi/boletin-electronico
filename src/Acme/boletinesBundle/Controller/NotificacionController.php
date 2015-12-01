@@ -16,11 +16,7 @@ class NotificacionController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('BoletinesBundle:Notificacion')->findAll();
-
-        return $this->render('BoletinesBundle:Notificacion:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Notificacion:index.html.twig', []);
     }
 
     public function getOneAction($id)
@@ -131,4 +127,3 @@ class NotificacionController extends Controller
         return $notificacion;
     }
 }
-

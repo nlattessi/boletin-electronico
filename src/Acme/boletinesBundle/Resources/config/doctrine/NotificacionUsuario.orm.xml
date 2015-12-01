@@ -11,7 +11,7 @@
     <field name="notificado" type="boolean" column="notificado" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
-    <many-to-one field="usuario" target-entity="Usuario">
+    <many-to-one field="usuario" target-entity="Usuario" inversed-by="notificaciones">
       <join-columns>
         <join-column name="usuario_id" referenced-column-name="id"/>
       </join-columns>
