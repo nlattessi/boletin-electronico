@@ -10,7 +10,11 @@
   <div class="col s12">
       <ul class="notification-c">
         {% for notificacion in app.user.getNotificaciones %}
-          <li><a href="#" class="t-s">{{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span></a></li>
+          <li>
+            <a href="{% if notificacion.notificacion.url is not null %}{{ notificacion.notificacion.url }}{% else %}#{% endif %}" class="t-s">
+              {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
+            </a>
+          </li>
           <div class="divider"></div>
         {% endfor %}
       </ul>

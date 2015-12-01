@@ -22,7 +22,11 @@
         <li class="notifi"><h6>Notificaciones</h6></li>
         {% if app.user.getNotificacionesNoVistas|length > 0 %}
           {% for notificacion in app.user.getNotificacionesNoVistas %}
-            <li><a href="#" class="t-s">{{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span></a></li>
+            <li>
+              <a href="{% if notificacion.notificacion.url is not null %}{{ notificacion.notificacion.url }}{% else %}#{% endif %}" class="t-s">
+                {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
+              </a>
+            </li>
             <li class="divider"></li>
           {% endfor %}
         {% else %}
