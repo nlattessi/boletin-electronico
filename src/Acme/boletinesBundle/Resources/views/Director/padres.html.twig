@@ -1,10 +1,6 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block css_include %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
-{% endblock %}
 
 {% block page %}
-    <div class="container fadeIn animated">
         <div class="row">
 
             <div class="col s12 m12 l12">
@@ -41,7 +37,7 @@
 
                             <table class="striped">
                                 <thead>
-                                    <tr class="new-student">
+                                    <tr>
                                         <th data-field="id">Nombre</th>
                                         <th data-field="id">Apellido</th>
                                         <th data-field="name">DNI</th>
@@ -118,6 +114,5 @@
                 </div>
             </div>
         </div>
-    </div>
 
 {% endblock %}

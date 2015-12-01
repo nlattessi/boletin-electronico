@@ -346,6 +346,17 @@ class MuchosAmuchosService {
         return $docentes;
     }
 
+    public function obtenerMateriasPorEstablecimientos($establecimientos)
+    {
+        $docentes = array();
+        foreach($establecimientos as $establecimiento) {
+            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento));
+            $docentes = array_merge($docenteEstablecimientos, $docentes);
+        }
+
+        return $docentes;
+    }
+
     public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
     {
         $repository = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento');
@@ -367,6 +378,25 @@ class MuchosAmuchosService {
         return $bedeles;
     }
 
+    public function obtenerCalificacionesPorEstablecimientos($establecimientos)
+    {
+        $repository = $this->em->getRepository('BoletinesBundle:Calificacion');
+
+        $calificaciones = array();
+        foreach($establecimientos as $establecimiento) {
+            $query = $repository->createQueryBuilder('c')
+                ->select('c')
+                ->innerJoin('BoletinesBundle:Evaluacion', 'e' , 'WITH', 'e.id = c.evaluacion')
+                ->innerJoin('BoletinesBundle:Materia', 'm', 'WITH', 'm.id = e.materia')
+                ->where('m.establecimiento = :establecimiento')
+                ->setParameter('establecimiento', $establecimiento)
+                ->getQuery();
+
+            $calificaciones = array_merge($query->getResult(), $calificaciones);
+        }
+
+        return $calificaciones;
+    }
 
 
 }

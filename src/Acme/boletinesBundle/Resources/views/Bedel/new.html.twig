@@ -1,0 +1,58 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+
+{% block page %}
+    <div class="container fadeIn animated">
+        <div class="row mar-top-soft">
+
+            <div class="col s12 m8 l12">
+                <h4 class="h-h3">Crear Bedel</h4>
+
+                <p class="header">Todos los campos son obligatorios</p>
+            </div>
+
+            <form action="{{ path('bedel_add') }}" method="post">
+
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <select name="establecimiento" id="establecimiento">
+                            {% for establecimiento in establecimientos %}
+                                <option value="{{ establecimiento.id }}" >{{ establecimiento.nombre }} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="establecimiento">Establecimiento</label>
+
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="email" id="Email" type="text" class="validate">
+                        <label for="Email">Email</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="user"  id="user_name" type="text" class="validate">
+                        <label for="user_name">Nombre</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="apellido"  id="apellido" type="text" class="validate">
+                        <label for="apellido">Apellido</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="password" id="password" type="password" class="validate">
+                        <label for="password">Contraseña</label>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align mar-top-soft">
+                    <button class="btn-large waves-effect waves-light center-align" type="submit"> Crear </button>
+                    </div>
+                </div>
+            </form>
+            <!--  End Tables Section  -->
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

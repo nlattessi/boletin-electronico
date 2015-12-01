@@ -77,9 +77,22 @@ class DirectorController extends Controller
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
-        $bedeles = $muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL');
+        $materias = $muchosAMuchos->obtenerMateriasPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:bedeles.html.twig', array('bedeles' => $bedeles));
+        return $this->render('BoletinesBundle:Director:materias.html.twig', array('materias' => $materias));
     }
+
+    public function getCalificacionesAction()
+    {
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $calificaciones = $muchosAMuchos->obtenerCalificacionesPorEstablecimientos($establecimientos);
+
+        return $this->render('BoletinesBundle:Director:calificaciones.html.twig', array('materias' => $calificaciones));
+    }
+
+
+
 
 }
