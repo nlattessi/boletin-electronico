@@ -9,12 +9,9 @@
 <div class="row">
   <div class="col s12">
       <ul class="notification-c">
+        {% import 'BoletinesBundle::_macros.html.twig' as macros %}
         {% for notificacion in app.user.getNotificaciones %}
-          <li>
-            <a href="{% if notificacion.notificacion.url is not null %}{{ notificacion.notificacion.url }}{% else %}#{% endif %}" class="t-s">
-              {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
-            </a>
-          </li>
+          {{ macros.show_notificacionUsuario(notificacion) }}
           <div class="divider"></div>
         {% endfor %}
       </ul>

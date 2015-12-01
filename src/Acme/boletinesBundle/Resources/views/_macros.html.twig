@@ -1,0 +1,7 @@
+{% macro show_notificacionUsuario(notificacion) %}
+<li>
+  <a href="{% if notificacion.notificacion.url is not null %}{{ path('notificacion_show', {'id': notificacion.id}) }}{% else %}#{% endif %}" class="t-s">
+    {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
+  </a>
+</li>
+{% endmacro %}

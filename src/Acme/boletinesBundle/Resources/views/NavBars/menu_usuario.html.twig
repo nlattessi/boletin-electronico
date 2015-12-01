@@ -21,12 +21,9 @@
         <span class="circle dot"></span>
         <li class="notifi"><h6>Notificaciones</h6></li>
         {% if app.user.getNotificacionesNoVistas|length > 0 %}
+          {% import 'BoletinesBundle::_macros.html.twig' as macros %}
           {% for notificacion in app.user.getNotificacionesNoVistas %}
-            <li>
-              <a href="{% if notificacion.notificacion.url is not null %}{{ notificacion.notificacion.url }}{% else %}#{% endif %}" class="t-s">
-                {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
-              </a>
-            </li>
+            {{ macros.show_notificacionUsuario(notificacion) }}
             <li class="divider"></li>
           {% endfor %}
         {% else %}
