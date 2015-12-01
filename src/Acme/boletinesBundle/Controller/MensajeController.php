@@ -60,7 +60,8 @@ class MensajeController extends Controller
         return $this->render('BoletinesBundle:Mensaje:show.html.twig', array(
           'mensaje' => $mensaje,
           'mensaje_anterior' => $mensajeAnterior,
-          'mensaje_siguiente' => $mensajeSiguiente
+          'mensaje_siguiente' => $mensajeSiguiente,
+          'es_borrable' => true
         ));
     }
 
