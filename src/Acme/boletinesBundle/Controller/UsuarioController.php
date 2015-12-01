@@ -23,7 +23,8 @@ class UsuarioController extends Controller
 
         $entities = $em->getRepository('BoletinesBundle:Usuario')->findAll();
 
-        return $this->render('BoletinesBundle:Usuario:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Usuario:index.html.twig', array('entities' => $entities,
+            'css_active' => 'usuario',));
     }
 
     public function indexConInstitucionAction()
@@ -32,7 +33,8 @@ class UsuarioController extends Controller
 
         $entities = $em->getRepository('BoletinesBundle:Institucion')->findAll();
 
-        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities,
+            'css_active' => 'usuario',));
     }
 
     public function indexConInstitucionSearchAction(Request $request)
@@ -49,7 +51,8 @@ class UsuarioController extends Controller
 
         $entities = $query->getResult();
 
-        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Usuario:index.admin.html.twig', array('entities' => $entities,
+            'css_active' => 'usuario',));
     }
 
     public function getOneAction($id)
@@ -58,7 +61,8 @@ class UsuarioController extends Controller
 
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:Usuario:show.html.twig', array('usuario' => $usuario));
+        return $this->render('BoletinesBundle:Usuario:show.html.twig', array('usuario' => $usuario,
+            'css_active' => 'usuario',));
     }
 
     public function newAction(Request $request)
@@ -68,7 +72,8 @@ class UsuarioController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $usuario = $this->createEntity($request);
             if($usuario != null) {
-                return $this->render('BoletinesBundle:Usuario:show.html.twig', array('usuario' => $usuario));
+                return $this->render('BoletinesBundle:Usuario:show.html.twig', array('usuario' => $usuario,
+                    'css_active' => 'usuario',));
             } else {
                 $message = "Errores";
             }
@@ -79,7 +84,8 @@ class UsuarioController extends Controller
 
         return $this->render('BoletinesBundle:Usuario:new.html.twig', array(
             'mensaje' => $message,
-            'entitiesRelacionadas' => $entitiesRelacionadas
+            'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'usuario',
         ));
     }
 
@@ -99,7 +105,8 @@ class UsuarioController extends Controller
         $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Rol')->findAll();
         return $this->render('BoletinesBundle:Usuario:new2.html.twig', array(
             'institucion' => $institucion,
-            'entitiesRelacionadas' => $entitiesRelacionadas));
+            'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'usuario',));
     }
 
     public function deleteAction($id)
@@ -164,7 +171,8 @@ class UsuarioController extends Controller
         return $this->render('BoletinesBundle:Usuario:edit.html.twig', array(
             'usuario' => $entity,
             'mensaje' => $message,
-            'entitiesRelacionadas' => $entitiesRelacionadas
+            'entitiesRelacionadas' => $entitiesRelacionadas,
+            'css_active' => 'usuario',
         ));
     }
 
@@ -315,7 +323,8 @@ class UsuarioController extends Controller
         return $this->render('BoletinesBundle:Usuario:edit2.html.twig', array(
             'entities' => $entities,
             'mensaje' => $message,
-            'institucion' => $institucion
+            'institucion' => $institucion,
+            'css_active' => 'usuario',
         ));
     }
 

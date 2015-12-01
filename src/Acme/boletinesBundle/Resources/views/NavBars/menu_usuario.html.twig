@@ -34,20 +34,22 @@
       {% else %}
         <li class="divider"></li>
       {% endif %}
-      <li class="notifii"><a href="{{ path('mensaje') }}"><h6>Ver todos</h6></a></li>
+      <li class="notifii"><h6><a href="{{ path('mensaje') }}">Ver todos</a></h6></li>
     </ul>
     <nav>
         <div class="nav-wrapper">
             <div class=""><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
 
                 <ul class="breadcrumb left hide-on-small-only">
-                    <li><a href="#" class="b-focus">
-                            {% if breadcrumb is empty %}
-                                Communitas
-                            {% else %}
-                                {{ breadcrumb }}
-                            {% endif %}
-                           </a></li>
+
+                {% if breadcrumb is empty %}
+                    <li>
+                        <a href="{{ path('home') }}" class="b-focus">  Communitas </a>
+                    </li>
+                {% else %}
+                    {{ breadcrumb|raw }}
+                {% endif %}
+
                 </ul>
                 <ul class="right fix">
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">0</span></i></a></li>

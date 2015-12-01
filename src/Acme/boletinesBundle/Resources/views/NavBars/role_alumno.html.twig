@@ -1,9 +1,9 @@
 <ul id="nav-mobile" class="side-nav fixed">
     <li class="logo"><a href="{{ path('home') }}" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png')}}"></a></li>
-    <li class="main-nav-pad active"><a href="{{ path('home') }}"><i class="icon-linear-history icon-nav-size"></i><span class="span-va">Inicio</span></a></li>
-    <li class="main-nav-pad"><a href="{{ path('calendario') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span class="span-va">Calendario</span></a></li>
-    <li class="main-nav-pad"><a href="{{ path('asistencia') }}" ><i class="icon-linear-clipboard-text icon-nav-size"></i> <span class="span-va">Asistencia</span></a></li>
-    <li class="main-nav-pad"><a href="{{ path('calificacion') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span class="span-va">Calificaciones</span></a></li>
-    <li class="main-nav-pad"><a href="{{ path('convivencia') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span class="span-va">Convivencia</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'home' %} active{% endif %}{% endif %}"><a href="{{ path('home') }}"><i class="icon-linear-history icon-nav-size"></i><span class="span-va">Inicio</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calendario' %} active{% endif %}{% endif %}"><a href="{{ path('calendario') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span class="span-va">Calendario</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'asistencia' %} active{% endif %}{% endif %}"><a href="{{ path('asistencia') }}" ><i class="icon-linear-clipboard-text icon-nav-size"></i> <span class="span-va">Asistencia</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calificacion' %} active{% endif %}{% endif %}"><a href="{{ path('calificacion') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span class="span-va">Calificaciones</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'convivencia' %} active{% endif %}{% endif %}"><a href="{{ path('convivencia') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span class="span-va">Convivencia</span></a></li>
     <li class="main-nav-pad mar-top-soft"><a href="#modal1" class="modal-trigger btn-xsmall waves-effect waves-light antibully"><i class="icon-linear-notification icon-nav-size-ab"></i> <span class="bullytext">Anti Bullyng</span></a></li>
 </ul>

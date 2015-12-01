@@ -1,5 +1,7 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Mensajes{% endblock %}
+{% block breadcrumb %}
+    <li><a href="#" class="b-focus">Mensajes</a></li>
+{% endblock %}
 
 {% block banner_mensaje %}
 <div class="section fadeIn animated" id="index-banner">
@@ -9,6 +11,30 @@
         <h4 class="header center-on-small-only" id="mensajeTitulo">{% if mensaje.titulo %}{{ mensaje.titulo }}{% else %}&lt;&lt;Sin titulo&gt;&gt;{% endif %}</h4>
       </div>
       <div class="col s12 m3 l2 mar-top-soft center-align">
+        {% if mensaje_anterior is defined %}
+          <a href="{{ path('mensaje_show', {'id': mensaje_anterior.mensaje.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
+          <span class="weak"></span>
+        {% endif %}
+        {% if mensaje_siguiente is defined %}
+          <a href="{{ path('mensaje_show', {'id': mensaje_siguiente.mensaje.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
+          <br><br>
+        {% endif %}
+        {% if mensaje_enviado_anterior is defined %}
+          <a href="{{ path('mensaje_enviado_show', {'id': mensaje_enviado_anterior.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
+          <span class="weak"></span>
+        {% endif %}
+        {% if mensaje_enviado_siguiente is defined %}
+          <a href="{{ path('mensaje_enviado_show', {'id': mensaje_enviado_siguiente.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
+          <br><br>
+        {% endif %}
+        {% if mensaje_borrado_anterior is defined %}
+          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_anterior.mensaje.id}) }}"><i class="icon-linear-chevron-left icon-mailbox-size weaky"></i></a>
+          <span class="weak"></span>
+        {% endif %}
+        {% if mensaje_borrado_siguiente is defined %}
+          <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_siguiente.mensaje.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
+          <br><br>
+        {% endif %}
           <a href="{{ path('mensaje_delete', {'id': mensaje.id}) }}"data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
           <a onclick="window.print();" data-position="top" data-delay="25" data-tooltip="Imprimir" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
         </div>
@@ -20,6 +46,9 @@
 {% block page %}
    <div class="row">
        <div class="col s12 m12 l12 mar-top-soft ">
+              <div class="col s12 m1 l1 center-align">
+                {#<img src="" alt="" class="avatar-mb circle mb-a-pad">#}
+              </div>
              <div class="col s12 m9 l9 center-on-small-only">
                <span class="mb-name" id="mensajeUsuario">{{ mensaje.usuario.getNombreCompleto }}</span><br>
              </div>
@@ -66,12 +95,20 @@
                          <label for="nombre_inst"  class="">Para:</label>
                    </div>
 
-                   <div class="input-field col s12">
+                   {#<div class="input-field col s12">
                      <ul id="destinatarios" class="unstyled">
                        <li>
                          <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">{{ mensaje.usuario.getNombreCompleto }}<button class="btn btn-mini noAgregar">[X]</button>
                        </li>
                      </ul>
+                   </div>#}
+
+                   <div id="destinatarios">
+                     <div class="chip">
+                       <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">
+                       {{ mensaje.usuario.getNombreCompleto }}
+                       <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
+                     </div>
                    </div>
 
                    <div class="input-field col s12">
@@ -118,9 +155,10 @@
   <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
 
   <script>
-  $(".noAgregar").click(function(){
+  $(".noAgregar").click(function(e){
+    e.preventDefault();
     $(this).parent().remove();
-    if ($('#destinatarios li').length < 1) {
+    if ($('#destinatarios div').length < 1) {
       $('#newMensajeSubmit').addClass("disabled");
       $('#newMensajeSubmit').prop("disabled", true);
     }

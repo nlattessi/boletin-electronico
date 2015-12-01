@@ -1,5 +1,7 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Calendario{% endblock %}
+{% block breadcrumb %}
+    <li><a href="#" class="b-focus">Calendario</a></li>
+{% endblock %}
 {% block css_include %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
 {% endblock %}

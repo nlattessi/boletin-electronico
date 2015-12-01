@@ -1,5 +1,11 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Evaluación{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('materia') }}" class="">Materias</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="{{ path('materia_show', { 'id': evaluacion.materia.id }) }}" >Detalle materia</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Editar Evaluación</a></li>
+{% endblock %}
 {% block page %}
     <div class="row">
         <div class="col s12 m12 l12 mar-top-soft">
@@ -26,7 +32,7 @@
             <div class=" col s12 m6 l6">
                 <i class="icon-linear-calendar-insert"></i>
                 <label for="fecha" class="">Fecha</label>
-                <input name="fecha" type="fecha" class="datepicker" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
+                <input type="date" class="datepicker" name="fecha" id="fecha" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
             </div>
 
             <div class="col s12 center-align mar-top-soft">
