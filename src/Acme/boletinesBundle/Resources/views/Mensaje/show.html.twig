@@ -35,7 +35,9 @@
           <a href="{{ path('mensaje_borrado_show', {'id': mensaje_borrado_siguiente.mensaje.id}) }}"><i class="icon-linear-chevron-right icon-mailbox-size weaky"></i></a>
           <br><br>
         {% endif %}
+        {% if es_borrable is defined and es_borrable == true %}
           <a href="{{ path('mensaje_delete', {'id': mensaje.id}) }}"data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+        {% endif %}
           <a onclick="window.print();" data-position="top" data-delay="25" data-tooltip="Imprimir" class="tooltipped  smalla-white btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
         </div>
       </div>
@@ -56,25 +58,24 @@
               <span class="weak" id="mensajeFecha">{{ mensaje.fechaEnvio|localizeddate('none', 'none', app.request.locale, null, "d MMMM") }}</span>
              </div>
              <div class="col s12 m12 l12">
-               <p class="header" style="white-space: pre;" id="mensajeTexto">{% if mensaje.texto %}{{ mensaje.texto[:20] }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}<br><br></p>
+                <p class="header" id="mensajeTexto">{% if mensaje.texto %}{{ mensaje.texto }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}</p>
 
-                   {#<div class="mail-attachments">
-                     <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#">Descargar todos</a></p>
-                     <p><i class="icon-linear-paperclip"></i> Adjuntos</p>
-                     <ul class="list-group">
-                       <li class="list-group-item">
-                         <span class="name">Rstuvwxyz.mp4</span>
-                         <span class="size">(2.40M)</span>
-                         <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
-                       </li>
-                       <li class="list-group-item">
-                         <span class="name">Demo.doc</span>
-                         <span class="size">(2.40M)</span>
-                         <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
-                       </li>
-                     </ul>
-                   </div>#}
-             </div>
+                    {#<div class="mail-attachments">
+                      <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#">Descargar todos</a></p>
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <span class="name">Rstuvwxyz.mp4</span>
+                          <span class="size">(2.40M)</span>
+                          <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+                        </li>
+                        <li class="list-group-item">
+                          <span class="name">Demo.doc</span>
+                          <span class="size">(2.40M)</span>
+                          <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+                        </li>
+                      </ul>
+                    </div>#}
+              </div>
        </div>
      </div>  <!-- end row-->
 
@@ -117,7 +118,7 @@
                    </div>
 
                    <div class="input-field col s12">
-                     <textarea id="textarea1" class="materialize-textarea" length="1200" name="textoMensaje"></textarea>
+                     <textarea id="textarea1" class="materialize-textarea" length="500" name="textoMensaje"></textarea>
                      <label for="textarea1">Mensaje:</label>
                    </div>
 
