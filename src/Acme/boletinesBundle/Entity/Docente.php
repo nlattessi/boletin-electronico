@@ -181,7 +181,7 @@ class Docente
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -204,7 +204,7 @@ class Docente
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -227,7 +227,7 @@ class Docente
     /**
      * Get dni
      *
-     * @return string 
+     * @return string
      */
     public function getDni()
     {
@@ -250,7 +250,7 @@ class Docente
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -273,7 +273,7 @@ class Docente
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -296,7 +296,7 @@ class Docente
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -319,7 +319,7 @@ class Docente
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -342,7 +342,7 @@ class Docente
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -365,7 +365,7 @@ class Docente
     /**
      * Get titulo
      *
-     * @return string 
+     * @return string
      */
     public function getTitulo()
     {
@@ -388,7 +388,7 @@ class Docente
     /**
      * Get fechaIngreso
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaIngreso()
     {
@@ -411,7 +411,7 @@ class Docente
     /**
      * Get fechaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -434,7 +434,7 @@ class Docente
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -457,7 +457,7 @@ class Docente
     /**
      * Get esTitular
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEsTitular()
     {
@@ -480,7 +480,7 @@ class Docente
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -503,7 +503,7 @@ class Docente
     /**
      * Get establecimiento
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstablecimiento()
     {
@@ -526,7 +526,7 @@ class Docente
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -549,7 +549,7 @@ class Docente
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -559,7 +559,7 @@ class Docente
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -582,7 +582,7 @@ class Docente
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -605,7 +605,7 @@ class Docente
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {
@@ -614,5 +614,30 @@ class Docente
 
     public function __toString(){
         return $this->getNombre() . ', ' . $this->getApellido();
+    }
+
+    public function getFotoAbsolutePath()
+    {
+        return null === $this->getFoto()
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->getFoto();
+    }
+    public function getFotoWebPath()
+    {
+        return null === $this->getFoto()
+            ? null
+            : $this->getUploadDir() . '/' . $this->getFoto();
+    }
+    private function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+    private function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/portraits/docentes';
     }
 }

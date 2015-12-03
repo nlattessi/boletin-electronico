@@ -17,13 +17,11 @@
                     <div class="col s12 sch-mb">
                         <div class="panel-default">
                             <div class="panel-body-school normalh center-align">
-                                <img src="{{ asset('bundles/boletines/images/mb.png')}}" alt="as" class="inst-thumb">
-                                <h6 class="school-style ">Colegio Manuel Belgrano</h6>
-
-
+                              {% if app.user.institucion.logo %}
+                                <img src="{{ asset('') }}{{ app.user.institucion.webPath }}" alt="as" class="inst-thumb">
+                              {% endif %}
+                                <h6 class="school-style ">{{ app.user.institucion.nombre }}</h6>
                                 <div class="col s4">
-
-
                                 </div>
                             </div>
                         </div>

@@ -8,11 +8,13 @@
 <div class="container fadeIn animated">
     <div class="row mar-top-soft">
         <div class="col s12 m8 l8">
-          <h3 class="header">Belgrano Day School</h3>
+          <h3 class="header">{{ app.user.institucion.nombre }}</h3>
           <h5 class="header">Nivel secundario</h5>
         </div>
         <div class="col s12 m4 l4 center-align">
-          <img src="images/belgranods.jpg" alt="as" class="inst-thumb mar-top-soft">
+          {% if app.user.institucion.logo %}
+            <img src="{{ asset('') }}{{ app.user.institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
+          {% endif %}
         </div><!--  End Tables Section  -->
     </div>
     <div class="divider mar-top-soft"></div>

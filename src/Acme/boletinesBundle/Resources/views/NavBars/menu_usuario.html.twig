@@ -62,7 +62,11 @@
                 <ul class="right fix">
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown2"><i class="icon-linear-alarm"><span class="badge1 badge1-danger circle">{{ app.user.getNotificacionesNoVistas|length }}</span></i></a></li>
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">{{ app.user.getMensajesNoLeidos|length }}</span></i></a></li>
-
+                    {% if app.user.rol == 'ROLE_DOCENTE' %}
+                      {% if app.user.entidadAsociada.foto %}
+                        <li><img src="{{ asset('') }}{{ app.user.entidadAsociada.fotoWebPath }}" alt="as" class="avatar-nav-top circle"></li>
+                      {% endif %}
+                    {% endif %}
 
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">{{ app.user.nombre }}<i class="icon-linear-chevron-down right"></i></a></li>
                 </ul>
