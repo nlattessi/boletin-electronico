@@ -118,11 +118,14 @@ class Alumno
     private $foto;
 
     /**
-     * @var integer
+     * @var \Acme\boletinesBundle\Entity\Avatar
      *
-     * @ORM\Column(name="avatar_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Avatar")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * })
      */
-    private $avatarId;
+    private $avatar;
 
     /**
      * @var \DateTime
@@ -278,7 +281,7 @@ class Alumno
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -301,7 +304,7 @@ class Alumno
     /**
      * Get apellido
      *
-     * @return string 
+     * @return string
      */
     public function getApellido()
     {
@@ -324,7 +327,7 @@ class Alumno
     /**
      * Get dni
      *
-     * @return string 
+     * @return string
      */
     public function getDni()
     {
@@ -347,7 +350,7 @@ class Alumno
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -370,7 +373,7 @@ class Alumno
     /**
      * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -393,7 +396,7 @@ class Alumno
     /**
      * Get codigoPais
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPais()
     {
@@ -416,7 +419,7 @@ class Alumno
     /**
      * Get codigoArea
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoArea()
     {
@@ -439,7 +442,7 @@ class Alumno
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -462,7 +465,7 @@ class Alumno
     /**
      * Get nacionalidad
      *
-     * @return string 
+     * @return string
      */
     public function getNacionalidad()
     {
@@ -485,7 +488,7 @@ class Alumno
     /**
      * Get sexo
      *
-     * @return string 
+     * @return string
      */
     public function getSexo()
     {
@@ -508,7 +511,7 @@ class Alumno
     /**
      * Get obraSocial
      *
-     * @return string 
+     * @return string
      */
     public function getObraSocial()
     {
@@ -531,7 +534,7 @@ class Alumno
     /**
      * Get obraSocialNumeroAfiliado
      *
-     * @return string 
+     * @return string
      */
     public function getObraSocialNumeroAfiliado()
     {
@@ -554,7 +557,7 @@ class Alumno
     /**
      * Get telefonoEmergencia
      *
-     * @return string 
+     * @return string
      */
     public function getTelefonoEmergencia()
     {
@@ -577,7 +580,7 @@ class Alumno
     /**
      * Get apodo
      *
-     * @return string 
+     * @return string
      */
     public function getApodo()
     {
@@ -600,7 +603,7 @@ class Alumno
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -608,26 +611,26 @@ class Alumno
     }
 
     /**
-     * Set avatarId
+     * Set avatar
      *
-     * @param integer $avatarId
+     * @param \Acme\boletinesBundle\Entity\Avatar $avatar
      * @return Alumno
      */
-    public function setAvatarId($avatarId)
+    public function setAvatar($avatar)
     {
-        $this->avatarId = $avatarId;
+        $this->avatar = $avatar;
 
         return $this;
     }
 
     /**
-     * Get avatarId
+     * Get avatar
      *
-     * @return integer 
+     * @return \Acme\boletinesBundle\Entity\Avatar
      */
-    public function getAvatarId()
+    public function getAvatar()
     {
-        return $this->avatarId;
+        return $this->avatar;
     }
 
     /**
@@ -646,7 +649,7 @@ class Alumno
     /**
      * Get fechaIngreso
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaIngreso()
     {
@@ -669,7 +672,7 @@ class Alumno
     /**
      * Get fechaNacimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaNacimiento()
     {
@@ -692,7 +695,7 @@ class Alumno
     /**
      * Get especialidadId
      *
-     * @return integer 
+     * @return integer
      */
     public function getEspecialidadId()
     {
@@ -715,7 +718,7 @@ class Alumno
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -756,7 +759,7 @@ class Alumno
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -779,7 +782,7 @@ class Alumno
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -802,7 +805,7 @@ class Alumno
     /**
      * Get grupoSanguineo
      *
-     * @return string 
+     * @return string
      */
     public function getGrupoSanguineo()
     {
@@ -812,7 +815,7 @@ class Alumno
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -835,7 +838,7 @@ class Alumno
     /**
      * Get padre2
      *
-     * @return \Acme\boletinesBundle\Entity\Padre 
+     * @return \Acme\boletinesBundle\Entity\Padre
      */
     public function getPadre2()
     {
@@ -858,7 +861,7 @@ class Alumno
     /**
      * Get padre1
      *
-     * @return \Acme\boletinesBundle\Entity\Padre 
+     * @return \Acme\boletinesBundle\Entity\Padre
      */
     public function getPadre1()
     {
@@ -881,7 +884,7 @@ class Alumno
     /**
      * Get ciudad
      *
-     * @return \Acme\boletinesBundle\Entity\Ciudad 
+     * @return \Acme\boletinesBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -904,7 +907,7 @@ class Alumno
     /**
      * Get usuario
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuario()
     {
@@ -914,5 +917,30 @@ class Alumno
     public function __toString()
     {
         return $this->getApellido() .', '. $this->getNombre();
+    }
+
+    public function getFotoAbsolutePath()
+    {
+        return null === $this->getFoto()
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->getFoto();
+    }
+    public function getFotoWebPath()
+    {
+        return null === $this->getFoto()
+            ? null
+            : $this->getUploadDir() . '/' . $this->getFoto();
+    }
+    private function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+    private function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/portraits/alumnos';
     }
 }

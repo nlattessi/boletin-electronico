@@ -6,7 +6,9 @@
             {% for hijo in app.session.get('hijos')  %}
         <li>
             <a href="{{ path('cambiar_hijo', { 'id': hijo.id }) }}" class="t-s duactive">
-                <img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-nav-drop circle1">
+              {% if hijo.avatar %}
+                <img src="{{ asset('') }}{{ hijo.avatar.webPath }}" alt="as" class="avatar-nav-drop circle1">
+              {% endif %}
                 {{ hijo }}
             </a>
         </li>
@@ -21,9 +23,8 @@
         <span class="circle dot"></span>
         <li class="notifi"><h6>Notificaciones</h6></li>
         {% if app.user.getNotificacionesNoVistas|length > 0 %}
-          {% import 'BoletinesBundle::_macros.html.twig' as macros %}
           {% for notificacion in app.user.getNotificacionesNoVistas %}
-            {{ macros.show_notificacionUsuario(notificacion) }}
+            {{ macros.show_notificacion_usuario(notificacion) }}
             <li class="divider"></li>
           {% endfor %}
         {% else %}
@@ -64,7 +65,11 @@
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown3"><i class="icon-linear-envelope"><span class="badge1 badge1-danger circle">{{ app.user.getMensajesNoLeidos|length }}</span></i></a></li>
                     {% if app.user.rol == 'ROLE_DOCENTE' %}
                       {% if app.user.entidadAsociada.foto %}
-                        <li><img src="{{ asset('') }}{{ app.user.entidadAsociada.fotoWebPath }}" alt="as" class="avatar-nav-top circle"></li>
+                        {{ macros.show_img_menu_bar(app.user.entidadAsociada.fotoWebPath) }}
+                      {% endif %}
+                    {% elseif app.user.rol == 'ROLE_ALUMNO' %}
+                      {% if app.user.entidadAsociada.avatar %}
+                        {{ macros.show_img_menu_bar(app.user.entidadAsociada.avatar.webPath) }}
                       {% endif %}
                     {% endif %}
 

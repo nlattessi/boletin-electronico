@@ -14,18 +14,7 @@
         <div class="row">        <!-- startWidget row2 de widgets-->
             <div class="col s12 m12 l2"> <!-- startWidget 4-->
                 <div class="row">
-                    <div class="col s12 sch-mb">
-                        <div class="panel-default">
-                            <div class="panel-body-school normalh center-align">
-                              {% if app.user.institucion.logo %}
-                                <img src="{{ asset('') }}{{ app.user.institucion.webPath }}" alt="as" class="inst-thumb">
-                              {% endif %}
-                                <h6 class="school-style ">{{ app.user.institucion.nombre }}</h6>
-                                <div class="col s4">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{ macros.show_institucion_logo_nombre(app.user.institucion) }}
                 </div>
             </div><!-- endWidget 4-->
 

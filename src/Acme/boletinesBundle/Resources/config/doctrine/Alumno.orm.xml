@@ -7,6 +7,7 @@
       <index name="FK_padre_1_id" columns="padre1_id"/>
       <index name="FK_padre_2_id" columns="padre2_id"/>
       <index name="FK_establecimiento" columns="establecimiento_id"/>
+      <index name="FK_avatar" columns="avatar_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -25,8 +26,7 @@
     <field name="obraSocialNumeroAfiliado" type="string" column="obra_social_numero_afiliado" length="20" nullable="false"/>
     <field name="telefonoEmergencia" type="string" column="telefono_emergencia" length="20" nullable="false"/>
     <field name="apodo" type="string" column="apodo" length="40" nullable="true"/>
-    <field name="foto" type="string" column="foto" length="250" nullable="true"/>
-    <field name="avatarId" type="integer" column="avatar_id" nullable="false"/>
+    <field name="foto" type="string" column="foto" length="250" nullable="true"/>    
     <field name="fechaIngreso" type="date" column="fecha_ingreso" nullable="false"/>
     <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="false"/>
     <field name="especialidadId" type="integer" column="especialidad_id" nullable="true"/>
@@ -57,6 +57,11 @@
     <many-to-one field="usuario" target-entity="Usuario">
       <join-columns>
         <join-column name="usuario_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="avatar" target-entity="Avatar">
+      <join-columns>
+        <join-column name="avatar_id" referenced-column-name="id" nullable="true"/>
       </join-columns>
     </many-to-one>
   </entity>

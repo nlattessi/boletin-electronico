@@ -36,12 +36,11 @@
             <div class="col s12 m6 l4 mar-top-soft">
                 <h5 class="panel-title">Alumnos</h5>
                 <ul class="collection">
-                 {% for alumno in materia.alumnos %}
+                  {% for alumno in materia.alumnos %}
                     <li class="collection-item avatar student-list">
-                        <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle">
-                            <span class="title truncate student-list-fix">{{ alumno }}</span></a>
+                      {{ macros.show_entidad_con_foto(alumno) }}
                     </li>
-              {% endfor %}
+                  {% endfor %}
                 </ul>
             </div>
 
@@ -105,12 +104,11 @@
 
                 <h5 class="panel-title mar-top">Docentes</h5>
                 <ul class="collection">
-                    {% for docente in materia.docentes %}
+                  {% for docente in materia.docentes %}
                     <li class="collection-item avatar student-list">
-                        <a href="usuarios-docentes-ficha_directivo.html" class="collection-a"><img src="{{ asset('bundles/boletines/images/portraits/2.jpg')}}" alt="" class="circle">
-                            <span class="title truncate student-list-fix">{{ docente }}</span></a>
+                      {{ macros.show_entidad_con_foto(docente) }}
                     </li>
-                    {% endfor %}
+                  {% endfor %}
                 </ul>
             </div>
 

@@ -1,8 +1,8 @@
 home:
     path:     /
     defaults: { _controller: BoletinesBundle:Home:default }
-home_father:
 
+home_father:
     pattern:   /padre
     defaults:  { _controller: BoletinesBundle:Home:father}
 
