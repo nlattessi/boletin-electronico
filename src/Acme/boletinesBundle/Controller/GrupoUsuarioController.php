@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\GrupoUsuario;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\GrupoUsuarioType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 class GrupoUsuarioController extends Controller
 {
@@ -70,7 +72,20 @@ class GrupoUsuarioController extends Controller
         return $grupoUsuario;
     }
 
+    public function deleteDirectorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
+        if ($grupoUsuario instanceof GrupoUsuario) {
+//            if($this->getUser()->getInstitucion() == $alumno->getEstablecimiento()->getInstitucion()
+//            && $this->getUser()->getRol()->getName == 'ROLE_DIRECTOR') {
+            $em->remove($grupoUsuario);
+            $em->flush();
+        }
+//        }
+        return new RedirectResponse($this->generateUrl('directivo_grupos'));
+    }
 
     public function deleteAction($id)
     {

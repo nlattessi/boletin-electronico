@@ -49,6 +49,48 @@ class GrupoAlumno
      */
     private $id;
 
+    private $establecimiento;
+
+    private $alumnos;
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlumnos()
+    {
+        return $this->alumnos;
+    }
+
+    /**
+     * @param mixed $alumnos
+     */
+    public function setAlumnos($alumnos)
+    {
+        $this->alumnos = $alumnos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
+    }
+
+    /**
+     * @param mixed $establecimiento
+     */
+    public function setEstablecimiento($establecimiento)
+    {
+        $this->establecimiento = $establecimiento;
+    }
+
 
 
     /**

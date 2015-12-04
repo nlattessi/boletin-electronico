@@ -315,6 +315,7 @@ class MuchosAmuchosService {
 
     public function obtenerAlumnosPorEstablecimientos($establecimientos)
     {
+
         $alumnos = array();
         foreach($establecimientos as $establecimiento) {
             $alumnosEstablecimientos = $this->em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimiento' => $establecimiento));
@@ -390,6 +391,7 @@ class MuchosAmuchosService {
                 ->innerJoin('BoletinesBundle:Materia', 'm', 'WITH', 'm.id = e.materia')
                 ->where('m.establecimiento = :establecimiento')
                 ->setParameter('establecimiento', $establecimiento)
+                ->andWhere('c.validada = 0')
                 ->getQuery();
 
             $calificaciones = array_merge($query->getResult(), $calificaciones);
@@ -398,5 +400,56 @@ class MuchosAmuchosService {
         return $calificaciones;
     }
 
+    public function obtenerGruposPorEstablecimientos($establecimientos)
+    {
+        $grupos = array();
+        foreach($establecimientos as $establecimiento) {
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoUsuario')->findBy(array('establecimiento' => $establecimiento));
+            $grupos = array_merge($gruposEstablecimientos, $grupos);
+        }
 
+        return $grupos;
+    }
+
+    public function obtenerUsuariosPorGrupo($grupos)
+    {
+        $usuarios = array();
+        foreach($grupos as $grupo) {
+            $usuariosGrupos = $this->em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->findBy(array('grupoUsuario' => $grupo));
+            $usuarios = array_merge($usuariosGrupos, $usuarios);
+        }
+
+        return $usuarios;
+    }
+
+    public function obtenerGruposAlumnosPorEstablecimientos($establecimientos)
+    {
+        $grupos = array();
+        foreach($establecimientos as $establecimiento) {
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoAlumno')->findBy(array('establecimiento' => $establecimiento));
+            $grupos = array_merge($gruposEstablecimientos, $grupos);
+        }
+
+        return $grupos;
+    }
+
+    public function obtenerConvivenciaPorEstablecimientos($establecimientos)
+    {
+        $repository = $this->em->getRepository('BoletinesBundle:Convivencia');
+
+        $convivencia = array();
+        foreach($establecimientos as $establecimiento) {
+            $query = $repository->createQueryBuilder('c')
+                ->select('c')
+                ->innerJoin('BoletinesBundle:Alumno', 'a' , 'WITH', 'a.id = c.alumno')
+                ->where('a.establecimiento = :establecimiento')
+                ->setParameter('establecimiento', $establecimiento)
+                ->andWhere('c.validado = 0')
+                ->getQuery();
+
+            $convivencia = array_merge($query->getResult(), $convivencia);
+        }
+
+        return $convivencia;
+    }
 }

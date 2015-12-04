@@ -29,7 +29,7 @@ class DirectorController extends Controller
           'admins' => $cantidadAdmins
         );
 
-        return $this->render('BoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));
+        return $this->render('rolBoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));
     }
 
     public function getAlumnosAction()
@@ -39,7 +39,7 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:alumnos.html.twig', array('alumnos' => $alumnos));
+        return $this->render('BoletinesBundle:Director:alumnos.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos));
     }
 
     public function getDocentesAction()
@@ -89,10 +89,49 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $calificaciones = $muchosAMuchos->obtenerCalificacionesPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:calificaciones.html.twig', array('materias' => $calificaciones));
+        return $this->render('BoletinesBundle:Director:calificaciones.html.twig', array('calificaciones' => $calificaciones));
     }
 
+    public function getGruposUsuarioAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $grupos = $muchosAMuchos->obtenerGruposPorEstablecimientos($establecimientos);
 
+//        foreach($grupos as $grupo) {
+//
+//            $usuariosGrupos = $em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->findBy(array('grupoUsuario' => $grupo));
+//            var_dump(count($grupo->getUsuarios()));
+//
+////            $grupo->setCantUsuarios(count($usuariosGrupos));
+//        }
+//exit();
+        return $this->render('BoletinesBundle:Director:grupos.html.twig', array('grupos' => $grupos));
+    }
+
+    public function getGruposAlumnosAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $grupos = $muchosAMuchos->obtenerGruposAlumnosPorEstablecimientos($establecimientos);
+
+        return $this->render('BoletinesBundle:Director:gruposAlumnos.html.twig', array('gruposAlumnos' => $grupos));
+    }
+
+    public function getConvivenciaAction()
+    {
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $convivencias = $muchosAMuchos->obtenerConvivenciaPorEstablecimientos($establecimientos);
+
+
+        return $this->render('BoletinesBundle:Director:convivencia.html.twig', array('convivencias' => $convivencias));
+    }
 
 
 }

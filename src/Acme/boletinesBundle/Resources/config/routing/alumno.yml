@@ -1,3 +1,11 @@
+alumno_add_from_director:
+    path:     /agregar
+    defaults: { _controller: BoletinesBundle:Alumno:addFromDirector }
+
+alumno_delete_from_director:
+    path:     /director/delete/{id}
+    defaults: { _controller: BoletinesBundle:Alumno:deleteDirector }
+
 alumno:
     path:     /
     defaults: { _controller: BoletinesBundle:Alumno:index }
