@@ -3,6 +3,8 @@
 namespace Acme\boletinesBundle\Controller;
 
 use Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Entity\UsuarioEstablecimiento;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -36,43 +38,81 @@ class DocenteController extends Controller
     public function newAction(Request $request)
     {
         $message = "";
-        if ($request->getMethod() == 'POST') {
-            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
-            $docente = $this->createEntity($request);
-            if($docente != null) {
-                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
-            } else {
-                $message = "Errores";
-            }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-        }
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('BoletinesBundle:Docente:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        if ($request->getMethod() == 'POST') {
+            $docente = $this->createEntity($request);
+        }
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+
+        $paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
+
+        return $this->render(
+            'BoletinesBundle:Docente:new.html.twig',
+            array(
+                'establecimientos' => $establecimientos,
+                'paises' => $paises,
+                'ciudades' => $ciudades
+            )
+        );
     }
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $user = new Usuario();
+        $user->setNombre($data->request->get('user'));
+        $user->setPassword($data->request->get('password'));
+        $user->setEmail($data->request->get('email'));
+        $rolBedel = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DOCENTE'));
+        $user->setRol($rolBedel);
+        $user->setApellido($data->request->get('apellido'));
+        $user->setInstitucion($this->getUser()->getInstitucion());
+
+        $em->persist($user);
+        $em->flush();
+
+
         $docente = new Docente();
-        $docente->setNombreDocente($data->request->get('nombreDocente'));
-        $docente->setEmailDocente($data->request->get('emailDocente'));
-        $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
-        $idUsuario = $data->request->get('idUsuario');
-        if($idUsuario == null || $idUsuario < 1){
-            //no seleccionó ninguno, le creo uno
-            $controllerUsuario = new UsuarioController();
-            $usuario = $controllerUsuario->crearUsuarioDocente($docente->getNombreDocente(), $docente->getEmailDocente());
-            $em->persist($usuario);
-        }else{
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
-        }
+        $docente->setNombre($data->request->get('nombre'));
+        $docente->setApellido($data->request->get('apellido'));
+        $docente->setDni($data->request->get('dni'));
+//        $docente->set($data->request->get('sexo'));
+        $docente->setFechaNacimiento(
+            new \DateTime($data->request->get('bdate'))
+        );
+        $docente->setFechaIngreso(
+            new \DateTime($data->request->get('ingresodate'))
+        );
+        $docente->setDireccion($data->request->get('direccion'));
+        $docente->setCodigoPostal($data->request->get('postal'));
+        $docente->setCodigoPais($data->request->get('codpais'));
+        $docente->setCodigoArea($data->request->get('codarea'));
+        $docente->setTelefono($data->request->get('telefono'));
+//        $docente->set($data->request->get('telefonoem'));
+        $docente->setEsTitular($data->request->get('titular'));
+        $docente->setObservaciones($data->request->get('obs'));
 
-        $docente->setUsuario($usuario);
-
+        $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data->request->get('ciudad')));
+        $docente->setCiudad($ciudad);
+        $docente->setTitulo($data->request->get('titulouniversitario'));
+        $docente->setUsuario($user);
+        $docente->setCreationTime(new \DateTime() );
+        $docente->setUpdateTime(new \DateTime() );
         $em->persist($docente);
         $em->flush();
+
+        $userEstablecimiento = new UsuarioEstablecimiento();
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $userEstablecimiento->setEstablecimiento($establecimiento);
+        $userEstablecimiento->setUsuario($user);
+
+        $em->persist($userEstablecimiento);
+        $em->flush();
+
 
         return $docente;
     }

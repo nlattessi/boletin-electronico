@@ -22,6 +22,10 @@ boletines_director:
     resource: "@BoletinesBundle/Resources/config/routing/director.yml"
     prefix:   /director
 
+boletines_bedel:
+    resource: "@BoletinesBundle/Resources/config/routing/bedel.yml"
+    prefix:   /bedel
+
 boletines_actividad:
     resource: "@BoletinesBundle/Resources/config/routing/actividad.yml"
     prefix:   /actividad
@@ -37,6 +41,10 @@ boletines_evaluacion:
 boletines_alumno:
     resource: "@BoletinesBundle/Resources/config/routing/alumno.yml"
     prefix:   /alumno
+
+boletines_padre:
+    resource: "@BoletinesBundle/Resources/config/routing/padre.yml"
+    prefix:   /padre
 
 boletines_calificacion:
     resource: "@BoletinesBundle/Resources/config/routing/calificacion.yml"

@@ -1,0 +1,3 @@
+bedel_add:
+    path:     /add
+    defaults: { _controller: BoletinesBundle:Bedel:add }
