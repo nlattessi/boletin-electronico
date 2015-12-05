@@ -17,6 +17,7 @@
                 query: obj.nombre + ' ' + obj.apellido,
                 nombre: obj.nombre,
                 apellido: obj.apellido,
+                fotoWebPath: obj.fotoWebPath
               };
               data.push(JSON.stringify(item));
             });
@@ -54,8 +55,12 @@
         });
         if(!exists) {
 
+          var img = (item.fotoWebPath) ?  '<img src="/' + item.fotoWebPath + '" alt="">' : '';
+
           $('#destinatarios').append(
-              '<div class="chip"><input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
+              '<div class="chip">'
+              + img
+              +'<input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
               + item.nombre
               + ' <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>'
               + '</div>'

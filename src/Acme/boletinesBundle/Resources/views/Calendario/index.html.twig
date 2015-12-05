@@ -55,10 +55,20 @@
 {% endblock %}
 {% block page %}
     <div class="row">
-        <div class="col s12 ">
-            <h3 class="panel-title">Calendario</h3>
-            <div id="calendar"></div>
+        <div class="col s12 m7 l7">
+          <h3 class="header">Calendario</h3>
         </div>
+        <div class="col s12 m5 l5">
+          {% if app.user.rol == 'ROLE_PADRE' %}
+            {{ macros.show_alumno_activo(app.session.get('alumnoActivo')) }}
+          {% endif %}
+        </div>
+  </div>
+
+  <div class="row">
+       <div class="col s12 ">
+         <div id="calendar"></div>
+      </div>
     </div>
 
 {% endblock %}

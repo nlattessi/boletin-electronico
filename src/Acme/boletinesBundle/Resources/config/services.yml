@@ -54,3 +54,7 @@ services:
           class: Twig_Extensions_Extension_Intl
           tags:
               - { name: twig.extension }
+      boletines.listener.usurio.postLoad:
+          class: Acme\boletinesBundle\EventListener\UsuarioPostLoadListener
+          tags:
+              - { name: doctrine.event_listener, event: postLoad }

@@ -50,6 +50,7 @@
        <div class="col s12 m12 l12 mar-top-soft ">
               <div class="col s12 m1 l1 center-align">
                 {#<img src="" alt="" class="avatar-mb circle mb-a-pad">#}
+                {{ macros.show_foto_mensaje(mensaje.usuario) }}
               </div>
              <div class="col s12 m9 l9 center-on-small-only">
                <span class="mb-name" id="mensajeUsuario">{{ mensaje.usuario.getNombreCompleto }}</span><br>
@@ -89,27 +90,15 @@
            <div class="row">
              <div class="col s12 mar-bot-top">
 
-               <form action="{{ path('mensaje_new')}}" method="post">
+               <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm">
 
                    <div class="input-field col s12">
                          <input id="typeahead" type="text" class="validate" data-provide="typeahead">
                          <label for="nombre_inst"  class="">Para:</label>
                    </div>
 
-                   {#<div class="input-field col s12">
-                     <ul id="destinatarios" class="unstyled">
-                       <li>
-                         <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">{{ mensaje.usuario.getNombreCompleto }}<button class="btn btn-mini noAgregar">[X]</button>
-                       </li>
-                     </ul>
-                   </div>#}
-
                    <div id="destinatarios">
-                     <div class="chip">
-                       <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ mensaje.usuario.id}}">
-                       {{ mensaje.usuario.getNombreCompleto }}
-                       <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
-                     </div>
+                     {{ macros.show_chip(mensaje.usuario) }}
                    </div>
 
                    <div class="input-field col s12">
@@ -137,6 +126,7 @@
                    <div class="col s12 center-align mar-top-soft">
                        <button type="submit" class="btn-large waves-effect waves-light center-align mar-right" id="newMensajeSubmit">enviar</button>
                        {#<a data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>#}
+                       <a onclick="saveBorrador('{{ path('mensaje_save_borrador') }}');" data-position="top" data-delay="25" data-tooltip="Guardar en borradores" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-floppy-disk"></i></a>
                    </div>
 
                    </form>
@@ -156,17 +146,6 @@
   <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
 
   <script>
-  $(".noAgregar").click(function(e){
-    e.preventDefault();
-    $(this).parent().remove();
-    if ($('#destinatarios div').length < 1) {
-      $('#newMensajeSubmit').addClass("disabled");
-      $('#newMensajeSubmit').prop("disabled", true);
-    }
-  });
-  </script>
-
-  <script type="text/javascript">
   function printDiv() {
       var titulo = document.getElementById("mensajeTitulo").innerHTML;
       var texto = document.getElementById("mensajeTexto").innerHTML;
@@ -195,6 +174,26 @@
           document.body.removeChild(frame1);
       }, 500);
       return false;
+  }
+
+  function saveBorrador(path) {
+    var form = document.getElementById("nuevoMensajeForm");
+    form.setAttribute("action", path);
+    form.submit();
+  };
+
+  $(".noAgregar").click(function(e){
+    e.preventDefault();
+    $(this).parent().remove();
+    if ($('#destinatarios div').length < 1) {
+      $('#newMensajeSubmit').addClass("disabled");
+      $('#newMensajeSubmit').prop("disabled", true);
+    }
+  });
+
+  if ($('#destinatarios div').length > 0) {
+    $('#newMensajeSubmit').removeClass("disabled");
+    $('#newMensajeSubmit').prop("disabled", false);
   }
   </script>
 {% endblock %}

@@ -23,11 +23,7 @@
       <div id="destinatarios">
         {% if destinatarios is defined %}
         {% for usuario in destinatarios %}
-          <div class="chip">
-            <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ usuario.id}}">
-            {{ usuario.getNombreCompleto }}
-            <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
-          </div>
+          {{ macros.show_chip(usuario) }}
         {% endfor %}
         {% endif %}
       </div>

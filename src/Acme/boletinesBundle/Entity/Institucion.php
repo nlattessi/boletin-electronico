@@ -235,15 +235,15 @@ class Institucion
     }
     public function getAbsolutePath()
     {
-        return null === $this->logo
+        return null === $this->getLogo()
             ? null
-            : $this->getUploadRootDir() . '/' . $this->logo;
+            : $this->getUploadRootDir() . '/' . $this->getLogo();
     }
     public function getWebPath()
     {
-        return null === $this->logo
+        return null === $this->getLogo()
             ? null
-            : $this->getUploadDir() . '/' . $this->logo;
+            : $this->getUploadDir() . '/' . $this->getLogo();
     }
     protected function getUploadRootDir()
     {
@@ -258,4 +258,3 @@ class Institucion
         return 'uploads/logos';
     }
 }
-

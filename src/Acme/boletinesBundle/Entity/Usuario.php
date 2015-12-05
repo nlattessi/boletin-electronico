@@ -103,6 +103,8 @@ class Usuario implements UserInterface, \Serializable
      */
     protected $notificaciones;
 
+    private $entidadAsociada;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -426,5 +428,15 @@ class Usuario implements UserInterface, \Serializable
         return $this->notificaciones->filter(function($notificacion) {
             return $notificacion->getNotificado() == false;
         });
+    }
+
+    public function getEntidadAsociada()
+    {
+        return $this->entidadAsociada;
+    }
+
+    public function setEntidadAsociada($entidad)
+    {
+        $this->entidadAsociada = $entidad;
     }
 }
