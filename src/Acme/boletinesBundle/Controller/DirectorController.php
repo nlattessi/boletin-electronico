@@ -29,7 +29,7 @@ class DirectorController extends Controller
           'admins' => $cantidadAdmins
         );
 
-        return $this->render('rolBoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));
+        return $this->render('BoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));
     }
 
     public function getAlumnosAction()

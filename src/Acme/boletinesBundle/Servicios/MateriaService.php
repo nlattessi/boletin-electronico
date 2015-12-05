@@ -68,12 +68,13 @@ class MateriaService {
 
     public function listaAlumnosGrupoAlumno($idMateria){
         $grupos = $this->muchosService->obtenerGrupoAlumnosPorMateria($idMateria);
-
         $alumnos =  array();
-
         foreach($grupos as $g ){
-            $id = $g->getId();
-            $alumnos = array_merge($alumnos, $this->grupoAlumnosService->listaAlumnos($id));
+            $alumnos_aux = [];
+            foreach($g->getAlumnos() as $alumno) {
+                $alumnos_aux[] = $alumno;
+            }
+            $alumnos = array_merge($alumnos, $alumnos_aux);
         }
 
 
