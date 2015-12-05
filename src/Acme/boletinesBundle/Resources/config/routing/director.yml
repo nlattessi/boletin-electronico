@@ -17,3 +17,23 @@ directivo_padres:
 directivo_bedeles:
     path:     /usuarios/bedeles
     defaults: { _controller: BoletinesBundle:Director:getBedeles }
+
+directivo_materias:
+    path:     /materias
+    defaults: { _controller: BoletinesBundle:Director:getMaterias }
+
+directivo_calificaciones:
+    path:     /calificaciones
+    defaults: { _controller: BoletinesBundle:Director:getCalificaciones }
+
+directivo_grupos:
+    path:     /grupos
+    defaults: { _controller: BoletinesBundle:Director:getGruposUsuario }
+
+directivo_grupos_alumnos:
+    path:     /gruposalumnos
+    defaults: { _controller: BoletinesBundle:Director:getGruposAlumnos }
+
+directivo_convivencia:
+    path:     /convivencia
+    defaults: { _controller: BoletinesBundle:Director:getConvivencia }

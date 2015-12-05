@@ -15,24 +15,24 @@
     <field name="nombre" type="string" column="nombre" length="30" nullable="false"/>
     <field name="apellido" type="string" column="apellido" length="30" nullable="false"/>
     <field name="dni" type="string" column="dni" length="8" nullable="false"/>
-    <field name="direccion" type="string" column="direccion" length="60" nullable="false"/>
+    <field name="direccion" type="string" column="direccion" length="60" nullable="true"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="10" nullable="true"/>
-    <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="false"/>
-    <field name="codigoArea" type="string" column="codigo_area" length="5" nullable="false"/>
-    <field name="telefono" type="string" column="telefono" length="12" nullable="false"/>
+    <field name="codigoPais" type="string" column="codigo_pais" length="4" nullable="true"/>
+    <field name="codigoArea" type="string" column="codigo_area" length="5" nullable="true"/>
+    <field name="telefono" type="string" column="telefono" length="12" nullable="true"/>
     <field name="nacionalidad" type="string" column="nacionalidad" length="20" nullable="true"/>
     <field name="sexo" type="string" column="sexo" length="1" nullable="true"/>
-    <field name="obraSocial" type="string" column="obra_social" length="20" nullable="false"/>
-    <field name="obraSocialNumeroAfiliado" type="string" column="obra_social_numero_afiliado" length="20" nullable="false"/>
-    <field name="telefonoEmergencia" type="string" column="telefono_emergencia" length="20" nullable="false"/>
+    <field name="obraSocial" type="string" column="obra_social" length="20" nullable="true"/>
+    <field name="obraSocialNumeroAfiliado" type="string" column="obra_social_numero_afiliado" length="20" nullable="true"/>
+    <field name="telefonoEmergencia" type="string" column="telefono_emergencia" length="20" nullable="true"/>
     <field name="apodo" type="string" column="apodo" length="40" nullable="true"/>
-    <field name="foto" type="string" column="foto" length="250" nullable="true"/>    
-    <field name="fechaIngreso" type="date" column="fecha_ingreso" nullable="false"/>
-    <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="false"/>
+    <field name="foto" type="string" column="foto" length="250" nullable="true"/>
+    <field name="fechaIngreso" type="date" column="fecha_ingreso" nullable="true"/>
+    <field name="fechaNacimiento" type="date" column="fecha_nacimiento" nullable="true"/>
     <field name="especialidadId" type="integer" column="especialidad_id" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
-    <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
-    <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
+    <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
+    <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
     <field name="grupoSanguineo" type="string" column="grupo_sanguineo" length="12" nullable="true"/>
     <many-to-one field="padre2" target-entity="Padre">
       <join-columns>

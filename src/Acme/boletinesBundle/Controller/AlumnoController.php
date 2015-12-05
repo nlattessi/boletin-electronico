@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -10,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Alumno;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\AlumnoType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AlumnoController extends Controller
 {
@@ -51,6 +53,41 @@ class AlumnoController extends Controller
 
         return $this->render('BoletinesBundle:Alumno:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'padres'=> $padres));
     }
+
+    public function addFromDirectorAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $usuario = new Usuario();
+        $usuario->setNombre(
+            $request->request->get('nombre')
+            . '.' .
+            $request->request->get('apellido')
+        );
+        $usuario->setApellido($request->request->get('apellido'));
+        $usuario->setPassword($request->request->get('apellido'));
+        $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_ALUMNO'));
+        $usuario->setRol($rol);
+        $usuario->setInstitucion($this->getUser()->getInstitucion());
+        $em->persist($usuario);
+        $em->flush();
+
+        $alumno = new Alumno();
+        $alumno->setNombre($request->request->get('nombre'));
+        $alumno->setApellido($request->request->get('apellido'));
+        $alumno->setDni($request->request->get('dni'));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $request->request->get('establecimiento')));
+
+        $alumno->setEstablecimiento($establecimiento);
+        $alumno->setUsuario($usuario);
+
+        $em->persist($alumno);
+        $em->flush();
+
+        return new RedirectResponse($this->generateUrl('director_alumnos'));
+    }
+
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
@@ -97,6 +134,20 @@ class AlumnoController extends Controller
         return $this->indexAction();
     }
 
+    public function deleteDirectorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
+
+        if($alumno instanceof Alumno) {
+//            if($this->getUser()->getInstitucion() == $alumno->getEstablecimiento()->getInstitucion()
+//            && $this->getUser()->getRol()->getName == 'ROLE_DIRECTOR') {
+                $em->remove($alumno);
+                $em->flush();
+            }
+//        }
+        return new RedirectResponse($this->generateUrl('director_alumnos'));
+    }
 
     public function editAction($id = null, Request $request = null)
     {

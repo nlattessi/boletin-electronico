@@ -1,10 +1,7 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block css_include %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
-{% endblock %}
+
 
 {% block page %}
-    <div class="container fadeIn animated">
         <div class="row">
 
             <div class="col s12 m12 l12">
@@ -41,55 +38,59 @@
 
                             <table class="striped">
                                 <thead>
-                                    <tr class="new-student">
+                                    <tr>
                                         <th data-field="id">Nombre</th>
                                         <th data-field="id">Apellido</th>
                                         <th data-field="name">DNI</th>
+                                        <th data-field="name">Establecimiento</th>
                                         <th data-field="price">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {#<tr class="new-student">#}
-                                    {#<td>#}
-                                        {#<div class="input-field col s12">#}
-                                            {#<input id="last_name" type="text" class="validate">#}
-                                            {#<label for="last_name">Nombre</label>#}
-                                        {#</div>#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<div class="input-field col s12">#}
-                                            {#<input id="last_name" type="text" class="validate">#}
-                                            {#<label for="last_name">Apellido</label>#}
-                                        {#</div>#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<div class="input-field col s12">#}
-                                            {#<input id="last_name" type="text" class="validate">#}
-                                            {#<label for="last_name">DNI</label>#}
-                                        {#</div>#}
-                                    {#</td>#}
-                                    {#<td>#}
-                                        {#<div class="input-field col s12">#}
-                                            {#<i class="icon-linear-magnifier prefix"></i>#}
-                                            {#<input id="icon_prefix" type="text" class="validate">#}
-                                            {#<label for="icon_prefix">Grupo</label>#}
-                                        {#</div>#}
-                                    {#</td>#}
-                                    {#<td class="center-align">#}
-                                        {#<a href="#" data-position="top" data-delay="25" data-tooltip="Crear alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>#}
-
-                                    {#</td>#}
-
-
-                                {#</tr>#}
+                                    <form id="addAlumno" action="{{ path('alumno_add_from_director') }}" method="post">
+                                        <tr class="new-student">
+                                            <td>
+                                                <div class="input-field col s12">
+                                                    <input name="nombre" id="nombre" type="text" class="validate">
+                                                    <label for="nombre">Nombre</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-field col s12">
+                                                    <input name="apellido" id="apellido" type="text" class="validate">
+                                                    <label for="apellido">Apellido</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-field col s12">
+                                                    <input name="dni" id="dni" type="text" class="validate">
+                                                    <label for="dni">DNI</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-field col s12">
+                                                    <select class="initialized"  name="establecimiento" id="establecimiento">
+                                                        {% for establecimiento in establecimientos %}
+                                                            <option value="{{ establecimiento.id }}"> {{ establecimiento.nombre }} </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label for="establecimiento" class="">Establecimiento</label>
+                                                </div>
+                                            </td>
+                                            <td class="center-align">
+                                                <span onclick="$('#addAlumno').submit()" data-position="top" data-delay="25" data-tooltip="Crear alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></span>
+                                            </td>
+                                        </tr>
+                                    </form>
                                 {% for alumno in alumnos %}
                                     <tr>
-                                        <td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.nombre}}</a></td>
-                                        <td><a href="usuarios-datos-alumno_directivo.html" class="casual">{{alumno.apellido}}</a></td>
+                                        <td>{{alumno.nombre}}</td>
+                                        <td>{{alumno.apellido}}</td>
                                         <td>{{alumno.dni}}</td>
+                                        <td>{{alumno.establecimiento.nombre}}</td>
                                         <td>
                                             <a href="usuarios-editar-alumno_directivo.html" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
-                                            <a data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+                                            <a href="{{path('alumno_delete_from_director', {'id' : alumno.id})}}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -103,21 +104,20 @@
                 </div>
 
             </div><!--  End Tables Section  -->
-            <div class="row">
+            {#<div class="row">#}
 
-                <div class="col s12 m12 l12 mar-top-soft">
-                    <ul class="pagination pagi-pad">
-                        <li class="disabled"><a href="under-construction.html"><i class="icon-linear-chevron-left"></i></a></li>
-                        <li class="active"><a href="under-construction.html">1</a></li>
-                        <li class="waves-effect"><a href="under-construction.html">2</a></li>
-                        <li class="waves-effect"><a href="under-construction.html">3</a></li>
-                        <li class="waves-effect"><a href="under-construction.html">4</a></li>
-                        <li class="waves-effect"><a href="under-construction.html">5</a></li>
-                        <li class="waves-effect"><a href="under-construction.html"><i class="icon-linear-chevron-right"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+                {#<div class="col s12 m12 l12 mar-top-soft">#}
+                    {#<ul class="pagination pagi-pad">#}
+                        {#<li class="disabled"><a href="under-construction.html"><i class="icon-linear-chevron-left"></i></a></li>#}
+                        {#<li class="active"><a href="under-construction.html">1</a></li>#}
+                        {#<li class="waves-effect"><a href="under-construction.html">2</a></li>#}
+                        {#<li class="waves-effect"><a href="under-construction.html">3</a></li>#}
+                        {#<li class="waves-effect"><a href="under-construction.html">4</a></li>#}
+                        {#<li class="waves-effect"><a href="under-construction.html">5</a></li>#}
+                        {#<li class="waves-effect"><a href="under-construction.html"><i class="icon-linear-chevron-right"></i></a></li>#}
+                    {#</ul>#}
+                {#</div>#}
+            {#</div>#}
         </div>
-    </div>
 
 {% endblock %}

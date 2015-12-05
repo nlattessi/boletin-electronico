@@ -1,0 +1,7 @@
+#padre_add_from_director:
+#    path:     /agregar
+#    defaults: { _controller: BoletinesBundle:Padre:addFromDirector }
+
+padre_delete_from_director:
+    path:     /director/delete/{id}
+    defaults: { _controller: BoletinesBundle:Padre:deleteDirector }

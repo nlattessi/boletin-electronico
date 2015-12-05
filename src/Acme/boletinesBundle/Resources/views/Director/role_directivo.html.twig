@@ -1,11 +1,8 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block css_include %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
-{% endblock %}
+
 
 {% block page %}
 
-<div class="container fadeIn animated">
     <div class="row mar-top-soft">
         <div class="col s12 m8 l8">
           <h3 class="header">{{ app.user.institucion.nombre }}</h3>
@@ -83,6 +80,5 @@
   </div>
 
 
-</div>
 
 {% endblock %}
