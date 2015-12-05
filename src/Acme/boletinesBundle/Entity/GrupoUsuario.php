@@ -59,7 +59,59 @@ class GrupoUsuario
      */
     private $usuarioCarga;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Establecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Establecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
 
+    private $usuarios;
+
+    private $cantUsuarios;
+
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getUsuarios()
+    {
+        return $this->usuarios;
+    }
+
+    /**
+     * @param mixed $usuarios
+     */
+    public function setUsuarios($usuarios)
+    {
+        $this->usuarios = $usuarios;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCantUsuarios()
+    {
+        return $this->cantUsuarios;
+    }
+
+    /**
+     * @param mixed $cantUsuarios
+     */
+    public function setCantUsuarios($cantUsuarios)
+    {
+        $this->cantUsuarios = $cantUsuarios;
+    }
 
     /**
      * Set nombre
@@ -185,4 +237,22 @@ class GrupoUsuario
     {
         return $this->usuarioCarga;
     }
+
+    /**
+     * @return Establecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
+    }
+
+    /**
+     * @param Establecimiento $establecimiento
+     */
+    public function setEstablecimiento($establecimiento)
+    {
+        $this->establecimiento = $establecimiento;
+    }
+
+
 }

@@ -1,7 +1,5 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block css_include %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/boletines/css/fullcalendar.css') }}" />
-{% endblock %}
+
 
 {% block page %}
  {##}
@@ -16,7 +14,6 @@
                 {#</tr>#}
 
 
-    <div class="container fadeIn animated">
         <div class="row">
 
             <div class="col s12 m12 l12">
@@ -30,7 +27,7 @@
                             <h3 class="header">Docentes</h3>
                         </div>
                         <div class="col s2 m2 l2">
-                            <a href="usuarios-docentes-nuevo_directivo.html" data-position="left" data-delay="25" data-tooltip="Crear nuevo Docente" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+                            <a href="{{ path('docente_new') }}" data-position="left" data-delay="25" data-tooltip="Crear nuevo Docente" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
                         </div>
 
 
@@ -86,7 +83,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
 {% endblock %}
