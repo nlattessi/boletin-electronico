@@ -35,7 +35,7 @@
 
                     <div class="row">
                         <div class="col s12 mar-top-soft">
-
+                            <form id="addAlumno" action="{{ path('alumno_add_from_director') }}" method="post">
                             <table class="striped">
                                 <thead>
                                     <tr>
@@ -47,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <form id="addAlumno" action="{{ path('alumno_add_from_director') }}" method="post">
+
                                         <tr class="new-student">
                                             <td>
                                                 <div class="input-field col s12">
@@ -81,7 +81,7 @@
                                                 <span onclick="$('#addAlumno').submit()" data-position="top" data-delay="25" data-tooltip="Crear alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></span>
                                             </td>
                                         </tr>
-                                    </form>
+
                                 {% for alumno in alumnos %}
                                     <tr>
                                         <td>{{alumno.nombre}}</td>
@@ -99,6 +99,7 @@
 
                                 </tbody>
                             </table>
+                            </form>
                         </div>
                     </div>
                 </div>

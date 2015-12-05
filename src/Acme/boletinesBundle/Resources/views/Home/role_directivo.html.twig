@@ -1,139 +1,57 @@
-<div class="row">
-    <div class="col s12 m6 l6">
-        <h3 class="header">Tablero</h3>
-    </div>
-    <div class="col s12 m6 l6">
-        <h5 class="right-ch"><img src="{{ asset('bundles/boletines/images/student-avatar-f.png')}}" alt="as" class="avatar-main circle1"> Antonella Peacecraft</h5>
-    </div>
+
+<div class="col s12 mar-bot">
+    <h3 class="header">Tablero</h3>
 </div>
-
-<main> <!-- startMain content-->
-    <div class="container fadeIn animated">
-        <div class="row">
-
-            <div class="col s12 m12 l12">
-                <div class="row">
-                    <div class="col s10 m10 l10">
-                        <h4 class="header">Editar grupo</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6 l6">
-                        <div class="input-field col s12 m6 l12">
-                            <input value="Grupo 1" id="nombre_inst" type="text"
-                                   class="validate">
-                            <label for="nombre_inst" class="">Nombre del
-                                Grupo</label>
-                        </div>
-                        <div class="input-field col s12 m6 l12">
-                            <input id="nombre_inst" type="text"
-                                   class="validate">
-                            <label for="nombre_inst" class="">Nombre de
-                                usuario</label>
-                            <a href="#"
-                               class=" btn-xsmall btn-xsmall-fix waves-effect waves-light">Agregar
-                                al grupo</a>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m12 l6">
-                        <div class="panel panel-grupos center-align">
-                            <h5>Grupo: <span><strong>Grupo 1</strong></span>
-                            </h5>
-                            <h6>Usuarios: <span><strong>6</strong></span></h6>
-                            <a href="#"
-                               class="btn-flat waves-effect waves-light">Guardar</a>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class="row">
-                    <div class="col s12 mar-top-soft">
-                        <ul class="collection">
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 6</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 5</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 4</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 3</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 2</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-                            <li class="collection-item"><a
-                                        href="grupos-fichausuario_directivo.html"><span>Nombre de usuario 1</span></a><a
-                                        href="usuarios-docentes-editar_directivo.html"
-                                        data-position="left" data-delay="25"
-                                        data-tooltip="Eliminar"
-                                        class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light"><i
-                                            class="icon-linear-trash"></i></a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                </div>
-
+<div class="col s12 m6 l6 center-align"> <!-- startWidget 1-->
+    <div class="row">
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-graduation-hat d-d-i"></i>  {{roles.alumnos }}</h3><h5>Alumnos</h5>
             </div>
-            <!--  End Tables Section  -->
-            <div class="row">
-
-                <div class="col s12 m12 l12 mar-top-soft">
-                    <ul class="pagination pagi-pad">
-                        <li class="disabled"><a
-                                    href="under-construction.html"><i
-                                        class="icon-linear-chevron-left"></i></a></li>
-                        <li class="active"><a
-                                    href="under-construction.html">1</a></li>
-                        <li class="waves-effect"><a
-                                    href="under-construction.html">2</a></li>
-                        <li class="waves-effect"><a
-                                    href="under-construction.html">3</a></li>
-                        <li class="waves-effect"><a
-                                    href="under-construction.html">4</a></li>
-                        <li class="waves-effect"><a
-                                    href="under-construction.html">5</a></li>
-                        <li class="waves-effect"><a
-                                    href="under-construction.html"><i
-                                        class="icon-linear-chevron-right"></i></a></li>
-                    </ul>
-                </div>
+        </div>
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-man-woman d-d-i"></i>  {{roles.padres }}</h3><h5>Padres</h5>
             </div>
         </div>
     </div>
-</main>
+</div><!-- endWidget 1-->
+<div class="col s12 m6 l6 center-align"> <!-- startWidget 1-->
+    <div class="row ">
+        <div class="col s12">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-notification b-d-i w-red"></i>  5</h3><h5>Reportes de bullyng</h5>
+            </div>
+        </div>
+    </div>
+</div><!-- endWidget 1-->
 
-</div>
+<div class="col s12 m6 l6 center-align"> <!-- startWidget 1-->
+    <div class="row ">
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-users2 d-d-i"></i>  {{roles.docentes }}</h3><h5>Docentes</h5>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-user d-d-i"></i>  {{roles.bedeles }}</h3><h5>Bedeles</h5>
+            </div>
+        </div>
+    </div>
+</div><!-- endWidget 1-->
+
+<div class="col s12 m6 l6 center-align"> <!-- startWidget 1-->
+    <div class="row ">
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-tie d-d-i"></i>  {{roles.directivos }}</h3><h5>Directivos</h5>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="panel panel-fix-da">
+                <h3><i class="icon-linear-laptop d-d-i"></i>  {{roles.admins }}</h3><h5>Administrativos</h5>
+            </div>
+        </div>
+    </div>
+</div><!-- endWidget 1-->

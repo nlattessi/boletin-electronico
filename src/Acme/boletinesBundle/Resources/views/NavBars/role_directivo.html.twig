@@ -1,13 +1,13 @@
 <ul id="nav-mobile" class="side-nav fixed">
     <li class="logo"><a href="#!" class="brand-logo"><img class="responsive-img logo" src="images/communitas-isologotipo.png"></a></li>
-    <li class="main-nav-pad"><a href="{{ path('director') }}"><i class="icon-linear-history icon-nav-size"></i> <span class="span-va">Inicio</span></a></li>
+    <li class="main-nav-pad"><a href="{{ path('home') }}"><i class="icon-linear-history icon-nav-size"></i> <span class="span-va">Inicio</span></a></li>
     <li class="no-padding main-nav-pad ">
         <ul class="collapsible collapsible-accordion">
             <li>
-                <a class="collapsible-header active"><i class="icon-linear-users-plus icon-nav-size"></i> <span class="span-va">Usuarios</span></a>
+                <a class="collapsible-header"><i class="icon-linear-users-plus icon-nav-size"></i> <span class="span-va">Usuarios</span></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li class="active "><a href="{{ path('director_alumnos') }}">Alumnos</a></li>
+                        <li class=""><a href="{{ path('director_alumnos') }}">Alumnos</a></li>
                         <li><a href="{{ path('directivo_docentes') }}">Docentes</a></li>
                         <li><a href="{{ path('directivo_padres') }}">Padres</a></li>
                         <li><a href="{{ path('directivo_bedeles') }}">Bedeles</a></li>

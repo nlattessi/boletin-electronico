@@ -64,7 +64,7 @@
                 <div class="panel-mini panel-assigment">
                     <div class="row">
                         <div class="col s9">
-                            <a href="materias-detalle_docente.html"><h5 class="panel-title truncate">{{ materia.nombre }} </h5></a>
+                            <a href="{{ path('materia_show', {'id':materia.id }) }}"><h5 class="panel-title truncate">{{ materia.nombre }} </h5></a>
                             <h4>
                                 {% for grupo in materia.gruposAlumnos %}
                                     {{ grupo ~ ' ' }}

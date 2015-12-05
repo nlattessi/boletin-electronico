@@ -2,7 +2,8 @@
 
 namespace Acme\boletinesBundle\Controller;
 
-use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
+//use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -59,11 +60,13 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $usuario = new Usuario();
+        /* Por qué el nombre así
         $usuario->setNombre(
             $request->request->get('nombre')
             . '.' .
             $request->request->get('apellido')
-        );
+        );*/
+        $usuario->setNombre($request->request->get('nombre'));
         $usuario->setApellido($request->request->get('apellido'));
         $usuario->setPassword($request->request->get('apellido'));
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_ALUMNO'));
@@ -83,6 +86,11 @@ class AlumnoController extends Controller
         $alumno->setUsuario($usuario);
 
         $em->persist($alumno);
+
+        $em->flush();
+
+        $usuario->setIdEntidadAsociada($alumno->getId());
+        $em->persist($usuario);
         $em->flush();
 
         return new RedirectResponse($this->generateUrl('director_alumnos'));
