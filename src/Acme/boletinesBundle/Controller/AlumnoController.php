@@ -13,6 +13,7 @@ use Acme\boletinesBundle\Entity\Alumno;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\AlumnoType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AlumnoController extends Controller
 {
@@ -211,6 +212,30 @@ class AlumnoController extends Controller
     public function antybullyngAction($id, Request $request = null){
         //notificar Directivo
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function autocompletarAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $this->getUser()->getInstitucion();
+
+        //TODO: mandar establecimiento por parametro y hacer la búsqueda en al tabla de Alumnos
+
+        $query = $em->createQueryBuilder()
+            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->from('BoletinesBundle:Usuario', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.institucion = :institucion')
+            ->andWhere('u.rol = :rolAlumnoId')
+            ->setParameter('query', '%'.$request->query->get('query').'%')
+            ->setParameter('institucion', $institucion)
+            ->setParameter('rolAlumnoId', 3)
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return new Response(json_encode($entities));
     }
 }
 

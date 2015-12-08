@@ -3,7 +3,7 @@
       minLength: 3,
       source: function (query, process) {
         return $.ajax({
-          url: '/mensaje/autocompletar',
+          url: 'autocompletar',
           type: 'GET',
           data: {
             query: query,

@@ -1,5 +1,5 @@
 <ul id="nav-mobile" class="side-nav fixed">
-    <li class="logo"><a href="#!" class="brand-logo"><img class="responsive-img logo" src="images/communitas-isologotipo.png"></a></li>
+    <li class="logo"><a href="{{ path('home') }}" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png')}}"></a></li>
     <li class="main-nav-pad"><a href="{{ path('home') }}"><i class="icon-linear-history icon-nav-size"></i> <span class="span-va">Inicio</span></a></li>
     <li class="no-padding main-nav-pad ">
         <ul class="collapsible collapsible-accordion">
@@ -16,8 +16,8 @@
             </li>
         </ul>
     </li>
-    <li class="main-nav-pad"><a href="{{ path('directivo_grupos') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span class="span-va">Grupos</span></a></li>
-    <li class="main-nav-pad"><a href="{{ path('directivo_grupos_alumnos') }}"><i class="icon-linear-users icon-nav-size"></i> <span class="span-va">Grupos de alumnos</span></a></li>
+    <li class="main-nav-pad"><a href="{{ path('grupoUsuario') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span class="span-va">Grupos</span></a></li>
+    <li class="main-nav-pad"><a href="{{ path('grupoAlumno') }}"><i class="icon-linear-users icon-nav-size"></i> <span class="span-va">Grupos de alumnos</span></a></li>
     <li class="main-nav-pad"><a href="{{ path('directivo_materias') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Materias</span></a></li>
     <li class="main-nav-pad"><a href="{{ path('directivo_calificaciones') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span class="span-va">Calificaciones</span></a></li>
     <li class="main-nav-pad"><a href="{{ path('directivo_convivencia') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span class="span-va">Convivencia</span></a></li>

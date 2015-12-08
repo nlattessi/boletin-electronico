@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -19,10 +20,21 @@ class GrupoUsuarioController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $grupos = $muchosAMuchos->obtenerGruposPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:GrupoUsuario')->findAll();
+//        foreach($grupos as $grupo) {
+//
+//            $usuariosGrupos = $em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->findBy(array('grupoUsuario' => $grupo));
+//            var_dump(count($grupo->getUsuarios()));
+//
+////            $grupo->setCantUsuarios(count($usuariosGrupos));
+//        }
+//exit();
 
-        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('grupos' => $grupos));
     }
 
     public function getOneAction($id)
@@ -47,27 +59,43 @@ class GrupoUsuarioController extends Controller
             }
         }else{
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
+            $user = $this->getUser();
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         }
 
-        return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('establecimientos' => $establecimientos));
     }
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
+        $grupoUsuarioService = $this->get('boletines.servicios.grupoUsuario');
+        $usersIds = $data->request->get('idMiembro');
+        if(!$usersIds){
+            //por si no se agregan usuarios
+            $usersIds = new ArrayCollection();
+        }
 
         $grupoUsuario = new GrupoUsuario();
-        $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-        $grupoUsuario->setUsuarioCarga($sesionService->obtenerUsuario());
-        if($data->request->get('esPrivado') != 0){
-            $grupoUsuario->setEsPrivado(false);
-        }else{
-            $grupoUsuario->setEsPrivado(true);
-        }
+        $grupoUsuario->setNombre($data->request->get('nombre'));
+        $grupoUsuario->setUsuarioCarga($this->getUser());
+        $grupoUsuario->setEsPrivado(false);
+
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $grupoUsuario->setEstablecimiento($establecimiento);
 
         $em->persist($grupoUsuario);
         $em->flush();
+
+
+        //TODO Facu: persistir la relación manyToMany
+        foreach ($usersIds as $userId) {
+            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            if($userMiemb instanceof Usuario){
+                $grupoUsuarioService->nuevoUsuarioGrupoUsuario($userMiemb, $grupoUsuario);
+            }
+        }
 
         return $grupoUsuario;
     }
