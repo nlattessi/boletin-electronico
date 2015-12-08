@@ -70,8 +70,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `alumno_grupo_alumno` WRITE;
 /*!40000 ALTER TABLE `alumno_grupo_alumno` DISABLE KEYS */;
-INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (1,1,1,NULL,NULL);
-INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (2,1,2,NULL,NULL);
+/*INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (1,1,1,NULL,NULL);
+INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (2,1,2,NULL,NULL);*/
 /*!40000 ALTER TABLE `alumno_grupo_alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 

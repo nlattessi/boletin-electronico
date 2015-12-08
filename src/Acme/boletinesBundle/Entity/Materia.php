@@ -83,6 +83,7 @@ class Materia
         $this->creationTime = new \DateTime();
         $this->horarios = new ArrayCollection();
         $this->evaluaciones = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
     }
 
 

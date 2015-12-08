@@ -4,6 +4,8 @@ namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Acme\boletinesBundle\Utils\Herramientas;
+
 /**
  * Archivo
  *
@@ -29,9 +31,9 @@ class Archivo
     /**
      * @var string
      *
-     * @ORM\Column(name="ruta_archivo", type="string", length=75, nullable=false)
+     * @ORM\Column(name="path", type="string", length=75, nullable=false)
      */
-    private $rutaArchivo;
+    private $path;
 
     /**
      * @var \DateTime
@@ -84,7 +86,7 @@ class Archivo
     /**
      * Get nombreParaMostrar
      *
-     * @return string 
+     * @return string
      */
     public function getNombreParaMostrar()
     {
@@ -107,7 +109,7 @@ class Archivo
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -115,26 +117,26 @@ class Archivo
     }
 
     /**
-     * Set rutaArchivo
+     * Set path
      *
-     * @param string $rutaArchivo
+     * @param string $path
      * @return Archivo
      */
-    public function setRutaArchivo($rutaArchivo)
+    public function setPath($path)
     {
-        $this->rutaArchivo = $rutaArchivo;
+        $this->path = $path;
 
         return $this;
     }
 
     /**
-     * Get rutaArchivo
+     * Get path
      *
-     * @return string 
+     * @return string
      */
-    public function getRutaArchivo()
+    public function getPath()
     {
-        return $this->rutaArchivo;
+        return $this->path;
     }
 
     /**
@@ -153,7 +155,7 @@ class Archivo
     /**
      * Get fechaSubida
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaSubida()
     {
@@ -176,7 +178,7 @@ class Archivo
     /**
      * Get fechaActualizacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaActualizacion()
     {
@@ -186,7 +188,7 @@ class Archivo
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -209,7 +211,7 @@ class Archivo
     /**
      * Get usuarioCarga
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuarioCarga()
     {
@@ -218,5 +220,40 @@ class Archivo
 
     public function __toString(){
         return $this->getNombreParaMostrar();
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->getPath()
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->getPath();
+    }
+    public function getWebPath()
+    {
+        return null === $this->getPath()
+            ? null
+            : $this->getUploadDir() . '/' . $this->getPath();
+    }
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/archivos';
+    }
+
+    public function getSize()
+    {
+        return Herramientas::formatSizeUnits(filesize($this->getAbsolutePath()));
+    }
+
+    public function getFileName()
+    {
+        return substr(substr($this->getPath(), strpos($this->getPath(), '/')), 1);
     }
 }
