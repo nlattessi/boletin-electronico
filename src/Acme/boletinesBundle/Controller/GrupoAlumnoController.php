@@ -46,9 +46,12 @@ class GrupoAlumnoController extends Controller
             } else {
                 $message = "Errores";
             }
-        }else
+        }else{
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
+        }
 
-        return $this->render('BoletinesBundle:GrupoAlumno:new.html.twig', array());
+        return $this->render('BoletinesBundle:GrupoAlumno:new.html.twig', array('establecimientos' => $establecimientos));
     }
     private function createEntity($data)
     {
@@ -111,26 +114,30 @@ class GrupoAlumnoController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-
             $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $id));
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
         }
 
-        return $this->render('BoletinesBundle:GrupoAlumno:edit.html.twig', array('grupo' => $grupoAlumno, 'mensaje' => $message));
+        return $this->render('BoletinesBundle:GrupoAlumno:edit.html.twig', array('grupo' => $grupoAlumno,
+            'mensaje' => $message,
+            'establecimientos' => $establecimientos,));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $id));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $grupoAlumno->setEstablecimiento($establecimiento);
 
-        $grupoAlumno->setNombreGrupoAlumno($data->request->get('nombreGrupoAlumno'));
-        if($data->request->get('esCurso') == 0) {
-            $grupoAlumno->setEsCurso(false);
-        }else{
-            $grupoAlumno->setEsCurso(true);
-        }
+        $grupoAlumno->setNombre($data->request->get('nombre'));
+
 
         $em->persist($grupoAlumno);
         $em->flush();
+
+        //TODO Facu: persistir los cambios en la lista de alumnos
 
         return $grupoAlumno;
     }

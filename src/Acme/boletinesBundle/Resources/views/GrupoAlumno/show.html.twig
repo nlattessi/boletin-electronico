@@ -20,7 +20,7 @@
                     <div class="panel panel-grupos center-align">
                         <h5>Grupo: <span><strong>{{ grupo }}</strong></span></h5>
                         <h6>Alumnos: <span><strong>{{ grupo.alumnos|length  }}</strong></span> </h6>
-                        <a href="alumnos-docentes-editar_directivo.html" data-position="bot" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                        <a href="{{path('grupoAlumno_edit', {'id' : grupo.id})}}" data-position="bot" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                         <a href="#" data-position="bot" data-delay="25" data-tooltip="Imprimir" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
                     </div>
                 </div>

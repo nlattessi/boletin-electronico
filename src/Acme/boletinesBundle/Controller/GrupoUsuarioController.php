@@ -58,10 +58,8 @@ class GrupoUsuarioController extends Controller
                 $message = "Errores";
             }
         }else{
-            $em = $this->getDoctrine()->getManager();
-            $user = $this->getUser();
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
         }
 
         return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('establecimientos' => $establecimientos));
@@ -140,26 +138,30 @@ class GrupoUsuarioController extends Controller
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
             $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
         }
 
-        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupo' => $grupoUsuario, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupo' => $grupoUsuario,
+            'mensaje' => $message,
+            'establecimientos' => $establecimientos));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $grupoUsuario->setEstablecimiento($establecimiento);
 
-        $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-        if($data->request->get('esPrivado') != 0){
-            $grupoUsuario->setEsPrivado(false);
-        }else{
-            $grupoUsuario->setEsPrivado(true);
-        }
+        $grupoUsuario->setNombre($data->request->get('nombre'));
 
         $em->persist($grupoUsuario);
         $em->flush();
+
+        //TODO Facu: persistir los cambios en la lista de usuarios
+
 
         return $grupoUsuario;
     }

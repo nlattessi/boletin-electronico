@@ -20,6 +20,14 @@
                             <input name="nombre" id="nombre" type="text" class="validate">
                             <label for="nombre" class="">Nombre del Grupo</label>
                         </div>
+                        <div class="input-field col s12">
+                            <select class="initialized"  name="establecimiento" id="establecimiento">
+                                {% for establecimiento in establecimientos %}
+                                    <option value="{{ establecimiento.id }}"> {{ establecimiento.nombre }} </option>
+                                {% endfor %}
+                            </select>
+                            <label for="establecimiento" class="">Establecimiento</label>
+                        </div>
                         <div class="input-field col s12 m6 l12">
                             <input id="typeahead" type="text" class="validate" data-provide="typeahead">
                             <label for="nombre_inst" class="">Nombre de alumno</label>
