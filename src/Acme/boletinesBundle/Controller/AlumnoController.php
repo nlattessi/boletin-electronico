@@ -20,11 +20,12 @@ class AlumnoController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:Alumno')->findAll();
-
-        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos));
     }
 
     public function getOneAction($id)

@@ -19,11 +19,12 @@ class DocenteController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $docentes = $muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:Docente')->findAll();
-
-        return $this->render('BoletinesBundle:Docente:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Docente:index.html.twig', array('docentes' => $docentes));
     }
 
     public function getOneAction($id)
