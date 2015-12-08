@@ -78,6 +78,7 @@ class GrupoAlumnoController extends Controller
         //TODO Facu: persistir la relación manyToMany
         foreach ($usersIds as $userId) {
             $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            //$alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
             $alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userMiemb->getIdEntidadAsociada()));
             if($alumnoMiembro instanceof Alumno){
                 $grupoAlumnoService->nuevoAlumnoGrupoAlumno($userMiemb, $grupoAlumno);

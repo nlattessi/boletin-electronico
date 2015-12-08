@@ -221,7 +221,20 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $institucion = $this->getUser()->getInstitucion();
 
+
         //TODO: mandar establecimiento por parametro y hacer la búsqueda en al tabla de Alumnos
+        /*
+         * $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $request->request->get('establecimiento')));
+         *
+         * $query = $em->createQueryBuilder()
+            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->from('BoletinesBundle:Alumno', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.establecimiento = :establecimiento')
+            ->setParameter('query', '%'.$request->query->get('query').'%')
+            ->setParameter('establecimiento', $establecimiento)
+            ->getQuery();
+         * */
 
         $query = $em->createQueryBuilder()
             ->select('u.nombre', 'u.apellido', 'u.id')
