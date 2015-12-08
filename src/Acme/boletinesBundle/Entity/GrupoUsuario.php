@@ -263,5 +263,10 @@ class GrupoUsuario
         $this->establecimiento = $establecimiento;
     }
 
+    function __toString()
+    {
+        return $this->getNombre();
+    }
+
 
 }

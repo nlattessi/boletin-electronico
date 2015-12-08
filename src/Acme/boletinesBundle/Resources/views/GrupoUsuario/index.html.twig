@@ -41,7 +41,7 @@
                         <tbody>
                         {% for grupo in grupos %}
                             <tr>
-                                <td><a href="grupos-detalle_directivo.html" class="casual">{{ grupo.nombre }}</a></td>
+                                <td><a href="{{ path('grupoUsuario_show', { 'id': grupo.id })  }}" class="casual">{{ grupo.nombre }}</a></td>
                                 <td><span class="new badge">{{ grupo.usuarios|length }}</span></td>
                                 <td>{{ grupo.creationTime|date("d/m/Y") }}</td>
                                 <td>

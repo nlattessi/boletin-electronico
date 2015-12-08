@@ -427,4 +427,11 @@ class Usuario implements UserInterface, \Serializable
             return $notificacion->getNotificado() == false;
         });
     }
+
+    function __toString()
+    {
+        return $this->getApellido() . ', ' . $this->getNombre() ;
+    }
+
+
 }

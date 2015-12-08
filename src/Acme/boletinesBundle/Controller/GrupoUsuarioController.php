@@ -41,9 +41,9 @@ class GrupoUsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+        return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
     }
 
     public function newAction(Request $request)
@@ -53,7 +53,7 @@ class GrupoUsuarioController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $grupoUsuario = $this->createEntity($request);
             if($grupoUsuario != null) {
-                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
             } else {
                 $message = "Errores";
             }
@@ -118,7 +118,7 @@ class GrupoUsuarioController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
         if($grupoUsuario instanceof GrupoUsuario) {
             $em->remove($grupoUsuario);
@@ -134,22 +134,22 @@ class GrupoUsuarioController extends Controller
         if ($request->getMethod() == 'POST') {
             $grupoUsuario = $this->editEntity($request, $id);
             if($grupoUsuario != null) {
-                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
             } else {
                 $message = "Errores";
             }
         } else {
             $em = $this->getDoctrine()->getManager();
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
         }
 
-        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupoUsuario' => $grupoUsuario, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupo' => $grupoUsuario, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
         $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
         if($data->request->get('esPrivado') != 0){
