@@ -2,7 +2,8 @@
 
 namespace Acme\boletinesBundle\Controller;
 
-use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
+//use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -12,17 +13,19 @@ use Acme\boletinesBundle\Entity\Alumno;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\AlumnoType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AlumnoController extends Controller
 {
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:Alumno')->findAll();
-
-        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos));
     }
 
     public function getOneAction($id)
@@ -59,11 +62,13 @@ class AlumnoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $usuario = new Usuario();
+        /* Por qué el nombre así
         $usuario->setNombre(
             $request->request->get('nombre')
             . '.' .
             $request->request->get('apellido')
-        );
+        );*/
+        $usuario->setNombre($request->request->get('nombre'));
         $usuario->setApellido($request->request->get('apellido'));
         $usuario->setPassword($request->request->get('apellido'));
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_ALUMNO'));
@@ -83,6 +88,11 @@ class AlumnoController extends Controller
         $alumno->setUsuario($usuario);
 
         $em->persist($alumno);
+
+        $em->flush();
+
+        $usuario->setIdEntidadAsociada($alumno->getId());
+        $em->persist($usuario);
         $em->flush();
 
         return new RedirectResponse($this->generateUrl('director_alumnos'));
@@ -203,6 +213,43 @@ class AlumnoController extends Controller
     public function antybullyngAction($id, Request $request = null){
         //notificar Directivo
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function autocompletarAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $this->getUser()->getInstitucion();
+
+
+        //TODO: mandar establecimiento por parametro y hacer la búsqueda en al tabla de Alumnos
+        /*
+         * $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $request->request->get('establecimiento')));
+         *
+         * $query = $em->createQueryBuilder()
+            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->from('BoletinesBundle:Alumno', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.establecimiento = :establecimiento')
+            ->setParameter('query', '%'.$request->query->get('query').'%')
+            ->setParameter('establecimiento', $establecimiento)
+            ->getQuery();
+         * */
+
+        $query = $em->createQueryBuilder()
+            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->from('BoletinesBundle:Usuario', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.institucion = :institucion')
+            ->andWhere('u.rol = :rolAlumnoId')
+            ->setParameter('query', '%'.$request->query->get('query').'%')
+            ->setParameter('institucion', $institucion)
+            ->setParameter('rolAlumnoId', 3)
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return new Response(json_encode($entities));
     }
 }
 

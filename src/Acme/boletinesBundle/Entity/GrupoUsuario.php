@@ -69,6 +69,13 @@ class GrupoUsuario
      */
     private $establecimiento;
 
+    /**
+     * @ManyToMany(targetEntity="Acme\boletinesBundle\Entity\Usuario")
+     * @JoinTable(name="usuario_grupo_usuario",
+     *      joinColumns={@JoinColumn(name="grupo_usuario_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="usuario_id", referencedColumnName="id")}
+     *      )
+     **/
     private $usuarios;
 
     private $cantUsuarios;
@@ -96,6 +103,8 @@ class GrupoUsuario
     {
         $this->usuarios = $usuarios;
     }
+
+
 
     /**
      * @return mixed
@@ -252,6 +261,11 @@ class GrupoUsuario
     public function setEstablecimiento($establecimiento)
     {
         $this->establecimiento = $establecimiento;
+    }
+
+    function __toString()
+    {
+        return $this->getNombre();
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -19,19 +20,30 @@ class GrupoUsuarioController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $grupos = $muchosAMuchos->obtenerGruposPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:GrupoUsuario')->findAll();
+//        foreach($grupos as $grupo) {
+//
+//            $usuariosGrupos = $em->getRepository('BoletinesBundle:UsuarioGrupoUsuario')->findBy(array('grupoUsuario' => $grupo));
+//            var_dump(count($grupo->getUsuarios()));
+//
+////            $grupo->setCantUsuarios(count($usuariosGrupos));
+//        }
+//exit();
 
-        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('grupos' => $grupos));
     }
 
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+        return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
     }
 
     public function newAction(Request $request)
@@ -41,33 +53,47 @@ class GrupoUsuarioController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $grupoUsuario = $this->createEntity($request);
             if($grupoUsuario != null) {
-                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
             } else {
                 $message = "Errores";
             }
         }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
         }
 
-        return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoUsuario:new.html.twig', array('establecimientos' => $establecimientos));
     }
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
+        $grupoUsuarioService = $this->get('boletines.servicios.grupoUsuario');
+        $usersIds = $data->request->get('idMiembro');
+        if(!$usersIds){
+            //por si no se agregan usuarios
+            $usersIds = new ArrayCollection();
+        }
 
         $grupoUsuario = new GrupoUsuario();
-        $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-        $grupoUsuario->setUsuarioCarga($sesionService->obtenerUsuario());
-        if($data->request->get('esPrivado') != 0){
-            $grupoUsuario->setEsPrivado(false);
-        }else{
-            $grupoUsuario->setEsPrivado(true);
-        }
+        $grupoUsuario->setNombre($data->request->get('nombre'));
+        $grupoUsuario->setUsuarioCarga($this->getUser());
+        $grupoUsuario->setEsPrivado(false);
+
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $grupoUsuario->setEstablecimiento($establecimiento);
 
         $em->persist($grupoUsuario);
         $em->flush();
+
+
+        //TODO Facu: persistir la relación manyToMany
+        foreach ($usersIds as $userId) {
+            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            if($userMiemb instanceof Usuario){
+                $grupoUsuarioService->nuevoUsuarioGrupoUsuario($userMiemb, $grupoUsuario);
+            }
+        }
 
         return $grupoUsuario;
     }
@@ -90,7 +116,7 @@ class GrupoUsuarioController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
         if($grupoUsuario instanceof GrupoUsuario) {
             $em->remove($grupoUsuario);
@@ -106,32 +132,36 @@ class GrupoUsuarioController extends Controller
         if ($request->getMethod() == 'POST') {
             $grupoUsuario = $this->editEntity($request, $id);
             if($grupoUsuario != null) {
-                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupoUsuario' => $grupoUsuario));
+                return $this->render('BoletinesBundle:GrupoUsuario:show.html.twig', array('grupo' => $grupoUsuario));
             } else {
                 $message = "Errores";
             }
         } else {
             $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+            $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($this->getUser());
         }
 
-        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupoUsuario' => $grupoUsuario, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:GrupoUsuario:edit.html.twig', array('grupo' => $grupoUsuario,
+            'mensaje' => $message,
+            'establecimientos' => $establecimientos));
     }
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('idGrupoUsuario' => $id));
+        $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')
+            ->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $grupoUsuario->setEstablecimiento($establecimiento);
 
-        $grupoUsuario->setNombreGrupoUsuario($data->request->get('nombreGrupoUsuario'));
-        if($data->request->get('esPrivado') != 0){
-            $grupoUsuario->setEsPrivado(false);
-        }else{
-            $grupoUsuario->setEsPrivado(true);
-        }
+        $grupoUsuario->setNombre($data->request->get('nombre'));
 
         $em->persist($grupoUsuario);
         $em->flush();
+
+        //TODO Facu: persistir los cambios en la lista de usuarios
+
 
         return $grupoUsuario;
     }

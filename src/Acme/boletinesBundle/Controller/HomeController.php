@@ -68,6 +68,26 @@ class HomeController extends Controller
                 'alumnos' => $alumnos,
                 'css_active' => 'home',
             ));
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO'){
+            $user = $this->getUser();
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+            $cantidadAlumnos = count($muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos));
+            $cantidadPadres = count($muchosAMuchos->obtenerPadresPorEstablecimientos($establecimientos));
+            $cantidadDocentes = count($muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos));
+            $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
+            $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
+            $cantidadAdmins = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMIN'));
+
+            $roles = array(
+                'alumnos' => $cantidadAlumnos,
+                'padres' => $cantidadPadres,
+                'docentes' => $cantidadDocentes,
+                'bedeles' => $cantidadBedeles,
+                'directivos' => $cantidadDirectivos,
+                'admins' => $cantidadAdmins
+            );
+            return $this->render('BoletinesBundle:Default:home.html.twig', array('roles' => $roles));
         }
 
         return $this->render('BoletinesBundle:Default:home.html.twig');
