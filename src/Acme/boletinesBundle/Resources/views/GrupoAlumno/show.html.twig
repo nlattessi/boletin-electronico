@@ -1,43 +1,50 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('grupoAlumno') }}" class="">Grupos de alumnos</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Detalle</a></li>
+{% endblock %}
+{% block page %}
+    <div class="row">
 
-{% block body -%}
-    <h1>GrupoAlumno</h1>
-
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id GrupoAlumno</th>
-            <td>{{ grupoAlumno.idGrupoAlumno }}</td>
-        </tr>
-        <tr>
-            <th>GrupoAlumno</th>
-            <td>{{ grupoAlumno.nombreGrupoAlumno }}</td>
-        </tr>
-        <tr>
-            <th>Es Curso</th>
-            <td><input type="checkbox" disabled
-                {% if grupoAlumno.esCurso %}
-                       checked
-                {% endif %}
-                        >
-            </td>
-        </tr>
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Detalle del grupo</h4>
+                </div>
+            </div>
+            <div class="row">
 
 
-        </tbody>
-    </table>
+                <div class="col s12 m12 l12">
+                    <div class="panel panel-grupos center-align">
+                        <h5>Grupo: <span><strong>{{ grupo }}</strong></span></h5>
+                        <h6>Alumnos: <span><strong>{{ grupo.alumnos|length  }}</strong></span> </h6>
+                        <a href="{{path('grupoAlumno_edit', {'id' : grupo.id})}}" data-position="bot" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                        <a href="#" data-position="bot" data-delay="25" data-tooltip="Imprimir" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
+                    </div>
+                </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('grupoAlumno') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('grupoAlumno_edit', { 'id': grupoAlumno.idGrupoAlumno }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('grupoAlumno_delete', { 'id': grupoAlumno.idGrupoAlumno }) }}">Borrar</a></li>
-</ul>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col s12 mar-top-soft">
+                    <ul class="collection">
+                        {% for alumno in grupo.alumnos %}
+                            <li class="collection-item">
+                                <a href="grupos-fichaalumno_directivo.html">
+                                    <span>{{ alumno }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+
+        </div><!--  End Tables Section  -->
+
+    </div>
 {% endblock %}

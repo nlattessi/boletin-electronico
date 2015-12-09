@@ -42,6 +42,10 @@ services:
           class: Acme\boletinesBundle\Servicios\GrupoAlumnoService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.grupoUsuario:
+          class: Acme\boletinesBundle\Servicios\GrupoUsuarioService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
       boletines.servicios.materia:
           class: Acme\boletinesBundle\Servicios\MateriaService
           arguments:

@@ -2,6 +2,10 @@ grupoUsuario_delete_from_director:
     path:     /director/delete/{id}
     defaults: { _controller: BoletinesBundle:GrupoUsuario:deleteDirector }
 
+grupoUsuario_autocompletar:
+    path:     /autocompletar
+    defaults: { _controller: BoletinesBundle:Usuario:autocompletar }
+
 grupoUsuario:
     path:     /
     defaults: { _controller: BoletinesBundle:GrupoUsuario:index }

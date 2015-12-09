@@ -1,43 +1,50 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('grupoUsuario') }}" class="">Grupos de usuarios</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Detalle</a></li>
+{% endblock %}
+{% block page %}
+    <div class="row">
 
-{% block body -%}
-    <h1>GrupoUsuario</h1>
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Detalle del grupo</h4>
+                </div>
+            </div>
+            <div class="row">
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id GrupoUsuario</th>
-            <td>{{ grupoUsuario.idGrupoUsuario }}</td>
-        </tr>
-        <tr>
-            <th>GrupoUsuario</th>
-            <td>{{ grupoUsuario.nombreGrupoUsuario }}</td>
-        </tr>
-        <tr>
-            <th>Es privado</th>
-            <td><input type="checkbox" value="{{ grupoUsuario.esPrivado }}"  disabled><br/></td>
-        </tr>
-        {% if grupoUsuario.usuarioCarga != null %}
-        <tr>
-            <th>Usuario Asociado</th>
-            <td>{{ grupoUsuario.usuarioCarga.__toString() }}</td>
-        </tr>
-        {% endif %}
 
-        </tbody>
-    </table>
+                <div class="col s12 m12 l12">
+                    <div class="panel panel-grupos center-align">
+                        <h5>Grupo: <span><strong>{{ grupo }}</strong></span></h5>
+                        <h6>Usuarios: <span><strong>{{ grupo.usuarios|length  }}</strong></span> </h6>
+                        <a href="{{path('grupoUsuario_edit', {'id' : grupo.id})}}" data-position="bot" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                        <a href="#" data-position="bot" data-delay="25" data-tooltip="Imprimir" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-printer"></i></a>
+                    </div>
+                </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('grupoUsuario') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('grupoUsuario_edit', { 'id': grupoUsuario.idGrupoUsuario }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('grupoUsuario_delete', { 'id': grupoUsuario.idGrupoUsuario }) }}">Borrar</a></li>
-</ul>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col s12 mar-top-soft">
+                    <ul class="collection">
+                        {% for usuario in grupo.usuarios %}
+                            <li class="collection-item">
+                                <a href="grupos-fichausuario_directivo.html">
+                                    <span>{{ usuario }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+
+        </div><!--  End Tables Section  -->
+
+    </div>
 {% endblock %}

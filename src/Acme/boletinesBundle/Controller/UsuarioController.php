@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\UsuarioType;
@@ -404,5 +405,25 @@ class UsuarioController extends Controller
         }
 
         return $usuarios;
+    }
+
+    public function autocompletarAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $institucion = $this->getUser()->getInstitucion();
+
+        $query = $em->createQueryBuilder()
+            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->from('BoletinesBundle:Usuario', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.institucion = :institucion')
+            ->setParameter('query', '%'.$request->query->get('query').'%')
+            ->setParameter('institucion', $institucion)
+            ->getQuery();
+
+        $entities = $query->getResult();
+
+        return new Response(json_encode($entities));
     }
 }

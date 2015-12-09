@@ -1,26 +1,91 @@
-{% extends '::base.html.twig' %}
-{% block body -%}
-    <h1>GrupoAlumno edit</h1>
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('grupoAlumno') }}" class="">Grupos de alumnos</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Editar</a></li>
+{% endblock %}
+{% block page %}
+    <div class="row">
 
-    <h2>{{ mensaje }}</h2>
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Crear grupo y asignar alumnos</h4>
+                </div>
+            </div>
+            <form action="{{path('grupoAlumno_edit', {'id' : grupo.id})}}" method="post">
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <div class="input-field col s12 m6 l12">
+                            <input name="nombre" id="nombre" type="text" class="validate" value="{{ grupo.nombre }}">
+                            <label for="nombre" class="">Nombre del Grupo</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select class="initialized"  name="establecimiento" id="establecimiento">
+                                {% for establecimiento in establecimientos %}
+                                    {% if grupo.establecimiento.id == establecimiento.id %}
+                                        <option selected="selected" value="{{ establecimiento.id }}"> {{ establecimiento.nombre }} </option>
+                                    {% else %}
+                                        <option value="{{ establecimiento.id }}"> {{ establecimiento.nombre }} </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label for="establecimiento" class="">Establecimiento</label>
+                        </div>
+                        <div class="input-field col s12 m6 l12">
+                            <input id="typeahead" type="text" class="validate" data-provide="typeahead">
+                            <label for="nombre_inst" class="">Nombre de alumno</label>
+                        </div>
+                    </div>
 
-    <form action="{{ path('grupoAlumno_edit', {'id':grupoAlumno.idGrupoAlumno }) }}" method="post">
-        <input type="text" value="{{ grupoAlumno.idGrupoAlumno }}" hidden="hidden" name="idGrupoAlumno"><br/>
-        <input type="text" value="{{ grupoAlumno.nombreGrupoAlumno }}" placeholder="nombre" name="nombreGrupoAlumno"><br/>
-        <input type="hidden" name="esCurso" value="0">
-        <input type="checkbox"
-                {% if grupoAlumno.esCurso %}
-               checked
-               {% endif %}
-               name="esCurso" value="1"><br/>
+                    <div class="col s12 m12 l6">
+                        <div class="panel panel-grupos center-align">
+                            <h5>Grupo: <span><strong>{{ grupo.nombre }}</strong></span></h5>
+                            <h6>Alumnos: <span><strong>{{  grupo.alumnos|length }}</strong></span> </h6>
+                            <button type="submit" name="submit" class="btn-flat waves-effect waves-light">Guardar</button>
+                        </div>
+                    </div>
 
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('grupoAlumno') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col s12 mar-top-soft">
+                        <ul id="miembros" class="collection">
+                            {% for alumno in grupo.alumnos %}
+                                <li class="collection-item">
+                                    <input type="hidden" class="miembros" name="idMiembro[]" value="{{ alumno.id}}">
+                                    <span> {{ alumno }}</span>
+                                    <a href="#" data-position="left" data-delay="25" data-tooltip="Eliminar" class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light noAgregar"><i class="icon-linear-trash"></i></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+            </form>
+        </div><!--  End Tables Section  -->
+
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('bundles/boletines/js/autocompletarGrupo.js') }}"></script>
+
+    <script>
+
+        $(".noAgregar").click(function(e){
+            e.preventDefault();
+            $(this).parent().remove();/*
+             if ($('#miembros li').length < 1) {
+             $('#newMensajeSubmit').addClass("disabled");
+             $('#newMensajeSubmit').prop("disabled", true);
+             }*/
+        });
+        /*
+         if ($('#destinatarios div').length > 0) {
+         $('#newMensajeSubmit').removeClass("disabled");
+         $('#newMensajeSubmit').prop("disabled", false);
+         }*/
+    </script>
 {% endblock %}

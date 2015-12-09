@@ -19,11 +19,12 @@ class DocenteController extends Controller
 
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $docentes = $muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos);
 
-        $entities = $em->getRepository('BoletinesBundle:Docente')->findAll();
-
-        return $this->render('BoletinesBundle:Docente:index.html.twig', array('entities' => $entities));
+        return $this->render('BoletinesBundle:Docente:index.html.twig', array('docentes' => $docentes));
     }
 
     public function getOneAction($id)
@@ -62,7 +63,7 @@ class DocenteController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
         $user = new Usuario();
         $user->setNombre($data->request->get('user'));
         $user->setPassword($data->request->get('password'));
@@ -102,14 +103,17 @@ class DocenteController extends Controller
         $docente->setUsuario($user);
         $docente->setCreationTime(new \DateTime() );
         $docente->setUpdateTime(new \DateTime() );
+        $docente->setEstablecimiento($establecimiento);
         $em->persist($docente);
         $em->flush();
 
+        $user->setIdEntidadAsociada($docente->getId());
+        $em->persist($user);
+
         $userEstablecimiento = new UsuarioEstablecimiento();
-        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
+
         $userEstablecimiento->setEstablecimiento($establecimiento);
         $userEstablecimiento->setUsuario($user);
-
         $em->persist($userEstablecimiento);
         $em->flush();
 

@@ -430,6 +430,11 @@ class Usuario implements UserInterface, \Serializable
         });
     }
 
+    function __toString()
+    {
+        return $this->getApellido() . ', ' . $this->getNombre() ;
+    }
+
     public function getEntidadAsociada()
     {
         return $this->entidadAsociada;
