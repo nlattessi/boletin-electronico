@@ -259,16 +259,43 @@ class MensajeController extends Controller
         $institucion = $this->getUser()->getInstitucion();
 
         $query = $em->createQueryBuilder()
-            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->select('u')
             ->from('BoletinesBundle:Usuario', 'u')
             ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
             ->andWhere('u.institucion = :institucion')
             ->setParameter('query', '%'.$request->query->get('query').'%')
             ->setParameter('institucion', $institucion)
             ->getQuery();
-
         $entities = $query->getResult();
 
-        return new Response(json_encode($entities));
+        $data = [];
+        foreach($entities as $e) {
+            $entity = [
+                'id' => $e->getId(),
+                'nombre' => $e->getNombre(),
+                'apellido' => $e->getApellido()
+            ];
+            switch($e->getRol()) {
+                case 'ROLE_DOCENTE':
+                    $docente = $em->getRepository('BoletinesBundle:Docente')->find($e->getIdEntidadAsociada());
+                    if ($docente->getFoto()) {
+                      $entity['fotoWebPath'] = $docente->getFotoWebPath();
+                    }
+                    break;
+
+                case 'ROLE_ALUMNO':
+                    $alumno = $em->getRepository('BoletinesBundle:Alumno')->find($e->getIdEntidadAsociada());
+                    if ($alumno->getFoto()) {
+                      $entity['fotoWebPath'] = $alumno->getFotoWebPath();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            $data[] = $entity;
+        }
+
+        return new Response(json_encode($data));
     }
 }

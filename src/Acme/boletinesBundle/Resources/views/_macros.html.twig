@@ -1,7 +1,57 @@
-{% macro show_notificacionUsuario(notificacion) %}
+{% macro show_notificacion_usuario(notificacion) %}
 <li>
   <a href="{% if notificacion.notificacion.url is not null %}{{ path('notificacion_show', {'id': notificacion.id}) }}{% else %}#{% endif %}" class="t-s">
     {{ notificacion.notificacion.titulo }}<br><span class="ts-s">{{ notificacion.notificacion.fechaEnvio|ago }}</span>
   </a>
 </li>
+{% endmacro %}
+
+{% macro show_alumno_activo(alumno) %}
+  <h5 class="right-ch">
+    <img src="{% if alumno.avatar %}{{ asset('') }}{{ alumno.avatar.webPath }}{% endif %}" alt="" class="avatar-main circle1"> 
+    {{ alumno }}
+  </h5>
+{% endmacro %}
+
+{% macro show_img_menu_bar(path) %}
+  <li><img src="{{ asset('') }}{{ path }}" alt="" class="avatar-nav-top circle"></li>
+{% endmacro %}
+
+{% macro show_institucion_logo_nombre(institucion) %}
+  <div class="col s12 sch-mb">
+      <div class="panel-default">
+          <div class="panel-body-school normalh center-align">
+            {% if institucion.logo %}
+              <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb">
+            {% endif %}
+              <h6 class="school-style ">{{ institucion.nombre }}</h6>
+              <div class="col s4">
+              </div>
+          </div>
+      </div>
+  </div>
+{% endmacro %}
+
+{% macro show_entidad_con_foto(entidad) %}
+  <a href="#" class="collection-a"><img src="{% if entidad.foto %}{{ asset('') }}{{ entidad.fotoWebPath }}{% endif %}" alt="" class="circle avatar-table">
+        <span class="title truncate table-img-mar">{{ entidad }}</span></a>
+{% endmacro %}
+
+{% macro show_chip(usuario) %}
+<div class="chip">
+  {% if usuario.entidadAsociada and usuario.entidadAsociada.foto %}
+    <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="">
+  {% endif %}
+  <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ usuario.id}}">
+  {{ usuario.getNombreCompleto }}
+  <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
+</div>
+{% endmacro %}
+
+{% macro show_foto_mensaje(usuario) %}
+  {% if usuario.entidadAsociada %}
+    {% if usuario.entidadAsociada.foto %}
+      <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="" class="avatar-mb circle mb-a-pad">
+    {% endif %}
+  {% endif %}
 {% endmacro %}

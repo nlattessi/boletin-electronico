@@ -53,9 +53,11 @@
 
                         <ul class="collection">
                             {% for docente in docentes %}
-
                                 <li class="collection-item avatar">
-                                    <a href="usuarios-docentes-ficha_directivo.html" class="collection-a"><span class="title truncate">{{ docente.nombre }} {{ docente.apellido }}</span></a>
+                                    <a href="usuarios-docentes-ficha_directivo.html" class="collection-a">
+                                      {% if docente.foto %}<img src="{{ asset('') }}{{ docente.fotoWebPath }}" alt="" class="circle" />{% endif %}
+                                      <span class="title truncate">{{ docente.nombre }} {{ docente.apellido }}</span>
+                                    </a>
                                     <p>DNI: {{ docente.dni }}</p>
                                     {#<p>Matemática - Física</p>#}
                                     {#<p>7A - 7B - 1 año A - 1 año B </p>#}

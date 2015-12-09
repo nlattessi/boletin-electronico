@@ -55,7 +55,7 @@
                 <table class="striped">
                     <thead>
                     <tr>
-                        <th data-field="id">Alumno</th>
+                        <th data-field="id">Nombre y apellido</th>
                         <th data-field="name">Calificación</th>
                         <th data-field="name">Comentario</th>
                     </tr>
@@ -67,8 +67,7 @@
                         <tr>
                             <td>
                                 <div class="col s12">
-                                    <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle avatar-table">
-                                        <span class="title truncate table-img-mar">{{ calificacion.alumno.nombre }}</span></a>
+                                    {{ macros.show_entidad_con_foto(calificacion.alumno) }}
                                 </div>
                             </td>
                             <td>
@@ -82,7 +81,6 @@
                                             {% endif %}
                                         {% endfor %}
                                     </select>
-                                    <label for="{{ calificacion.id }}cal" class="">Calificación</label>
                                 </div>
                             </td>
                             <td>
@@ -98,8 +96,7 @@
                             <tr>
                                 <td>
                                     <div class="col s12">
-                                        <a href="#" class="collection-a"><img src="{{ asset('bundles/boletines/images/child.jpg')}}" alt="" class="circle avatar-table">
-                                            <span class="title truncate table-img-mar">{{ alumno.nombre }}</span></a>
+                                        {{ macros.show_entidad_con_foto(alumno) }}
                                     </div>
                                 </td>
                                 <td>
@@ -109,7 +106,6 @@
                                                 <option value="{{valorC.id}}">{{valorC.__toString()}}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="{{ alumno.id }}cal" class="">Calificación</label>
                                     </div>
                                 </td>
                                 <td>

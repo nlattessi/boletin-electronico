@@ -46,7 +46,8 @@ class SesionService {
             ->where('a.padre1 = ?1')
             ->orWhere('a.padre2 = ?1')
             ->setParameter(1, $idPadre)
-        ->setMaxResults(1);
+            ->setMaxResults(1)
+        ;
         $alumno = $queryBuilder->getQuery()->getSingleResult();
 
         $session->set('alumnoActivo',  $alumno);
