@@ -81,8 +81,8 @@ class Materia
     public function __construct()
     {
         $this->creationTime = new \DateTime();
-        $this->horarios = new ArrayCollection();
-        $this->evaluaciones = new ArrayCollection();
+        $this->horarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->evaluaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

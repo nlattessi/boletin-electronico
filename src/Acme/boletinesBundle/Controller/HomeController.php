@@ -70,6 +70,7 @@ class HomeController extends Controller
             ));
         }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO'){
             $user = $this->getUser();
+
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
             $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
             $cantidadAlumnos = count($muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos));

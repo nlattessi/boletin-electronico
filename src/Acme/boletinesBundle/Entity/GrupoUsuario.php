@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
 
 /**
  * GrupoUsuario
@@ -97,14 +98,12 @@ class GrupoUsuario
     }
 
     /**
-     * @param mixed $usuarios
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
      */
-    public function setUsuarios($usuarios)
+    public function addUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
     {
-        $this->usuarios = $usuarios;
+        $this->usuarios[] = $usuario;
     }
-
-
 
     /**
      * @return mixed

@@ -95,7 +95,7 @@ class AlumnoController extends Controller
         $em->persist($usuario);
         $em->flush();
 
-        return new RedirectResponse($this->generateUrl('director_alumnos'));
+        return new RedirectResponse($this->generateUrl('alumno'));
     }
 
     private function createEntity($data)

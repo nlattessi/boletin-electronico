@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\MateriaDiaHorario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -55,22 +56,50 @@ class MateriaController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
-            $materia = $this->createEntity($request);
-            if($materia != null) {
-                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia,
-                    'css_active' => 'materia',));
-            } else {
-                $message = "Errores";
-            }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
+            $this->createEntity($request);
         }
 
-        return $this->render('BoletinesBundle:Materia:new.html.twig', array('mensaje' => $message,
-            'entitiesRelacionadas' => $entitiesRelacionadas,
-            'css_active' => 'materia',));
+        $docentes = $this->getDocentes();
+        $tipoMateria = $this->getTipoMateria();
+        $grupoAlumnos = $this->getGrupoAlumnos();
+        $establecimientos = $this->getEstablecimientos();
+
+        return $this->render('BoletinesBundle:Materia:new.html.twig', array('docentes' => $docentes,
+            'gruposAlumnos' => $grupoAlumnos, 'tiposMateria' => $tipoMateria, 'establecimientos' => $establecimientos));
+    }
+
+    private function getDocentes()
+    {
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+
+        return $muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos);
+
+    }
+
+    private function getTipoMateria()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        return $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
+    }
+
+    private function getGrupoAlumnos()
+    {
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+
+        return $muchosAMuchos->obtenerGruposAlumnosPorEstablecimientos($establecimientos);
+    }
+
+    private function getEstablecimientos()
+    {
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+
+        return $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
     }
 
     public function deleteAction($id)
@@ -89,37 +118,80 @@ class MateriaController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
 
-        $sesionService = $this->get('boletines.servicios.sesion');
-        $actividadService =  $this->get('boletines.servicios.actividad');
-        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-			
-    	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
-        $usuario =  $sesionService->obtenerUsuario();
-		$calendario = new Calendario();
-		$calendario ->setUsuarioPropietario($usuario);
-		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
-		$em->persist($calendario);
-        $em->flush();
-
-        $actividad = $actividadService->crearActividad('borrar despues',
-            'harcodeamela toda'
-            ,new \DateTime('now')
-            ,new \DateTime('now'),
-           $usuario,
-            null);
-        $muchosAMuchos->asociarCalendarioActividad($calendario,$actividad);
+    	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('id' => $data->request->get('tipo_materia')));
+    	$establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
         $materia = new Materia();
-        $materia->setNombreMateria($data->request->get('nombreMateria'));
-    //    $materia->setIdTipoMateria($data->request->get('idTipoMateria'));
+        $materia->setEstablecimiento($establecimiento);
+        $materia->setNombre($data->request->get('nombre'));
         $materia->setTipoMateria($tipoMateria);
-        $materia->setCalendarioMateria($calendario);
 
-   
+        if($data->request->get('lunes_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Lunes');
+            $horario->setHoraInicio($data->request->get('lunes_inicio'));
+            $horario->setHoraFin($data->request->get('lunes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+        if($data->request->get('martes_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Martes');
+            $horario->setHoraInicio($data->request->get('martes_inicio'));
+            $horario->setHoraFin($data->request->get('martes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+        if($data->request->get('miercoles_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Miercoles');
+            $horario->setHoraInicio($data->request->get('miercoles_inicio'));
+            $horario->setHoraFin($data->request->get('miercoles_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+        if($data->request->get('jueves_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Jueves');
+            $horario->setHoraInicio($data->request->get('jueves_inicio'));
+            $horario->setHoraFin($data->request->get('jueves_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+        if($data->request->get('viernes_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Viernes');
+            $horario->setHoraInicio($data->request->get('viernes_inicio'));
+            $horario->setHoraFin($data->request->get('viernes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+        if($data->request->get('sabado_chk') == 'on')
+        {
+            $horario = new MateriaDiaHorario();
+            $horario->setDia('Sabado');
+            $horario->setHoraInicio($data->request->get('sabado_inicio'));
+            $horario->setHoraFin($data->request->get('sabado_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        }
+
         $em->persist($materia);
         $em->flush();
 
         return $materia;
     }
+
     public function editAction($id = null, Request $request = null)
     {
         $message = "";

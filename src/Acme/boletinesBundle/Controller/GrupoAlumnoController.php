@@ -37,8 +37,10 @@ class GrupoAlumnoController extends Controller
 
     public function newAction(Request $request)
     {
+
         $message = "";
         if ($request->getMethod() == 'POST') {
+
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $grupoAlumno = $this->createEntity($request);
             if($grupoAlumno != null) {
@@ -53,6 +55,7 @@ class GrupoAlumnoController extends Controller
 
         return $this->render('BoletinesBundle:GrupoAlumno:new.html.twig', array('establecimientos' => $establecimientos));
     }
+
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
@@ -71,24 +74,20 @@ class GrupoAlumnoController extends Controller
             ->findOneBy(array('id' => $data->request->get('establecimiento')));
         $grupoAlumno->setEstablecimiento($establecimiento);
 
-        $em->persist($grupoAlumno);
-        $em->flush();
 
-
-        //TODO Facu: persistir la relación manyToMany
         foreach ($usersIds as $userId) {
             $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
             //$alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
             $alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userMiemb->getIdEntidadAsociada()));
-            if($alumnoMiembro instanceof Alumno){
-                $grupoAlumnoService->nuevoAlumnoGrupoAlumno($userMiemb, $grupoAlumno);
-            }
+            $grupoAlumno->addAlumno($alumnoMiembro);
+
         }
+
+        $em->persist($grupoAlumno);
+        $em->flush();
 
         return $grupoAlumno;
     }
-
-
 
     public function deleteAction($id)
     {
