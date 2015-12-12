@@ -17,6 +17,10 @@
             <div class="col s12 m5 l5">
                 {{ macros.show_alumno_activo(app.session.get('alumnoActivo')) }}
             </div>
+        {% elseif app.user.rol == 'ROLE_DOCENTE'%}
+            <div class="col s2 m2 l2">
+                <a href="{{ path('convivencia_new') }}" data-position="left" data-delay="25" data-tooltip="Nueva convivencia" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
+            </div>
         {% endif %}
 
     </div>
@@ -36,8 +40,9 @@
                                 <th data-field="">Fecha</th>
                                 {% if app.user.rol == 'ROLE_DOCENTE' %}
                                     <th data-field="">Alumno</th>
-                                    <th data-field="">Acciones</th>
+                                    <th data-field="">Estado</th>
                                 {% endif %}
+                                <th data-field="">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -61,17 +66,32 @@
                                             <a href="{{ path('alumno_show', { 'id': convivencia.alumno.id }) }}">{{ convivencia.alumno }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('convivencia_show', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Detalle" class="tooltipped  btn-small btn waves-effect waves-light">
-                                                <i class="icon-linear-eye"></i>
+                                            {% if convivencia.validado %}
+                                               VALIDADO
+                                            {% else %}
+                                                PENDIENTE DE VALIDACION
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{{ path('convivencia_show', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Detalle" class="tooltipped  btn-small btn waves-effect waves-light">
+                                            <i class="icon-linear-eye"></i>
+                                        </a>
+                                        {% if app.user.rol == 'ROLE_ALUMNO' and not convivencia.valor %}
+                                            <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Descargo" class="tooltipped btn-small btn waves-effect waves-light">
+                                                <i class="icon-linear-pencil"></i>
                                             </a>
+                                        {% endif %}
+
+                                        {% if app.user.rol == 'ROLE_DOCENTE' %}
                                             <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light">
                                                 <i class="icon-linear-pencil"></i>
                                             </a>
-                                            <a href="{{ path('convivencia_delete', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light">
-                                                <i class="icon-linear-trash2"></i>
-                                            </a>
-                                        </td>
-                                    {% endif %}
+                                        <a href="{{ path('convivencia_delete', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light">
+                                            <i class="icon-linear-trash2"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
 

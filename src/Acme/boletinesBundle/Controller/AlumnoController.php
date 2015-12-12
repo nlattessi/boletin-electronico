@@ -25,7 +25,9 @@ class AlumnoController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos));
+        return $this->render('BoletinesBundle:Alumno:index.html.twig', array('alumnos' => $alumnos,
+            'establecimientos' => $establecimientos,
+            'css_active' => 'alumno',));
     }
 
     public function getOneAction($id)
@@ -217,7 +219,6 @@ class AlumnoController extends Controller
 
     public function autocompletarAction(Request $request)
     {
-
         $em = $this->getDoctrine()->getManager();
         $institucion = $this->getUser()->getInstitucion();
 
