@@ -3,9 +3,12 @@
 namespace Acme\boletinesBundle\Controller;
 
 use Acme\boletinesBundle\Entity\Padre;
-//use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Entity\UsuarioEstablecimiento;
+use Symfony\Component\HttpFoundation\Request;
+use Acme\boletinesBundle\Entity\Calendario;
 
 class PadreController extends Controller
 {
@@ -21,7 +24,7 @@ class PadreController extends Controller
         }
 
         return $this->render('BoletinesBundle:Padre:index.html.twig', array('padres' => $padres,
-            'css_active' => 'padre'));
+            'css_active' => 'padre',));
     }
 
     public function getOneAction($id)
@@ -41,7 +44,11 @@ class PadreController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() == 'POST') {
-            $docente = $this->createEntity($request);
+            $padre = $this->createEntity($request);
+            $padresService =  $this->get('boletines.servicios.padre');
+            $padresService->cargarHijos($padre);
+
+            return $this->render('BoletinesBundle:Padre:show.html.twig', array('padre' => $padre));
         }
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
@@ -51,11 +58,12 @@ class PadreController extends Controller
         $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
 
         return $this->render(
-            'BoletinesBundle:Docente:new.html.twig',
+            'BoletinesBundle:Padre:new.html.twig',
             array(
                 'establecimientos' => $establecimientos,
                 'paises' => $paises,
-                'ciudades' => $ciudades
+                'ciudades' => $ciudades,
+                'css_active' => 'padre',
             )
         );
     }
@@ -64,11 +72,11 @@ class PadreController extends Controller
         $em = $this->getDoctrine()->getManager();
         $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
         $user = new Usuario();
-        $user->setNombre($data->request->get('user'));
+        $user->setNombre($data->request->get('nombre'));
         $user->setPassword($data->request->get('password'));
         $user->setEmail($data->request->get('email'));
-        $rolBedel = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DOCENTE'));
-        $user->setRol($rolBedel);
+        $rolPadre = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_PADRE'));
+        $user->setRol($rolPadre);
         $user->setApellido($data->request->get('apellido'));
         $user->setInstitucion($this->getUser()->getInstitucion());
 
@@ -76,37 +84,32 @@ class PadreController extends Controller
         $em->flush();
 
 
-        $docente = new Docente();
-        $docente->setNombre($data->request->get('nombre'));
-        $docente->setApellido($data->request->get('apellido'));
-        $docente->setDni($data->request->get('dni'));
-//        $docente->set($data->request->get('sexo'));
-        $docente->setFechaNacimiento(
-            new \DateTime($data->request->get('bdate'))
-        );
-        $docente->setFechaIngreso(
-            new \DateTime($data->request->get('ingresodate'))
-        );
-        $docente->setDireccion($data->request->get('direccion'));
-        $docente->setCodigoPostal($data->request->get('postal'));
-        $docente->setCodigoPais($data->request->get('codpais'));
-        $docente->setCodigoArea($data->request->get('codarea'));
-        $docente->setTelefono($data->request->get('telefono'));
-//        $docente->set($data->request->get('telefonoem'));
-        $docente->setEsTitular($data->request->get('titular'));
-        $docente->setObservaciones($data->request->get('obs'));
+        $padre = new Padre();
+        $padre->setNombre($data->request->get('nombre'));
+        $padre->setApellido($data->request->get('apellido'));
+        $padre->setDni($data->request->get('dni'));
+//        $padre->set($data->request->get('sexo'));
+
+        $padre->setDireccion($data->request->get('direccion'));
+        $padre->setCodigoPostal($data->request->get('postal'));
+        $padre->setCodigoArea($data->request->get('codarea'));
+        $padre->setTelefono($data->request->get('telefono'));
+        $padre->setCelular($data->request->get('celular'));
+        $padre->setTelefonoLaboral($data->request->get('telefonoLaboral'));
+
+        $padre->setObservaciones($data->request->get('obs'));
 
         $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data->request->get('ciudad')));
-        $docente->setCiudad($ciudad);
-        $docente->setTitulo($data->request->get('titulouniversitario'));
-        $docente->setUsuario($user);
-        $docente->setCreationTime(new \DateTime() );
-        $docente->setUpdateTime(new \DateTime() );
-        $docente->setEstablecimiento($establecimiento);
-        $em->persist($docente);
+        $padre->setCiudad($ciudad);
+        //$padre->setOcupacion($data->request->get('ocupacion'));
+        $padre->setUsuario($user);
+        $padre->setCreationTime(new \DateTime() );
+        $padre->setUpdateTime(new \DateTime() );
+        $padre->setEstablecimiento($establecimiento);
+        $em->persist($padre);
         $em->flush();
 
-        $user->setIdEntidadAsociada($docente->getId());
+        $user->setIdEntidadAsociada($padre->getId());
         $em->persist($user);
 
         $userEstablecimiento = new UsuarioEstablecimiento();
@@ -117,17 +120,17 @@ class PadreController extends Controller
         $em->flush();
 
 
-        return $docente;
+        return $padre;
     }
 
 
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
 
-        if($docente instanceof Docente) {
-            $em->remove($docente);
+        if($padre instanceof Padre) {
+            $em->remove($padre);
             $em->flush();
         }
         return $this->indexAction();
@@ -138,49 +141,49 @@ class PadreController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            $docente = $this->editEntity($request, $id);
-            if($docente != null) {
-                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
+            $padre = $this->editEntity($request, $id);
+            if($padre != null) {
+                return $this->render('BoletinesBundle:Padre:show.html.twig', array('padre' => $padre));
             } else {
                 $message = "Errores";
             }
         }else{
             $em = $this->getDoctrine()->getManager();
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+            $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
         }
 
-        return $this->render('BoletinesBundle:Docente:edit.html.twig', array('docente' => $docente, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Padre:edit.html.twig', array('padre' => $padre, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
     }
 
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
 
-        $docente->setNombreDocente($data->request->get('nombreDocente'));
-        $docente->setEmailDocente($data->request->get('emailDocente'));
-        $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
+        $padre->setNombrePadre($data->request->get('nombrePadre'));
+        $padre->setEmailPadre($data->request->get('emailPadre'));
+        $padre->setTelefonoPadre($data->request->get('telefonoPadre'));
         $idUsuario = $data->request->get('idUsuario');
         if($idUsuario > 0){
             $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
-            $docente->setUsuario($usuario);
+            $padre->setUsuario($usuario);
         }else{
             //no seleccionó ninguno
-            if($docente->getUsuario() == null) {
+            if($padre->getUsuario() == null) {
                 //no tenia ninguno
                 $controllerUsuario = new UsuarioController();
-                $usuario = $controllerUsuario->crearUsuarioDocente($docente->getNombreDocente(), $docente->getEmailDocente());
+                $usuario = $controllerUsuario->crearUsuarioPadre($padre->getNombrePadre(), $padre->getEmailPadre());
                 $em->persist($usuario);
-                $docente->setUsuario($usuario);
+                $padre->setUsuario($usuario);
             }
         }
 
 
-        $em->persist($docente);
+        $em->persist($padre);
         $em->flush();
 
-        return $docente;
+        return $padre;
     }
 
     public function deleteDirectorAction($id)

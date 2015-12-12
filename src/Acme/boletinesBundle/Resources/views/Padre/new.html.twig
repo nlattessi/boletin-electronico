@@ -18,17 +18,18 @@
                 </div>
                 <form action="{{ path('padre_new') }}" method="post">
 
-
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
                             <select name="establecimiento" id="establecimiento">
+                                <option value="" disabled selected>Establecimiento</option>
                                 {% for establecimiento in establecimientos %}
                                     <option value="{{ establecimiento.id }}" >{{ establecimiento.nombre }} </option>
                                 {% endfor %}
                             </select>
-                            <label for="establecimiento">Establecimiento</label>
-
                         </div>
+                    </div>
+                    <div class="row">
+
                         <div class="input-field col s12 m6 l6">
                             <input name="nombre" id="nombre_inst" type="text"
                                    class="validate">
@@ -58,13 +59,6 @@
                                    class="validate">
                             <label for="dni">DNI</label>
                         </div>
-                        {#<div class="input-field col s12 m6 l12">#}
-                            {#<i class="icon-linear-magnifier prefix"></i>#}
-                            {#<input id="icon_prefix" type="text"#}
-                                   {#class="validate">#}
-                            {#<label for="icon_prefix">Cursos a cargo#}
-                                {#(autocompletar)</label>#}
-                        {#</div>#}
 
 
                     </div>
@@ -98,27 +92,6 @@
                         </div>
                     </div>
 
-
-                    <div class="row">
-                        <div class=" col s12 m6 l6">
-                            <i class="icon-linear-calendar-insert"></i>
-                            <label for="birthdate" class="">Fecha de
-                                nacimiento</label>
-                            <input name="bdate" type="date" class="datepicker">
-                        </div>
-
-                        <div class=" col s12 m6 l6">
-                            <i class="icon-linear-calendar-insert"></i>
-                            <label for="ingreso" class="">Fecha de
-                                ingreso</label>
-                            <input name="ingresodate" type="date" class="datepicker">
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                    </div>
-
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
                             <select>
@@ -150,10 +123,6 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s3">
-                            <input name="codpais" id="codpais" type="number" class="validate">
-                            <label for="codpais">Código país</label>
-                        </div>
-                        <div class="input-field col s3">
                             <input name="codarea" id="codarea" type="number" class="validate">
                             <label for="codarea">Código de área</label>
                         </div>
@@ -162,18 +131,18 @@
                             <label for="telefono">Teléfono</label>
                         </div>
                         <div class="input-field col s3">
-                            <input name="telefonoem" id="telefonoem" type="number" class="validate">
-                            <label for="telefonoem">Teléfono de emergencia</label>
+                            <input name="telefonoLaboral" id="telefonoLaboral" type="number" class="validate">
+                            <label for="telefonoLaboral">Teléfono laboral</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input name="celular" id="celular" type="number" class="validate">
+                            <label for="celular">Teléfono celular</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
                             <input name="email" id="email" type="email" class="validate">
                             <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s12 m6 l6">
-                            <input name="titulouniversitario" id="titulo" type="text" class="validate">
-                            <label for="titulo">Título universitario</label>
                         </div>
                     </div>
                     <div class="row">
@@ -185,24 +154,6 @@
                                 <div class="btn-large">
                                     <span>Elegir archivo</span>
                                     <input type="file"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="input-field col s12 m6 l6">
-                            <div class="row">
-                                <div class="col s12 m6 l4">
-                                    <h5 class="header">¿Es titular?</h5>
-                                </div>
-                                <div class="input-field col s12 m6 l8">
-                                    <div class="switch">
-                                        <label class="right">
-                                            No
-                                            <input name="titular" type="checkbox">
-                                            <span class="lever"></span>
-                                            Si
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
