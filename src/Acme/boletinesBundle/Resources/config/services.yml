@@ -38,6 +38,10 @@ services:
           class: Acme\boletinesBundle\Servicios\ConvivenciaService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.padre:
+          class: Acme\boletinesBundle\Servicios\PadreService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
       boletines.servicios.grupoAlumno:
           class: Acme\boletinesBundle\Servicios\GrupoAlumnoService
           arguments:

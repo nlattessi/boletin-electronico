@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Padre edit</h1>
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="{{ path('padre_edit', {'id':padre.idPadre }) }}" method="post">
+        <input type="text" value="{{ padre.idPadre }}" hidden="hidden" name="idPadre"><br/>
+        <input type="text"  value="{{ padre.nombrePadre }}" placeholder="Nombre" name="nombrePadre"><br/>
+        <input type="text"  value="{{ padre.emailPadre }}" placeholder="Email" name="emailPadre"><br/>
+        <input type="text"  value="{{ padre.telefonoPadre }}" placeholder="Telefono" name="telefonoPadre"><br/>
+        {% if padre.usuario != null %}
+            <p>Usuario Asociado</p>
+            <p>{{ padre.usuario.__toString() }}</p>
+            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
+        {% endif %}
+        <select name="idUsuario">
+            {% for usuario in entitiesRelacionadas %}
+
+                <option value="{{usuario.id}}">{{usuario.__toString()}}</option>
+
+            {% endfor %}
+            <option value="-1" selected="selected">No selecionar niguno</option>
+        </select>
+
+        <input type="submit" /><br/>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('padre') }}">
+                Volver a la lista
+            </a>
+        </li>
+    </ul>
+{% endblock %}

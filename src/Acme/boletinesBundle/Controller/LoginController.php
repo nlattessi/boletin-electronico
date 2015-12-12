@@ -35,9 +35,10 @@ class LoginController extends Controller
     {
         $sessionService =  $this->get('boletines.servicios.sesion');
         if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE'  ) {
+            $padreService =  $this->get('boletines.servicios.padre');
             $session = $this->getRequest()->getSession();
             $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
-            $hijos = $sessionService->obtenerHijos($this->getUser()->getIdEntidadAsociada());
+            $hijos = $padreService->obtenerHijos($this->getUser()->getIdEntidadAsociada());
             $session->set('hijos',  $hijos);
         }
         else if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')

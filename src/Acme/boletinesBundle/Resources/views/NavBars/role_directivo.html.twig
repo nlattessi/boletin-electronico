@@ -9,8 +9,8 @@
                     <ul>
                         <li class=" {% if css_active is defined %}{% if css_active == 'alumno' %} active{% endif %}{% endif %}"><a href="{{ path('alumno') }}">Alumnos</a></li>
                         <li class=" {% if css_active is defined %}{% if css_active == 'docente' %} active{% endif %}{% endif %}"><a href="{{ path('docente') }}">Docentes</a></li>
-                        <li class=" {% if css_active is defined %}{% if css_active == 'asistencia' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_padres') }}">Padres</a></li>
-                        <li class=" {% if css_active is defined %}{% if css_active == 'asistencia' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_bedeles') }}">Bedeles</a></li>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'padre' %} active{% endif %}{% endif %}"><a href="{{ path('padre') }}">Padres</a></li>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'bedel' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_bedeles') }}">Bedeles</a></li>
                     </ul>
                 </div>
             </li>
