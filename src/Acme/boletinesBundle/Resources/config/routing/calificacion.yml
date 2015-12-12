@@ -1,3 +1,7 @@
+calificacion_directivo_validar:
+    path:     /validar
+    defaults: { _controller: BoletinesBundle:Calificacion:validar }
+
 calificacion:
     path:     /
     defaults: { _controller: BoletinesBundle:Calificacion:index }

@@ -44,7 +44,7 @@ class CalificacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
+        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Calificacion:show.html.twig', array('calificacion' => $calificacion,
             'css_active' => 'calificacion',));
@@ -113,7 +113,7 @@ class CalificacionController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
+        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('id' => $id));
 
         if($calificacion instanceof Calificacion) {
             $em->remove($calificacion);
@@ -121,7 +121,6 @@ class CalificacionController extends Controller
         }
         return $this->indexAction();
     }
-
 
     public function editAction($id = null, Request $request = null)
     {
@@ -137,7 +136,7 @@ class CalificacionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Evaluacion')->findAll();
             $alumnosDelEvaluacion = $em->getRepository('BoletinesBundle:Alumno')->findAll();
-            $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
+            $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('id' => $id));
         }
 
         return $this->render('BoletinesBundle:Calificacion:edit.html.twig', array('calificacion' => $calificacion,
@@ -145,10 +144,11 @@ class CalificacionController extends Controller
             'alumnosDelEvaluacion' => $alumnosDelEvaluacion,
             'css_active' => 'materia',));
     }
+
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('idCalificacion' => $id));
+        $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('id' => $id));
 
         $calificacion->setValorCalificacion($data->request->get('valorCalificacion'));
         $calificacion->setComentarioCalificacion($data->request->get('comentarioCalificacion'));
@@ -171,6 +171,16 @@ class CalificacionController extends Controller
         $em->flush();
 
         return $calificacion;
+    }
+
+    public function validarAction(Request $request)
+    {
+        var_dump($request->request->all());
+        exit;
+        if ($request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getManager();
+            $data->request->get('comentarioCalificacion');
+        }
     }
 }
 

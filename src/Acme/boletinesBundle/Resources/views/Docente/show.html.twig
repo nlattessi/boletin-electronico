@@ -1,49 +1,65 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Docente</h1>
+{% block page %}
+    <div class="row mar-top-soft">
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s12 m4 l2 center-align">
+                    <img src="images/portraits/1.jpg" alt="as" class="circle-child circle inst-thumb mar-top-soft">
+                </div>
+                <div class="col s12 m4 l6">
+                    <h3 class="header">{{ docente.nombre }}</h3>
+                    <h5 class="header">
+                        {% if docente.establecimiento.nombre is defined %}
+                            {{ docente.establecimiento.nombre }}
+                        {% endif %}
+                    </h5>
+                </div>
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id Docente</th>
-            <td>{{ docente.idDocente }}</td>
-        </tr>
-        <tr>
-                <th>Docente</th>
-                <td>{{ docente.nombreDocente }}</td>
-            </tr>
-        <tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ docente.emailDocente }}</td>
-        </tr>
-        <tr>
-        <tr>
-            <th>Telefono</th>
-            <td>{{ docente.telefonoDocente }}</td>
-        </tr>
-        {% if docente.usuario != null %}
-            <tr>
-                <th>Usuario Asociado</th>
-                <td>{{ docente.usuario.__toString() }}</td>
-            </tr>
-        {% endif %}
+                <div class="col s12 m4 l2 left">
+                    <img src="images/belgranods.jpg" alt="as" class="inst-thumb mar-top-soft">
+                </div>
+            </div>
+            <div class="divider mar-bot-top"></div>
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Datos del docente</h4>
+                </div>
+                <div class="col s2 m2 l2">
+                    <a href="{{path('docente_edit', {'id' : docente.id})}}" data-position="left" data-delay="25" data-tooltip="Editar docente" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Nombre/s: <span class="span-s"> {{ docente.nombre }}</span></h5>
+                    <h5 class="header">DNI: <span class="span-s"> {{ docente.dni }}</span></h5>
+                    <h5 class="header">Género: <span class="span-s"> {{ docente.nombre }}</span></h5>
+                    <h5 class="header">Fecha de nacimiento: <span class="span-s"> {{ docente.fechaNacimiento|date('d/m/Y') }}</span></h5>
+                    <h5 class="header">Email: <span class="span-s"> {{ docente.usuario.email }}</span></h5>
+                    <h5 class="header">Título universitario: <span class="span-s">{{ docente.titulo }} </span></h5>
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Apellido/s: <span class="span-s"> {{ docente.apellido }}</span> </h5>
+                    <h5 class="header">Fecha de ingreso: <span class="span-s"> {{ docente.fechaIngreso|date('d/m/Y') }}</span></h5>
+                    <h5 class="header">Ciudad: <span class="span-s">
+                        {% if docente.ciudad.nombre is defined %}
+                            {{ docente.ciudad.nombre }}
+                        {% endif %}
+                        </span></h5>
+                    <h5 class="header">Dirección: <span class="span-s"> {{ docente.direccion }}</span></h5>
+                    <h5 class="header">Código postal: <span class="span-s"> {{ docente.codigoPostal }}</span></h5>
+                    <h5 class="header">Teléfono: <span class="span-s"> {{ docente.telefono }}</span></h5>
+                </div>
+                <div class="col s12 m12 l12">
+                    <h5 class="header">Observaciones: <span class="span-s"> {{ docente.observaciones }}</span> </h5>
+                </div>
 
-        </tbody>
-    </table>
+            </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('docente') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('docente_edit', { 'id': docente.idDocente }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('docente_delete', { 'id': docente.idDocente }) }}">Borrar</a></li>
-</ul>
+
+
+
+
+        </div><!--  end col  -->
+    </div><!--  end row  -->
 {% endblock %}

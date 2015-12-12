@@ -1,36 +1,225 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Docente edit</h1>
+{% block page %}
 
-    <h2>{{ mensaje }}</h2>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h3 class="header">Crear nuevo docente</h3>
+                        <h5 class="header">Datos obligatorios</h5>
+                    </div>
+                </div>
+                <form action="{{ path('docente_edit', {'id':docente.id }) }}" method="post">
 
-    <form action="{{ path('docente_edit', {'id':docente.idDocente }) }}" method="post">
-        <input type="text" value="{{ docente.idDocente }}" hidden="hidden" name="idDocente"><br/>
-        <input type="text"  value="{{ docente.nombreDocente }}" placeholder="Nombre" name="nombreDocente"><br/>
-        <input type="text"  value="{{ docente.emailDocente }}" placeholder="Email" name="emailDocente"><br/>
-        <input type="text"  value="{{ docente.telefonoDocente }}" placeholder="Telefono" name="telefonoDocente"><br/>
-        {% if docente.usuario != null %}
-            <p>Usuario Asociado</p>
-            <p>{{ docente.usuario.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idUsuario">
-            {% for usuario in entitiesRelacionadas %}
 
-                <option value="{{usuario.id}}">{{usuario.__toString()}}</option>
+                    <div class="row">
+                        {#<div class="input-field col s12 m6 l6">#}
+                            {#<select name="establecimiento" id="establecimiento">#}
+                                {#{% for establecimiento in establecimientos %}#}
+                                    {#<option value="{{ establecimiento.id }}" >{{ establecimiento.nombre }} </option>#}
+                                {#{% endfor %}#}
+                            {#</select>#}
+                            {#<label for="establecimiento">Establecimiento</label>#}
 
-            {% endfor %}
-            <option value="-1" selected="selected">No selecionar niguno</option>
-        </select>
+                        {#</div>#}
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.nombre }}" name="nombre" id="nombre_inst" type="text"
+                                   class="validate">
+                            <label for="nombre_inst">Nombre/s</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.apellido }}" id="apellido" name="apellido" type="text" class="validate">
+                            <label for="apellido" data-error=""
+                                   data-success="Correcto">Apellido/s</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="icon-linear-user prefix"></i>
+                            <input value="{{ docente.usuario.nombre }}" name="user" id="icon_prefix" type="text"
+                                   class="validate">
+                            <label for="icon_prefix">Nombre de usuario</label>
+                        </div>
+                        {#<div class="input-field col s6">#}
+                            {#<i class="icon-linear-lock prefix"></i>#}
+                            {#<input name="password" id="icon_telephone" type="password"#}
+                                   {#class="validate">#}
+                            {#<label for="icon_telephone">Contraseña</label>#}
+                        {#</div>#}
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.dni }}" name="dni" id="dni" type="text"
+                                   class="validate">
+                            <label for="dni">DNI</label>
+                        </div>
+                        {#<div class="input-field col s12 m6 l12">#}
+                        {#<i class="icon-linear-magnifier prefix"></i>#}
+                        {#<input id="icon_prefix" type="text"#}
+                        {#class="validate">#}
+                        {#<label for="icon_prefix">Cursos a cargo#}
+                        {#(autocompletar)</label>#}
+                        {#</div>#}
 
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('docente') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+
+                    </div>
+                    <div class="divider mar-bot-top col s12 m12 l12"></div>
+                    <div class="row">
+                        <div class="col s10 m10 l10">
+                            <h5 class="header">Datos adicionales</h5>
+                        </div>
+                    </div>
+
+                    {#<div class="row mar-bot">#}
+                        {#<div class=" col s12 m6 l6">#}
+                            {#<h6 class="header">Género</h6>#}
+
+                            {#<div class="row">#}
+                                {#<div class=" col s6">#}
+                                    {#<p>#}
+                                        {#<input value="m" name="sexo" type="radio"#}
+                                               {#id="test1"/>#}
+                                        {#<label for="test1">Masculino</label>#}
+                                    {#</p>#}
+                                {#</div>#}
+                                {#<div class=" col s6">#}
+                                    {#<p>#}
+                                        {#<input value="f" name="sexo" type="radio"#}
+                                               {#id="test2"/>#}
+                                        {#<label for="test2">Femenino</label>#}
+                                    {#</p>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+
+                    <div class="row">
+                        <div class=" col s12 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label  for="birthdate" class="">Fecha de
+                                nacimiento</label>
+                            <input value="{{ docente.fechaNacimiento|date('d-m-Y') }}" name="bdate" type="date" class="datepicker">
+                        </div>
+
+                        <div class=" col s12 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label for="ingreso" class="">Fecha de
+                                ingreso</label>
+                            <input value="{{ docente.fechaIngreso|date('d-m-Y') }}"  name="ingresodate" type="date" class="datepicker">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                    </div>
+
+                    <div class="row">
+                        {#<div class="input-field col s12 m6 l6">#}
+                            {#<select>#}
+                                {#<option value="" disabled selected>País</option>#}
+                                {#{% for pais in paises %}#}
+                                    {#<option value="{{ pais.id }}" >{{ pais.nombre }} </option>#}
+                                {#{% endfor %}#}
+                            {#</select>#}
+                        {#</div>#}
+                        <div class="input-field col s12 m6 l6">
+                            <select name="ciudad">
+                                <option value="" disabled selected>Ciudad
+                                </option>
+                                {% for ciudad in ciudades %}
+                                    <option value="{{ ciudad.id }}"
+
+                                            {% if docente.ciudad == ciudad %}
+                                                selected="selected"
+                                            {% endif %}
+
+                                            >{{ ciudad.nombre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.direccion}}" name="direccion" id="direccion" type="text" class="validate">
+                            <label for="direccion">Dirección</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.codigoPostal}}" name="postal" id="postal" type="number" class="validate">
+                            <label for="postal">Código postal</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input value="{{ docente.codigoPais }}" name="codpais" id="codpais" type="number" class="validate">
+                            <label for="codpais">Código país</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input value="{{ docente.codigoArea}}" name="codarea" id="codarea" type="number" class="validate">
+                            <label for="codarea">Código de área</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input value="{{ docente.telefono}}" name="telefono" id="telefono" type="number" class="validate">
+                            <label for="telefono">Teléfono</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.usuario.email}}" name="email" id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input value="{{ docente.titulo}}" name="titulouniversitario" id="titulo" type="text" class="validate">
+                            <label for="titulo">Título universitario</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#<div class="col s12 m6 l6">#}
+                            {#<div class="file-field input-field">#}
+                                {#<input class="file-path validate" type="text"/>#}
+                                {#<label for="logo_img">Foto del Docente</label>#}
+
+                                {#<div class="btn-large">#}
+                                    {#<span>Elegir archivo</span>#}
+                                    {#<input type="file"/>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+
+                        <div class="input-field col s12 m6 l6">
+                            <div class="row">
+                                <div class="col s12 m6 l4">
+                                    <h5 class="header">¿Es titular?</h5>
+                                </div>
+                                <div class="input-field col s12 m6 l8">
+                                    <div class="switch">
+                                        <label class="right">
+                                            No
+                                            <input name="titular" type="checkbox"
+                                                    {% if docente.esTitular == true %}
+                                                        checked
+                                                    {% endif %}
+                                                    >
+                                            <span class="lever"></span>
+                                            Si
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 mar-top-soft">
+                    <textarea name="obs" id="obs"
+                              class="materialize-textarea"> {{ docente.observaciones}} </textarea>
+                            <label for="obs">Observaciones</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn-large waves-effect waves-light center-align mar-right" type="submit">Guardar</button>
+                    </div>
+                </form>
+                <!--  end col  -->
+            </div>
+            <!--  end row  -->
+        </div>
 {% endblock %}

@@ -3,7 +3,6 @@
 namespace Acme\boletinesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
 
 /**
  * GrupoUsuario
