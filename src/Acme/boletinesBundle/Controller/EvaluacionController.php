@@ -45,8 +45,9 @@ class EvaluacionController extends Controller
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $evaluacion = $this->createEntity($request);
             if($evaluacion != null) {
-                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
-                    'css_active' => 'materia',));
+                // return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
+                //     'css_active' => 'materia',));
+                return $this->redirect($this->generateUrl('evaluacion_show', ['id' => $id]), 301);
             } else {
                 $message = "Errores";
             }
@@ -99,6 +100,13 @@ class EvaluacionController extends Controller
         $em->persist($evaluacion);
         $em->flush();
 
+        if (!empty($data->files->get('archivos'))) {
+            foreach ($data->files->get('archivos') as $archivo) {
+                $archivoService =  $this->get('boletines.servicios.archivo');
+                $archivoService->createEvaluacionArchivo($archivo, $usuario, $evaluacion);
+            }
+        }
+
         return $evaluacion;
     }
 
@@ -124,8 +132,9 @@ class EvaluacionController extends Controller
             $evaluacion = $this->editEntity($request, $id);
             if($evaluacion != null) {
 
-                return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
-                    'css_active' => 'materia',));
+                // return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
+                //     'css_active' => 'materia',));
+                return $this->redirect($this->generateUrl('evaluacion_show', ['id' => $id]), 301);
             } else {
                 $message = "Errores";
             }
@@ -256,7 +265,13 @@ class EvaluacionController extends Controller
         $em->persist($evaluacion);
         $em->flush();
 
+        if (!empty($data->files->get('archivos'))) {
+            foreach ($data->files->get('archivos') as $archivo) {
+                $archivoService =  $this->get('boletines.servicios.archivo');
+                $archivoService->createEvaluacionArchivo($archivo, $this->getUser(), $evaluacion);
+            }
+        }
+
         return $evaluacion;
     }
 }
-

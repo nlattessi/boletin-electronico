@@ -65,9 +65,15 @@ class ArchivoService
         return $materiaArchivo;
     }
 
-    public function createEvaluacionArchivo()
+    public function createEvaluacionArchivo(UploadedFile $file, $usuario, $evaluacion)
     {
-        //Todo
+        $filename = $this->createFile($file, "evaluaciones");
+
+        $archivo = $this->newArchivo($file, $filename, $usuario);
+
+        $evaluacionArchivo = $this->newEvaluacionrchivo($archivo, $evaluacion);
+
+        return $evaluacionArchivo;
     }
 
     public function createActividadArchivo()
@@ -177,5 +183,19 @@ class ArchivoService
         $this->em->flush();
 
         return $materiaArchivo;
+    }
+
+    private function newEvaluacionrchivo($archivo, $evaluacion)
+    {
+        $evaluacionArchivo = new EvaluacionArchivo();
+        $evaluacionArchivo->setArchivo($archivo);
+        $evaluacionArchivo->setEvaluacion($evaluacion);
+        $evaluacionArchivo->setCreationTime(new \DateTime('now'));
+        $evaluacionArchivo->setUpdateTime(new \DateTime('now'));
+
+        $this->em->persist($evaluacionArchivo);
+        $this->em->flush();
+
+        return $evaluacionArchivo;
     }
 }
