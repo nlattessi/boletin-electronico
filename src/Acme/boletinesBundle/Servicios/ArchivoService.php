@@ -34,26 +34,6 @@ class ArchivoService
         $this->em = $entityManager;
     }
 
-    public function createMateriaArchivo()
-    {
-        //Todo
-    }
-
-    public function createEvaluacionArchivo()
-    {
-        //Todo
-    }
-
-    public function createActividadArchivo()
-    {
-        //Todo
-    }
-
-    public function createJustificacionArchivo()
-    {
-        //Todo
-    }
-
     public function getArchivosMateria()
     {
         //Todo
@@ -70,6 +50,32 @@ class ArchivoService
     }
 
     public function getArchivosJustificacion()
+    {
+        //Todo
+    }
+
+    public function createMateriaArchivo(UploadedFile $file, $usuario, $materia)
+    {
+        $filename = $this->createFile($file, "materias");
+
+        $archivo = $this->newArchivo($file, $filename, $usuario);
+
+        $materiaArchivo = $this->newMateriaArchivo($archivo, $materia);
+
+        return $materiaArchivo;
+    }
+
+    public function createEvaluacionArchivo()
+    {
+        //Todo
+    }
+
+    public function createActividadArchivo()
+    {
+        //Todo
+    }
+
+    public function createJustificacionArchivo()
     {
         //Todo
     }
@@ -157,5 +163,19 @@ class ArchivoService
         $this->em->flush();
 
         return $mensajeArchivo;
+    }
+
+    private function newMateriaArchivo($archivo, $materia)
+    {
+        $materiaArchivo = new MateriaArchivo();
+        $materiaArchivo->setArchivo($archivo);
+        $materiaArchivo->setMateria($materia);
+        $materiaArchivo->setCreationTime(new \DateTime('now'));
+        $materiaArchivo->setUpdateTime(new \DateTime('now'));
+
+        $this->em->persist($materiaArchivo);
+        $this->em->flush();
+
+        return $materiaArchivo;
     }
 }
