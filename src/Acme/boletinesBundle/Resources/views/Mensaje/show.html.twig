@@ -61,7 +61,7 @@
                 <p class="header" id="mensajeTexto">{% if mensaje.texto %}{{ mensaje.texto }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}</p>
                 {% if mensaje.archivos is not empty %}
                   <div class="mail-attachments">
-                    <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#" onclick="downloadAll('{{ path('boletines_archivo_downloadZip') }}');">Descargar todos</a></p>
+                    <p><i class="icon-linear-paperclip"></i> Adjuntos | <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
                     <ul class="list-group" id="downloadFiles">
                       {% for mensajeArchivo in mensaje.archivos %}
                         {{ macros.show_item_entityFile(mensajeArchivo) }}
@@ -149,6 +149,7 @@
 
 {% block javascript %}
   <script src="{{ asset('bundles/boletines/js/autocompletarMensaje.js') }}"></script>
+  <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
 
   <script>
   function printDiv() {
@@ -184,18 +185,6 @@
   function saveBorrador(path) {
     var form = document.getElementById("nuevoMensajeForm");
     form.setAttribute("action", path);
-    form.submit();
-  };
-
-  function downloadAll(path) {
-    var form = document.createElement("form");
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', path);
-
-    $(".fileId").each(function(index) {
-        $(this).clone().appendTo(form);
-    });
-
     form.submit();
   };
 

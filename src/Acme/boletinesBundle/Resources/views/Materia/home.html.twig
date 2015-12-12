@@ -82,24 +82,23 @@
             <div class="col s12 m6 l4 mar-top-soft">
                 <h5 class="panel-title">Archivos</h5>
                 <div class="mail-attachments">
-                    <p><i class="icon-linear-paperclip"></i> <a href="#">Descargar todos</a></p>
+                    <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
                     <ul class="list-group">
-                        {% for archivo in materia.archivos %}
-                        <li class="list-group-item">
-                            <span class="name">{{ archivo }}</span>
-                            <span class="size">(2.40MB)</span>
-                            <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
-                        </li>
+                        {% for materiaArchivo in materia.archivos %}
+                          {{ macros.show_item_entityFile(materiaArchivo) }}
                         {% endfor %}
                     </ul>
+                    <form action="{{ path('materia_upload_file', {'id': materia.id}) }}" method="post" enctype="multipart/form-data">
                     <div class="file-field input-field">
                         <input class="file-path validate" type="text">
                         <label for="logo_img">Subir nuevo archivo</label>
                         <div class="btn-xsmall">
                             <span>Elegir archivo</span>
-                            <input type="file">
+                            <input type="file" name="archivo" id="archivo">
                         </div>
                     </div>
+                    <button class="btn-xsmall" type="submit">Subir</button>
+                  </form>
                 </div>
 
                 <h5 class="panel-title mar-top">Docentes</h5>
@@ -117,4 +116,8 @@
 
     </div>
 
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
 {% endblock %}

@@ -108,7 +108,7 @@ class MateriaService {
 
     public function materiaLoad(Materia $materia){
         $materia->setAlumnos($this->listaAlumnos($materia->getId()));
-        $materia->setArchivos($this->listaArchivosPorMateria($materia->getId()));
+        //$materia->setArchivos($this->listaArchivosPorMateria($materia->getId()));
         $materia->setDocentes($this->listaDocentesPorMateria($materia->getId()));
         $materia->setGruposAlumnos($this->listaGruposAlumnoPorMateria($materia->getId()));
 

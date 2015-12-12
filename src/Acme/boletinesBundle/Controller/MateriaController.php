@@ -4,12 +4,8 @@ namespace Acme\boletinesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Materia;
 use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\MateriaType;
 
 class MateriaController extends Controller
 {
@@ -45,7 +41,6 @@ class MateriaController extends Controller
             $materiaService =  $this->get('boletines.servicios.materia');
            $materia = $materiaService->materiaLoad($materia);
         }
-
 
         return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia,
             'css_active' => 'materia',));
@@ -87,18 +82,18 @@ class MateriaController extends Controller
 
     private function createEntity($data)
     {
-    	$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $sesionService = $this->get('boletines.servicios.sesion');
         $actividadService =  $this->get('boletines.servicios.actividad');
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-			
-    	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
+
+      	$tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $data->request->get('idTipoMateria')));
         $usuario =  $sesionService->obtenerUsuario();
-		$calendario = new Calendario();
-		$calendario ->setUsuarioPropietario($usuario);
-		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
-		$em->persist($calendario);
+    		$calendario = new Calendario();
+    		$calendario ->setUsuarioPropietario($usuario);
+    		$calendario ->setNombreCalendario("Calendario de " . $data->request->get('nombreMateria'));
+    		$em->persist($calendario);
         $em->flush();
 
         $actividad = $actividadService->crearActividad('borrar despues',
@@ -114,7 +109,7 @@ class MateriaController extends Controller
         $materia->setTipoMateria($tipoMateria);
         $materia->setCalendarioMateria($calendario);
 
-   
+
         $em->persist($materia);
         $em->flush();
 
@@ -158,5 +153,22 @@ class MateriaController extends Controller
         $em->flush();
 
         return $materia;
+    }
+
+    public function uploadAction($id, Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            if (!empty ($request->files->get('archivo'))) {
+                $em = $this->getDoctrine()->getManager();
+                $archivoService = $this->get('boletines.servicios.archivo');
+                $archivoService->createMateriaArchivo(
+                    $request->files->get('archivo'),
+                    $this->getUser(),
+                    $em->getRepository('BoletinesBundle:Materia')->find($id)
+                );
+            }
+        }
+
+        return $this->redirect($this->generateUrl('materia_show', ['id' => $id]), 301);
     }
 }
