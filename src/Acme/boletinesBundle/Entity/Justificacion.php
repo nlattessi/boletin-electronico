@@ -50,7 +50,7 @@ class Justificacion
      *   @ORM\JoinColumn(name="archivo_id", referencedColumnName="id")
      * })
      */
-    private $archivo;
+    //private $archivo;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
@@ -62,6 +62,17 @@ class Justificacion
      */
     private $usuarioCarga;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MensajeArchivo", mappedBy="mensaje")
+     */
+    private $archivos;
+
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->archivos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -80,7 +91,7 @@ class Justificacion
     /**
      * Get comentario
      *
-     * @return string 
+     * @return string
      */
     public function getComentario()
     {
@@ -103,7 +114,7 @@ class Justificacion
     /**
      * Get fechaCarga
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCarga()
     {
@@ -126,7 +137,7 @@ class Justificacion
     /**
      * Get fechaModificacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaModificacion()
     {
@@ -136,7 +147,7 @@ class Justificacion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -149,22 +160,22 @@ class Justificacion
      * @param \Acme\boletinesBundle\Entity\Archivo $archivo
      * @return Justificacion
      */
-    public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
-    {
-        $this->archivo = $archivo;
-
-        return $this;
-    }
+    // public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
+    // {
+    //     $this->archivo = $archivo;
+    //
+    //     return $this;
+    // }
 
     /**
      * Get archivo
      *
-     * @return \Acme\boletinesBundle\Entity\Archivo 
+     * @return \Acme\boletinesBundle\Entity\Archivo
      */
-    public function getArchivo()
-    {
-        return $this->archivo;
-    }
+    // public function getArchivo()
+    // {
+    //     return $this->archivo;
+    // }
 
     /**
      * Set usuarioCarga
@@ -182,10 +193,15 @@ class Justificacion
     /**
      * Get usuarioCarga
      *
-     * @return \Acme\boletinesBundle\Entity\Usuario 
+     * @return \Acme\boletinesBundle\Entity\Usuario
      */
     public function getUsuarioCarga()
     {
         return $this->usuarioCarga;
+    }
+
+    public function getArchivos()
+    {
+        return $this->archivos;
     }
 }

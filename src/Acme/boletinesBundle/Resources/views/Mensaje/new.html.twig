@@ -13,7 +13,7 @@
   <div class="row">
     <div class="col s12">
 
-      <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm">
+      <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm" enctype="multipart/form-data">
 
       <div class="input-field col s12">
             <input id="typeahead" type="text" class="validate" data-provide="typeahead">
@@ -38,19 +38,17 @@
         <label for="textoMensaje">Mensaje:</label>
       </div>
 
-        {#<div class="col s12">
-
+        <div class="col s12">
               <div class="file-field input-field">
                 <div class="btn">
                   <span>Adjuntar archivos</span>
-                  <input type="file" multiple>
+                  <input type="file" name="archivos[]" multiple="multiple" id="archivos">
                 </div>
                 <div class="file-path-wrapper">
                   <input class="file-path validate" type="text" placeholder="Seleccione uno o más archivos">
                 </div>
               </div>
-
-        </div>#}
+        </div>
 
       <div class="col s12 center-align mar-top-soft">
           <button type="submit" class="btn-large waves-effect waves-light center-align mar-right disabled" id="newMensajeSubmit" disabled>enviar</button>
@@ -69,7 +67,7 @@
 {% endblock %}
 
 {% block javascript %}
-  <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
+  <script src="{{ asset('bundles/boletines/js/autocompletarMensaje.js') }}"></script>
 
   <script>
     function saveBorrador(path) {

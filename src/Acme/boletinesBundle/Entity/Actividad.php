@@ -91,7 +91,7 @@ class Actividad
      *   @ORM\JoinColumn(name="archivo_id", referencedColumnName="id")
      * })
      */
-    private $archivo;
+    //private $archivo;
 
     /**
      * @var \Acme\boletinesBundle\Entity\Usuario
@@ -102,6 +102,12 @@ class Actividad
      * })
      */
     private $usuarioCarga;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MensajeArchivo", mappedBy="mensaje")
+     */
+    private $archivos;
+
 
 
 
@@ -305,22 +311,22 @@ class Actividad
      * @param \Acme\boletinesBundle\Entity\Archivo $archivo
      * @return Actividad
      */
-    public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
-    {
-        $this->archivo = $archivo;
-
-        return $this;
-    }
+    // public function setArchivo(\Acme\boletinesBundle\Entity\Archivo $archivo = null)
+    // {
+    //     $this->archivo = $archivo;
+    //
+    //     return $this;
+    // }
 
     /**
      * Get archivo
      *
      * @return \Acme\boletinesBundle\Entity\Archivo
      */
-    public function getArchivo()
-    {
-        return $this->archivo;
-    }
+    // public function getArchivo()
+    // {
+    //     return $this->archivo;
+    // }
 
     /**
      * Set usuarioCarga
@@ -351,5 +357,11 @@ class Actividad
     {
         $this->creationTime = new \DateTime();
         $this->updateTime = new \DateTime();
+        $this->archivos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getArchivos()
+    {
+        return $this->archivos;
     }
 }

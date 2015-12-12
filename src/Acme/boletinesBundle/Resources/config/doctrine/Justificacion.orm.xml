@@ -3,7 +3,7 @@
   <entity name="Acme\boletinesBundle\Entity\Justificacion" table="justificacion">
     <indexes>
       <index name="FK_EBF13A877FA0C10D" columns="usuario_carga_id"/>
-      <index name="FK_EBF13A87EBB41DF2" columns="archivo_id"/>
+      <!-- <index name="FK_EBF13A87EBB41DF2" columns="archivo_id"/> -->
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -11,11 +11,16 @@
     <field name="comentario" type="string" column="comentario" length="250" nullable="false"/>
     <field name="fechaCarga" type="datetime" column="fecha_carga" nullable="false"/>
     <field name="fechaModificacion" type="datetime" column="fecha_modificacion" nullable="true"/>
-    <many-to-one field="archivo" target-entity="Archivo">
+    <!-- <many-to-one field="archivo" target-entity="Archivo">
       <join-columns>
         <join-column name="archivo_id" referenced-column-name="id"/>
       </join-columns>
-    </many-to-one>
+    </many-to-one> -->
+    <one-to-many field="archivos" target-entity="JustificacionArchivo" mapped-by="justificacion">
+      <order-by>
+        <order-by-field name="updateTime" direction="DESC" />
+      </order-by>
+    </one-to-many>
     <many-to-one field="usuarioCarga" target-entity="Usuario">
       <join-columns>
         <join-column name="usuario_carga_id" referenced-column-name="id"/>

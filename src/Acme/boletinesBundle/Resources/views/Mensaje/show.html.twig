@@ -49,7 +49,6 @@
    <div class="row">
        <div class="col s12 m12 l12 mar-top-soft ">
               <div class="col s12 m1 l1 center-align">
-                {#<img src="" alt="" class="avatar-mb circle mb-a-pad">#}
                 {{ macros.show_foto_mensaje(mensaje.usuario) }}
               </div>
              <div class="col s12 m9 l9 center-on-small-only">
@@ -60,22 +59,16 @@
              </div>
              <div class="col s12 m12 l12">
                 <p class="header" id="mensajeTexto">{% if mensaje.texto %}{{ mensaje.texto }}{% else %}&lt;&lt;Sin texto&gt;&gt;{% endif %}</p>
-
-                    {#<div class="mail-attachments">
-                      <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#">Descargar todos</a></p>
-                      <ul class="list-group">
-                        <li class="list-group-item">
-                          <span class="name">Rstuvwxyz.mp4</span>
-                          <span class="size">(2.40M)</span>
-                          <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="name">Demo.doc</span>
-                          <span class="size">(2.40M)</span>
-                          <a data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
-                        </li>
-                      </ul>
-                    </div>#}
+                {% if mensaje.archivos is not empty %}
+                  <div class="mail-attachments">
+                    <p><i class="icon-linear-paperclip"></i> Adjuntos | <a href="#" onclick="downloadAll('{{ path('boletines_archivo_downloadZip') }}');">Descargar todos</a></p>
+                    <ul class="list-group" id="downloadFiles">
+                      {% for mensajeArchivo in mensaje.archivos %}
+                        {{ macros.show_item_entityFile(mensajeArchivo) }}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
               </div>
        </div>
      </div>  <!-- end row-->
@@ -90,7 +83,7 @@
            <div class="row">
              <div class="col s12 mar-bot-top">
 
-               <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm">
+               <form action="{{ path('mensaje_new')}}" method="post" id="nuevoMensajeForm" enctype="multipart/form-data">
 
                    <div class="input-field col s12">
                          <input id="typeahead" type="text" class="validate" data-provide="typeahead">
@@ -109,6 +102,18 @@
                    <div class="input-field col s12">
                      <textarea id="textarea1" class="materialize-textarea" length="500" name="textoMensaje"></textarea>
                      <label for="textarea1">Mensaje:</label>
+                   </div>
+
+                   <div class="col s12">
+                         <div class="file-field input-field">
+                           <div class="btn">
+                             <span>Adjuntar archivos</span>
+                             <input type="file" name="archivos[]" multiple="multiple" id="archivos">
+                           </div>
+                           <div class="file-path-wrapper">
+                             <input class="file-path validate" type="text" placeholder="Seleccione uno o más archivos">
+                           </div>
+                         </div>
                    </div>
 
                      {#<div class="col s12">
@@ -143,7 +148,7 @@
 {% endblock %}
 
 {% block javascript %}
-  <script src="{{ asset('bundles/boletines/js/autocompletar.js') }}"></script>
+  <script src="{{ asset('bundles/boletines/js/autocompletarMensaje.js') }}"></script>
 
   <script>
   function printDiv() {
@@ -179,6 +184,18 @@
   function saveBorrador(path) {
     var form = document.getElementById("nuevoMensajeForm");
     form.setAttribute("action", path);
+    form.submit();
+  };
+
+  function downloadAll(path) {
+    var form = document.createElement("form");
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', path);
+
+    $(".fileId").each(function(index) {
+        $(this).clone().appendTo(form);
+    });
+
     form.submit();
   };
 

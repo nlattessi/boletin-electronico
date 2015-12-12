@@ -59,6 +59,17 @@ class Mensaje
      */
     private $borrador;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MensajeArchivo", mappedBy="mensaje")
+     */
+    private $archivos;
+
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->archivos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -184,5 +195,10 @@ class Mensaje
     public function getBorrador()
     {
         return $this->borrador;
+    }
+
+    public function getArchivos()
+    {
+        return $this->archivos;
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Acme\boletinesBundle\Entity\MateriaArchivo" table="materia_archivo">
+  <entity name="Acme\boletinesBundle\Entity\MensajeArchivo" table="mensaje_archivo">
     <indexes>
-      <index name="FK_materia_archivo_materia" columns="materia_id"/>
-      <index name="FK_materia_archivo_archivo" columns="archivo_id"/>
+      <index name="FK_mensaje_archivo_mensaje" columns="mensaje_id"/>
+      <index name="FK_mensaje_archivo_archivo" columns="archivo_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -16,9 +16,9 @@
         <join-column name="archivo_id" referenced-column-name="id" on-delete="CASCADE"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="materia" target-entity="Materia" inversed-by="archivos">
+    <many-to-one field="mensaje" target-entity="Mensaje" inversed-by="archivos">
       <join-columns>
-        <join-column name="materia_id" referenced-column-name="id"/>
+        <join-column name="mensaje_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

@@ -68,3 +68,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+knp_gaufrette:
+    adapters:
+        archivos:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/archivos
+    filesystems:
+        archivos:
+            adapter: archivos
+            alias: archivos_filesystem
