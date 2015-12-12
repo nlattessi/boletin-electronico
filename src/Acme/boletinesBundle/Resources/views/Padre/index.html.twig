@@ -23,8 +23,7 @@
                     <table class="bordered">
                         <thead>
                         <tr>
-                            <th data-field="id">Nombre</th>
-                            <th data-field="id">Apellido</th>
+                            <th data-field="id">Nombre y Apellido</th>
                             <th data-field="name">DNI</th>
                             <th data-field="price">Hijos en la inst.</th>
                             <th data-field="price">Acciones</th>
@@ -33,8 +32,7 @@
                         <tbody>
                         {% for padre in padres %}
                         <tr>
-                            <td><a href="usuarios-padres-ficha_directivo.html" class="casual">{{ padre.nombre }}</a></td>
-                            <td><a href="usuarios-padres-ficha_directivo.html" class="casual">{{ padre.apellido }}</a></td>
+                            <td><a href="{{ path('padre_show', {'id': padre.id}) }}" class="casual">{{ padre }}</a></td>
                             <td>{{ padre.dni }}</td>
                             <td class="new badge">{{ padre.hijos|length }}</td>
                             <td>

@@ -14,14 +14,14 @@
                     <h3 class="header">{{ padre }}</h3>
                 </div>
                 <div class="col s2 m2 l2">
-                    <a href="usuarios-padres-editar_directivo.html" data-position="left" data-delay="25" data-tooltip="Editar tutor" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                    <a href="{{ path('padre_edit', {'id' : padre.id}) }}" data-position="left" data-delay="25" data-tooltip="Editar tutor" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
                 </div>
 
                 <div class="col s12 m12 l12">
                     <h5 class="header">Tutelados:</h5>
                     <ul class="collection">
                         {% for hijo in padre.hijos %}
-                        <li class="collection-item"><a class="collection-a" href="usuarios-datos-alumno_directivo.html">{{ hijo }}</a></li>
+                        <li class="collection-item"><a class="collection-a" href="{{ path('alumno_show', {'id' : hijo.id}) }}">{{ hijo }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -37,7 +37,13 @@
                 <div class="col s12 m6 l6">
 
                     <h5 class="header">DNI: <span class="span-s"> {{ padre.dni }}</span></h5>
-                    <h5 class="header">Género: <span class="span-s"> Masculino</span></h5>
+                    <h5 class="header">Género: <span class="span-s">
+                        {% if  padre.genero  %}
+                            Femenino
+                        {% else %}
+                            Masculino
+                        {% endif %}
+                        </span></h5>
 
                     <h5 class="header">Código postal: <span class="span-s"> {{ padre.codigoPostal }}</span></h5>
 

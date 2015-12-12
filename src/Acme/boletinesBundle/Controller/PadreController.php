@@ -28,9 +28,11 @@ class PadreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $id));
+        $padresService =  $this->get('boletines.servicios.padre');
+        $padresService->cargarHijos($padre);
 
-        return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
+        return $this->render('BoletinesBundle:Padre:show.html.twig', array('padre' => $padre));
     }
 
     public function newAction(Request $request)
