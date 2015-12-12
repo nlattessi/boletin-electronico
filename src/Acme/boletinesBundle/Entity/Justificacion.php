@@ -67,6 +67,16 @@ class Justificacion
      */
     private $archivos;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Asistencia
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Asistencia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="asistencia_id", referencedColumnName="id")
+     * })
+     */
+    private $asistencia;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -198,6 +208,29 @@ class Justificacion
     public function getUsuarioCarga()
     {
         return $this->usuarioCarga;
+    }
+
+    /**
+     * Set asistencia
+     *
+     * @param \Acme\boletinesBundle\Entity\Asistencia $asistencia
+     * @return Justificacion
+     */
+    public function setAsistencia(\Acme\boletinesBundle\Entity\Asistencia $asistencia = null)
+    {
+        $this->asistencia = $asistencia;
+
+        return $this;
+    }
+
+    /**
+     * Get asistencia
+     *
+     * @return \Acme\boletinesBundle\Entity\Asistencia
+     */
+    public function getAsistencia()
+    {
+        return $this->asistencia;
     }
 
     public function getArchivos()
