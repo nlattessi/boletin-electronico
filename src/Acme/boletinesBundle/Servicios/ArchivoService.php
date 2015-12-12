@@ -71,7 +71,7 @@ class ArchivoService
 
         $archivo = $this->newArchivo($file, $filename, $usuario);
 
-        $evaluacionArchivo = $this->newEvaluacionrchivo($archivo, $evaluacion);
+        $evaluacionArchivo = $this->newEvaluacionArchivo($archivo, $evaluacion);
 
         return $evaluacionArchivo;
     }
@@ -81,9 +81,15 @@ class ArchivoService
         //Todo
     }
 
-    public function createJustificacionArchivo()
+    public function createJustificacionArchivo(UploadedFile $file, $usuario, $justificacion)
     {
-        //Todo
+        $filename = $this->createFile($file, "justificaciones");
+
+        $archivo = $this->newArchivo($file, $filename, $usuario);
+
+        $justificacionArchivo = $this->newJustificacionArchivo($archivo, $justificacion);
+
+        return $justificacionArchivo;
     }
 
     public function createMensajeArchivo(UploadedFile $file, $usuario, $mensaje)
@@ -185,7 +191,7 @@ class ArchivoService
         return $materiaArchivo;
     }
 
-    private function newEvaluacionrchivo($archivo, $evaluacion)
+    private function newEvaluacionArchivo($archivo, $evaluacion)
     {
         $evaluacionArchivo = new EvaluacionArchivo();
         $evaluacionArchivo->setArchivo($archivo);
@@ -197,5 +203,19 @@ class ArchivoService
         $this->em->flush();
 
         return $evaluacionArchivo;
+    }
+
+    private function newJustificacionArchivo($archivo, $justificacion)
+    {
+        $justificacionArchivo = new JustificacionArchivo();
+        $justificacionArchivo->setArchivo($archivo);
+        $justificacionArchivo->setJustificacion($justificacion);
+        $justificacionArchivo->setCreationTime(new \DateTime('now'));
+        $justificacionArchivo->setUpdateTime(new \DateTime('now'));
+
+        $this->em->persist($justificacionArchivo);
+        $this->em->flush();
+
+        return $justificacionArchivo;
     }
 }
