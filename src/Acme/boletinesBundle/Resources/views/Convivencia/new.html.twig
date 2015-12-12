@@ -1,29 +1,60 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('convivencia') }}" class="b-focus">Convivencia</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" >Nueva convivencia</a></li>
 
-{% block body -%}
-    <h1>Convivencia creation</h1>
+
+{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m7 l7">
+            <h3 class="header">Crear convivencia</h3>
+        </div>
+    </div>
 
 
     <form action="{{ path('convivencia_new') }}" method="post">
 
-        <input type="text" placeholder="Ingrese Comentario" name="comentarioDocente"><br/>
-        <input type="text" placeholder="Ingrese Descargo" name="descargoAlumno"><br/>
-        <input type="text" placeholder="Fecha suceso" name="fechaSuceso"><br/>
+        <div class="input-field col s12 m6 l6 mar-top-input-fix">
+            <input name="comentario" id="nombre_inst" type="text" class="validate" />
+            <label for="comentario" class="">Comentario</label>
+        </div>
+        <div class=" col s12 m6 l6">
+            <i class="icon-linear-calendar-insert"></i>
+            <label for="fechaSuceso" class="">Fecha</label>
+            <input type="date" class="datepicker" name="fechaSuceso" id="fechaSuceso" >
+        </div>
+        <div class="input-field col s12 m6 l6 mar-top-input-fix">
+            <input name="valor" type="checkbox" id="valor" class="filled-in"/>
+            <label for="valor"> <i class="icon-linear-wink news-i-b conv-i"></i></label>
+        </div>
 
-        <select name="idAlumno">
-            {% for alumno in entitiesRelacionadas %}
+        <div class="input-field col s12 m6 l12">
+            <input id="typeahead" type="text" class="validate" data-provide="typeahead">
+            <label for="nombre_inst" class="">Nombre de alumno</label>
+        </div>
+        <div class="row">
+            <div class="col s12 mar-top-soft">
+                <ul id="miembros" class="collection">
+                    {% if miembros is defined %}
+                        {% for alumno in miembros %}
+                            <li class="collection-item">
+                                <input type="hidden" class="miembros" name="idMiembro[]" value="{{ alumno.id}}">
+                                <span> {{ alumno.getNombreCompleto }}</span>
+                                <a href="#" data-position="left" data-delay="25" data-tooltip="Eliminar" class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light noAgregar"><i class="icon-linear-trash"></i></a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
 
-                <option value="{{alumno.id}}">{{alumno.__toString()}}</option>
+        <div class="col s12 center-align mar-top-soft">
+            <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
+                Guardar cambios</button>
+        </div>
 
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione una alumno creada</option>
-        </select>
-        <br/><br/><br/>
-
-        <button type="submit" >Crear Convivencia</button>
-
-
-        <br/>
     </form>
 
     <ul class="record_actions">
@@ -33,4 +64,24 @@
             </a>
         </li>
     </ul>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('bundles/boletines/js/autocompletarGrupo.js') }}"></script>
+
+    <script>
+
+        $(".noAgregar").click(function(e){
+            e.preventDefault();
+            $(this).parent().remove();/*
+             if ($('#miembros li').length < 1) {
+             $('#newMensajeSubmit').addClass("disabled");
+             $('#newMensajeSubmit').prop("disabled", true);
+             }*/
+        });
+        /*
+         if ($('#destinatarios div').length > 0) {
+         $('#newMensajeSubmit').removeClass("disabled");
+         $('#newMensajeSubmit').prop("disabled", false);
+         }*/
+    </script>
 {% endblock %}

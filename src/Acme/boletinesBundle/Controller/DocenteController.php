@@ -24,7 +24,8 @@ class DocenteController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $docentes = $muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Docente:index.html.twig', array('docentes' => $docentes));
+        return $this->render('BoletinesBundle:Docente:index.html.twig', array('docentes' => $docentes,
+            'css_active' => 'docente'));
     }
 
     public function getOneAction($id)
