@@ -23,7 +23,7 @@
 </div>
 <div class="row">
     <div class="col s12 m12 l12">
-        <form action="{{ path('evaluacion_new', { 'id': materia.id }) }}" method="post">
+        <form action="{{ path('evaluacion_new', { 'id': materia.id }) }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idMateria" value="{{ materia.id }}" />
             <div class="input-field col s12 m6 l6 mar-top-input-fix">
                 <input name="nombre" id="nombre_inst" type="text" class="validate"/>
@@ -34,6 +34,18 @@
                 <label for="fecha" class="">Fecha</label>
                 <input type="date" class="datepicker" name="fecha" id="fecha">
             </div>
+
+            <div class="col s12 m6 l6">
+              <div class="file-field input-field">
+                <input class="file-path validate" type="text"/>
+                <label for="logo_img">Subir archivos para la evaluación</label>
+                <div class="btn-large">
+                  <span>Elegir archivos</span>
+                  <input type="file" name="archivos[]" multiple="multiple" id="archivos">
+                </div>
+             </div>
+            </div>
+
             <div class="col s12 center-align mar-top-soft">
                 <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">Crear Evaluación</button>
             </div>

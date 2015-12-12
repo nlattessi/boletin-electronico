@@ -33,5 +33,22 @@
                 </a>
             </div>
         </div>
+
+        <div class="col s12 m6 l6">
+          <h5 class="panel-title">Archivos asociados</h5>
+          <div class="mail-attachments">
+            <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+            <ul class="list-group">
+              {% for evaluacionArchivo in evaluacion.archivos %}
+                {{ macros.show_item_entityFile(evaluacionArchivo) }}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
     </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
 {% endblock %}
