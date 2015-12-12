@@ -127,7 +127,7 @@ class PadreController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $id));
 
         if($padre instanceof Padre) {
             $em->remove($padre);
@@ -147,37 +147,63 @@ class PadreController extends Controller
             } else {
                 $message = "Errores";
             }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
         }
 
-        return $this->render('BoletinesBundle:Padre:edit.html.twig', array('padre' => $padre, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        $em = $this->getDoctrine()->getManager();
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $id));
+
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+
+        $paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
+
+        return $this->render('BoletinesBundle:Padre:edit.html.twig', array('padre' => $padre,
+            'establecimientos' => $establecimientos,
+            'paises' => $paises,
+            'ciudades' => $ciudades,
+            'mensaje' => $message,
+            'css_active' => 'padre',
+            ));
     }
 
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('idPadre' => $id));
+        $padre = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $id));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
 
-        $padre->setNombrePadre($data->request->get('nombrePadre'));
-        $padre->setEmailPadre($data->request->get('emailPadre'));
-        $padre->setTelefonoPadre($data->request->get('telefonoPadre'));
-        $idUsuario = $data->request->get('idUsuario');
-        if($idUsuario > 0){
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
-            $padre->setUsuario($usuario);
-        }else{
-            //no seleccionó ninguno
-            if($padre->getUsuario() == null) {
-                //no tenia ninguno
-                $controllerUsuario = new UsuarioController();
-                $usuario = $controllerUsuario->crearUsuarioPadre($padre->getNombrePadre(), $padre->getEmailPadre());
-                $em->persist($usuario);
-                $padre->setUsuario($usuario);
-            }
-        }
+        $user = $padre->getUsuario();
+        $user->setNombre($data->request->get('nombre'));
+        $user->setPassword($data->request->get('password'));
+        $user->setEmail($data->request->get('email'));
+
+        $user->setApellido($data->request->get('apellido'));
+
+        $em->persist($user);
+        $em->flush();
+
+        $padre->setNombre($data->request->get('nombre'));
+        $padre->setApellido($data->request->get('apellido'));
+        $padre->setDni($data->request->get('dni'));
+//        $padre->set($data->request->get('sexo'));
+
+        $padre->setDireccion($data->request->get('direccion'));
+        $padre->setCodigoPostal($data->request->get('postal'));
+        $padre->setCodigoArea($data->request->get('codarea'));
+        $padre->setTelefono($data->request->get('telefono'));
+        $padre->setCelular($data->request->get('celular'));
+        $padre->setTelefonoLaboral($data->request->get('telefonoLaboral'));
+
+        $padre->setObservaciones($data->request->get('obs'));
+
+        $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data->request->get('ciudad')));
+        $padre->setCiudad($ciudad);
+        //$padre->setOcupacion($data->request->get('ocupacion'));
+
+        $padre->setUpdateTime(new \DateTime() );
+        $padre->setEstablecimiento($establecimiento);
 
 
         $em->persist($padre);
