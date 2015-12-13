@@ -283,7 +283,7 @@ class MuchosAmuchosService {
         return $usuarios;
     }
 
-    
+
 
     public function asociarUsuarioGrupoUsuario($usuario, $grupoUsuario){
         $usuarioGrupoUsuario = new UsuarioGrupoUsuario($usuario, $grupoUsuario);
@@ -451,5 +451,17 @@ class MuchosAmuchosService {
         }
 
         return $convivencia;
+    }
+
+    public function obtenerDirectivosPorInstitucion($institucion)
+    {
+        $rolDirectivo = $this->em->getRepository('BoletinesBundle:Rol')->findOneBy(['nombre' => 'ROLE_DIRECTIVO']);
+
+        $directivos = $this->em->getRepository('BoletinesBundle:Usuario')->findBy([
+            'rol' => $rolDirectivo,
+            'institucion' => $institucion
+        ]);
+
+        return $directivos;
     }
 }

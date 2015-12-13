@@ -212,9 +212,29 @@ class AlumnoController extends Controller
         return $alumno;
     }
 
-    public function antybullyngAction($id, Request $request = null){
+    public function antibullyngAction($id, Request $request = null){
         //notificar Directivo
-        return $this->redirect($request->headers->get('referer'));
+        $bullyingService = $this->get('boletines.servicios.bullying');
+        $bullying = $bullyingService->create($this->getUser());
+
+        if ($bullying != null) {
+            $muchosAMuchosService = $this->get('boletines.servicios.muchosamuchos');
+            $directivos = $muchosAMuchosService->obtenerDirectivosPorInstitucion($this->getUser()->getInstitucion());
+
+            $notificacionService = $this->get('boletines.servicios.notificacion');
+            $notificacionService->newBullyingNotificacion(
+                $directivos,
+                "Notificacion de Bullying por parte del alumno " . $this->getUser()->getEntidadAsociada()->__toString(),
+                null,
+                $this->generateUrl('bullying_show', ['id' => $bullying->getId()])
+            );
+
+            $this->get('session')->getFlashBag()->add('success', 'Se notificó de la situación con éxito');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'Se produjo un error en la notificación...');
+        }
+
+        return $this->redirect($this->generateUrl('home'), 301);
     }
 
     public function autocompletarAction(Request $request)
@@ -253,4 +273,3 @@ class AlumnoController extends Controller
         return new Response(json_encode($entities));
     }
 }
-

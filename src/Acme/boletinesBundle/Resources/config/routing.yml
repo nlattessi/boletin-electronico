@@ -90,6 +90,10 @@ boletines_home:
     resource: "@BoletinesBundle/Resources/config/routing/home.yml"
     prefix:   /home
 
+boletines_bullying:
+    resource: "@BoletinesBundle/Resources/config/routing/bullying.yml"
+    prefix:   /bullying
+
 logout:
     path:   /logout
 
@@ -103,7 +107,7 @@ cambiar_hijo:
 
 antibullyng:
     pattern:  /antibullyng/{id}
-    defaults: { _controller: BoletinesBundle:Alumno:antybullyng }
+    defaults: { _controller: BoletinesBundle:Alumno:antibullyng }
 
 boletines_archivo_download:
     pattern: /archivo/{filename}

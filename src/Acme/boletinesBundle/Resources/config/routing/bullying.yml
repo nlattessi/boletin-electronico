@@ -1,0 +1,7 @@
+bullying:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Bullying:index }
+
+bullying_show:
+    path:     /{id}
+    defaults: { _controller: BoletinesBundle:Bullying:getOne }

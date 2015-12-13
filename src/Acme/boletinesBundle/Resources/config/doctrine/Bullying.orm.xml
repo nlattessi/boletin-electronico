@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acme\boletinesBundle\Entity\Bullying" table="bullying">
+    <indexes>
+      <index name="FK_alumno" columns="alumno_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="comentario" type="string" column="comentario" length="500" nullable="true"/>
+    <field name="fechaCarga" type="datetime" column="fecha_carga" nullable="false"/>
+    <many-to-one field="alumno" target-entity="Alumno">
+      <join-columns>
+        <join-column name="alumno_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
