@@ -189,6 +189,14 @@ class EvaluacionController extends Controller
             $evaluacion->setCalificada(true);
             $em->flush();
 
+            // Envio notificaciones
+            $notificacionService = $this->get('boletines.servicios.notificacion');
+            $notificacionService->newCalificacionNotificacion(
+                $evaluacion->getMateria()->getAlumnos(),
+                "Calificacion cargada en " . $evaluacion->getMateria(),
+                "Se cargaron las calificaciones para la evaluación " . $evaluacion->getNombre(),
+                $this->generateUrl('calificacion')
+            );
 
             return $this->render('BoletinesBundle:Evaluacion:calificacion.html.twig',
                 array('evaluacion' => $evaluacion,
@@ -231,6 +239,17 @@ class EvaluacionController extends Controller
                 $em->persist($calificacion);
             }
             $em->flush();
+
+            // Envio notificaciones
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
+            $notificacionService = $this->get('boletines.servicios.notificacion');
+            $notificacionService->newCalificacionNotificacion(
+                $evaluacion->getMateria()->getAlumnos(),
+                "Calificacion actualizada en " . $evaluacion->getMateria(),
+                "Se actualizaron las calificaciones para la evaluación " . $evaluacion->getNombre(),
+                $this->generateUrl('calificacion')
+            );
         }
 
 

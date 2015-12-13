@@ -120,14 +120,26 @@ class NotificacionService
         return $notificaciones;
     }
 
-    public function newBullyingNotificacion($usuarios, $titulo = null, $texto = null, $url = null)
+    public function newBullyingNotificacion($users, $titulo = null, $texto = null, $url = null)
     {
         if (is_null($titulo)) {
             $titulo = "Notificacion de Bullying";
         }
 
-        foreach($usuarios as $usuario) {
-            $this->newUserNotificacion($usuario, $titulo, $texto, $url);
+        foreach($users as $user) {
+            $this->newUserNotificacion($user, $titulo, $texto, $url);
+        }
+    }
+
+    public function newCalificacionNotificacion($alumnos, $titulo = null, $texto = null, $url = null)
+    {
+        if (is_null($titulo)) {
+            $titulo = "Notificacion de Calificacion";
+        }
+
+        foreach($alumnos as $alumno)
+        {
+            $this->newUserNotificacion($alumno->getUsuario(), $titulo, $texto, $url);
         }
     }
 }
