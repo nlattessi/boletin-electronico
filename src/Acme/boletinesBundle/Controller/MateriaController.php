@@ -231,4 +231,21 @@ class MateriaController extends Controller
 
         return $materia;
     }
+
+    public function uploadAction($id, Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            if (!empty ($request->files->get('archivo'))) {
+                $em = $this->getDoctrine()->getManager();
+                $archivoService = $this->get('boletines.servicios.archivo');
+                $archivoService->createMateriaArchivo(
+                    $request->files->get('archivo'),
+                    $this->getUser(),
+                    $em->getRepository('BoletinesBundle:Materia')->find($id)
+                );
+            }
+        }
+
+        return $this->redirect($this->generateUrl('materia_show', ['id' => $id]), 301);
+    }
 }
