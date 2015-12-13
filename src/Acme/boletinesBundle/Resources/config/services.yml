@@ -71,3 +71,7 @@ services:
           arguments:
               filesystem: @archivos_filesystem
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.bullying:
+          class: Acme\boletinesBundle\Servicios\BullyingService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager

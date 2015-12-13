@@ -32,13 +32,14 @@ class NotificacionService
      * @param string $url
      * @return boolean
      */
-    public function newUserNotificacion($toId, $title = '', $msg = '', $url = '')
+    //public function newUserNotificacion($toId, $title = '', $msg = '', $url = '')
+    public function newUserNotificacion($user, $title = null, $msg = null, $url = null)
     {
 
-        $user = $this->em->getRepository('BoletinesBundle:Usuario')
-            ->findOneBy(array('id' => $toId));
+        // $user = $this->em->getRepository('BoletinesBundle:Usuario')
+        //     ->findOneBy(array('id' => $toId));
 
-        $date = new \DateTime();
+        $date = new \DateTime('now');
 
         $notificacion = new Notificacion();
         $notificacion->setFechaEnvio($date);
@@ -58,9 +59,7 @@ class NotificacionService
 
         $this->em->persist($notificacionUsuario);
         $this->em->flush();
-
     }
-
 
     public function newGroupNotificacion($toGroupId, $title = '', $msg = '', $url = '')
     {
@@ -121,5 +120,32 @@ class NotificacionService
         return $notificaciones;
     }
 
+    public function newBullyingNotificacion($users, $titulo = null, $texto = null, $url = null)
+    {
+        if (is_null($titulo)) {
+            $titulo = "Notificacion de Bullying";
+        }
 
+        foreach($users as $user) {
+            $this->newUserNotificacion($user, $titulo, $texto, $url);
+        }
+    }
+
+    public function newCalificacionNotificacion($alumnos, $titulo = null, $texto = null, $url = null)
+    {
+        if (is_null($titulo)) {
+            $titulo = "Notificacion de Calificacion";
+        }
+
+        foreach($alumnos as $alumno)
+        {
+            $this->newUserNotificacion($alumno->getUsuario(), $titulo, $texto, $url);
+            if ($alumno->getPadre1()) {
+                $this->newUserNotificacion($alumno->getPadre1()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+            }
+            if ($alumno->getPadre2()) {
+                $this->newUserNotificacion($alumno->getPadre2()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+            }
+        }
+    }
 }

@@ -5,7 +5,7 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="titulo" type="string" column="titulo" length="100" nullable="false"/>
-    <field name="texto" type="string" column="texto" length="500" nullable="false"/>
+    <field name="texto" type="string" column="texto" length="500" nullable="true"/>
     <field name="fechaEnvio" type="datetime" column="fecha_envio" nullable="false"/>
     <field name="url" type="string" column="url" length="150" nullable="true"/>
   </entity>
