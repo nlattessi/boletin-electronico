@@ -84,12 +84,12 @@
 
                                 {% for alumno in alumnos %}
                                     <tr>
-                                        <td>{{alumno.nombre}}</td>
-                                        <td>{{alumno.apellido}}</td>
-                                        <td>{{alumno.dni}}</td>
-                                        <td>{{alumno.establecimiento.nombre}}</td>
+                                        <td> <a href="{{path('alumno_show', {'id' : alumno.id})}}" >{{alumno.nombre}}</a></td>
+                                        <td><a href="{{path('alumno_show', {'id' : alumno.id})}}" >{{alumno.apellido}}</a></td>
+                                        <td><a href="{{path('alumno_show', {'id' : alumno.id})}}" >{{alumno.dni}}</a></td>
+                                        <td><a href="{{path('alumno_show', {'id' : alumno.id})}}" >{{alumno.establecimiento.nombre}}</a></td>
                                         <td>
-                                            <a href="usuarios-editar-alumno_directivo.html" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                                            <a href="{{path('alumno_edit', {'id' : alumno.id})}}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                                             <a href="{{path('alumno_delete_from_director', {'id' : alumno.id})}}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
                                         </td>
                                     </tr>

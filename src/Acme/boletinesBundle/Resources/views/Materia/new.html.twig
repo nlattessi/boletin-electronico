@@ -1,34 +1,247 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Materia creation</h1>
-  
-  
-       <form action="{{ path('materia_new') }}" method="post">
+{% block page %}
+    <div class="row">
 
-          <input type="text" placeholder="nombre" name="nombreMateria"><br/>
-           <select name="idTipoMateria">
-               {% for tipoMateria in entitiesRelacionadas %}
+        <div class="col s12 m12 l12">
+            <form action="{{ path('materia_new') }}" method="post">
 
-                   <option value="{{tipoMateria.idTipoMateria}}">{{tipoMateria.__toString()}}</option>
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h4 class="header">Nueva materia</h4>
+                    </div>
 
-               {% endfor %}
-               <option value="-1" selected="selected">Seleccione un Tipo de Materia creada</option>
-           </select>
-           <br/><br/><br/>
+                    <div class="input-field col s6">
+                        <input name="nombre" id="icon_prefix" type="text"
+                               class="validate">
+                        <label for="icon_prefix">Nombre de la materia</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select name="tipo_materia" id="tipo_materia">
+                            {% for tipoMateria in tiposMateria %}
+                                <option value="{{ tipoMateria.id }}"> {{ tipoMateria.nombre }} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="tipo_materia">Tipo materia</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <select name="establecimiento" id="establecimiento">
+                            {% for establecimiento in establecimientos %}
+                                <option value="{{ establecimiento.id }}">{{ establecimiento.nombre }} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="establecimiento">Establecimiento</label>
 
-     
-      <button type="submit" >Crear Materia</button>
-        
-        
-        <br/>
-    </form>
+                    </div>
+                </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('materia') }}">
-            Volver a la lista
-        </a>
-    </li>
-</ul>
+                <div class="row">
+                    <div class="col s12 mar-top-soft">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Lunes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="lunes_chk" type="checkbox"
+                                           id="test1" class="filled-in"/>
+                                    <label for="test1"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="lunes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="lunes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="lunes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="lunes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Martes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="martes_chk" type="checkbox"
+                                           id="test2" class="filled-in"/>
+                                    <label for="test2"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="martes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="martes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="martes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="martes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Miércoles</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="miercoles_chk" type="checkbox"
+                                           id="test3" class="filled-in"/>
+                                    <label for="test3"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="miercoles_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="miercoles_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="miercoles_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="miercoles_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Jueves</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="jueves_chk" type="checkbox"
+                                           id="test4" class="filled-in"/>
+                                    <label for="test4"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="jueves_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="jueves_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="jueves_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="jueves_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Viernes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="viernes_chk" type="checkbox"
+                                           id="test5" class="filled-in"/>
+                                    <label for="test5"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="viernes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="viernes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="viernes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="viernes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Sábado</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="sabado_chk" type="checkbox"
+                                           id="test6" class="filled-in"/>
+                                    <label for="test6"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="sabado_inicio" id="icon_prefix"
+                                       type="number" class="validate">
+                                <label for="sabado_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input name="sabado_fin" id="icon_prefix"
+                                       type="number" class="validate">
+                                <label for="sabado_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+
+                <div class="input-field col s6">
+                    <select>
+                        {% for docente in docentes %}
+                            <option value="{{ docente.id }}">{{ docente.nombre }} </option>
+                        {% endfor %}
+                    </select>
+                    <label>Docente</label>
+                </div>
+                <div class="input-field col s6">
+                    <select>
+                        {% for grupoAlumno in gruposAlumnos %}
+                            <option value="{{ grupoAlumno.id }}">{{ grupoAlumno.nombre }} </option>
+                        {% endfor %}
+                    </select>
+                    <label>Grupo de alumnos</label>
+                </div>
+
+
+                <div class="col s12 center-align mar-top-soft">
+                    <button type="submit" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</button>
+                </div>
+            </form>
+        </div>
+        <!--  End Tables Section  -->
+
+    </div>
+
+
 {% endblock %}

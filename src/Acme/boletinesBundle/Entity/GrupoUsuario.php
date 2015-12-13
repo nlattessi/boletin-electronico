@@ -97,14 +97,12 @@ class GrupoUsuario
     }
 
     /**
-     * @param mixed $usuarios
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuario
      */
-    public function setUsuarios($usuarios)
+    public function addUsuario(\Acme\boletinesBundle\Entity\Usuario $usuario)
     {
-        $this->usuarios = $usuarios;
+        $this->usuarios[] = $usuario;
     }
-
-
 
     /**
      * @return mixed

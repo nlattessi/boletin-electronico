@@ -1,59 +1,183 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Alumno edit</h1>
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <form action="{{ path('alumno_edit', {'id':alumno.id }) }}" method="post">
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h3 class="header">Editar datos del alumno</h3>
+                        <h5 class="header">Datos obligatorios</h5>
+                    </div>
+                </div>
 
-    <h2>{{ mensaje }}</h2>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input name='nombre' value="{{ alumno.nombre }}" id="nombre_inst" type="text"
+                               class="validate">
+                        <label for="nombre_inst">Nombre/s</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="apellido" value="{{ alumno.apellido }}" id="tel" type="text"
+                               class="validate">
+                        <label for="apellido" data-error="" data-success="Correcto">Apellido/s</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input name="dni" value="{{ alumno.dni }}" id="nombre_inst" type="text"
+                               class="validate">
+                        <label for="nombre_inst">DNI</label>
+                    </div>
+                </div>
+                <div class="divider mar-bot-top col s12 m12 l12"></div>
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h5 class="header">Datos adicionales</h5>
+                    </div>
+                </div>
 
-    <form action="{{ path('alumno_edit', {'id':alumno.id }) }}" method="post">
-        <input type="text" value="{{ alumno.id }}" hidden="hidden" name="idAlumno"><br/>
-        <input type="text" value="{{ alumno.nombreAlumno }}" placeholder="nombre" name="nombreAlumno"><br/>
-        {% if alumno.usuarioAlumno != null %}
-            <p>UsuarioAlumno Asociado</p>
-            <p>{{ alumno.usuarioAlumno.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idUsuarioAlumno">
-            {% for usuarioAlumno in entitiesRelacionadas %}
+                <div class="row mar-bot">
+                    <div class=" col s12 m6 l6">
+                        <h6 class="header">Género</h6>
+                        <div class="row">
+                            <div class=" col s6">
+                                <p>
+                                    <input name="sexo" value="m" type="radio" id="test1"
+                                            {% if alumno.sexo == 'm' %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test1">Masculino</label>
+                                </p>
+                            </div>
+                            <div class=" col s6">
+                                <p>
+                                    <input name="sexo" value="f" type="radio" id="test2"
+                                            {% if alumno.sexo == 'f' %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test2">Femenino</label>
+                                </p>
+                            </div>
+                            </div>
+                    </div>
+                </div>
 
-                <option value="{{usuarioAlumno.id}}">{{usuarioAlumno.__toString()}}</option>
 
-            {% endfor %}
-            <option value="-1" selected="selected">No seleccionar ninguna</option>
-        </select>
-        {% if alumno.usuarioPadre1 != null %}
-            <p>Padre1 Asociado</p>
-            <p>{{ alumno.usuarioPadre1.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idUsuarioPadre1">
-            {% for usuarioPadre in padres %}
+                <div class="row">
+                    <div class=" col s12 m6 l6">
+                        <i class="icon-linear-calendar-insert"></i>
+                        <label for="birthdate" class="">Fecha de nacimiento</label>
+                        <input name="fechaNacimiento" value="{{ alumno.fechaNacimiento|date('d-m-Y H:i') }}" type="date" class="datepicker">
+                    </div>
 
-                <option value="{{usuarioPadre.id}}">{{usuarioPadre.__toString()}}</option>
+                    <div class=" col s12 m6 l6">
+                        <i class="icon-linear-calendar-insert"></i>
+                        <label for="birthdate" class="">Fecha de ingreso</label>
+                        <input name="fechaIngreso" value="{{ alumno.fechaIngreso|date('d-m-Y H:i') }}" type="date" class="datepicker">
+                    </div>
+                </div>
+                <div class="row">
+                    {#<div class="input-field col s12 m6 l6">#}
+                        {#<select>#}
+                            {#<option value="" disabled selected>Argentina</option>#}
+                            {#<option value="1">Argentina</option>#}
+                            {#<option value="2">Colombia</option>#}
+                        {#</select>#}
+                    {#</div>#}
+                <div class="input-field col s12 m6 l6">
+                    <select name="ciudad">
+                        <option value="" disabled selected>Ciudad
+                        </option>
+                        {% for ciudad in ciudades %}
+                            <option value="{{ ciudad.id }}"
 
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione un Usuario Padre</option>
-        </select>
-        {% if alumno.usuarioPadre2 != null %}
-            <p>Padre2 Asociado</p>
-            <p>{{ alumno.usuarioPadre2.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idUsuarioPadre2">
-            {% for usuarioPadre2 in padres %}
+                                    {% if alumno.ciudad == ciudad %}
+                                        selected="selected"
+                                    {% endif %}
 
-                <option value="{{usuarioPadre2.id}}">{{usuarioPadre2.__toString()}}</option>
+                                    >{{ ciudad.nombre }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input name="direccion" value="{{ alumno.direccion }}" id="number" type="text"
+                               class="validate">
+                        <label for="number">Dirección</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <input name="codigoPostal" value="{{ alumno.codigoPostal }}" id="number" type="number"
+                               class="validate">
+                        <label for="number">Código postal</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
+                        <input name="codigoPais" value="{{ alumno.codigoPais }}" id="number" type="number" class="validate">
+                        <label for="number">Código país</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input name="codigoArea" value="{{ alumno.codigoArea }}" id="number" type="number" class="validate">
+                        <label for="number">Código de área</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input name="telefono" value="{{ alumno.telefono }}" id="number" type="number" class="validate">
+                        <label for="number">Teléfono</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input name="telefonoEmergencia" id="number" value="{{ alumno.telefonoEmergencia }}" type="number" class="validate">
+                        <label for="number">Teléfono de emergencia</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <input name="email" value="{{ alumno.usuario.email }}" id="number" type="email" class="validate">
+                        <label for="number">Email</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3">
+                        <input name="obraSocial" value="{{ alumno.obraSocial }}" id="number" type="text" class="validate">
+                        <label for="number">Obra social</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3">
+                        <input name="obraSocialNumeroAfiliado" id="number" value="{{ alumno.obraSocialNumeroAfiliado }}" type="number" class="validate">
+                        <label for="number">Obra social (número de
+                            afiliado).</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l3">
+                        <input name="grupoSanguineo" value="{{ alumno.grupoSanguineo }}" id="number" type="text" class="validate">
+                        <label for="number">Grupo sanguíneo</label>
+                    </div>
+                    <div class="input-field col s12 m6 l3">
+                        <input name="apodo" value="{{ alumno.apodo }}" id="number" type="text" class="validate">
+                        <label for="number">Apodo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 mar-top-soft">
+                        <textarea name='observaciones' id="textarea1"
+                                  class="materialize-textarea">{{ alumno.observaciones }}</textarea>
+                        <label for="textarea1">Observaciones</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align mar-top-soft">
+                        <button type="submit" class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
 
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione otro Usuario padre</option>
-        </select>
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('alumno') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+        <!--  end col  -->
+    </div><!--  end row  -->
+
+
 {% endblock %}

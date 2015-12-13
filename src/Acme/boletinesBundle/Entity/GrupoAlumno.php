@@ -68,11 +68,11 @@ class GrupoAlumno
     }
 
     /**
-     * @param mixed $alumnos
+     * @param Alumno $alumno
      */
-    public function setAlumnos($alumnos)
+    public function addAlumno(Alumno $alumno)
     {
-        $this->alumnos = $alumnos;
+        $this->alumnos[] = $alumno;
     }
 
     /**

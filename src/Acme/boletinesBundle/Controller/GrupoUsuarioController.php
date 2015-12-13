@@ -84,17 +84,17 @@ class GrupoUsuarioController extends Controller
             ->findOneBy(array('id' => $data->request->get('establecimiento')));
         $grupoUsuario->setEstablecimiento($establecimiento);
 
-        $em->persist($grupoUsuario);
-        $em->flush();
+
 
 
         //TODO Facu: persistir la relación manyToMany
         foreach ($usersIds as $userId) {
             $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
-            if($userMiemb instanceof Usuario){
-                $grupoUsuarioService->nuevoUsuarioGrupoUsuario($userMiemb, $grupoUsuario);
-            }
+            $grupoUsuario->addUsuario($userMiemb);
         }
+
+        $em->persist($grupoUsuario);
+        $em->flush();
 
         return $grupoUsuario;
     }

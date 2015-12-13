@@ -62,7 +62,10 @@ class MateriaDiaHorario
      */
     private $materia;
 
-
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+    }
 
     /**
      * Set dia

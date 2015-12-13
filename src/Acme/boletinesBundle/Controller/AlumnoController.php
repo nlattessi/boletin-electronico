@@ -14,6 +14,8 @@ use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\AlumnoType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Acme\boletinesBundle\Utils\Herramientas;
+
 
 class AlumnoController extends Controller
 {
@@ -34,8 +36,7 @@ class AlumnoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $id));
-
+        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
         return $this->render('BoletinesBundle:Alumno:show.html.twig', array('alumno' => $alumno));
     }
 
@@ -97,7 +98,7 @@ class AlumnoController extends Controller
         $em->persist($usuario);
         $em->flush();
 
-        return new RedirectResponse($this->generateUrl('director_alumnos'));
+        return new RedirectResponse($this->generateUrl('alumno'));
     }
 
     private function createEntity($data)
@@ -165,45 +166,48 @@ class AlumnoController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            $alumno = $this->editEntity($request, $id);
-            if($alumno != null) {
-                return $this->render('BoletinesBundle:Alumno:show.html.twig', array('alumno' => $alumno));
-            } else {
-                $message = "Errores";
-            }
+            $this->editEntity($request, $id);
         } else {
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $padres = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $id));
-        }
 
-        return $this->render('BoletinesBundle:Alumno:edit.html.twig', array('alumno' => $alumno, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas, 'padres'=> $padres));
-    }
-    private function editEntity($data, $id)
-    {
+        }
         $em = $this->getDoctrine()->getManager();
-        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $id));
 
-        $alumno->setNombreAlumno($data->request->get('nombreAlumno'));
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
+        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
 
-        $idUsuarioAlumno = $data->request->get('idUsuarioAlumno');
-        if($idUsuarioAlumno > 0){
-            //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioAlumno));
-            $alumno->setUsuarioAlumno($entityRelacionada);
-        }
-        $idUsuarioPadre1 = $data->request->get('idUsuarioPadre1');
-        if($idUsuarioPadre1 > 0){
-            //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre1));
-            $alumno->setUsuarioPadre1($entityRelacionada);
-        }
-        $idUsuarioPadre2 = $data->request->get('idUsuarioPadre2');
-        if($idUsuarioPadre2 > 0){
-            //Selecciono una UsuarioAlumno
-            $entityRelacionada = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $idUsuarioPadre2));
-            $alumno->setUsuarioPadre2($entityRelacionada);
+        return $this->render('BoletinesBundle:Alumno:edit.html.twig', array('alumno' => $alumno, 'ciudades' => $ciudades));
+    }
+    private function editEntity($request, $id)
+    {
+        $data = $request->request->all();
+
+        $em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
+        $alumno->setNombre($data['nombre']);
+        $alumno->setApellido($data['apellido']);
+        $alumno->setDni($data['dni']);
+        $alumno->setSexo($data['sexo']);
+        $alumno->setFechaNacimiento(Herramientas::textoADatetime($data['fechaNacimiento']));
+        $alumno->setFechaIngreso(Herramientas::textoADatetime($data['fechaIngreso']));
+        $alumno->setDireccion($data['direccion']);
+        $alumno->setCodigoPostal($data['codigoPostal']);
+        $alumno->setCodigoPais($data['codigoPais']);
+        $alumno->setCodigoArea($data['codigoArea']);
+        $alumno->setTelefono($data['telefono']);
+        $alumno->setTelefonoEmergencia($data['telefonoEmergencia']);
+        $alumno->setObraSocial($data['obraSocial']);
+        $alumno->setObraSocialNumeroAfiliado($data['obraSocialNumeroAfiliado']);
+        $alumno->setGrupoSanguineo($data['grupoSanguineo']);
+        $alumno->setApodo($data['apodo']);
+        $alumno->setObservaciones($data['observaciones']);
+        $alumno->getUsuario()->setEmail($data['email']);
+        if (isset($data['ciudad'])) {
+            $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data['ciudad']));
+            $alumno->setCiudad($ciudad);
         }
 
         $em->persist($alumno);

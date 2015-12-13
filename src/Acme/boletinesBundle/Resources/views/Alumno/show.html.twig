@@ -1,51 +1,92 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Alumno</h1>
+{% block page %}
+    <div class="row mar-top-soft">
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s12 m4 l2 center-align">
+                    <img src="images/child.jpg" alt="as" class="circle-child circle inst-thumb mar-top-soft">
+                </div>
+                <div class="col s12 m4 l6">
+                    <h3 class="header">{{ alumno.nombre }}</h3>
+                    <h5 class="header">
+                        {% if alumno.establecimiento.nombre is defined %}
+                            {{ alumno.establecimiento.nombre }}
+                        {% endif %}
+                    </h5>
+                </div>
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id Alumno</th>
-            <td>{{ alumno.id }}</td>
-        </tr>
-        <tr>
-            <th>Alumno</th>
-            <td>{{ alumno.nombreAlumno }}</td>
-        </tr>
-        {% if alumno.usuarioAlumno != null %}
-        <tr>
-            <th>UsuarioAlumno Asociado</th>
-            <td>{{ alumno.usuarioAlumno.__toString() }}</td>
-        </tr>
-        {% endif %}
-        {% if alumno.usuarioPadre1 != null %}
-            <tr>
-                <th>usuarioPadre1 Asociado</th>
-                <td>{{ alumno.usuarioPadre1.__toString() }}</td>
-            </tr>
-        {% endif %}
-        {% if alumno.usuarioPadre2 != null %}
-            <tr>
-                <th>usuarioPadre2 Asociado</th>
-                <td>{{ alumno.usuarioPadre2.__toString() }}</td>
-            </tr>
-        {% endif %}
+                <div class="col s12 m4 l2 left">
+                    <img src="images/belgranods.jpg" alt="as" class="inst-thumb mar-top-soft">
+                </div>
+            </div>
+            <div class="divider mar-bot-top"></div>
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Datos del alumno</h4>
+                </div>
+                <div class="col s2 m2 l2">
+                    <a href="{{path('alumno_edit', {'id' : alumno.id})}}" data-position="left" data-delay="25" data-tooltip="Editar alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Nombre/s: <span class="span-s"> {{ alumno.nombre }}</span></h5>
+                    <h5 class="header">DNI: <span class="span-s"> {{ alumno.dni }}</span></h5>
+                    <h5 class="header">Género: <span class="span-s"> {{ alumno.sexo|capitalize }}</span></h5>
+                    <h5 class="header">Fecha de nacimiento: <span class="span-s"> {{ alumno.fechaNacimiento|date('d/m/Y') }}</span></h5>
+                    <h5 class="header">Madre/Padre/Tutor o encargado N.1:
+                        <span class="span-s">
+                            {% if alumno.padre1.nombre is defined %}
+                                {{ alumno.padre1.nombre }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                    <h5 class="header">Código postal: <span class="span-s"> {{ alumno.codigoPostal }}</span></h5>
+                    <h5 class="header">Teléfono de emergencia: <span class="span-s"> {{ alumno.telefonoEmergencia }}</span></h5>
+                    <h5 class="header">Email: <span class="span-s"> {{ alumno.usuario.email }}</span></h5>
+                    <h5 class="header">Establecimiento:
+                     <span class="span-s">
+                            {% if alumno.establecimiento.nombre is defined %}
+                                {{ alumno.establecimiento.nombre }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Apellido/s: <span class="span-s"> {{ alumno.apellido }}</span> </h5>
+                    <h5 class="header">Fecha de ingreso: <span class="span-s"> {{ alumno.fechaIngreso|date('d/m/Y') }}</span></h5>
+                    <h5 class="header">Madre/Padre/Tutor o encargado N.2:
+                        <span class="span-s">
+                            {% if alumno.padre2.nombre is defined %}
+                                {{ alumno.padre2.nombre }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                    <h5 class="header">Ciudad:
+                        <span class="span-s">
+                            {% if alumno.ciudad.nombre is defined %}
+                                {{ alumno.ciudad.nombre }}
+                            {% endif %}
+                        </span>
+                    </h5>
+                    <h5 class="header">Dirección: <span class="span-s"> {{ alumno.direccion }}</span></h5>
+                    <h5 class="header">Teléfono: <span class="span-s"> {{ alumno.telefono }}</span></h5>
+                    <h5 class="header">Obra social: <span class="span-s"> {{ alumno.obraSocial }}</span></h5>
+                    <h5 class="header">Número de afiliado: <span class="span-s"> {{ alumno.obraSocialNumeroAfiliado }}</span></h5>
+                    <h5 class="header">Grupo sanguíneo: <span class="span-s"> {{ alumno.grupoSanguineo }}</span></h5>
+                    <h5 class="header">Apodo: <span class="span-s"> {{ alumno.apodo }}</span></h5>
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Observaciones: <span class="span-s"> {{ alumno.observaciones }}</span> </h5>
+                </div>
 
-        </tbody>
-    </table>
+            </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('alumno') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('alumno_edit', { 'id': alumno.id }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('alumno_delete', { 'id': alumno.id }) }}">Borrar</a></li>
-</ul>
+
+
+
+
+        </div><!--  end col  -->
+    </div><!--  end row  -->
 {% endblock %}

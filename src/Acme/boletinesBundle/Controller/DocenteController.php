@@ -4,15 +4,11 @@ namespace Acme\boletinesBundle\Controller;
 
 use Acme\boletinesBundle\Entity\Usuario;
 use Acme\boletinesBundle\Entity\UsuarioEstablecimiento;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Docente;
 use Acme\boletinesBundle\Entity\Calendario;
-use Acme\boletinesBundle\Form\DocenteType;
+use Acme\boletinesBundle\Utils\Herramientas;
 
 class DocenteController extends Controller
 {
@@ -32,7 +28,7 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
     }
@@ -141,43 +137,59 @@ class DocenteController extends Controller
         $message = "";
         if ($request->getMethod() == 'POST') {
             $docente = $this->editEntity($request, $id);
-            if($docente != null) {
-                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
-            } else {
-                $message = "Errores";
-            }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Usuario')->findAll();
-            $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
         }
+        $em = $this->getDoctrine()->getManager();
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $id));
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
 
-        return $this->render('BoletinesBundle:Docente:edit.html.twig', array('docente' => $docente, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
+        return $this->render('BoletinesBundle:Docente:edit.html.twig',
+            array(
+                'docente' => $docente,
+                'establecimientos' => $establecimientos,
+                'paises' => $paises,
+                'ciudades' => $ciudades
+            )
+        );
     }
 
-    private function editEntity($data, $id)
+    private function editEntity($request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('idDocente' => $id));
+        $data = $request->request->all();
 
-        $docente->setNombreDocente($data->request->get('nombreDocente'));
-        $docente->setEmailDocente($data->request->get('emailDocente'));
-        $docente->setTelefonoDocente($data->request->get('telefonoDocente'));
-        $idUsuario = $data->request->get('idUsuario');
-        if($idUsuario > 0){
-            $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' =>$idUsuario ));
-            $docente->setUsuario($usuario);
-        }else{
-            //no seleccionó ninguno
-            if($docente->getUsuario() == null) {
-                //no tenia ninguno
-                $controllerUsuario = new UsuarioController();
-                $usuario = $controllerUsuario->crearUsuarioDocente($docente->getNombreDocente(), $docente->getEmailDocente());
-                $em->persist($usuario);
-                $docente->setUsuario($usuario);
-            }
+//        var_dump($data);exit;
+        $em = $this->getDoctrine()->getManager();
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $id));
+        $docente->setNombre($data['nombre']);
+        $docente->setApellido($data['apellido']);
+        $docente->setDni($data['dni']);
+        if ($data['bdate'] != '') {
+            $docente->setFechaNacimiento(
+                Herramientas::textoADatetime($data['bdate'])
+            );
         }
 
+        if ($data['ingresodate'] != '') {
+            $docente->setFechaIngreso(
+                Herramientas::textoADatetime($data['ingresodate'])
+            );
+        }
+        $docente->setDireccion($data['direccion']);
+        $docente->setCodigoPostal($data['postal']);
+        $docente->setCodigoPais($data['codpais']);
+        $docente->setCodigoArea($data['codarea']);
+        $docente->setTelefono($data['telefono']);
+        $docente->setObservaciones($data['obs']);
+        $docente->setTitulo($data['titulouniversitario']);
+        $docente->setEsTitular(isset($data['titular']));
+        $docente->getUsuario()->setEmail($data['email']);
+        if (isset($data['ciudad'])) {
+            $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data['ciudad']));
+            $docente->setCiudad($ciudad);
+        }
 
         $em->persist($docente);
         $em->flush();
