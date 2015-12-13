@@ -75,3 +75,7 @@ services:
           class: Acme\boletinesBundle\Servicios\BullyingService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.bajaAdministrativa:
+          class: Acme\boletinesBundle\Servicios\BajaAdministrativaService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager
