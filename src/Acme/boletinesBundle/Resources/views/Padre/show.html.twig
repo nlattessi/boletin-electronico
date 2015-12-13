@@ -1,0 +1,74 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('padre') }}" class="b-focus">Padres</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" >Detalle tutor</a></li>
+
+{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="row">
+
+                <div class="col s2 m2 l10">
+                    <h3 class="header">{{ padre }}</h3>
+                </div>
+                <div class="col s2 m2 l2">
+                    <a href="{{ path('padre_edit', {'id' : padre.id}) }}" data-position="left" data-delay="25" data-tooltip="Editar tutor" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                </div>
+
+                <div class="col s12 m12 l12">
+                    <h5 class="header">Tutelados:</h5>
+                    <ul class="collection">
+                        {% for hijo in padre.hijos %}
+                        <li class="collection-item"><a class="collection-a" href="{{ path('alumno_show', {'id' : hijo.id}) }}">{{ hijo }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Datos del tutor</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+
+                    <h5 class="header">DNI: <span class="span-s"> {{ padre.dni }}</span></h5>
+                    <h5 class="header">Género: <span class="span-s">
+                        {% if  padre.genero  %}
+                            Femenino
+                        {% else %}
+                            Masculino
+                        {% endif %}
+                        </span></h5>
+
+                    <h5 class="header">Código postal: <span class="span-s"> {{ padre.codigoPostal }}</span></h5>
+
+
+                    <h5 class="header">Email: <span class="span-s">{{ padre.email }}</span></h5>
+                    <h5 class="header">Observaciones: <span class="span-s"> {{ padre.observaciones }}</span> </h5>
+
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="header">Dirección: <span class="span-s"> {{ padre.direccion }}</span></h5>
+                    <h5 class="header">Teléfono: <span class="span-s"> {{ padre.telefono }}</span></h5>
+                    <h5 class="header">Teléfono celular: <span class="span-s"> {{ padre.celular }}</span></h5>
+                    <h5 class="header">Teléfono Laboral: <span class="span-s"> {{ padre.telefonoLaboral }}</span></h5>
+                </div>
+                <div class="col s12 m6 l6">
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div><!--  end row  -->
+{% endblock %}

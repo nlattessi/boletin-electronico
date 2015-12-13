@@ -11,6 +11,8 @@
     <field name="nombre" type="string" column="nombre" length="25" nullable="false"/>
     <field name="apellido" type="string" column="apellido" length="25" nullable="false"/>
     <field name="dni" type="string" column="dni" length="8" nullable="true"/>
+    <field name="email" type="string" column="email" length="65" nullable="true"/>
+    <field name="genero" type="boolean" column="genero" nullable="true"/>
     <field name="direccion" type="string" column="direccion" length="45" nullable="true"/>
     <field name="direccionLaboral" type="string" column="direccion_laboral" length="45" nullable="true"/>
     <field name="codigoPostal" type="string" column="codigo_postal" length="45" nullable="true"/>

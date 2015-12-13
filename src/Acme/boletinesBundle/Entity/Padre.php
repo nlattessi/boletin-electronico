@@ -36,7 +36,20 @@ class Padre
     /**
      * @var string
      *
-     * @ORM\Column(name="direccion", type="string", length=45, nullable=true)
+     * @ORM\Column(name="email", type="string", length=65, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="genero", type="string", length=65, nullable=true)
+     */
+    private $genero;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="direccion", type="boolean", nullable=true)
      */
     private $direccion;
 
@@ -156,6 +169,7 @@ class Padre
      */
     private $usuario;
 
+    private $hijos;
 
 
     /**
@@ -580,6 +594,55 @@ class Padre
     public function getUsuario()
     {
         return $this->usuario;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getGenero()
+    {
+        //true es FEMENINO
+        return $this->genero;
+    }
+
+    /**
+     * @param boolean $genero
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHijos()
+    {
+        return $this->hijos;
+    }
+
+    /**
+     * @param mixed $hijos
+     */
+    public function setHijos($hijos)
+    {
+        $this->hijos = $hijos;
     }
 
     public function __toString()

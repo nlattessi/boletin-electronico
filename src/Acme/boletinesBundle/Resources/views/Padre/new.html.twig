@@ -1,0 +1,181 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('padre') }}" class="b-focus">Padres</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" >Nuevo tutor</a></li>
+
+{% endblock %}
+{% block page %}
+
+    <div class="container fadeIn animated">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h3 class="header">Crear nuevo tutor</h3>
+                        <h5 class="header">Datos obligatorios</h5>
+                    </div>
+                </div>
+                <form action="{{ path('padre_new') }}" method="post">
+
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <select name="establecimiento" id="establecimiento">
+                                <option value="" disabled selected>Establecimiento</option>
+                                {% for establecimiento in establecimientos %}
+                                    <option value="{{ establecimiento.id }}" >{{ establecimiento.nombre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col s12 m6 l6">
+                            <input name="nombre" id="nombre_inst" type="text"
+                                   class="validate">
+                            <label for="nombre_inst">Nombre/s</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input id="apellido" name="apellido" type="text" class="validate">
+                            <label for="apellido" data-error=""
+                                   data-success="Correcto">Apellido/s</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="icon-linear-user prefix"></i>
+                            <input name="user" id="icon_prefix" type="text"
+                                   class="validate">
+                            <label for="icon_prefix">Nombre de usuario</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="icon-linear-lock prefix"></i>
+                            <input name="password" id="icon_telephone" type="password"
+                                   class="validate">
+                            <label for="icon_telephone">Contraseña</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input name="dni" id="dni" type="text"
+                                   class="validate">
+                            <label for="dni">DNI</label>
+                        </div>
+
+
+                    </div>
+                    <div class="divider mar-bot-top col s12 m12 l12"></div>
+                    <div class="row">
+                        <div class="col s10 m10 l10">
+                            <h5 class="header">Datos adicionales</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mar-bot">
+                        <div class=" col s12 m6 l6">
+                            <h6 class="header">Género</h6>
+
+                            <div class="row">
+                                <div class=" col s6">
+                                    <p>
+                                        <input name="sexo" type="radio"
+                                               id="test1"/>
+                                        <label for="test1">Masculino</label>
+                                    </p>
+                                </div>
+                                <div class=" col s6">
+                                    <p>
+                                        <input name="sexo" type="radio"
+                                               id="test2"/>
+                                        <label for="test2">Femenino</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <select>
+                                <option value="" disabled selected>País</option>
+                                {% for pais in paises %}
+                                    <option value="{{ pais.id }}" >{{ pais.nombre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <select name="ciudad">
+                                <option value="" disabled selected>Ciudad
+                                </option>
+                                {% for ciudad in ciudades %}
+                                    <option value="{{ ciudad.id }}" >{{ ciudad.nombre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input name="direccion" id="direccion" type="text" class="validate">
+                            <label for="direccion">Dirección</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input name="postal" id="postal" type="number" class="validate">
+                            <label for="postal">Código postal</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input name="codarea" id="codarea" type="number" class="validate">
+                            <label for="codarea">Código de área</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input name="telefono" id="telefono" type="number" class="validate">
+                            <label for="telefono">Teléfono</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input name="telefonoLaboral" id="telefonoLaboral" type="number" class="validate">
+                            <label for="telefonoLaboral">Teléfono laboral</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input name="celular" id="celular" type="number" class="validate">
+                            <label for="celular">Teléfono celular</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <input name="email" id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <div class="file-field input-field">
+                                <input class="file-path validate" type="text"/>
+                                <label for="logo_img">Foto del Padre</label>
+
+                                <div class="btn-large">
+                                    <span>Elegir archivo</span>
+                                    <input type="file"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 mar-top-soft">
+                    <textarea name="obs" id="obs"
+                              class="materialize-textarea"></textarea>
+                            <label for="obs">Observaciones</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn-large waves-effect waves-light center-align mar-right" type="submit">Crear</button>
+                    </div>
+                </form>
+                <!--  end col  -->
+            </div>
+            <!--  end row  -->
+        </div>
+    </div>
+    <!--  end container  -->
+
+
+{% endblock %}
