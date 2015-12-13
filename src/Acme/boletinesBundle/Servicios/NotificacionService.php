@@ -140,6 +140,12 @@ class NotificacionService
         foreach($alumnos as $alumno)
         {
             $this->newUserNotificacion($alumno->getUsuario(), $titulo, $texto, $url);
+            if ($alumno->getPadre1()) {
+                $this->newUserNotificacion($alumno->getPadre1()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+            }
+            if ($alumno->getPadre2()) {
+                $this->newUserNotificacion($alumno->getPadre2()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+            }
         }
     }
 }

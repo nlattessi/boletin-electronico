@@ -102,8 +102,10 @@ class EvaluacionController extends Controller
 
         if (!empty($data->files->get('archivos'))) {
             foreach ($data->files->get('archivos') as $archivo) {
-                $archivoService =  $this->get('boletines.servicios.archivo');
-                $archivoService->createEvaluacionArchivo($archivo, $usuario, $evaluacion);
+                if (!is_null($archivo)) {
+                    $archivoService =  $this->get('boletines.servicios.archivo');
+                    $archivoService->createEvaluacionArchivo($archivo, $usuario, $evaluacion);
+                }
             }
         }
 
