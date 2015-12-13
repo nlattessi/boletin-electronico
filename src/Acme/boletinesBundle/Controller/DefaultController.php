@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
 //        return $this->render('BoletinesBundle:Default:index.html.twig', array('name' => $name));
     }
+    public function enConstruccionAction()
+    {
+        return $this->render('BoletinesBundle:Default:en_construccion.html.twig');
+    }
 }

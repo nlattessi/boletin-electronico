@@ -116,3 +116,7 @@ boletines_archivo_download:
 boletines_archivo_downloadZip:
     pattern: /archivoZip
     defaults: { _controller: BoletinesBundle:Archivo:downloadZip }
+
+en_construccion:
+    path:     /en_construccion
+    defaults: { _controller: BoletinesBundle:Default:enConstruccion }

@@ -39,7 +39,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:alumnos.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos));
+        return $this->render('BoletinesBundle:Director:alumnos.html.twig', array('alumnos' => $alumnos, 'establecimientos' => $establecimientos,
+            'css_active' => 'establecimiento',));
     }
 
     public function getDocentesAction()
@@ -49,7 +50,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $docentes = $muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:docentes.html.twig', array('docentes' => $docentes));
+        return $this->render('BoletinesBundle:Director:docentes.html.twig', array('docentes' => $docentes,
+            'css_active' => 'docente',));
     }
 
     public function getPadresAction()
@@ -59,7 +61,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $padres = $muchosAMuchos->obtenerPadresPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:padres.html.twig', array('padres' => $padres));
+        return $this->render('BoletinesBundle:Director:padres.html.twig', array('padres' => $padres,
+            'css_active' => 'padre',));
     }
 
     public function getBedelesAction()
@@ -69,7 +72,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $bedeles = $muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL');
 
-        return $this->render('BoletinesBundle:Director:bedeles.html.twig', array('bedeles' => $bedeles));
+        return $this->render('BoletinesBundle:Director:bedeles.html.twig', array('bedeles' => $bedeles,
+            'css_active' => 'bedel',));
     }
 
     public function getMateriasAction()
@@ -79,7 +83,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $materias = $muchosAMuchos->obtenerMateriasPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:materias.html.twig', array('materias' => $materias));
+        return $this->render('BoletinesBundle:Director:materias.html.twig', array('materias' => $materias,
+            'css_active' => 'materia',));
     }
 
     public function getCalificacionesAction()
@@ -89,7 +94,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $calificaciones = $muchosAMuchos->obtenerCalificacionesPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:calificaciones.html.twig', array('calificaciones' => $calificaciones));
+        return $this->render('BoletinesBundle:Director:calificaciones.html.twig', array('calificaciones' => $calificaciones,
+            'css_active' => 'calificacion',));
     }
 
     public function getGruposUsuarioAction()
@@ -108,7 +114,8 @@ class DirectorController extends Controller
 ////            $grupo->setCantUsuarios(count($usuariosGrupos));
 //        }
 //exit();
-        return $this->render('BoletinesBundle:Director:grupos.html.twig', array('grupos' => $grupos));
+        return $this->render('BoletinesBundle:Director:grupos.html.twig', array('grupos' => $grupos,
+            'css_active' => 'grupoUsuario',));
     }
 
     public function getGruposAlumnosAction()
@@ -119,7 +126,8 @@ class DirectorController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $grupos = $muchosAMuchos->obtenerGruposAlumnosPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:Director:gruposAlumnos.html.twig', array('gruposAlumnos' => $grupos));
+        return $this->render('BoletinesBundle:Director:gruposAlumnos.html.twig', array('gruposAlumnos' => $grupos,
+            'css_active' => 'grupoAlumno',));
     }
 
     public function getConvivenciaAction()
@@ -130,7 +138,8 @@ class DirectorController extends Controller
         $convivencias = $muchosAMuchos->obtenerConvivenciaPorEstablecimientos($establecimientos);
 
 
-        return $this->render('BoletinesBundle:Director:convivencia.html.twig', array('convivencias' => $convivencias));
+        return $this->render('BoletinesBundle:Director:convivencia.html.twig', array('convivencias' => $convivencias,
+            'css_active' => 'convivencia',));
     }
 
 
