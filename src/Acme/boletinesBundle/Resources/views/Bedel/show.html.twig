@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id Actividad</th>
+            <td>{{ actividad.idActividad }}</td>
+        </tr>
+        <tr>
+            <th>Actividad</th>
+            <td>{{ actividad.nombreActividad }}</td>
+        </tr>
+        <tr>
+            <th>Fecha Desde</th>
+            <td>{{ actividad.fechaDesde|date('d-m-Y H:i') }}</td>
+        </tr>
+        <tr>
+            <th>Fecha Hasta</th>
+            <td>{{ actividad.fechaHasta|date('d-m-Y H:i') }}</td>
+        </tr>
+        <tr>
+            <th>Usuario Creador Relacionada</th>
+            <td>{{ actividad.usuarioCreador.__toString() }}</td>
+        </tr>
+        {% if actividad.archivo != null %}
+            <tr>
+                <th>Archivo Asociado</th>
+                <td>{{ actividad.archivo.__toString() }}</td>
+            </tr>
+        {% endif %}
+        
+
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('actividad') }}">
+           Volver a la lista
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('actividad_edit', { 'id': actividad.idActividad }) }}">
+            Editar
+        </a>
+    </li>
+    <li> <a href="{{ path('actividad_delete', { 'id': actividad.idActividad }) }}">Borrar</a></li>
+</ul>
+{% endblock %}

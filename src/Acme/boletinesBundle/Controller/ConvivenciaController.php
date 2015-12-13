@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\boletinesBundle\Servicios\SesionService;
 use Acme\boletinesBundle\Entity\Convivencia;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class ConvivenciaController extends Controller
@@ -184,6 +185,21 @@ class ConvivenciaController extends Controller
         $em->flush();
 
         return $convivencia;
+    }
+
+    public function validarAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $convivenciasIds = $request->request->get('convivencia');
+        foreach ($convivenciasIds as $convivenciaId) {
+            $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $convivenciaId));
+            $convivencia->setValidado(true);
+            $em->persist($convivencia);
+        }
+        $em->flush();
+
+        return new RedirectResponse($this->generateUrl('directivo_convivencia'));
     }
 }
 

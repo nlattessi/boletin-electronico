@@ -52,5 +52,39 @@ class BedelController extends Controller
         return $user;
     }
 
+    public function editAction($id = null, Request $request = null)
+    {
+        $message = "";
+        if ($request->getMethod() == 'POST') {
+            $this->editEntity($request, $id);
+        } else {
+
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        $bedel = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
+
+        return $this->render('BoletinesBundle:Bedel:edit.html.twig', array('bedel' => $bedel, 'establecimientos' => $establecimientos));
+    }
+
+    private function editEntity($request, $id)
+    {
+        $data = $request->request->all();
+
+        $em = $this->getDoctrine()->getManager();
+        $bedel = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
+        $bedel->setNombre($data['user']);
+        $bedel->setApellido($data['apellido']);
+        $bedel->setEmail($data['email']);
+        $bedel->setPassword($data['password']);
+
+        $em->persist($bedel);
+        $em->flush();
+
+        return $bedel;
+    }
 
 }

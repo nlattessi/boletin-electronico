@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Calificacion;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\CalificacionType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 class CalificacionController extends Controller
 {
@@ -175,12 +177,18 @@ class CalificacionController extends Controller
 
     public function validarAction(Request $request)
     {
-        var_dump($request->request->all());
-        exit;
-        if ($request->getMethod() == 'POST') {
-            $em = $this->getDoctrine()->getManager();
-            $data->request->get('comentarioCalificacion');
+        $em = $this->getDoctrine()->getManager();
+
+        $calificacionesIds = $request->request->get('calificacion');
+        foreach ($calificacionesIds as $calificacionId) {
+            $calificacion = $em->getRepository('BoletinesBundle:Calificacion')->findOneBy(array('id' => $calificacionId));
+            $calificacion->setValidada(true);
+            $em->persist($calificacion);
         }
+
+        $em->flush();
+
+        return new RedirectResponse($this->generateUrl('directivo_calificaciones'));
     }
 }
 

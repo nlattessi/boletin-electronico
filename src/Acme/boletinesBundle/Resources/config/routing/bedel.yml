@@ -1,3 +1,7 @@
 bedel_add:
     path:     /add
     defaults: { _controller: BoletinesBundle:Bedel:add }
+
+bedel_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Bedel:edit }

@@ -1,3 +1,7 @@
+convivencia_directivo_validar:
+    path:     /validar
+    defaults: { _controller: BoletinesBundle:Convivencia:validar }
+
 convivencia:
     path:     /
     defaults: { _controller: BoletinesBundle:Convivencia:index }
