@@ -22,9 +22,8 @@
         </div>
     </div>
     <div class="row">
+        <form action="{{ path('evaluacion_edit', { 'id': evaluacion.id }) }}" method="post" enctype="multipart/form-data">
         <div class="col s12 m12 l12">
-            <form action="{{ path('evaluacion_edit', { 'id': evaluacion.id }) }}" method="post">
-
             <div class="input-field col s12 m6 l6 mar-top-input-fix">
                 <input name="nombre" id="nombre_inst" type="text" class="validate" value="{{ evaluacion.nombre }}"/>
                 <label for="nombre" class="">Nombre de la instancia</label>
@@ -34,12 +33,36 @@
                 <label for="fecha" class="">Fecha</label>
                 <input type="date" class="datepicker" name="fecha" id="fecha" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
             </div>
-
-            <div class="col s12 center-align mar-top-soft">
-                <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
-                    Guardar cambios</button>
-            </div>
-            </form>
         </div>
+        <div class="col s12 m6 l6">
+          <h5 class="panel-title">Archivos asociados</h5>
+          <div class="mail-attachments">
+            <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+            <ul class="list-group">
+              {% for evaluacionArchivo in evaluacion.archivos %}
+                {{ macros.show_item_entityFile(evaluacionArchivo) }}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col s12 m6 l6">
+          <div class="file-field input-field">
+            <input class="file-path validate" type="text"/>
+            <label for="logo_img">Subir archivos para la evaluación</label>
+            <div class="btn-large">
+              <span>Elegir archivos</span>
+              <input type="file" name="archivos[]" multiple="multiple" id="archivos">
+            </div>
+         </div>
+        </div>
+        <div class="col s12 center-align mar-top-soft">
+            <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
+                Guardar cambios</button>
+        </div>
+        </form>
     </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
 {% endblock %}

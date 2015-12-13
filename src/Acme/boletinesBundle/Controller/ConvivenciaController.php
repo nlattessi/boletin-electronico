@@ -2,6 +2,8 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\Alumno;
+use Acme\boletinesBundle\Utils\Herramientas;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\boletinesBundle\Servicios\SesionService;
@@ -50,7 +52,7 @@ class ConvivenciaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('idConvivencia' => $id));
+        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Convivencia:show.html.twig', array('convivencia' => $convivencia));
     }
@@ -78,29 +80,42 @@ class ConvivenciaController extends Controller
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
+        $usuario = $this->getUser();
+        $usersIds = $data->request->get('idMiembro');
 
-        $convivencia = new Convivencia();
-        $convivencia->setComentario($data->request->get('comentarioDocente'));
-        //$convivencia->setDescargoAlumno($data->request->get('descargoAlumno'));
-        $convivencia->setDocente($sesionService->obtenerMiEntidadRelacionada());
-        $convivencia->setValor($data->request->get('valor'));
-        $convivencia->setFechaCarga(new \DateTime('now'));
-        $fecha = $data->request->get('fechaSuceso');
-        $fecha = Herramientas::textoADatetime($fecha);
-        $convivencia->setFechaSuceso($fecha);
-
-        $idAlumno = $data->request->get('idAlumno');
-        if($idAlumno > 0){
-            //Selecciono una Alumno
-            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
-            $convivencia->setAlumno($alumno);
+        if(!$usersIds){
+            //por si no se agregan usuarios
+            $usersIds = new ArrayCollection();
         }
 
+        $convivencia = null;
+        foreach ($usersIds as $userId) {
+            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            //$alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
+            $alumno= $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userMiemb->getIdEntidadAsociada()));
 
-        $em->persist($convivencia);
+            if($alumno instanceof Alumno){
+                $convivencia = new Convivencia();
+                $convivencia->setComentario($data->request->get('comentario'));
+                $convivencia->setUsuarioCarga($usuario);
+                $convivencia->setFechaCreacion(new \DateTime('now'));
+                $convivencia->setValidado(false);
+                $fecha = $data->request->get('fechaSuceso');
+                $fecha = Herramientas::textoADatetime($fecha);
+                $convivencia->setFechaSuceso($fecha);
+                $valor = $data->request->get('valor');
+                if($valor){
+                    $convivencia->setValor(true);
+                }else{
+                    $convivencia->setValor(false);
+                }
+                $convivencia->setAlumno($alumno);
+                $em->persist($convivencia);
+
+            }
+        }
+
         $em->flush();
-
         return $convivencia;
     }
 
@@ -109,7 +124,7 @@ class ConvivenciaController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('idConvivencia' => $id));
+        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
 
         if($convivencia instanceof Convivencia) {
             $em->remove($convivencia);
@@ -133,7 +148,7 @@ class ConvivenciaController extends Controller
         } else {
             $em = $this->getDoctrine()->getManager();
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Alumno')->findAll();
-            $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('idConvivencia' => $id));
+            $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
         }
 
         return $this->render('BoletinesBundle:Convivencia:edit.html.twig', array('convivencia' => $convivencia,
@@ -143,23 +158,26 @@ class ConvivenciaController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
+        $usuario = $this->getUser();
+        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
 
-        $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('idConvivencia' => $id));
+        if($usuario->getRol()->getNombre() == "ROLE_ALUMNO") {
+            $convivencia->setDescargo($data->request->get('descargo'));
+        }else{
+            //Director, Bedel o Docente, lo mismo da
+            $convivencia->setComentario($data->request->get('comentario'));
+            $convivencia->setUsuarioCarga($usuario);
+            $convivencia->setFechaActualizacion(new \DateTime('now'));
+            $fecha = $data->request->get('fechaSuceso');
+            $fecha = Herramientas::textoADatetime($fecha);
+            $convivencia->setFechaSuceso($fecha);
+            $valor = $data->request->get('valor');
+            if($valor){
+                $convivencia->setValor(true);
+            }else{
+                $convivencia->setValor(false);
+            }
 
-        $convivencia->setComentarioDocente($data->request->get('comentarioDocente'));
-        $convivencia->setDescargoAlumno($data->request->get('descargoAlumno'));
-        $convivencia->setDocente($sesionService->obtenerMiEntidadRelacionada());
-        $convivencia->setFechaCarga(new \DateTime('now'));
-        $fecha = $data->request->get('fechaSuceso');
-        $fecha = Herramientas::textoADatetime($fecha);
-        $convivencia->setFechaSuceso($fecha);
-
-        $idAlumno = $data->request->get('idAlumno');
-        if($idAlumno > 0){
-            //Selecciono una Alumno
-            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('idAlumno' => $idAlumno));
-            $convivencia->setAlumno($alumno);
         }
 
         $em->persist($convivencia);

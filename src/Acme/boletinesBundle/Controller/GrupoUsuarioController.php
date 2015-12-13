@@ -34,7 +34,8 @@ class GrupoUsuarioController extends Controller
 //        }
 //exit();
 
-        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('grupos' => $grupos));
+        return $this->render('BoletinesBundle:GrupoUsuario:index.html.twig', array('grupos' => $grupos,
+            'css_active' => 'grupoUsuario'));
     }
 
     public function getOneAction($id)

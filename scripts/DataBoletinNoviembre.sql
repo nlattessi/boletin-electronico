@@ -30,9 +30,9 @@ UNLOCK TABLES;
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (1,18,'FEDE','CASTA','33300316',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,0,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
-INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (2,17,'GADI','CASTA','4234234',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,0,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
-INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (3,19,'SEBI','CASTA','23423423',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,0,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
+INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (1,18,'FEDE','CASTA','33300316',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,NULL,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
+INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (2,17,'GADI','CASTA','4234234',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,NULL,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
+INSERT INTO `alumno` (`id`, `usuario_id`, `nombre`, `apellido`, `dni`, `ciudad_id`, `direccion`, `codigo_postal`, `codigo_pais`, `codigo_area`, `telefono`, `nacionalidad`, `sexo`, `padre1_id`, `padre2_id`, `obra_social`, `obra_social_numero_afiliado`, `telefono_emergencia`, `apodo`, `foto`, `avatar_id`, `fecha_ingreso`, `fecha_nacimiento`, `especialidad_id`, `observaciones`, `establecimiento_id`, `creation_time`, `update_time`, `grupo_sanguineo`) VALUES (3,19,'SEBI','CASTA','23423423',NULL,'',NULL,'','','',NULL,NULL,1,2,'','','',NULL,NULL,NULL,'0000-00-00','0000-00-00',NULL,NULL,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL);
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,8 +70,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `alumno_grupo_alumno` WRITE;
 /*!40000 ALTER TABLE `alumno_grupo_alumno` DISABLE KEYS */;
-INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (1,1,1,NULL,NULL);
-INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (2,1,2,NULL,NULL);
+/*INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (1,1,1,NULL,NULL);
+INSERT INTO `alumno_grupo_alumno` (`id`, `grupo_alumno_id`, `alumno_id`, `creation_time`, `update_time`) VALUES (2,1,2,NULL,NULL);*/
 /*!40000 ALTER TABLE `alumno_grupo_alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 

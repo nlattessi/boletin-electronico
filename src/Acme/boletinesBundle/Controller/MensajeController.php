@@ -184,6 +184,14 @@ class MensajeController extends Controller
                   $mensajeService->newMensajeUsuario($userRecibe, $mensaje);
               }
           }
+
+          if (!empty($data->files->get('archivos'))) {
+              foreach ($data->files->get('archivos') as $archivo) {
+                  $archivoService =  $this->get('boletines.servicios.archivo');
+                  $archivoService->createMensajeArchivo($archivo, $usuario, $mensaje);
+              }
+          }
+
         } else {
             return $this->redirect($this->generateUrl('login'), 301);
         }

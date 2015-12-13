@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new Acme\boletinesBundle\BoletinesBundle(),
 
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

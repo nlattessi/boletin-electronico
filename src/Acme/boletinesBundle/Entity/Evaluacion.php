@@ -83,6 +83,19 @@ class Evaluacion
     private $calificada;
 
     /**
+     * @ORM\OneToMany(targetEntity="MensajeArchivo", mappedBy="evaluacion")
+     */
+    private $archivos;
+
+
+    /* CONSTRUCT */
+    public function __construct()
+    {
+        $this->archivos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
      * Set nombre
      *
      * @param string $nombre
@@ -98,7 +111,7 @@ class Evaluacion
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -121,7 +134,7 @@ class Evaluacion
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -144,7 +157,7 @@ class Evaluacion
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -167,7 +180,7 @@ class Evaluacion
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -177,7 +190,7 @@ class Evaluacion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -200,7 +213,7 @@ class Evaluacion
     /**
      * Get actividad
      *
-     * @return \Acme\boletinesBundle\Entity\Actividad 
+     * @return \Acme\boletinesBundle\Entity\Actividad
      */
     public function getActividad()
     {
@@ -223,7 +236,7 @@ class Evaluacion
     /**
      * Get materia
      *
-     * @return \Acme\boletinesBundle\Entity\Materia 
+     * @return \Acme\boletinesBundle\Entity\Materia
      */
     public function getMateria()
     {
@@ -246,7 +259,7 @@ class Evaluacion
     /**
      * Get docente
      *
-     * @return \Acme\boletinesBundle\Entity\Docente 
+     * @return \Acme\boletinesBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -269,9 +282,12 @@ class Evaluacion
         $this->calificada = $calificada;
     }
 
-
-
     public function __toString(){
         return $this->getNombre();
+    }
+
+    public function getArchivos()
+    {
+        return $this->archivos;
     }
 }

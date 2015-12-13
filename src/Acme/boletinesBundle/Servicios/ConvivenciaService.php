@@ -57,8 +57,6 @@ class ConvivenciaService {
     public function obtenerConvivenciaPorUsuario($usuarioId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.usuarioCarga = ?1')
-            ->andWhere('c.validado = true')
-            ->andWhere('c.valor = true')
             ->setParameter(1, $usuarioId)
             ->addOrderBy('c.fechaSuceso','DESC');
 

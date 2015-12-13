@@ -18,3 +18,6 @@ materia_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Materia:edit }
 
+materia_upload_file:
+    path:     /{id}/upload
+    defaults: { _controller: BoletinesBundle:Materia:upload }

@@ -8,7 +8,7 @@
 
 {% macro show_alumno_activo(alumno) %}
   <h5 class="right-ch">
-    <img src="{% if alumno.avatar %}{{ asset('') }}{{ alumno.avatar.webPath }}{% endif %}" alt="" class="avatar-main circle1"> 
+    <img src="{% if alumno.avatar %}{{ asset('') }}{{ alumno.avatar.webPath }}{% endif %}" alt="" class="avatar-main circle1">
     {{ alumno }}
   </h5>
 {% endmacro %}
@@ -54,4 +54,13 @@
       <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="" class="avatar-mb circle mb-a-pad">
     {% endif %}
   {% endif %}
+{% endmacro %}
+
+{% macro show_item_entityFile(entityFile) %}
+<li class="list-group-item">
+  <span class="name">{{ entityFile.archivo.nombre }}</span>
+  <span class="size">({{ entityFile.archivo.size }})</span>
+  <a download="{{ entityFile.archivo.nombre }}" href="{{ asset('') }}{{ entityFile.archivo.webPath }}" data-position="top" data-delay="25" data-tooltip="Descargar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-download2"></i></a>
+  <input type="hidden" class="fileId" name="files[]" value="{{ entityFile.archivo.id }}"/>
+</li>
 {% endmacro %}

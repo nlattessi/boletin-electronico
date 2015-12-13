@@ -56,18 +56,32 @@ class JustificacionController extends Controller
         $sesionService = $this->get('boletines.servicios.sesion');
 
         $justificacion = new Justificacion();
-        $justificacion->setJustificacion($data->request->get('justificacion'));
+        // $justificacion->setJustificacion($data->request->get('justificacion'));
         $justificacion->setFechaCarga(new \DateTime('now'));
-        $justificacion->setUsuarioCarga($sesionService->obtenerUsuario());
-        $idArchivo = $data->request->get('idArchivo');
-        if($idArchivo > 0){
-            //Selecciono una Archivo
-            $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
-            $justificacion->setArchivo($archivo);
+        // $justificacion->setUsuarioCarga($sesionService->obtenerUsuario());
+        $justificacion->setUsuarioCarga($this->getUser());
+        // $idArchivo = $data->request->get('idArchivo');
+        // if($idArchivo > 0){
+        //     //Selecciono una Archivo
+        //     $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
+        //     $justificacion->setArchivo($archivo);
+        // }
+        if ($data->request->get('asistenciaId')) {
+            $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->find(
+                $data->request->get('asistenciaId')
+            );
+            $justificacion->setAsistencia($asistencia);
         }
 
         $em->persist($justificacion);
         $em->flush();
+
+        $archivoService = $this->get('boletines.servicios.archivo');
+        $archivoService->createJustificacionArchivo(
+            $data->files->get('justificacionFile'),
+            $this->getUser(),
+            $justificacion
+        );
 
         return $justificacion;
     }
@@ -124,5 +138,18 @@ class JustificacionController extends Controller
 
         return $justificacion;
     }
-}
 
+    public function uploadAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $justificacion = $this->createEntity($request);
+            if ($justificacion != null) {
+              $this->get('session')->getFlashBag()->add('success', 'Justificacion cargada con éxito');
+            } else {
+              $this->get('session')->getFlashBag()->add('error', 'Error en la carga...');
+            }
+        }
+
+        return $this->redirect($this->generateUrl('asistencia'), 301);
+    }
+}

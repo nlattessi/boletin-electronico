@@ -1,47 +1,79 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('convivencia') }}" class="b-focus">Convivencia</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" >Detalle convivencia</a></li>
 
-{% block body -%}
-    <h1>Convivencia</h1>
+{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m7 l7">
+            <h3 class="header">CONVIVENCIA</h3>
+        </div>
+        {% if app.user.rol == 'ROLE_PADRE' %}
+            <div class="col s12 m5 l5">
+                {{ macros.show_alumno_activo(app.session.get('alumnoActivo')) }}
+            </div>
+        {% endif %}
+    </div>
 
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>Id Convivencia</th>
-            <td>{{ convivencia.idConvivencia }}</td>
-        </tr>
-        <tr>
             <th>Docente</th>
-            <td>{{ convivencia.docente.__toString }}</td>
+            <td>{{ convivencia.usuarioCarga }}</td>
         </tr>
         <tr>
-            <th>Cometnario</th>
-            <td>{{ convivencia.comentarioDocente }}</td>
+            <th>Comentario</th>
+            <td>{{ convivencia.comentario }}</td>
+        </tr>
+        <tr>
+            <th>Fecha Suceso</th>
+            <td>{{ convivencia.fechaSuceso|date('d/m/Y') }}</td>
         </tr>
 
-        {% if convivencia.alumno != null %}
+        {% if app.user.rol == 'ROLE_DOCENTE' %}
         <tr>
             <th>Alumno Asociado</th>
-            <td>{{ convivencia.alumno.__toString() }}</td>
+            <td>{{ convivencia.alumno }}</td>
         </tr>
         {% endif %}
+        {% if not convivencia.valor %}
         <tr>
             <th>Descargo</th>
-            <td>{{ convivencia.descargoAlumno }}</td>
+            <td>
+                {% if convivencia.descargo %}
+                    {{ convivencia.descargo }}
+                {% else %}
+                    <i>Descargo aún no ingresado</i>
+                {% endif %}
+            </td>
         </tr>
+        {% endif %}
         </tbody>
     </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('convivencia') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('convivencia_edit', { 'id': convivencia.idConvivencia }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('convivencia_delete', { 'id': convivencia.idConvivencia }) }}">Borrar</a></li>
-</ul>
+            {% if app.user.rol == 'ROLE_ALUMNO' and not convivencia.valor %}
+                <li>
+                    <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}">
+                        Ingresar Descargo
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if app.user.rol == 'ROLE_DOCENTE' %}
+                <li>
+                    <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}">
+                        Editar
+                    </a>
+                </li>
+                <li> <a href="{{ path('convivencia_delete', { 'id': convivencia.id }) }}">Borrar</a></li>
+            {% endif %}
+            <li>
+                <a href="{{ path('convivencia') }}">
+                    Volver a la lista
+                </a>
+            </li>
+        </ul>
 {% endblock %}

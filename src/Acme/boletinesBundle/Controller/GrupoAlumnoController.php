@@ -23,7 +23,8 @@ class GrupoAlumnoController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $grupos = $muchosAMuchos->obtenerGruposAlumnosPorEstablecimientos($establecimientos);
 
-        return $this->render('BoletinesBundle:GrupoAlumno:index.html.twig', array('gruposAlumnos' => $grupos));
+        return $this->render('BoletinesBundle:GrupoAlumno:index.html.twig', array('gruposAlumnos' => $grupos,
+            'css_active' => 'grupoAlumno'));
     }
 
     public function getOneAction($id)

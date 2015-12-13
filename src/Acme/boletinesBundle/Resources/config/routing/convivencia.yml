@@ -2,6 +2,10 @@ convivencia:
     path:     /
     defaults: { _controller: BoletinesBundle:Convivencia:index }
 
+convivencia_autocompletar:
+    path:     /autocompletar
+    defaults: { _controller: BoletinesBundle:Alumno:autocompletar }
+
 convivencia_new:
     path:    /new
     defaults: { _controller: BoletinesBundle:Convivencia:new }

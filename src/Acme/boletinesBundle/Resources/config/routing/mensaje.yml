@@ -26,13 +26,25 @@ mensaje_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOne }
 
+mensaje_enviado_autocompletar:
+    path:     /enviado/autocompletar
+    defaults: { _controller: BoletinesBundle:Mensaje:autocompletar }
+
 mensaje_enviado_show:
     path:     /enviado/{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOneEnviado }
 
+mensaje_borrado_autocompletar:
+    path:     /borrado/autocompletar
+    defaults: { _controller: BoletinesBundle:Mensaje:autocompletar }
+
 mensaje_borrado_show:
     path:     /borrado/{id}
     defaults: { _controller: BoletinesBundle:Mensaje:getOneBorrado }
+
+mensaje_borrador_autocompletar:
+    path:     /borrador/autocompletar
+    defaults: { _controller: BoletinesBundle:Mensaje:autocompletar }
 
 mensaje_borrador_show:
     path:     /borrador/{id}

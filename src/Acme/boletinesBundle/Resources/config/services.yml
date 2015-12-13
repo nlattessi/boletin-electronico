@@ -62,3 +62,8 @@ services:
           class: Acme\boletinesBundle\EventListener\UsuarioPostLoadListener
           tags:
               - { name: doctrine.event_listener, event: postLoad }
+      boletines.servicios.archivo:
+          class: Acme\boletinesBundle\Servicios\ArchivoService
+          arguments:
+              filesystem: @archivos_filesystem
+              entityManager: @doctrine.orm.entity_manager

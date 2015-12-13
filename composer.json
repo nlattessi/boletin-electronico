@@ -23,7 +23,9 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "ext-intl": "*",
         "brandonwamboldt/utilphp": "1.1.*",
-        "knplabs/knp-time-bundle": "^1.5"
+        "knplabs/knp-time-bundle": "^1.5",
+        "knplabs/gaufrette": "dev-master",
+        "knplabs/knp-gaufrette-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

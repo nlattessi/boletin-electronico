@@ -10,6 +10,10 @@ justificacion_delete:
     path:     /delete/{id}
     defaults: { _controller: BoletinesBundle:Justificacion:delete }
 
+justificacion_upload:
+    path:     /upload
+    defaults: { _controller: BoletinesBundle:Justificacion:upload }
+
 justificacion_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Justificacion:getOne }

@@ -2,14 +2,14 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Acme\boletinesBundle\Entity\Archivo" table="archivo">
     <indexes>
-      <index name="FK_3529B4827FA0C10D" columns="usuario_carga_id"/>
+      <index name="fk_archivo_usuario" columns="usuario_carga_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
     <field name="nombreParaMostrar" type="string" column="nombre_para_mostrar" length="45" nullable="false"/>
     <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
-    <field name="rutaArchivo" type="string" column="ruta_archivo" length="75" nullable="false"/>
+    <field name="path" type="string" column="path" length="75" nullable="false"/>
     <field name="fechaSubida" type="datetime" column="fecha_subida" nullable="false"/>
     <field name="fechaActualizacion" type="datetime" column="fecha_actualizacion" nullable="false"/>
     <many-to-one field="usuarioCarga" target-entity="Usuario">

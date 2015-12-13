@@ -104,3 +104,11 @@ cambiar_hijo:
 antibullyng:
     pattern:  /antibullyng/{id}
     defaults: { _controller: BoletinesBundle:Alumno:antybullyng }
+
+boletines_archivo_download:
+    pattern: /archivo/{filename}
+    defaults: { _controller: BoletinesBundle:Archivo:downloadFile }
+
+boletines_archivo_downloadZip:
+    pattern: /archivoZip
+    defaults: { _controller: BoletinesBundle:Archivo:downloadZip }
