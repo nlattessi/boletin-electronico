@@ -54,11 +54,11 @@
                         <div class="col s12 mar-top-soft">
 
                             <ul class="collection">
-                                {% for bedele in bedeles %}
+                                {% for bedel in bedeles %}
 
                                     <li class="collection-item avatar">
-                                        <a href="usuarios-bedeles-ficha_directivo.html" class="collection-a"><span class="title truncate">{{ bedele.nombre }} {{ bedele.apellido }}</span></a>
-                                        <a href="usuarios-bedeles-editar_directivo.html" data-position="left" data-delay="25" data-tooltip="Editar" class="secondary-content tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                                        <a href="{{path('bedel_edit', {'id' : bedel.id})}}" class="collection-a"><span class="title truncate">{{ bedel.nombre }} {{ bedel.apellido }}</span></a>
+                                        <a href="{{path('bedel_edit', {'id' : bedel.id})}}" data-position="left" data-delay="25" data-tooltip="Editar" class="secondary-content tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                                     </li>
                                 {% endfor %}
                             </ul>
