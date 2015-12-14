@@ -119,8 +119,8 @@
                                 </div>
                             </div>
 
-                            <div class="panel-body normalh pad-mod">
-                                <div class="col  pad-mod2">
+                            <div class="panel-body normalh ">
+                                <div class="col s12">
                                     {% for calificacion in calificaciones %}
                                         <h6 class="fw-4"><span class="widget-califications-date">{{ calificacion.fecha|date('d/m/Y') }}</span>  {{ calificacion.evaluacion.materia  }} <span class="widget-califications">{{ calificacion.valor }}</span></h6>
                                         <div class="divider"></div>

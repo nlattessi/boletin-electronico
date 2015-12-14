@@ -42,6 +42,7 @@ class EvaluacionService {
         }
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Evaluacion')->createQueryBuilder('e')
             ->where('e.docente = ?1')
+            ->andWhere('e.activo = true')
             ->setParameter(1, $idDocente)
             ->orderBy('e.fecha','DESC')
         ->setMaxResults($limite);
