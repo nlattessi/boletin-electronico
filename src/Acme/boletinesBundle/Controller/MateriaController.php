@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\Evaluacion;
 use Acme\boletinesBundle\Entity\MateriaDiaHorario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,6 +26,11 @@ class MateriaController extends Controller
             $session = $request->getSession();
             $docente = $session->get('docenteActivo');
             $entities = $materiaService->listaMateriasPorDocente($docente->getId());
+        }elseif($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO'){
+            $user = $this->getUser();
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+            $entities = $muchosAMuchos->obtenerMateriasPorEstablecimientos($establecimientos);
         }
         else{
             $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
@@ -50,6 +56,19 @@ class MateriaController extends Controller
 
         return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia,
             'css_active' => 'materia',));
+    }
+
+    public function bajaEvaluacionAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
+        $materia = $evaluacion->getMateria()->getId();
+        if($evaluacion instanceof Evaluacion) {
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($evaluacion);
+            // $em->remove($evaluacion);
+            // $em->flush();
+        }
+        return $this->getOneAction($materia);
     }
 
     public function newAction(Request $request)
@@ -105,11 +124,11 @@ class MateriaController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
 
        if($materia instanceof Materia) {
-           $em->remove($materia);
-           $em->flush();
+           $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+           $bajaAdministrativaService->darDeBaja($materia);
        }
         return $this->indexAction();
     }
@@ -205,7 +224,7 @@ class MateriaController extends Controller
         } else {
             $em = $this->getDoctrine()->getManager();
             $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
-            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
         }
 
         return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia,
@@ -215,7 +234,7 @@ class MateriaController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('idMateria' => $id));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
 
         $materia->setNombreMateria($data->request->get('nombreMateria'));
 

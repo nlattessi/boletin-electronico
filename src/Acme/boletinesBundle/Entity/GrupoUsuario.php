@@ -78,6 +78,11 @@ class GrupoUsuario
      **/
     private $usuarios;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
     private $cantUsuarios;
 
 
@@ -260,6 +265,24 @@ class GrupoUsuario
     {
         $this->establecimiento = $establecimiento;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 
     function __toString()
     {

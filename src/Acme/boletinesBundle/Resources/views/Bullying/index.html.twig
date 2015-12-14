@@ -19,6 +19,7 @@
                                 <th data-field="">Fecha</th>
                                 <th data-field="">Alumno</th>
                                 <th data-field="">Comentario</th>
+                                <th data-field="">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -27,6 +28,11 @@
                                   <td>{{ bullying.fechaCarga|date('d/m/Y') }}</td>
                                   <td><a href="{{ path('alumno_show', {'id': bullying.alumno.id}) }}">{{ bullying.alumno }}</a></td>
                                   <td>{% if bullying.comentario %}{{ bullying.comentario }}{% else %}-{% endif %}</td>
+                                    <td><a href="{{ path('bullying_show', { 'id': bullying.id }) }}"
+                                           data-position="top" data-delay="25" data-tooltip="Ver"
+                                           class="tooltipped  btn-small btn waves-effect waves-light">
+                                            <i class="icon-linear-eye"></i>
+                                        </a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>

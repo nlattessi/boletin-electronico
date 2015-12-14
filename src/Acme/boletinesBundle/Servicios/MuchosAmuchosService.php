@@ -351,7 +351,7 @@ class MuchosAmuchosService {
     {
         $docentes = array();
         foreach($establecimientos as $establecimiento) {
-            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento));
+            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
             $docentes = array_merge($docenteEstablecimientos, $docentes);
         }
 
@@ -404,7 +404,7 @@ class MuchosAmuchosService {
     {
         $grupos = array();
         foreach($establecimientos as $establecimiento) {
-            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoUsuario')->findBy(array('establecimiento' => $establecimiento));
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoUsuario')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
             $grupos = array_merge($gruposEstablecimientos, $grupos);
         }
 
@@ -426,7 +426,7 @@ class MuchosAmuchosService {
     {
         $grupos = array();
         foreach($establecimientos as $establecimiento) {
-            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoAlumno')->findBy(array('establecimiento' => $establecimiento));
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoAlumno')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
             $grupos = array_merge($gruposEstablecimientos, $grupos);
         }
 
@@ -463,5 +463,18 @@ class MuchosAmuchosService {
         ]);
 
         return $directivos;
+    }
+
+    public function obtenerBullyingPorInstitucion($institucion){
+        $bullyings = $this->em->getRepository('BoletinesBundle:Bullying')->findAll();
+
+        $data = [];
+        foreach ($bullyings as $bullying) {
+            if ($bullying->getAlumno()->getUsuario()->getInstitucion() == $institucion) {
+                $data[] = $bullying;
+            }
+        }
+
+        return $data;
     }
 }

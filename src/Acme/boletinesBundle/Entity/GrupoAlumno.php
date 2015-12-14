@@ -49,6 +49,11 @@ class GrupoAlumno
      */
     private $id;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
     private $establecimiento;
 
     private $alumnos;
@@ -194,6 +199,24 @@ class GrupoAlumno
     {
         return $this->id;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 
     public function __toString(){
         return $this->getNombre();

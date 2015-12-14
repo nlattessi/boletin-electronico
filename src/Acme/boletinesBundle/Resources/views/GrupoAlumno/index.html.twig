@@ -44,7 +44,7 @@
                                 <td>{{ grupo.creationTime|date("d/m/Y") }}</td>
                                 <td>
                                     <a href="{{path('grupoAlumno_edit', {'id' : grupo.id})}}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
-                                    <a data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+                                    <a href="{{path('grupoAlumno_delete', {'id' : grupo.id})}}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

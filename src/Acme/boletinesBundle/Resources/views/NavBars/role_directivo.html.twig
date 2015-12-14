@@ -18,11 +18,13 @@
     </li>
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'grupoUsuario' %} active{% endif %}{% endif %}"><a href="{{ path('grupoUsuario') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span class="span-va">Grupos</span></a></li>
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'grupoAlumno' %} active{% endif %}{% endif %}"><a href="{{ path('grupoAlumno') }}"><i class="icon-linear-users icon-nav-size"></i> <span class="span-va">Grupos de alumnos</span></a></li>
-    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'materia' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_materias') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Materias</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'materia' %} active{% endif %}{% endif %}"><a href="{{ path('materia') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Materias</span></a></li>
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calificacion' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_calificaciones') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span class="span-va">Calificaciones</span></a></li>
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'convivencia' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_convivencia') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span class="span-va">Convivencia</span></a></li>
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calendario' %} active{% endif %}{% endif %}"><a href="{{ path('calendario') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span class="span-va">Calendario</span></a></li>
-    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'boletin' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}"><i class="icon-linear-license2 icon-nav-size"></i> <span class="span-va">Boletín</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'bullying' %} active{% endif %}{% endif %}"><a href="{{ path('bullying') }}"><i class="icon-linear-notification icon-nav-size"></i> <span class="span-va">Bullying</span></a></li>
+<!--    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'boletin' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}"><i class="icon-linear-license2 icon-nav-size"></i> <span class="span-va">Boletín</span></a></li>
+
     <li class="no-padding main-nav-pad ">
         <ul class="collapsible collapsible-accordion">
             <li>
@@ -35,5 +37,5 @@
                 </div>
             </li>
         </ul>
-    </li>
+    </li> -->
 </ul>

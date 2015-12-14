@@ -91,6 +91,11 @@ class Convivencia
     private $usuarioCarga;
 
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
 
     /**
      * Set comentario
@@ -308,4 +313,22 @@ class Convivencia
     {
         return $this->usuarioCarga;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 }

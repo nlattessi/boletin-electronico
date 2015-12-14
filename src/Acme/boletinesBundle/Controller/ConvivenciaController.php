@@ -128,8 +128,8 @@ class ConvivenciaController extends Controller
         $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
 
         if($convivencia instanceof Convivencia) {
-            $em->remove($convivencia);
-            $em->flush();
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($convivencia);
         }
         return $this->indexAction();
     }

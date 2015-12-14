@@ -19,6 +19,7 @@ class DirectorController extends Controller
         $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
         $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
         $cantidadAdmins = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMIN'));
+        $cantidadBullying = count($muchosAMuchos->obtenerBullyingPorInstitucion($user->getInstitucion()));
 
         $roles = array(
           'alumnos' => $cantidadAlumnos,
@@ -26,7 +27,8 @@ class DirectorController extends Controller
           'docentes' => $cantidadDocentes,
           'bedeles' => $cantidadBedeles,
           'directivos' => $cantidadDirectivos,
-          'admins' => $cantidadAdmins
+          'admins' => $cantidadAdmins,
+            'bullying' => $cantidadBullying
         );
 
         return $this->render('BoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));

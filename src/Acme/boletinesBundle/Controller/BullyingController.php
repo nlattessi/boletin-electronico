@@ -19,7 +19,7 @@ class BullyingController extends Controller
                 $data[] = $bullying;
             }
         }
-        return $this->render('BoletinesBundle:Bullying:index.html.twig', ['bullyings' => $data]);
+        return $this->render('BoletinesBundle:Bullying:index.html.twig', ['bullyings' => $data, 'css_active' => 'bullying',]);
     }
 
     public function getOneAction($id)
@@ -28,6 +28,6 @@ class BullyingController extends Controller
 
         $bullying = $em->getRepository('BoletinesBundle:Bullying')->find($id);
 
-        return $this->render('BoletinesBundle:Bullying:show.html.twig', ['bullying' => $bullying]);
+        return $this->render('BoletinesBundle:Bullying:show.html.twig', ['bullying' => $bullying, 'css_active' => 'bullying',]);
     }
 }
