@@ -148,6 +148,11 @@ class Establecimiento
      */
     protected $esquemaCalificacion;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
     private $materias;
 
 
@@ -574,6 +579,22 @@ class Establecimiento
         $this->esquemaCalificacion = $esquemaCalificacion;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
 
 
     public function  __toString()
@@ -585,4 +606,6 @@ class Establecimiento
     {
         return $this->materias;
     }
+
+
 }

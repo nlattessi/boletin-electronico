@@ -62,6 +62,11 @@ class Institucion
      */
     protected $establecimientos;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
 
     public function __construct()
     {
@@ -257,4 +262,22 @@ class Institucion
         // when displaying uploaded doc/image in the view.
         return 'uploads/logos';
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 }

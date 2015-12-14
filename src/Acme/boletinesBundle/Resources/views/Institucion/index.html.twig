@@ -36,7 +36,7 @@
                     <tr>
                         <td><a href="{{ path('institucion_show', {'id': entity.id}) }}" class="casual">{{ entity.nombre }}</a></td>
                         <td><span class="badge">{{ entity.establecimientos|length }}</span></td>
-                        <td>{{ entity.creationTime | localizeddate('none', 'none', 'es_AR', null, "d MMM, hh:mm a Y") }}</td>
+                        <td>{{ entity.creationTime | date('d/m/Y') }}</td>
                         <td>
                             <a href="{{ path('institucion_edit', {'id': entity.id}) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                             <a href="{{ path('establecimiento_new_with_institucion', {'institucionId': entity.id}) }}" data-position="top" data-delay="25" data-tooltip="Añadir establecimiento" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-plus"></i></a>

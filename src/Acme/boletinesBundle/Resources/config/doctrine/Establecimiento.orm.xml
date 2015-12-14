@@ -21,6 +21,7 @@
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
     <field name="maximoFaltas" type="integer" column="maximo_faltas" nullable="false"/>
     <field name="tardesFaltas" type="integer" column="tardes_faltas" nullable="false"/>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="true"/>
     <many-to-one field="ciudad" target-entity="Ciudad" inversed-by="establecimientos">

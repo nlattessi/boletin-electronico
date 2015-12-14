@@ -10,58 +10,60 @@
         <h3 class="header">Añadir establecimiento</h3>
         <h4 class="header">Datos de establecimiento</h4>
     </div>
-    <form action="{{ path('institucion_agregar_establecimiento', {'id': institucionId}) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ path('establecimiento_new_with_institucion', {'institucionId': institucion.id}) }}" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s12 m6 l6">
-                <input  value="Colegio Florida Day School - Belgrano R" id="nombre_inst" type="text" class="validate">
-                <label for="nombre_inst">Nombre del establecimiento</label>
+                <input  name="nombreEstablecimiento" id="nombreEstablecimiento" type="text" class="validate">
+                <label for="nombreEstablecimiento">Nombre del establecimiento</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <select>
-                    <option value="" disabled selected>Buenos Aires</option>
-                    <option value="1">Buenos Aires</option>
-                    <option value="2">Mar del Plata</option>
-                    <option value="3">Río Grande</option>
+                <select name="ciudad">
+                    <option value="" disabled selected>Ciudad
+                    </option>
+                    {% for ciudad in ciudades %}
+                        <option value="{{ ciudad.id }}" >{{ ciudad.nombre }} </option>
+                    {% endfor %}
                 </select>
 
             </div>
             <div class="input-field col s12 m6 l6">
-                <input  value="Nahuel Huapi 3542" id="nombre_apoderado" type="text" class="validate">
-                <label for="nombre_apoderado">Dirección</label>
+                <input  name="direccion" id="direccion" type="text" class="validate">
+                <label for="direccion">Dirección</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <input  value="1431" id="tel" type="number" class="validate">
-                <label for="tel">Código postal</label>
+                <input  name="codigoPostal" id="codigoPostal" type="number" class="validate">
+                <label for="codigoPostal">Código postal</label>
+            </div>
+            <!--
+            <div class="input-field col s12 m6 l6">
+                <input  name="longitud" id="longitud" type="number" class="validate">
+                <label for="longitud">Longitud</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <input  value="23523" id="tel" type="number" class="validate">
-                <label for="tel">Longitud</label>
-            </div>
-            <div class="input-field col s12 m6 l6">
-                <input  value="67764" id="tel" type="number" class="validate">
-                <label for="tel">Latitud</label>
-            </div>
+                <input  name="latitud" id="latitud" type="number" class="validate">
+                <label for="latitud">Latitud</label>
+            </div> -->
 
             <div class="input-field col s12 m6 l3">
-                <input  value="54" id="number" type="number" class="validate">
-                <label for="number">Código país</label>
+                <input  name="codigoPais" id="codigoPais" type="number" class="validate">
+                <label for="codigoPais">Código país</label>
             </div>
             <div class="input-field col s12 m6 l3">
-                <input  value="11" id="number" type="number" class="validate">
-                <label for="number">Código area</label>
+                <input  name="codigoArea" id="codigoArea" type="number" class="validate">
+                <label for="codigoArea">Código area</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <input  value="47813245" id="number" type="number" class="validate">
-                <label for="number">Teléfono</label>
+                <input  name="telefono" id="telefono" type="number" class="validate">
+                <label for="telefono">Teléfono</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <input  value="florida@dayschool.com" id="number" type="email" class="validate">
-                <label for="number">Correo electrónico oficial</label>
+                <input  name="email" id="email" type="email" class="validate">
+                <label for="email">Correo electrónico oficial</label>
             </div>
             <div class=" col s12 m6 l6">
                 <i class="icon-linear-calendar-insert"></i>
-                <label for="birthdate" class="">Fecha de inaguración</label>
-                <input type="date" class="datepicker">
+                <label for="fechaInauguracion" class="">Fecha de inaguración</label>
+                <input name="fechaInauguracion" type="date" class="datepicker">
             </div>
             <div class="divider mar-bot-top col s12 m12 l12"></div>
             <div class="col s10 m10 l10">
@@ -71,96 +73,37 @@
                 <h5 class="header">Esquema de calificación</h5>
                 <p class="header"> <strong>Este esquema definirá la forma de mostrar y promediar las calificaciones.</strong></p>
                 <div class="input-field col s12 m6 l6 mar-top-soft">
-                    <select>
-                        <option value="" disabled selected>Asignar Esquema</option>
-                        <option value="1">Esquema 1</option>
-                        <option value="2">Esquema 2</option>
-                        <option value="3">Esquema 3</option>
-                        <option value="4">Esquema 4</option>
+                    <select name="esquema">
+                        <option value="" disabled selected>Esquema</option>
+                        {% for esquema in esquemas %}
+                            <option value="{{ esquema.id }}" >{{ esquema.nombre }} </option>
+                        {% endfor %}
                     </select>
                     <label>Esquema de calificación</label>
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <h5 class="header">Períodos de evaluación</h5>
-                <div class="input-field col s12 m7 l7 mar-top-soft">
-                    <select>
-                        <option value="" disabled >Asignar período</option>
-                        <option value="1">Bimestral</option>
-                        <option value="2" selected>Trimestral</option>
-                        <option value="3">Cuatrimestral</option>
-                        <option value="4">Período 4</option>
-                    </select>
-                    <label>Esquema de calificación</label>
-                </div>
-                <div class="col s10 m10 l10">
-                    <h6 class="header">Primer período</h6>
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha desde</label>
-                    <input type="date" class="datepicker">
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha hasta</label>
-                    <input type="date" class="datepicker">
-                </div>
-                <div class="col s10 m10 l10">
-                    <h6 class="header">Segundo período</h6>
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha desde</label>
-                    <input type="date" class="datepicker">
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha hasta</label>
-                    <input type="date" class="datepicker">
-                </div>
-                <div class="col s10 m10 l10">
-                    <h6 class="header">Tercer período</h6>
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha desde</label>
-                    <input type="date" class="datepicker">
-                </div>
-                <div class=" col s12 m6 l6">
-                    <i class="icon-linear-calendar-full"></i>
-                    <label for="birthdate" class="">Fecha hasta</label>
-                    <input type="date" class="datepicker">
                 </div>
             </div>
             <div class="col s12 m12 l12">
                 <h5 class="header">Esquema de asistencia</h5>
                 <p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
                 <div class="input-field col s12 m6 l6">
-                    <input  id="number" type="number" class="validate">
-                    <label for="number" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
+                    <input  name="maximoFaltas" id="maximoFaltas" type="number" class="validate">
+                    <label for="maximoFaltas" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
                 </div>
                 <div class="input-field col s12 m6 l6">
-                    <input  id="number" type="number" class="validate">
-                    <label for="number" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
+                    <input  name="tardesFaltas" id="tardesFaltas" type="number" class="validate">
+                    <label for="tardesFaltas" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
                 </div>
                 <div class="input-field col s12 mar-top-soft">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Observaciones</label>
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <h5 class="header">Asignar tutor del establecimiento</h5>
-                <p class="header"> <strong>Asigne un usuario ya existente, al cual se le adicionará la funcionalidad de generar la evaluación de convivencia para los alumnos.</strong></p>
-                <div class="input-field col s11 mar-top-soft">
-                    <i class="icon-linear-magnifier prefix"></i>
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">Usuario</label>
+                    <textarea name="observaciones" id="observaciones" class="materialize-textarea"></textarea>
+                    <label for="observaciones">Observaciones</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col s12 center-align mar-top-soft"><a href="abm-instituciones-smsg.html" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</a><a href="abm-establecimiento-nuevo.html" class="btn-large waves-effect waves-light center-align">Agregar otro establecimiento</a></div>
-
+                <div class="col s12 center-align mar-top-soft">
+                    <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crear" >Finalizar</button>
+                    <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crearYNuevo" />Agregar otro establecimiento</button>
+                </div>
             </div>
+        </div>
     </form>
 {% endblock %}
