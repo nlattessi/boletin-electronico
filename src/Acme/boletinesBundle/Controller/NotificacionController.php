@@ -16,6 +16,10 @@ class NotificacionController extends Controller
 
     public function indexAction()
     {
+        // Marco todas las notificaciones del usuario como vistas
+        $notificacionService = $this->get('boletines.servicios.notificacion');
+        $notificacionService->readNotificacionesNoVistasByUser($this->getUser());
+
         return $this->render('BoletinesBundle:Notificacion:index.html.twig', []);
     }
 
