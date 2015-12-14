@@ -61,6 +61,12 @@ class Materia
      *   @ORM\JoinColumn(name="establecimiento_id", referencedColumnName="id")
      * })
      */
+
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
     private $establecimiento;
     private $alumnos;
     private $gruposAlumnos;
@@ -334,4 +340,22 @@ class Materia
     {
         return $this->establecimiento;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 }

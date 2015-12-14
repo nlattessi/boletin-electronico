@@ -87,6 +87,11 @@ class Evaluacion
      */
     private $archivos;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -290,4 +295,21 @@ class Evaluacion
     {
         return $this->archivos;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
 }

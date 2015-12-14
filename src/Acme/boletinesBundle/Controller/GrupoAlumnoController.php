@@ -96,8 +96,8 @@ class GrupoAlumnoController extends Controller
         $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $id));
 
         if($grupoAlumno instanceof GrupoAlumno) {
-            $em->remove($grupoAlumno);
-            $em->flush();
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($grupoAlumno);
         }
         return $this->indexAction();
     }

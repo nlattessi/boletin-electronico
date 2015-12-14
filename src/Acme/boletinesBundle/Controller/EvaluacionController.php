@@ -47,7 +47,7 @@ class EvaluacionController extends Controller
             if($evaluacion != null) {
                 // return $this->render('BoletinesBundle:Evaluacion:show.html.twig', array('evaluacion' => $evaluacion,
                 //     'css_active' => 'materia',));
-                return $this->redirect($this->generateUrl('evaluacion_show', ['id' => $id]), 301);
+                return $this->redirect($this->generateUrl('evaluacion_show', ['id' => $evaluacion->getId()]), 301);
             } else {
                 $message = "Errores";
             }
@@ -118,10 +118,12 @@ class EvaluacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $evaluacion = $em->getRepository('BoletinesBundle:Evaluacion')->findOneBy(array('id' => $id));
-
+        $materia = $evaluacion->getMateria();
         if($evaluacion instanceof Evaluacion) {
-            $em->remove($evaluacion);
-            $em->flush();
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($evaluacion);
+           // $em->remove($evaluacion);
+           // $em->flush();
         }
         return $this->indexAction();
     }

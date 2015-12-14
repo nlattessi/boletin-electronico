@@ -22,6 +22,7 @@
     <field name="foto" type="string" column="foto" length="250" nullable="true"/>
     <field name="esTitular" type="boolean" column="es_titular" nullable="true"/>
     <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="activo" type="boolean" column="activo" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
     <many-to-one field="ciudad" target-entity="Ciudad">

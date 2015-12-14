@@ -21,3 +21,7 @@ materia_edit:
 materia_upload_file:
     path:     /{id}/upload
     defaults: { _controller: BoletinesBundle:Materia:upload }
+
+materia_baja_evaluacion:
+    path:     /bajaevaluacion/{id}
+    defaults: { _controller: BoletinesBundle:Materia:bajaEvaluacion }

@@ -49,6 +49,7 @@
                 <div class="center-align"><a href="{{ path('evaluacion_new', { 'id': materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Crear nueva instancia de evaluación" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
                 </div>
                 {% for evaluacion in materia.evaluaciones %}
+                    {% if evaluacion.activo %}
                 <div class="panel-mini2 panel-assigment">
                     <div class="row">
                         <div class="col s10">
@@ -74,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
 
 

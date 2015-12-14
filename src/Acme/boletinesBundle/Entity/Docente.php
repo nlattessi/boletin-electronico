@@ -163,7 +163,10 @@ class Docente
      */
     private $usuario;
 
-
+    /**
+     * @var boolean
+     */
+    private $activo = true;
 
     /**
      * Set nombre
@@ -640,4 +643,23 @@ class Docente
         // when displaying uploaded doc/image in the view.
         return 'uploads/portraits/docentes';
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
+
 }

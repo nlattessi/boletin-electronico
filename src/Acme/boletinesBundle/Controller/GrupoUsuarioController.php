@@ -120,8 +120,8 @@ class GrupoUsuarioController extends Controller
         $grupoUsuario = $em->getRepository('BoletinesBundle:GrupoUsuario')->findOneBy(array('id' => $id));
 
         if($grupoUsuario instanceof GrupoUsuario) {
-            $em->remove($grupoUsuario);
-            $em->flush();
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($grupoUsuario);
         }
         return $this->indexAction();
     }

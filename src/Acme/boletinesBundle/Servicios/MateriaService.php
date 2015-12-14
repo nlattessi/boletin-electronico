@@ -87,9 +87,11 @@ class MateriaService {
         $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->findBy(array('docente' => $idDocente));
         foreach($materiasDocente as $materiaDocente){
             $materia = $materiaDocente->getMateria();
-            $materia->setAlumnos($this->listaAlumnos($materia->getId()));
-            $materia->setGruposAlumnos($this->listaGruposAlumnoPorMateria($materia->getId()));
-            array_push($materias,$materia );
+            if($materia->isActivo()) {
+                $materia->setAlumnos($this->listaAlumnos($materia->getId()));
+                $materia->setGruposAlumnos($this->listaGruposAlumnoPorMateria($materia->getId()));
+                array_push($materias, $materia);
+            }
         }
         return $materias;
     }
