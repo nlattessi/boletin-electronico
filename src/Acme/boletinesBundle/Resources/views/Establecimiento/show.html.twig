@@ -1,54 +1,67 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('institucion') }}" >Instituciones</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="{{ path('institucion_show', {'id' : establecimiento.institucion.id}) }}" >Ficha inst.</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Ficha Est.</a></li>
+{% endblock %}
 
-{% block body -%}
+{% block page %}
 
-  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
-
-  <div class="container">
     <div class="row mar-top-soft">
 
-      <div class="col s12 m8 l8">
-      <h3 class="header">{{ establecimiento.institucion.nombre }}</h3>
-      </div>
-      <div class="col s12 m4 l4 center-align">
-      {% if establecimiento.institucion.logo %}
-        <img src="{{ asset('') }}{{ establecimiento.institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
-      {% endif %}
-      </div><!--  End Tables Section  -->
+        <div class="col s12 m8 l8">
+            <h3 class="header">Belgrano Day School</h3>
+            <h5 class="header">Nivel secundario</h5>
+        </div>
+        <div class="col s12 m4 l4 center-align">
+            <img src="images/belgranods.jpg" alt="as" class="inst-thumb mar-top-soft">
+        </div><!--  End Tables Section  -->
 
-  </div>
-  <div class="divider mar-top-soft"></div>
+    </div>
+    <div class="divider mar-top-soft"></div>
 
-        <div class="row mar-top-soft">
-          <div class="col s12 m12 l12">
-                <div class="row">
-                 <div class="col s10 m10 l10">
-                   <h4 class="header">{{ establecimiento.nombre }}</h4>
-                  </div>
-                  <div class="col s2 m2 l2">
-                   <a href="{{ path('establecimiento_edit', {'id': establecimiento.id}) }}" data-position="left" data-delay="25" data-tooltip="Editar establecimiento" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
-                  </div>
+    <div class="row mar-top-soft">
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s10 m10 l10">
+                    <h4 class="header">Establecimiento 1</h4>
                 </div>
-          </div>
-          <div class="col s12 m6 l6">
-          <h5 class="header">Dirección: <span class="span-s"> {{ establecimiento.direccion }}</span></h5>
-          <h5 class="header">Longitud: <span class="span-s"> {{ establecimiento.longitud }}</span></h5>
-          <h5 class="header">Código país: <span class="span-s"> {{ establecimiento.codigoPais }}</span></h5>
-          <h5 class="header">Fecha de inaguración: <span class="span-s"> {{ establecimiento.fechaInauguracion | localizeddate('none', 'none', 'es_AR', null, "dd/MM/Y") }}</span></h5>
-          <h5 class="header">Fecha de creación: <span class="span-s"> {{ establecimiento.creationTime | localizeddate('none', 'none', 'es_AR', null, "dd/MM/Y") }}</span></h5>
-          </div>
-          <div class="col s12 m6 l6">
-          <h5 class="header">Ciudad: <span class="span-s"> {% if establecimiento.ciudad %}{{ establecimiento.ciudad.nombre }}{% endif %} </span> </h5>
-          <h5 class="header">Código postal: <span class="span-s"> {{ establecimiento.codigoPostal }}</span></h5>
-          <h5 class="header">Latitud: <span class="span-s"> {{ establecimiento.latitud }}</span></h5>
-          <h5 class="header">Código de area: <span class="span-s"> {{ establecimiento.codigoArea }}</span></h5>
-          <h5 class="header">Email: <span class="span-s"> {{ establecimiento.email }}</span></h5>
-
-
-          </div>
-      </div>
-  </div>
-
-  {{ include('::footer.html.twig') }}
+                <div class="col s2 m2 l2">
+                    <a href="abm-establecimiento-nuevo.html" data-position="left" data-delay="25" data-tooltip="Editar establecimiento" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12 l12"><h6 class="header">Datos del establecimiento</h6></div>
+        <div class="col s12 m6 l6">
+            <h5 class="header">Dirección: <span class="span-s"> Monroe 321</span></h5>
+            <h5 class="header">Longitud: <span class="span-s"> 23234323</span></h5>
+            <h5 class="header">Código país: <span class="span-s"> 123</span></h5>
+            <h5 class="header">Fecha de inaguración: <span class="span-s"> 16/06/2001</span></h5>
+            <h5 class="header">Fecha de creación: <span class="span-s"> 16/06/2015</span></h5>
+        </div>
+        <div class="col s12 m6 l6">
+            <h5 class="header">Ciudad: <span class="span-s"> Buenos Aires </span> </h5>
+            <h5 class="header">Código postal: <span class="span-s"> 1431</span></h5>
+            <h5 class="header">Latitud: <span class="span-s"> 2343431</span></h5>
+            <h5 class="header">Código de area: <span class="span-s"> 11</span></h5>
+            <h5 class="header">Email: <span class="span-s"> s@s.com</span></h5>
+        </div>
+        <div class="col s12 m12 l12"><h6 class="header mar-top-soft">Configuración del establecimiento</h6></div>
+        <div class="col s12 m6 l6">
+            <h5 class="header">Esquema de calificación: <span class="span-s"> Esquema 1 </span> </h5>
+            <h5 class="header">Períodos de evaluación: <span class="span-s"> Trimestral </span> </h5>
+            <h6 class="header">Período 1: <span class="span-s"> 16/06/2016 </span> </h6>
+            <h6 class="header">Período 2: <span class="span-s"> 16/06/2016 </span> </h6>
+            <h6 class="header">Período 3: <span class="span-s"> 16/06/2016 </span> </h6>
+        </div>
+        <div class="col s12 m6 l6">
+            <h5 class="header">Esquema de asistencia: </h5>
+            <h6 class="header">Total de faltas: <span class="span-s"> 20 </span> </h6>
+            <h6 class="header">Cantidad de llegadas tarde que equivalen una falta: <span class="span-s"> 4 </span> </h6>
+            <h6 class="header">Observaciones: <span class="span-s"> ah re loco</span> </h6>
+            <h5 class="header">Usuario tutor: <span class="span-s"> <a href="#">Roberto Gomez</a></span> </h5>
+        </div>
+    </div>
   {% endblock %}

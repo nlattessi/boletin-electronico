@@ -26,3 +26,6 @@ institucion_ver_alumnos:
     path:     /{id}/alumnos
     defaults: { _controller: BoletinesBundle:Institucion:getalumnos }
 
+institucion_agregar_establecimiento:
+    path:     /agregar/{id}
+    defaults: { _controller: BoletinesBundle:Institucion:agregarEstablecimiento }

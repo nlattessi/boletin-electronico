@@ -215,7 +215,7 @@ class MateriaDiaHorario
         return $this->materia;
     }
     public function __toString(){
-        return $this->getDia() . ' de ' . $this->getHoraInicio() . ' hasta ' . $this->getHoraFin();
+        return $this->getDia() . ': ' . $this->getHoraInicio() . ' a ' . $this->getHoraFin();
     }
 
 }
