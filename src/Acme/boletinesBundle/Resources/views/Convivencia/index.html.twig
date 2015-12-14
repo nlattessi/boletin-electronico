@@ -7,7 +7,7 @@
         <div class="col s12 m7 l7">
         {% if (app.user.rol == 'ROLE_PADRE') or (app.user.rol == 'ROLE_ALUMNO') %}
             <h3 class="header">Planilla de convivencia</h3>
-        {% elseif  app.user.rol == 'ROLE_DOCENTE' %}
+        {% elseif  app.user.rol == 'ROLE_DOCENTE' or app.user.rol == 'ROLE_BEDEL'%}
             <h3 class="header">Intervenciones</h3>
         {% else %}
             <h3 class="header">CONVIVENCIA</h3>
@@ -17,7 +17,7 @@
             <div class="col s12 m5 l5">
                 {{ macros.show_alumno_activo(app.session.get('alumnoActivo')) }}
             </div>
-        {% elseif app.user.rol == 'ROLE_DOCENTE'%}
+        {% elseif app.user.rol == 'ROLE_DOCENTE' or app.user.rol == 'ROLE_BEDEL'%}
             <div class="col s2 m2 l2">
                 <a href="{{ path('convivencia_new') }}" data-position="left" data-delay="25" data-tooltip="Nueva convivencia" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>
             </div>
@@ -38,7 +38,7 @@
                                 <th data-field="">Convivencia</th>
                                 <th data-field="">Comentarios</th>
                                 <th data-field="">Fecha</th>
-                                {% if app.user.rol == 'ROLE_DOCENTE' %}
+                                {% if app.user.rol == 'ROLE_DOCENTE' or app.user.rol == 'ROLE_BEDEL' %}
                                     <th data-field="">Alumno</th>
                                     <th data-field="">Estado</th>
                                 {% endif %}
@@ -61,7 +61,7 @@
                                     <td>
                                         {{ convivencia.fechaSuceso|date('d/m/Y') }}
                                     </td>
-                                    {% if app.user.rol == 'ROLE_DOCENTE' %}
+                                    {% if app.user.rol == 'ROLE_DOCENTE' or app.user.rol == 'ROLE_BEDEL' %}
                                         <td>
                                             <a href="{{ path('alumno_show', { 'id': convivencia.alumno.id }) }}">{{ convivencia.alumno }}</a>
                                         </td>
@@ -83,7 +83,7 @@
                                             </a>
                                         {% endif %}
 
-                                        {% if app.user.rol == 'ROLE_DOCENTE' %}
+                                        {% if app.user.rol == 'ROLE_DOCENTE' or app.user.rol == 'ROLE_BEDEL' %}
                                             <a href="{{ path('convivencia_edit', { 'id': convivencia.id }) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light">
                                                 <i class="icon-linear-pencil"></i>
                                             </a>

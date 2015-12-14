@@ -31,7 +31,8 @@ class EstablecimientoController extends Controller
 
         $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
 
-        return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('establecimiento' => $establecimiento));
+        return $this->render('BoletinesBundle:Establecimiento:show.html.twig', array('establecimiento' => $establecimiento,
+            'css_active' => 'institucion',));
     }
 
     public function newWithInstitucionAction($institucionId, Request $request)
@@ -52,7 +53,9 @@ class EstablecimientoController extends Controller
                 if ($request->request->has("finalizar")){
                     return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
                 } else{
-                    return new RedirectResponse($this->generateUrl('establecimiento_new_with_institucion', array('institucionId' => $institucion->getId())));
+                    return new RedirectResponse($this->generateUrl('establecimiento_new_with_institucion',
+                        array('institucionId' => $institucion->getId(),
+                            'css_active' => 'institucion',)));
                 }
 
             } else {
@@ -64,7 +67,9 @@ class EstablecimientoController extends Controller
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
         }
 
-        return $this->render('BoletinesBundle:Establecimiento:new_with_institucion.html.twig', array('institucionId' => $institucionId, 'error' => $error));
+        return $this->render('BoletinesBundle:Establecimiento:new.html.twig', array('institucionId' => $institucionId,
+            'error' => $error,
+            'css_active' => 'institucion',));
     }
 
     public function deleteAction($id)
@@ -91,7 +96,8 @@ class EstablecimientoController extends Controller
             $establecimiento = $creacionService->editarEstablecimiento($request, $id);
 
             if ($establecimiento != null) {
-                return new RedirectResponse($this->generateUrl('establecimiento_show', array('id' => $establecimiento->getId())));
+                return new RedirectResponse($this->generateUrl('establecimiento_show', array('id' => $establecimiento->getId(),
+                    'css_active' => 'institucion',)));
             } else {
                 $error = "Errores";
             }
@@ -100,7 +106,8 @@ class EstablecimientoController extends Controller
             $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
         }
 
-        return $this->render('BoletinesBundle:Establecimiento:edit.html.twig', array('establecimiento' => $establecimiento, 'error' => $error));
+        return $this->render('BoletinesBundle:Establecimiento:edit.html.twig', array('establecimiento' => $establecimiento, 'error' => $error,
+            'css_active' => 'institucion',));
     }
 
     public function addEspecialidadAction($id, Request $request)

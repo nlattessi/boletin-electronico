@@ -1,11 +1,11 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('institucion') }}" >Instituciones</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Nueva Institucion</a></li>
+{% endblock %}
 
-{% block body -%}
-
-  {{ include('BoletinesBundle::Institucion/fixed_nav.html.twig') }}
-  {{ include('BoletinesBundle::Institucion/main_nav.html.twig', {'nav_selected': 'instituciones'}) }}
-
-  <div class="container">
+{% block page %}
   <div class="row mar-top-soft">
 
     <div class="col s12 m8 l8">
@@ -22,7 +22,7 @@
       <div class="row mar-top-soft">
         <div class="col s12 m6 l6">
         <h5 class="header">Establecimientos: <span class="span-s"> {{ institucion.establecimientos|length }}</span></h5>
-        <h5 class="header">Directivos: <span class="span-s"> {{ institucion.usuarios|length }}</span></h5>
+        <h5 class="header">Directivos: <span class="span-s"> {{  random(50) }}</span></h5>
         <h5 class="header">Profesores: <span class="span-s"> {{ random(50) }}</span></h5>
         </div>
         <div class="col s12 m6 l6">
@@ -83,9 +83,4 @@
             </div>
           </div>
       </div><!--  End Tables Section  -->
-</div>
-
-   {{ include('footer.html.twig') }}
-
-
 {% endblock %}
