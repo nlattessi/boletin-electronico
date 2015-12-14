@@ -21,14 +21,17 @@
 <div class="divider mar-top-soft"></div>
       <div class="row mar-top-soft">
         <div class="col s12 m6 l6">
-        <h5 class="header">Establecimientos: <span class="span-s"> {{ institucion.establecimientos|length }}</span></h5>
-        <h5 class="header">Directivos: <span class="span-s"> {{  random(50) }}</span></h5>
-        <h5 class="header">Profesores: <span class="span-s"> {{ random(50) }}</span></h5>
+        <h5 class="header">Establecimientos: <span class="span-s"> {{ establecimientosActivos|length }}</span></h5>
+        <h5 class="header">Directivos: <span class="span-s"> {{  cantidadDirectivos }}</span></h5>
+        <h5 class="header">Profesores: <span class="span-s"> {{ cantidadDocentes }}</span></h5>
         </div>
         <div class="col s12 m6 l6">
-        <h5 class="header">Estudiantes: <span class="span-s"> {{ random(500) }} <a data-position="top" data-delay="25" data-tooltip="Descargar listado" class="tooltipped  btn-small btn waves-effect waves-light mar-fix-1 "><i class="icon-linear-download2"></i></a></span> </h5>
+        <h5 class="header">Estudiantes: <span class="span-s"> {{ cantidadAlumnos }}
+             <!--   <a data-position="top" data-delay="25" data-tooltip="Descargar listado"
+                   class="tooltipped  btn-small btn waves-effect waves-light mar-fix-1 "><i class="icon-linear-download2"></i></a> -->
+            </span> </h5>
 
-        <h5 class="header">Bedeles: <span class="span-s"> {{ random(20) }}</span></h5>
+        <h5 class="header">Bedeles: <span class="span-s"> {{ cantidadBedeles }}</span></h5>
 
         </div>
     </div>
@@ -65,11 +68,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for establecimiento in institucion.establecimientos %}
+                  {% for establecimiento in establecimientosActivos %}
                   <tr>
                     <td><a href="{{ path('establecimiento_show', {'id': establecimiento.id}) }}" class="casual">{{ establecimiento.nombre }}</a></td>
 
-                    <td>{{ establecimiento.fechaInauguracion | localizeddate('none', 'none', 'es_AR', null, "dd/MM/Y") }}</td>
+                    <td>{{ establecimiento.fechaInauguracion |  date('d/m/Y') }}</td>
                     <td>
                       <a href="{{ path('establecimiento_edit', {'id': establecimiento.id}) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
 

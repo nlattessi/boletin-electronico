@@ -23,7 +23,7 @@ class InstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BoletinesBundle:Institucion')->findAll();
+        $entities = $em->getRepository('BoletinesBundle:Institucion')->findBy(array('activo' => true));
 
         return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities,
             'css_active' => 'institucion',));
@@ -32,14 +32,23 @@ class InstitucionController extends Controller
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
 
         $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
-        $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion));
-        $establecimientosCount = count($establecimientos);
+        $establecimientos = $em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $institucion, 'activo' => true));
+        $cantidadAlumnos = count($muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos));
+        $cantidadDocentes = count($muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos));
+        $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
+        $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
+
 
         return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion,
-            'establecimientosCount' => $establecimientosCount,
+            'establecimientosActivos' => $establecimientos,
+            'cantidadAlumnos' => $cantidadAlumnos,
+            'cantidadDocentes' => $cantidadDocentes,
+            'cantidadBedeles' => $cantidadBedeles,
+            'cantidadDirectivos' => $cantidadDirectivos,
             'css_active' => 'institucion',));
     }
 
@@ -65,7 +74,13 @@ class InstitucionController extends Controller
     public function newAction(Request $request)
     {
         $error = "";
+        $em = $this->getDoctrine()->getManager();
 
+        $queryBuilder= $entities = $em->getRepository('BoletinesBundle:EsquemaCalificacion')->createQueryBuilder('e')
+        ->where('e.id > 1');
+        $esquemas = $queryBuilder->getQuery()->getResult();
+        //$paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
         if ($request->getMethod() == 'POST') {
             //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $institucion = $this->createEntity($request);
@@ -74,7 +89,7 @@ class InstitucionController extends Controller
                 $creacionService =  $this->get('boletines.servicios.creacion');
                 $establecimiento = $creacionService->crearEstablecimiento($request, $institucion);
 
-                if ($request->request->has("finalizar")){
+                if ($request->request->has("crear")){
                     return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
                 } else{
                     return new RedirectResponse($this->generateUrl('establecimiento_new_with_institucion', array('institucionId' => $institucion->getId())));
@@ -85,6 +100,8 @@ class InstitucionController extends Controller
         }
 
         return $this->render('BoletinesBundle:Institucion:new.html.twig', array('error' => $error,
+            'esquemas' => $esquemas,
+            'ciudades' => $ciudades,
             'css_active' => 'institucion',));
     }
 
@@ -94,7 +111,7 @@ class InstitucionController extends Controller
         $institucion->setNombre($data->request->get('nombreInstitucion'));
         $institucion->setCuit($data->request->get('cuit'));
 
-        $logoFile = $data->files->get('logoInstitucion');
+        $logoFile = $data->files->get('logo');
         if ($logoFile) {
             $this->crearYSetearFileLogo($logoFile, $institucion);
         }
@@ -118,9 +135,11 @@ class InstitucionController extends Controller
         $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $id));
 
        if($institucion instanceof Institucion) {
-           $em->remove($institucion);
+           $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+           $bajaAdministrativaService->darDeBaja($institucion);
+           /*$em->remove($institucion);
            $em->flush();
-           $this->borrarFileLogo($institucion);
+           $this->borrarFileLogo($institucion);*/
        }
         //return $this->indexAction();
        return new RedirectResponse($this->generateUrl('institucion'));

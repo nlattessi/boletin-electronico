@@ -9,6 +9,7 @@ namespace Acme\boletinesBundle\Servicios;
 use Acme\boletinesBundle\Entity\Actividad;
 use Acme\boletinesBundle\Entity\Establecimiento;
 use Acme\boletinesBundle\Entity\Usuario;
+use Acme\boletinesBundle\Utils\Herramientas;
 use Doctrine\ORM\EntityManager;
 
 class CreacionService {
@@ -22,11 +23,16 @@ class CreacionService {
     public function crearEstablecimiento($data, $institucion){
         $establecimiento = new Establecimiento();
 
-        $establecimiento->setNombre($data->request->get('nombre'));
+        $establecimiento->setNombre($data->request->get('nombreEstablecimiento'));
 
         if ($data->request->get('ciudad')) {
             $ciudad = $this->em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data->request->get('ciudad')));
             $establecimiento->setCiudad($ciudad);
+        }
+
+        if ($data->request->get('esquema')) {
+            $esquema = $this->em->getRepository('BoletinesBundle:EsquemaCalificacion')->findOneBy(array('id' => $data->request->get('esquema')));
+            $establecimiento->setEsquemaCalificacion($esquema);
         }
 
         $establecimiento->setDireccion($data->request->get('direccion'));
@@ -39,7 +45,7 @@ class CreacionService {
         $establecimiento->setEmail($data->request->get('email'));
 
         if ($data->request->get('fechaInauguracion')) {
-            $fecha = new \DateTime($data->request->get('fechaInauguracion'));
+            $fecha = Herramientas::textoADatetime($data->request->get('fechaInauguracion'));
         } else {
             $fecha = new \DateTime();
         }
@@ -81,7 +87,7 @@ class CreacionService {
         $establecimiento->setEmail($data->request->get('email'));
 
         if ($data->request->get('fechaInauguracion')) {
-            $fecha = new \DateTime($data->request->get('fechaInauguracion'));
+            $fecha = Herramientas::textoADatetime($data->request->get('fechaInauguracion'));
         } else {
             $fecha = new \DateTime();
         }
