@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\boletinesBundle\Entity\Docente;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Utils\Herramientas;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 class DocenteController extends Controller
 {
@@ -40,6 +42,9 @@ class DocenteController extends Controller
 
         if ($request->getMethod() == 'POST') {
             $docente = $this->createEntity($request);
+            if($docente instanceof Docente) {
+                return $this->render('BoletinesBundle:Docente:show.html.twig', array('docente' => $docente));
+            }
         }
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');

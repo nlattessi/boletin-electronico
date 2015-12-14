@@ -7,6 +7,7 @@ use Acme\boletinesBundle\Entity\UsuarioEstablecimiento;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class BedelController extends Controller
 {
@@ -14,7 +15,10 @@ class BedelController extends Controller
     public function addAction(Request $request)
     {
         if ($request->getMethod() == 'POST') {
-            $this->createBedel($request);
+            $bedel = $this->createBedel($request);
+            if($bedel instanceof Usuario) {
+                return $this->redirect($this->generateUrl('bedel_edit', array('id' => $bedel->getId())));
+            }
         }
 
         $user = $this->getUser();
@@ -56,10 +60,9 @@ class BedelController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            $this->editEntity($request, $id);
-        } else {
-
+            $bedel = $this->editEntity($request, $id);
         }
+
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
