@@ -143,6 +143,7 @@ class AsistenciaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
         $asistenciaService =  $this->get('boletines.servicios.asistencia');
+        $notificacionService =  $this->get('boletines.servicios.notificacion');
 
         if ($request->getMethod() == 'POST') {
             $fecha = $request->request->get('fecha');
@@ -152,6 +153,15 @@ class AsistenciaController extends Controller
                 $valorModificado = $request->request->get($alas->getId());
                 if($valorModificado){
                     $alas->setValor($valorModificado);
+
+                    if ($valorModificado == 'A') {
+                        $notificacionService->newAsistenciaNotificacion(
+                            $alas->getAlumno(),
+                            'Se cargó una inasistencia',
+                            'Se cargó una inasistencia por la materia ' . $alas->getAsistencia()->getMateria()->getNombre(),
+                            $this->generateUrl('asistencia')
+                        );
+                    }
                 }
             }
             $em->flush();
@@ -206,6 +216,7 @@ class AsistenciaController extends Controller
         $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
         $alumnos = $materiaService->listaAlumnos($id);
         $ahora = new \DateTime('now');
+        $notificacionService =  $this->get('boletines.servicios.notificacion');
         if ($request->getMethod() == 'POST') {
             $asistencia = new Asistencia();
             $asistencia->setFechaCarga($ahora);
@@ -223,6 +234,15 @@ class AsistenciaController extends Controller
                 $alAsis->setValor($request->get($alumno->getId()));
                 $alAsis->setCreationTime($ahora);
                 $em->persist($alAsis);
+
+                if ($request->get($alumno->getId()) == 'A') {
+                    $notificacionService->newAsistenciaNotificacion(
+                        $alumno,
+                        'Se cargó una inasistencia',
+                        'Se cargó una inasistencia por la materia ' . $materia->getNombre(),
+                        $this->generateUrl('asistencia')
+                    );
+                }
             }
             $em->flush();
             return $this->verUltimasAction($id, $request);
@@ -253,4 +273,3 @@ class AsistenciaController extends Controller
                 'css_active' => 'asistencia',));
     }
 }
-
