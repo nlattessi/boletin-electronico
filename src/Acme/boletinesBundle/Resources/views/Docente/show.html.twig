@@ -5,7 +5,7 @@
         <div class="col s12 m12 l12">
             <div class="row">
                 <div class="col s12 m4 l2 center-align">
-                    <img src="images/portraits/1.jpg" alt="as" class="circle-child circle inst-thumb mar-top-soft">
+                    {{ macros.ficha_foto_entity(alumno) }}
                 </div>
                 <div class="col s12 m4 l6">
                     <h3 class="header">{{ docente.nombre }}</h3>
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col s12 m4 l2 left">
-                    <img src="images/belgranods.jpg" alt="as" class="inst-thumb mar-top-soft">
+                    {{ macros.ficha_logo_institucion(alumno) }}
                 </div>
             </div>
             <div class="divider mar-bot-top"></div>

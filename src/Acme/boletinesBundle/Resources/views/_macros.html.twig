@@ -64,3 +64,15 @@
   <input type="hidden" class="fileId" name="files[]" value="{{ entityFile.archivo.id }}"/>
 </li>
 {% endmacro %}
+
+{% macro ficha_foto_entity(entity) %}
+  {% if entity.foto %}
+    <img src="{{ asset('') }}{{ entity.fotoWebPath }}" alt="" class="circle-child circle inst-thumb mar-top-soft">
+  {% endif %}
+{% endmacro %}
+
+{% macro ficha_logo_institucion(entity) %}
+  {% if entity.usuario.institucion.logo  %}
+    <img src="{{ asset('') }}{{ entity.usuario.institucion.webPath }}" alt="" class="inst-thumb mar-top-soft">
+  {% endif %}
+{% endmacro %}
