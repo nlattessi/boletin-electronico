@@ -84,6 +84,8 @@ class ConvivenciaController extends Controller
         $usuario = $this->getUser();
         $usersIds = $data->request->get('idMiembro');
 
+        $notificacionService = $this->get('boletines.servicios.notificacion');
+
         if(!$usersIds){
             //por si no se agregan usuarios
             $usersIds = new ArrayCollection();
@@ -117,6 +119,14 @@ class ConvivenciaController extends Controller
         }
 
         $em->flush();
+
+        $notificacionService->newConvivenciaNotificacion(
+            $alumno,
+            'Se cargó una convivencia',
+            'Se cargó una convivencia' . ($valor ? 'positiva' : 'negativa'),
+            $this->generateUrl('convivencia_show', ['id' => $convivencia->getId()])
+        );
+
         return $convivencia;
     }
 
@@ -162,6 +172,8 @@ class ConvivenciaController extends Controller
         $usuario = $this->getUser();
         $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $id));
 
+        $notificacionService = $this->get('boletines.servicios.notificacion');
+
         if($usuario->getRol()->getNombre() == "ROLE_ALUMNO") {
             $convivencia->setDescargo($data->request->get('descargo'));
         }else{
@@ -184,6 +196,13 @@ class ConvivenciaController extends Controller
         $em->persist($convivencia);
         $em->flush();
 
+        $notificacionService->newConvivenciaNotificacion(
+            $convivencia->getAlumno(),
+            'Se modificó una convivencia',
+            'Se modificó una convivencia, ahora es ' . ($valor ? 'positiva' : 'negativa'),
+            $this->generateUrl('convivencia_show', ['id' => $convivencia->getId()])
+        );
+
         return $convivencia;
     }
 
@@ -202,4 +221,3 @@ class ConvivenciaController extends Controller
         return new RedirectResponse($this->generateUrl('directivo_convivencia'));
     }
 }
-

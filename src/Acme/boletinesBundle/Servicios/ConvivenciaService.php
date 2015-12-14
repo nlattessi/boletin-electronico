@@ -22,7 +22,7 @@ class ConvivenciaService {
     public function obtenerConvivenciaAlumno($alumnoId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
-            ->andWhere('c.validado = true')
+            //->andWhere('c.validado = true')
             ->andWhere('c.activo = true')
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
@@ -34,7 +34,7 @@ class ConvivenciaService {
     public function obtenerConvivenciaPositivaAlumno($alumnoId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
-            ->andWhere('c.validado = true')
+            //->andWhere('c.validado = true')
             ->andWhere('c.valor = true')
             ->andWhere('c.activo = true')
             ->setParameter(1, $alumnoId)
@@ -47,7 +47,7 @@ class ConvivenciaService {
     public function obtenerConvivenciaNegativaAlumno($alumnoId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
-            ->andWhere('c.validado = true')
+            //->andWhere('c.validado = true')
             ->andWhere('c.valor = false')
             ->andWhere('c.activo = true')
             ->setParameter(1, $alumnoId)

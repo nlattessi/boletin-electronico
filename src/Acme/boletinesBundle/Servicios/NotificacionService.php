@@ -106,6 +106,17 @@ class NotificacionService
         }
     }
 
+    public function readNotificacionesNoVistasByUser($user)
+    {
+        $notificacionesUsuario = $user->getNotificacionesNoVistas();
+
+        foreach($notificacionesUsuario as $notificacionUsuario) {
+            $notificacionUsuario->setNotificado(1);
+            $this->em->persist($notificacionUsuario);
+            $this->em->flush();
+        }
+    }
+
     public function getNotificaciones($user)
     {
         $notificaciones = [];
@@ -146,6 +157,36 @@ class NotificacionService
             if ($alumno->getPadre2()) {
                 $this->newUserNotificacion($alumno->getPadre2()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
             }
+        }
+    }
+
+    public function newAsistenciaNotificacion($alumno, $titulo = null, $texto = null, $url = null)
+    {
+        if (is_null($titulo)) {
+            $titulo = "Notificacion de Inasistencia";
+        }
+
+        $this->newUserNotificacion($alumno->getUsuario(), $titulo, $texto, $url);
+        if ($alumno->getPadre1()) {
+            $this->newUserNotificacion($alumno->getPadre1()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+        }
+        if ($alumno->getPadre2()) {
+            $this->newUserNotificacion($alumno->getPadre2()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+        }
+    }
+
+    public function newConvivenciaNotificacion($alumno, $titulo = null, $texto = null, $url = null)
+    {
+        if (is_null($titulo)) {
+            $titulo = "Notificacion de Convivencia";
+        }
+
+        $this->newUserNotificacion($alumno->getUsuario(), $titulo, $texto, $url);
+        if ($alumno->getPadre1()) {
+            $this->newUserNotificacion($alumno->getPadre1()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
+        }
+        if ($alumno->getPadre2()) {
+            $this->newUserNotificacion($alumno->getPadre2()->getUsuario(), $titulo . " para " . $alumno->getNombre(), $texto, $url);
         }
     }
 }
