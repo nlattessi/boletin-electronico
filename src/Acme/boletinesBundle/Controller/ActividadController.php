@@ -3,6 +3,7 @@
 namespace Acme\boletinesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Acme\boletinesBundle\Entity\Actividad;
@@ -143,5 +144,27 @@ class ActividadController extends Controller
         return $actividad;
     }
 
-}
+    public function getActividadByUserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $actividadService =  $this->get('boletines.servicios.actividad');
 
+        $actividades = $actividadService->getActividadByUser($this->getUser());
+
+        $data = [];
+        foreach ($actividades as $actividad) {
+            $item = [
+                // 'id' => $actividad->getId(), /* NO ES NECESARIO */
+                'title' => $actividad->getNombre(),
+                // 'descripcion' => $actividad->getDescripcion(), /* FALTA DEFINICION */
+                'start' => $actividad->getFechaHoraInicio()->format(\DateTime::ISO8601),
+                'end' => $actividad->getFechaHoraFin()->format(\DateTime::ISO8601)
+                // 'url' => '' /* FALTA DEFINICION */
+            ];
+            $data[] = $item;
+        }
+
+        return new Response(json_encode($data));
+    }
+
+}

@@ -31,6 +31,11 @@ class UsuarioPostLoadListener
                 $usuario->setEntidadAsociada($alumno);
                 break;
 
+            case 'ROLE_PADRE':
+                $padre = $em->getRepository('BoletinesBundle:Padre')->find($usuario->getIdEntidadAsociada());
+                $usuario->setEntidadAsociada($padre);
+                break;
+
             default:
                 break;
         }

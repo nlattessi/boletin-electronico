@@ -152,15 +152,16 @@ class MuchosAmuchosService {
         return $docenteMateria;
     }
 
-    public function obtenerMateriasPorDocente($docente){
-        $materiaes = array();
-
-        $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->find(array('idDocente' => $docente));
-        foreach($materiasDocente as $materiaDocente){
-            $materiaes= $materiaDocente->getMateria();
-        }
-        return $materiaes;
-    }
+    /* DEPRECADA */
+    // public function obtenerMateriasPorDocente($docente){
+    //     $materiaes = array();
+    //
+    //     $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->find(array('idDocente' => $docente));
+    //     foreach($materiasDocente as $materiaDocente){
+    //         $materiaes= $materiaDocente->getMateria();
+    //     }
+    //     return $materiaes;
+    // }
     public function obtenerDocentesPorMateria($materia){
         $docentes = array();
 
