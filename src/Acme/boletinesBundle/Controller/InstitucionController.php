@@ -111,7 +111,7 @@ class InstitucionController extends Controller
         $institucion->setNombre($data->request->get('nombreInstitucion'));
         $institucion->setCuit($data->request->get('cuit'));
 
-        $logoFile = $data->files->get('logo');
+        $logoFile = $data->files->get('logoInstitucion');
         if ($logoFile) {
             $this->crearYSetearFileLogo($logoFile, $institucion);
         }
@@ -216,7 +216,7 @@ class InstitucionController extends Controller
     private function crearYSetearFileLogo($logoFile, $institucion)
     {
         $fs = new Filesystem();
-        $dir = __DIR__.'/../../../../web/uploads/logos/';
+        $dir = __DIR__.'/../../../../web/bundles/boletines/uploads/logos/';
         $slugName = util::slugify($institucion->getNombre());
         $newFileName = rand(1, 99999) . '.' . $slugName;
         while ($fs->exists($dir . $newFileName)) {

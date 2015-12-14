@@ -244,7 +244,7 @@ class Archivo
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/archivos';
+        return 'bundles/boletines/uploads/archivos';
     }
 
     public function getSize()
