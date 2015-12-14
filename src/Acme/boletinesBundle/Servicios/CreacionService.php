@@ -70,7 +70,7 @@ class CreacionService {
     public function editarEstablecimiento($data, $id){
         $establecimiento = $this->em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
 
-        $establecimiento->setNombre($data->request->get('nombre'));
+        $establecimiento->setNombre($data->request->get('nombreEstablecimiento'));
 
         if ($data->request->get('ciudad')) {
             $ciudad = $this->em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data->request->get('ciudad')));
