@@ -464,4 +464,17 @@ class MuchosAmuchosService {
 
         return $directivos;
     }
+
+    public function obtenerBullyingPorInstitucion($institucion){
+        $bullyings = $this->em->getRepository('BoletinesBundle:Bullying')->findAll();
+
+        $data = [];
+        foreach ($bullyings as $bullying) {
+            if ($bullying->getAlumno()->getUsuario()->getInstitucion() == $institucion) {
+                $data[] = $bullying;
+            }
+        }
+
+        return $data;
+    }
 }

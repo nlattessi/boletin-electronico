@@ -1,5 +1,9 @@
 {% extends 'BoletinesBundle:Layout:layout.html.twig' %}
-{% block breadcrumb %}Bullying{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{{ path('bullying') }}" class="">Bullying</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Detalle Bullying</a></li>
+{% endblock %}
 {% block page %}
     <div class="row">
         <div class="col s12 m12 l12 mar-top-soft">
