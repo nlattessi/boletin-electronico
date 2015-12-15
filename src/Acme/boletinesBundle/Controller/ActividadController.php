@@ -54,6 +54,7 @@ class ActividadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $actividadService =  $this->get('boletines.servicios.actividad');
+        $notificacionService =  $this->get('boletines.servicios.notificacion');
 
         $actividad = $actividadService->crearActividad(
             $data->request->get('nombre'),
@@ -159,8 +160,9 @@ class ActividadController extends Controller
                 'title' => $actividad->getNombre(),
                 // 'descripcion' => $actividad->getDescripcion(), /* FALTA DEFINICION */
                 'start' => $actividad->getFechaHoraInicio()->format(\DateTime::ISO8601),
-                'end' => $actividad->getFechaHoraFin()->format(\DateTime::ISO8601)
+                'end' => $actividad->getFechaHoraFin()->format(\DateTime::ISO8601),
                 // 'url' => '' /* FALTA DEFINICION */
+                'url' => $this->generateUrl('actividad_show', ['id' => $actividad->getId()])
             ];
             $data[] = $item;
         }
