@@ -9,7 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\boletinesBundle\Entity\Docente;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Utils\Herramientas;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use \utilphp\util;
 
 
 class DocenteController extends Controller
@@ -106,6 +108,12 @@ class DocenteController extends Controller
         $docente->setCreationTime(new \DateTime() );
         $docente->setUpdateTime(new \DateTime() );
         $docente->setEstablecimiento($establecimiento);
+
+        $fotoFile = $request->files->get('fotoDocente');
+        if ($fotoFile) {
+            $this->crearYSetearFileFoto($fotoFile, $docente);
+        }
+
         $em->persist($docente);
         $em->flush();
 
@@ -193,13 +201,45 @@ class DocenteController extends Controller
         $docente->getUsuario()->setEmail($data['email']);
         if (isset($data['ciudad'])) {
             $ciudad = $em->getRepository('BoletinesBundle:Ciudad')->findOneBy(array('id' => $data['ciudad']));
-            $docente->setCiudad($ciudad);
+            if($ciudad){
+                $docente->setCiudad($ciudad);
+            }
+        }
+        $fotoFile = $request->files->get('fotoDocente');
+        if ($fotoFile) {
+            //$this->borrarFileFoto($docente);
+            $this->crearYSetearFileFoto($fotoFile, $docente);
         }
 
         $em->persist($docente);
         $em->flush();
 
         return $docente;
+    }
+
+    private function crearYSetearFileFoto($logoFile, $docente)
+    {
+        $fs = new Filesystem();
+        $dir = __DIR__.'/../../../../web/bundles/boletines/uploads/portraits/docentes/';
+        $slugName = util::slugify($docente->getNombre());
+        $newFileName = rand(1, 99999) . '.' . $slugName;
+        while ($fs->exists($dir . $newFileName)) {
+            $newFileName = rand(1, 99999) . '.' . $slugName;
+        }
+
+        $logoFile->move(
+            $dir,
+            $newFileName
+        );
+
+        $docente->setFoto($newFileName);
+    }
+    private function borrarFileFoto($docente)
+    {
+        $fs = new Filesystem();
+        if ($fs->exists($docente->getAbsolutePath())) {
+            $fs->remove($docente->getAbsolutePath());
+        }
     }
 }
 
