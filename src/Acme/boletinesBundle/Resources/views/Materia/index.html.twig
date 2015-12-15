@@ -83,10 +83,10 @@
                         <tbody>
                         {% for materia in entities %}
                             <tr>
-                                <td><a href="under-construction.html" class="">{{materia.nombre}}</a></td>
+                                <td>{{materia.nombre}}</td>
                                 <td>{{materia.tipoMateria.nombre}}</td>
                                 <td>
-                                    <a href="materias-editar_directivo.html" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
+                                    <a href="{{ path('materia_edit' , {'id' : materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                                     <a href="{{ path('materia_delete' , {'id' : materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
                                 </td>
                             </tr>

@@ -1,33 +1,293 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Materia edit</h1>
+{% block page %}
+    <div class="row">
 
-    <h2>{{ mensaje }}</h2>
+        <div class="col s12 m12 l12">
+            <form action="{{ path('materia_edit' , {'id' : materia.id }) }}" method="post">
 
-    <form action="{{ path('materia_edit', {'id':materia.idMateria }) }}" method="post">
-        <input type="text" value="{{ materia.idMateria }}" hidden="hidden" name="id"><br/>
-        <input type="text" value="{{ materia.nombreMateria }}" placeholder="nombre" name="nombreMateria"><br/>
-        {% if materia.tipoMateria != null %}
-            <p>TipoMateria Asociado</p>
-            <p>{{ materia.tipoMateria.__toString() }}</p>
-            <p> Si desea cambiarlo elija uno de la lista de abajo</p>
-        {% endif %}
-        <select name="idTipoMateria">
-            {% for tipoMateria in entitiesRelacionadas %}
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h4 class="header">Editar materia</h4>
+                    </div>
 
-                <option value="{{tipoMateria.idTipoMateria}}">{{tipoMateria.__toString()}}</option>
+                    <div class="input-field col s6">
+                        <input value="{{ materia.nombre }}" name="nombre" id="icon_prefix" type="text"
+                               class="validate">
+                        <label for="icon_prefix">Nombre de la materia</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select name="tipo_materia" id="tipo_materia">
+                            {% for tipoMateria in tiposMateria %}
+                                <option value="{{ tipoMateria.id }}"
+                                        {% if materia.tipoMateria == tipoMateria %}
+                                            selected="selected"
+                                        {% endif %}
+                                        >
+                                    {{ tipoMateria.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="tipo_materia">Tipo materia</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <select name="establecimiento" id="establecimiento">
+                            {% for establecimiento in establecimientos %}
+                                <option value="{{ establecimiento.id }}"
+                                        {% if materia.establecimiento == establecimiento %}
+                                            selected="selected"
+                                        {% endif %}
+                                        >
+                                    {{ establecimiento.nombre }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="establecimiento">Establecimiento</label>
 
-            {% endfor %}
-            <option value="-1" selected="selected">No seleccionar ninguna</option>
-        </select>
-        <input type="submit" /><br/>
-    </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('materia') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 mar-top-soft">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Lunes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="lunes_chk" type="checkbox"
+                                           id="test1" class="filled-in"
+                                            {% if dias['Lunes'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test1"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Lunes'] is defined %}{{ dias['Lunes']['horaInicio'] }}{% endif %}" name="lunes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="lunes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input  value="{% if dias['Lunes'] is defined %}{{ dias['Lunes']['horaFin'] }}{% endif %}" name="lunes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="lunes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Martes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="martes_chk" type="checkbox"
+                                           id="test2" class="filled-in"
+                                            {% if dias['Martes'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test2"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Martes'] is defined %}{{ dias['Martes']['horaInicio'] }}{% endif %}"
+                                       name="martes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="martes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Martes'] is defined %}{{ dias['Martes']['horaFin'] }}{% endif %}" name="martes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="martes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Miércoles</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="miercoles_chk" type="checkbox"
+                                           id="test3" class="filled-in"
+                                            {% if dias['Miercoles'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test3"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Miercoles'] is defined %}{{ dias['Miercoles']['horaInicio'] }}{% endif %}" name="miercoles_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="miercoles_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Miercoles'] is defined %}{{ dias['Miercoles']['horaFin'] }}{% endif %}" name="miercoles_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="miercoles_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Jueves</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="jueves_chk" type="checkbox"
+                                           id="test4" class="filled-in"
+                                            {% if dias['Jueves'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test4"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input  value="{% if dias['Jueves'] is defined %}{{ dias['Jueves']['horaInicio'] }}{% endif %}" name="jueves_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="jueves_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input  value="{% if dias['Jueves'] is defined %}{{ dias['Jueves']['horaFin'] }}{% endif %}"  name="jueves_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="jueves_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Viernes</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="viernes_chk" type="checkbox"
+                                           id="test5" class="filled-in"
+                                            {% if dias['Viernes'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test5"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Viernes'] is defined %}{{ dias['Viernes']['horaInicio'] }}{% endif %}" name="viernes_inicio" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="viernes_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Viernes'] is defined %}{{ dias['Viernes']['horaFin'] }}{% endif %}" name="viernes_fin" id="icon_prefix"
+                                       type="text" class="validate">
+                                <label for="viernes_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s2 mar-top-fix">
+                                <h5 class="header">Sábado</h5>
+                            </div>
+                            <div class="col s1 mar-top-fix">
+                                <p>
+                                    <input name="sabado_chk" type="checkbox"
+                                           id="test6" class="filled-in"
+                                            {% if dias['Sabado'] is defined %}
+                                                checked
+                                            {% endif %}
+                                            />
+                                    <label for="test6"></label>
+                                </p>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Sabado'] is defined %}{{ dias['Sabado']['horaInicio'] }}{% endif %}"
+                                       name="sabado_inicio" id="icon_prefix"
+                                       type="number" class="validate">
+                                <label for="sabado_inicio">Hora inicio</label>
+                            </div>
+                            <div class="input-field col s3 ">
+                                <input value="{% if dias['Sabado'] is defined %}{{ dias['Sabado']['horaFin'] }}{% endif %}" name="sabado_fin" id="icon_prefix"
+                                       type="number" class="validate">
+                                <label for="sabado_fin">Hora fin</label>
+                            </div>
+
+                        </div>
+                        <!--  End row  -->
+                    </div>
+                </div>
+                <!--  End row  -->
+                <div class="divider mar-bot-top"></div>
+
+                <div class="input-field col s6">
+                    <select name="docente">
+                        {% for docente in docentes %}
+                            <option value="{{ docente.id }}"
+                                    {% if docente.id == docenteSeleccionadoId %}
+                                        selected="selected"
+                                    {% endif %}
+                                    >{{ docente.nombre }} </option>
+                        {% endfor %}
+                    </select>
+                    <label>Docente</label>
+                </div>
+                <div class="input-field col s6">
+                    <select name="grupoAlumno" id="grupoAlumno" >
+                        {% for grupoAlumno in gruposAlumnos %}
+                            <option value="{{ grupoAlumno.id }}"
+                                    {% if grupoAlumno.id == grupoAlumnoMateriaId %}
+                                        selected="selected"
+                                    {% endif %}
+                                    >{{ grupoAlumno.nombre }} </option>
+                        {% endfor %}
+                    </select>
+                    <label for="grupoAlumno" >Grupo de alumnos</label>
+                </div>
+
+
+                <div class="col s12 center-align mar-top-soft">
+                    <button type="submit" class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <!--  End Tables Section  -->
+
+    </div>
+
+
 {% endblock %}

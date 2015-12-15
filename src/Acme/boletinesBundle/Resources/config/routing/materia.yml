@@ -1,3 +1,7 @@
+materia_edit:
+    path:     /edit/{id}
+    defaults: { _controller: BoletinesBundle:Materia:edit }
+
 materia:
     path:     /
     defaults: { _controller: BoletinesBundle:Materia:index }
@@ -13,10 +17,6 @@ materia_delete:
 materia_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Materia:getOne }
-
-materia_edit:
-    path:     /edit/{id}
-    defaults: { _controller: BoletinesBundle:Materia:edit }
 
 materia_upload_file:
     path:     /{id}/upload

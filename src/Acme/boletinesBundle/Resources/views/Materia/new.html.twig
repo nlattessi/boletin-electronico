@@ -217,7 +217,7 @@
                 <div class="divider mar-bot-top"></div>
 
                 <div class="input-field col s6">
-                    <select>
+                    <select name="docente">
                         {% for docente in docentes %}
                             <option value="{{ docente.id }}">{{ docente.nombre }} </option>
                         {% endfor %}
@@ -225,7 +225,7 @@
                     <label>Docente</label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
+                    <select name="grupoAlumno">
                         {% for grupoAlumno in gruposAlumnos %}
                             <option value="{{ grupoAlumno.id }}">{{ grupoAlumno.nombre }} </option>
                         {% endfor %}
