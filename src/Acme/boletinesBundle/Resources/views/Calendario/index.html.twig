@@ -18,7 +18,7 @@
         </div>
   </div>
 
-  {% if app.user.rol == 'ROLE_DIRECTIVO' %}
+  {% if app.user.rol == 'ROLE_DIRECTIVO' or app.user.rol == 'ROLE_DOCENTE' %}
   <div class="row">
     <div class="col s12">
           <a href="{{ path('actividad_new') }}" data-position="left" data-delay="25" data-tooltip="Crear nueva Actividad" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-plus"></i></a>

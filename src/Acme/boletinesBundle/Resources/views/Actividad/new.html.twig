@@ -66,7 +66,7 @@
                       </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" hidden id="div_checkboxs">
                         <div class="col s12 mar-top-soft">
                             <div class="row">
                                 <div class="col s5 mar-top-fix">
@@ -105,6 +105,18 @@
                       </div>
                     </div>
 
+                    <div class="row" hidden id="div_materias">
+                      <input hidden name="materia_chk" type="checkbox" id="materia_chk" class="filled-in"/>
+                      <div class="input-field col s4">
+                        <select name="materia" id="materia">
+                            {% for materia in materias %}
+                                <option value="{{ materia.id }}"> {{ materia.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="materia">Materia</label>
+                      </div>
+                    </div>
+
                     <div class="col s12 center-align mar-top-soft">
                         <button id="btn_submit" type="submit" class="disabled btn-large waves-effect waves-light center-align mar-right" disabled>Crear</button>
                     </div>
@@ -118,6 +130,17 @@
 {% block javascript %}
   <script type="text/javascript">
     $(document).ready(function() {
+
+      var rol = '{{ app.user.rol }}';
+      if (rol == 'ROLE_DIRECTIVO') {
+        $('#div_checkboxs').show();
+      } else if (rol == 'ROLE_DOCENTE') {
+        $('#div_materias').show();
+        $('#btn_submit').removeClass("disabled");
+        $('#btn_submit').prop("disabled", false);
+        $('#materia_chk').prop('checked', true);
+      }
+
       $('.timepicker').pickatime({
         clear: 'Limpiar'
       });
@@ -145,6 +168,7 @@
           $('#btn_submit').prop("disabled", true);
         }
       });
+
     });
   </script>
 {% endblock %}

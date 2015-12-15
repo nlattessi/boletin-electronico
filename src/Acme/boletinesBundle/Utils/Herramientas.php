@@ -15,7 +15,7 @@ class Herramientas {
 
     public static function fechaHoraADatetime($fecha, $hora)
     {
-        $datetime = DateTime::createFromFormat('Y/m/d g:i a', $fecha . ' ' . $hora);
+        $datetime = DateTime::createFromFormat('d/m/Y g:i a', $fecha . ' ' . $hora);
         return $datetime;
     }
 
