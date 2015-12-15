@@ -26,13 +26,9 @@ class ActividadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $actividad = $em->getRepository('BoletinesBundle:Actividad')->findOneBy(array('idActividad' => $id));
-        if($actividad->getArchivo() != null){
-            $entitiesRelacionadas = array($actividad->getArchivo());
-        }else{
-            $entitiesRelacionadas = array();
-        }
-        return $this->render('BoletinesBundle:Actividad:show.html.twig', array('actividad' => $actividad, 'entitiesRelacionadas' => $entitiesRelacionadas));
+        $actividad = $em->getRepository('BoletinesBundle:Actividad')->find($id);
+
+        return $this->render('BoletinesBundle:Actividad:show.html.twig', ['actividad' => $actividad]);
     }
 
     public function newAction(Request $request)

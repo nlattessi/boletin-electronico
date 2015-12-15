@@ -1,52 +1,55 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="{{ path('calendario') }}" class="">Calendario</a></li>
+    <li><i class="icon-linear-chevron-right bread-i"></i></li>
+    <li><a href="#" class="b-focus">Detalle Actividad</a></li>
+{% endblock %}
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12 mar-top-soft">
+            <h4 class="header">Detalle Actividad</h4>
+        </div>
+    </div>
 
-{% block body -%}
-    <h1>Actividad</h1>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <h6 class="header"><b>Nombre:</b> {{ actividad.nombre }}</h6>
+            <h6 class="header"><b>Descripcion:</b> {{ actividad.descripcion }}</h6>
+            <h6 class="header"><b>Del:</b> {{ actividad.fechaHoraInicio|date('d/m/Y H:i') }} <b>al:</b> {{ actividad.fechaHoraFin|date('d/m/y H:i') }}</h6>
+        </div>
+    </div>
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id Actividad</th>
-            <td>{{ actividad.idActividad }}</td>
-        </tr>
-        <tr>
-            <th>Actividad</th>
-            <td>{{ actividad.nombreActividad }}</td>
-        </tr>
-        <tr>
-            <th>Fecha Desde</th>
-            <td>{{ actividad.fechaDesde|date('d-m-Y H:i') }}</td>
-        </tr>
-        <tr>
-            <th>Fecha Hasta</th>
-            <td>{{ actividad.fechaHasta|date('d-m-Y H:i') }}</td>
-        </tr>
-        <tr>
-            <th>Usuario Creador Relacionada</th>
-            <td>{{ actividad.usuarioCreador.__toString() }}</td>
-        </tr>
-        {% if actividad.archivo != null %}
-            <tr>
-                <th>Archivo Asociado</th>
-                <td>{{ actividad.archivo.__toString() }}</td>
-            </tr>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        {% if actividad.institucion %}
+          <h5 class="header"><b>Institucion:</b> <a href="#">{{ actividad.institucion.nombre }}</a></h5>
         {% endif %}
-        
+        {% if actividad.establecimiento %}
+          <h5 class="header"><b>Establecimiento:</b> <a href="#">{{ actividad.establecimiento }}</a></h5>
+        {% endif %}
+        {% if actividad.materia %}
+          <h5 class="header"><b>Materia:</b> <a href="#">{{ actividad.materia }}</a></h5>
+        {% endif %}
+      </div>
+    </div>
 
-        </tbody>
-    </table>
+    <div class="row">
+      <div class="col s12 m6 l6">
+        <h5 class="panel-title">Archivos asociados</h5>
+        {% if actividad.archivos is not empty %}
+        <div class="mail-attachments">
+          <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+          <ul class="list-group">
+            {% for actividadArchivo in actividad.archivos %}
+              {{ macros.show_item_entityFile(actividadArchivo) }}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+{% endblock %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('actividad') }}">
-           Volver a la lista
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('actividad_edit', { 'id': actividad.idActividad }) }}">
-            Editar
-        </a>
-    </li>
-    <li> <a href="{{ path('actividad_delete', { 'id': actividad.idActividad }) }}">Borrar</a></li>
-</ul>
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
 {% endblock %}
