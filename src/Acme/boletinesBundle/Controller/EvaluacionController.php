@@ -97,6 +97,19 @@ class EvaluacionController extends Controller
         $evaluacion->setActividad($actividadService->crearActividad($evaluacion->getNombre(),
             "Actividad automatica del evaluacion", $evaluacion->getFecha(),$evaluacion->getFecha(),
             $usuario, null));*/
+        $actividad = $actividadService->crearActividad(
+            $evaluacion->getNombre('nombre'),
+            "Actividad automatica de evaluacion",
+            $evaluacion->getFecha()->format('d/m/Y'),
+            "9:00 AM", /* HARDCODEADA SE DEBE CAMBIAR */
+            $evaluacion->getFecha()->format('d/m/Y'),
+            "11:00 AM", /* HARDCODEADA SE DEBE CAMBIAR */
+            $this->getUser(),
+            null, // institucion
+            null, // establlecimiento
+            $materia
+        );
+
         $em->persist($evaluacion);
         $em->flush();
 
@@ -108,6 +121,16 @@ class EvaluacionController extends Controller
                 }
             }
         }
+
+        // Envio notificaciones
+        $notificacionService = $this->get('boletines.servicios.notificacion');
+        $alumnos = $materiaService->listaAlumnos($materia);
+        $notificacionService->newActividadMateriaNotificacion(
+            $alumnos,
+            "Nueva actividad de evaluación creada",
+            "Se creó una actividad para la evaluacíón " . $evaluacion->getNombre() . " de la materia " . $materia->getNombre(),
+            $this->generateUrl('evaluacion_show', ['id' => $evaluacion->getId()])
+        );
 
         return $evaluacion;
     }

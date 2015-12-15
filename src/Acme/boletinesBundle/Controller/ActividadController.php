@@ -45,16 +45,19 @@ class ActividadController extends Controller
             }
         }
 
+        $materiaService =  $this->get('boletines.servicios.materia');
+
         $establecimientos = $this->getUser()->getInstitucion()->getEstablecimientos();
 
-        return $this->render('BoletinesBundle:Actividad:new.html.twig', ['establecimientos' => $establecimientos]);
+        $materias = $this->getUser()->getRol() == 'ROLE_DOCENTE' ? $materiaService->listaMateriasPorDocente($this->getUser()->getEntidadAsociada()) : [];
+
+        return $this->render('BoletinesBundle:Actividad:new.html.twig', ['establecimientos' => $establecimientos, 'materias' => $materias]);
     }
 
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
         $actividadService =  $this->get('boletines.servicios.actividad');
-        $notificacionService =  $this->get('boletines.servicios.notificacion');
 
         $actividad = $actividadService->crearActividad(
             $data->request->get('nombre'),
@@ -66,7 +69,7 @@ class ActividadController extends Controller
             $this->getUser(),
             ($data->request->get('institucion_chk') == 'on' ? $this->getUser()->getInstitucion() : null), // institucion
             ($data->request->get('establecimiento_chk') == 'on' ? $em->getRepository('BoletinesBundle:Establecimiento')->find($data->request->get('establecimiento')) : null), // establecimiento
-            null // materia
+            ($data->request->get('materia_chk') == 'on' ? $em->getRepository('BoletinesBundle:Materia')->find($data->request->get('materia')) : null) // materia
         );
 
         if (!empty($data->files->get('archivos'))) {
@@ -76,6 +79,38 @@ class ActividadController extends Controller
                   $archivoService->createActividadArchivo($archivo, $this->getUser(), $actividad);
                 }
             }
+        }
+
+        // Envio notificaciones
+        $notificacionService = $this->get('boletines.servicios.notificacion');
+        $muchosAMuchosService =  $this->get('boletines.servicios.muchosamuchos');
+        $materiaService =  $this->get('boletines.servicios.materia');
+        if ($data->request->get('institucion_chk') == 'on') {
+            $usuarios = $muchosAMuchosService->obtenerUsuariosPorInstitucion($actividad->getInstitucion());
+            $notificacionService->newActividadNotificacion(
+                $usuarios,
+                "Nueva actividad creada",
+                "Se creó una actividad para la institución " . $actividad->getInstitucion()->getNombre(),
+                $this->generateUrl('actividad_show', ['id' => $actividad->getId()])
+            );
+        }
+        if ($data->request->get('establecimiento_chk') == 'on') {
+            $usuarios = $muchosAMuchosService->obtenerUsuariosPorEstablecimiento($actividad->getEstablecimiento());
+            $notificacionService->newActividadNotificacion(
+                $usuarios,
+                "Nueva actividad creada",
+                "Se creó una actividad para el establecimiento " . $actividad->getEstablecimiento()->getNombre(),
+                $this->generateUrl('actividad_show', ['id' => $actividad->getId()])
+            );
+        }
+        if ($data->request->get('materia_chk') == 'on') {
+            $alumnos = $materiaService->listaAlumnos($actividad->getMateria());
+            $notificacionService->newActividadMateriaNotificacion(
+                $alumnos,
+                "Nueva actividad creada",
+                "Se creó una actividad para la materia " . $actividad->getMateria()->getNombre(),
+                $this->generateUrl('actividad_show', ['id' => $actividad->getId()])
+            );
         }
 
         return $actividad;

@@ -280,17 +280,17 @@ class MuchosAmuchosService {
 
         return $establecimientos;
     }
-    public function obtenerUsuariosPorEstablecimiento($establecimiento){
-        $usuarios = array();
 
-        $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->find(array('idEstablecimiento' => $establecimiento));
+    public function obtenerUsuariosPorEstablecimiento($establecimiento){
+        $usuarios = [];
+
+        $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findBy(['establecimiento' => $establecimiento]);
         foreach($establecimientosUsuario as $establecimientoUsuario){
-            $usuarios = $establecimientoUsuario->getUsuario();
+            $usuarios[] = $establecimientoUsuario->getUsuario();
         }
+
         return $usuarios;
     }
-
-
 
     public function asociarUsuarioGrupoUsuario($usuario, $grupoUsuario){
         $usuarioGrupoUsuario = new UsuarioGrupoUsuario($usuario, $grupoUsuario);
@@ -483,5 +483,10 @@ class MuchosAmuchosService {
         }
 
         return $data;
+    }
+
+    public function obtenerUsuariosPorInstitucion($institucion)
+    {
+        return $this->em->getRepository('BoletinesBundle:Usuario')->findBy(['institucion' => $institucion]);
     }
 }
