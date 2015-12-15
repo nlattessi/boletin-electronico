@@ -1,0 +1,7 @@
+{
+  "name": "Communitas-dev",
+  "description": "Sistema de asistencia escolar",
+  "repository": "https://github.com/nlattessi/boletin-electronico",
+  "logo": "http://communitas-dev.herokuapp.com/bundles/boletines/images/communitas-mini.jpg",
+  "keywords": ["php", "symfony", "javascript"]
+}
