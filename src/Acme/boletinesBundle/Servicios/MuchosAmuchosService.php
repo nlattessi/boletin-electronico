@@ -451,7 +451,8 @@ class MuchosAmuchosService {
                 ->innerJoin('BoletinesBundle:Alumno', 'a' , 'WITH', 'a.id = c.alumno')
                 ->where('a.establecimiento = :establecimiento')
                 ->setParameter('establecimiento', $establecimiento)
-                ->andWhere('c.validado = 0')
+                ->andWhere('c.validado = :boolValue')
+                ->setParameter('boolValue', false)
                 ->getQuery();
 
             $convivencia = array_merge($query->getResult(), $convivencia);
