@@ -77,6 +77,7 @@
                         <tr>
                             <th data-field="id">Nombre</th>
                             <th data-field="id">Tipo</th>
+                            <th data-field="id">Establecimiento</th>
                             <th data-field="id">Acciones</th>
                         </tr>
                         </thead>
@@ -84,7 +85,8 @@
                         {% for materia in entities %}
                             <tr>
                                 <td>{{materia.nombre}}</td>
-                                <td>{{materia.tipoMateria.nombre}}</td>
+                                <td>{{materia.tipoMateria}}</td>
+                                <td>{{materia.establecimiento}}</td>
                                 <td>
                                     <a href="{{ path('materia_edit' , {'id' : materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>
                                     <a href="{{ path('materia_delete' , {'id' : materia.id }) }}" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>

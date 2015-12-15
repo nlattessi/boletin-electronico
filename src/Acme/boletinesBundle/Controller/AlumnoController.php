@@ -16,6 +16,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Acme\boletinesBundle\Utils\Herramientas;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use \utilphp\util;
+
 
 class AlumnoController extends Controller
 {
@@ -126,6 +130,11 @@ class AlumnoController extends Controller
             $alumno->setUsuarioPadre2($entityRelacionada);
         }
 
+        $fotoFile = $data->files->get('fotoAlumno');
+        if ($fotoFile) {
+            $this->crearYSetearFileFoto($fotoFile, $alumno);
+        }
+
 
         $em->persist($alumno);
         $em->flush();
@@ -190,7 +199,7 @@ class AlumnoController extends Controller
         $alumno->setNombre($data['nombre']);
         $alumno->setApellido($data['apellido']);
         $alumno->setDni($data['dni']);
-        $alumno->setSexo($data['sexo']);
+        //$alumno->setSexo($data['sexo']);
         $alumno->setFechaNacimiento(Herramientas::textoADatetime($data['fechaNacimiento']));
         $alumno->setFechaIngreso(Herramientas::textoADatetime($data['fechaIngreso']));
         $alumno->setDireccion($data['direccion']);
@@ -210,6 +219,11 @@ class AlumnoController extends Controller
             $alumno->setCiudad($ciudad);
         }
 
+        $fotoFile = $request->files->get('fotoAlumno');
+        if ($fotoFile) {
+            //$this->borrarFileFoto($alumno);
+            $this->crearYSetearFileFoto($fotoFile, $alumno);
+        }
         $em->persist($alumno);
         $em->flush();
 
@@ -275,5 +289,30 @@ class AlumnoController extends Controller
         $entities = $query->getResult();
 
         return new Response(json_encode($entities));
+    }
+
+    private function crearYSetearFileFoto($logoFile, $alumno)
+    {
+        $fs = new Filesystem();
+        $dir = __DIR__.'/../../../../web/bundles/boletines/uploads/portraits/alumnos/';
+        $slugName = util::slugify($alumno->getNombre());
+        $newFileName = rand(1, 99999) . '.' . $slugName;
+        while ($fs->exists($dir . $newFileName)) {
+            $newFileName = rand(1, 99999) . '.' . $slugName;
+        }
+
+        $logoFile->move(
+            $dir,
+            $newFileName
+        );
+
+        $alumno->setFoto($newFileName);
+    }
+    private function borrarFileFoto($alumno)
+    {
+        $fs = new Filesystem();
+        if ($fs->exists($alumno->getAbsolutePath())) {
+            $fs->remove($alumno->getAbsolutePath());
+        }
     }
 }

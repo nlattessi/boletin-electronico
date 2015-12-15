@@ -122,4 +122,11 @@ class TipoMateria
     {
         return $this->id;
     }
+
+    function __toString()
+    {
+        return $this->getNombre();
+    }
+
+
 }

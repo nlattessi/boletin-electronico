@@ -10,7 +10,7 @@
                         <h5 class="header">Datos obligatorios</h5>
                     </div>
                 </div>
-                <form action="{{ path('docente_edit', {'id':docente.id }) }}" method="post">
+                <form action="{{ path('docente_edit', {'id':docente.id }) }}" method="post" enctype="multipart/form-data">
 
 
                     <div class="row">
@@ -63,6 +63,19 @@
 
                     </div>
                     <div class="divider mar-bot-top col s12 m12 l12"></div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <div class="file-field input-field">
+                                <input name="foto" class="file-path validate" type="text" value="{{ docente.foto }}"/>
+                                <label for="logo_img">Foto del docente</label>
+                                <div class="btn-large">
+                                    <span>Elegir archivo</span>
+                                    <input type="file" name="fotoDocente" />
+                                </div>
+                            </div>
+                            {# </form> #}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col s10 m10 l10">
                             <h5 class="header">Datos adicionales</h5>

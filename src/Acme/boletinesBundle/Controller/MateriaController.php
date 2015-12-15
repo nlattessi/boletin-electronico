@@ -212,16 +212,19 @@ class MateriaController extends Controller
         $em->persist($materia);
 
         $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $data->request->get('docente')));
-        $docenteMateria  = new DocenteMateria();
-        $docenteMateria->setDocente($docente);
-        $docenteMateria->setMateria($materia);
-        $em->persist($docenteMateria);
-
-        $gurpoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('docente')));
-        $gruopoMateria = new GrupoAlumnoMateria();
-        $gruopoMateria->setMateria($materia);
-        $gruopoMateria->setGrupoAlumno($gurpoAlumno);
-        $em->persist($gruopoMateria);
+        if($docente) {
+            $docenteMateria = new DocenteMateria();
+            $docenteMateria->setDocente($docente);
+            $docenteMateria->setMateria($materia);
+            $em->persist($docenteMateria);
+        }
+        $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('docente')));
+        if($grupoAlumno) {
+            $grupoMateria = new GrupoAlumnoMateria();
+            $grupoMateria->setMateria($materia);
+            $grupoMateria->setGrupoAlumno($grupoAlumno);
+            $em->persist($grupoMateria);
+        }
 
         $em->flush();
 
@@ -376,15 +379,27 @@ class MateriaController extends Controller
 
         $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $data->request->get('docente')));
         $docenteMateria  = $em->getRepository('BoletinesBundle:DocenteMateria')->findOneBy(array('materia' => $materia));
-        $docenteMateria->setDocente($docente);
+        if($docenteMateria){
+            $docenteMateria->setDocente($docente);
+        }else{
+            $docenteMateria = new DocenteMateria();
+            $docenteMateria->setDocente($docente);
+            $docenteMateria->setMateria($materia);
+        }
         $em->persist($docenteMateria);
 
         $gurpoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('grupoAlumno')));
-        $gruopoMateria = $em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findOneBy(array('materia' => $materia));
-
-        $gruopoMateria->setGrupoAlumno($gurpoAlumno);
-        $em->persist($gruopoMateria);
-
+        //si se ingresó un grupo de alumno
+        if($gurpoAlumno) {
+            $gruopoMateria = $em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findOneBy(array('materia' => $materia, 'grupoAlumno' => $gurpoAlumno));
+            if (!$gruopoMateria) {
+                //si no encontré la asociación
+                $gruopoMateria = new GrupoAlumnoMateria();
+                $gruopoMateria->setMateria($materia);
+                $gruopoMateria->setGrupoAlumno($gurpoAlumno);
+            }
+            $em->persist($gruopoMateria);
+        }
         $em->flush();
 
         return $materia;

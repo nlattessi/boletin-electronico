@@ -221,6 +221,7 @@
                         {% for docente in docentes %}
                             <option value="{{ docente.id }}">{{ docente.nombre }} </option>
                         {% endfor %}
+                        <option value="" disabled selected>Docente</option>
                     </select>
                     <label>Docente</label>
                 </div>
@@ -229,7 +230,9 @@
                         {% for grupoAlumno in gruposAlumnos %}
                             <option value="{{ grupoAlumno.id }}">{{ grupoAlumno.nombre }} </option>
                         {% endfor %}
+                        <option value="" disabled selected>Grupo de Alumnos</option>
                     </select>
+
                     <label>Grupo de alumnos</label>
                 </div>
 
