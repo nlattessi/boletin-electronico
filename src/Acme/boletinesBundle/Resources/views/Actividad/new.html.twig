@@ -1,39 +1,150 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
 
-{% block body -%}
-    <h1>Actividad creation</h1>
+{% block page %}
+    <div class="row">
 
+        <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h4 class="header">Nueva actividad</h4>
+                    </div>
 
+                    <form id="actividadForm" action="{{ path('actividad_new') }}" method="post" enctype="multipart/form-data">
 
+                    <div class="row">
+                      <div class="input-field col s4 m4 l4">
+                          <input name="nombre" id="icon_prefix" type="text"
+                                 class="validate">
+                          <label for="icon_prefix">Nombre</label>
+                      </div>
+                    </div>
 
-    <form action="{{ path('actividad_new') }}" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <textarea id="descripcion" class="materialize-textarea" length="500" name="descripcion"></textarea>
+                          <label for="descripcion">Descripcion</label>
+                        </div>
+                    </div>
 
-        <input type="text" placeholder="nombre" name="nombreActividad"><br/>
-        <input type="text" placeholder="descripcion" name="descripcionActividad"><br/>
-        <input type="datetime" placeholder="fecha desde" name="fechaDesdeActividad"><br/>
-        <input type="datetime" placeholder="fecha hasta" name="fechaHastaActividad"><br/>
+                    <div class="row">
+                        <div class=" col s6 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label for="fecha_inicio" class="">Fecha inicio</label>
+                            <input name="fecha_inicio" type="date" class="datepicker">
+                        </div>
+                        <div class=" col s6 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label for="hora_inicio" class="">Hora inicio</label>
+                            <input name="hora_inicio" type="time" class="timepicker">
+                        </div>
+                    </div>
 
-        <select name="idArchivo">
-            {% for archivo in entitiesRelacionadas %}
+                    <div class="row">
+                        <div class=" col s6 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label for="fecha_fin" class="">Fecha fin</label>
+                            <input name="fecha_fin" type="date" class="datepicker">
+                        </div>
+                        <div class=" col s6 m6 l6">
+                            <i class="icon-linear-calendar-insert"></i>
+                            <label for="hora_fin" class="">Hora fin</label>
+                            <input name="hora_fin" type="time" class="timepicker">
+                        </div>
+                    </div>
 
-                <option value="{{archivo.idArchivo}}">{{archivo.__toString()}}</option>
+                    <div class="row">
+                      <div class="col s12 center-align">
+                        <div class="file-field input-field">
+                          <div class="btn">
+                            <span>Adjuntar archivos</span>
+                            <input type="file" name="archivos[]" multiple="multiple" id="archivos">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Seleccione uno o más archivos">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-            {% endfor %}
-            <option value="-1" selected="selected">Seleccione un Archivo creado para asociar</option>
-        </select>
-        <br/><br/><br/>
+                    <div class="row">
+                        <div class="col s12 mar-top-soft">
+                            <div class="row">
+                                <div class="col s5 mar-top-fix">
+                                    <h5 class="header">De establecimiento</h5>
+                                </div>
+                                <div class="col s1 mar-top-fix">
+                                    <p>
+                                        <input name="establecimiento_chk" type="checkbox"
+                                               id="establecimiento_chk" class="filled-in"/>
+                                        <label for="establecimiento_chk"></label>
+                                    </p>
+                                </div>
+                                <div class="col s5 mar-top-fix">
+                                    <h5 class="header">De Institucion</h5>
+                                </div>
+                                <div class="col s1 mar-top-fix">
+                                    <p>
+                                        <input name="institucion_chk" type="checkbox"
+                                               id="institucion_chk" class="filled-in"/>
+                                        <label for="institucion_chk"></label>
+                                    </p>
+                                </div>
+                            </div>
+                            <!--  End row  -->
+                        </div>
+                    </div>
 
-        <button type="submit" >Crear Actividad</button>
+                    <div class="row" hidden id="div_establecimientos">
+                      <div class="input-field col s4">
+                        <select name="establecimiento" id="establecimiento">
+                            {% for establecimiento in establecimientos %}
+                                <option value="{{ establecimiento.id }}"> {{ establecimiento.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="establecimiento">Establecimiento</label>
+                      </div>
+                    </div>
 
+                    <div class="col s12 center-align mar-top-soft">
+                        <button id="btn_submit" type="submit" class="disabled btn-large waves-effect waves-light center-align mar-right" disabled>Crear</button>
+                    </div>
+            </form>
+        </div>
+        <!--  End Tables Section  -->
 
-        <br/>
-    </form>
+    </div>
+{% endblock %}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('actividad') }}">
-                Volver a la lista
-            </a>
-        </li>
-    </ul>
+{% block javascript %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.timepicker').pickatime({
+        clear: 'Limpiar'
+      });
+
+      $('#institucion_chk').click(function() {
+        if (this.checked) {
+          $('#establecimiento_chk').removeAttr('checked');
+          $('#div_establecimientos').hide();
+          $('#btn_submit').removeClass("disabled");
+          $('#btn_submit').prop("disabled", false);
+        } else {
+          $('#btn_submit').addClass("disabled");
+          $('#btn_submit').prop("disabled", true);
+        }
+      });
+      $('#establecimiento_chk').click(function() {
+        if (this.checked) {
+          $('#institucion_chk').removeAttr('checked');
+          $('#div_establecimientos').show();
+          $('#btn_submit').removeClass("disabled");
+          $('#btn_submit').prop("disabled", false);
+        } else {
+          $('#div_establecimientos').hide();
+          $('#btn_submit').addClass("disabled");
+          $('#btn_submit').prop("disabled", true);
+        }
+      });
+    });
+  </script>
 {% endblock %}

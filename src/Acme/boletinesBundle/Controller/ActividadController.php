@@ -38,43 +38,48 @@ class ActividadController extends Controller
     public function newAction(Request $request)
     {
         $message = "";
-        $em = $this->getDoctrine()->getManager();
+
         if ($request->getMethod() == 'POST') {
-            //Esto se llama cuando se hace el submit del form, cuando entro a crear una nueva va con GET y no pasa por aca
             $actividad = $this->createEntity($request);
-            if($actividad != null) {
-                return $this->render('BoletinesBundle:Actividad:show.html.twig', array('actividad' => $actividad ));
+            if (!is_null($actividad)) {
+                $this->get('session')->getFlashBag()->add('success', 'Nueva actividad carga con éxito');
+                return $this->redirect($this->generateUrl('calendario'), 301);
             } else {
                 $message = "Errores";
             }
-        }else{
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:Archivo')->findAll();
         }
 
-        return $this->render('BoletinesBundle:Actividad:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas, 'mensaje' => $message));
+        $establecimientos = $this->getUser()->getInstitucion()->getEstablecimientos();
+
+        return $this->render('BoletinesBundle:Actividad:new.html.twig', ['establecimientos' => $establecimientos]);
     }
+
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
-        $sesionService = $this->get('boletines.servicios.sesion');
         $actividadService =  $this->get('boletines.servicios.actividad');
 
-        $idArchivo = $data->request->get('idArchivo');
-        $archivo = null;
-        if($idArchivo > 0) {
-            $archivo = $em->getRepository('BoletinesBundle:Archivo')->findOneBy(array('idArchivo' => $idArchivo));
+        $actividad = $actividadService->crearActividad(
+            $data->request->get('nombre'),
+            $data->request->get('descripcion'),
+            $data->request->get('fecha_inicio'),
+            $data->request->get('hora_inicio'),
+            $data->request->get('fecha_fin'),
+            $data->request->get('hora_fin'),
+            $this->getUser(),
+            ($data->request->get('institucion_chk') == 'on' ? $this->getUser()->getInstitucion() : null), // institucion
+            ($data->request->get('establecimiento_chk') == 'on' ? $em->getRepository('BoletinesBundle:Establecimiento')->find($data->request->get('establecimiento')) : null), // establecimiento
+            null // materia
+        );
+
+        if (!empty($data->files->get('archivos'))) {
+            foreach ($data->files->get('archivos') as $archivo) {
+                if ($archivo != null) {
+                  $archivoService =  $this->get('boletines.servicios.archivo');
+                  $archivoService->createActividadArchivo($archivo, $this->getUser(), $actividad);
+                }
+            }
         }
-
-        $actividad = $actividadService->crearActividad($data->request->get('nombreActividad'),
-            $data->request->get('descripcionActividad')
-            ,new \DateTime('now')
-            ,new \DateTime('now'),
-            $sesionService->obtenerUsuario(),
-            $archivo);
-
-        /*   $actividad->setFechaDesde($data->request->get('fechaDesdeActividad'));
-             $actividad->setFechaHasta($data->request->get('fechaHastaActividad'));*/
 
         return $actividad;
     }

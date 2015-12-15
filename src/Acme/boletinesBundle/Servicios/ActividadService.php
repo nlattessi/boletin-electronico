@@ -3,26 +3,39 @@
 namespace Acme\boletinesBundle\Servicios;
 use Acme\boletinesBundle\Entity\Actividad;
 use Doctrine\ORM\EntityManager;
+use Acme\boletinesBundle\Utils\Herramientas;
 
 class ActividadService {
 
     protected $em;
 
-    public function __construct(EntityManager $entityManager){
+    public function __construct(EntityManager $entityManager)
+    {
         $this->em = $entityManager;
     }
 
-    public function crearActividad($nombre, $descripcion, $fechaDesde, $fechaHasta, $usuario, $archivo){
+    public function crearActividad($nombre, $descripcion, $fechaInicio, $horaInicio, $fechaFin, $horaFin, $usuario,
+        $institucion = null, $establecimiento = null, $materia = null)
+    {
         $actividad = new Actividad();
-        $actividad->setNombreActividad($nombre);
-        $actividad->setDescripcionActividad($descripcion);
-        $actividad->setFechaDesde($fechaDesde);
-        $actividad->setFechaHasta($fechaHasta);
-        $actividad->setFechaCreacion(new \DateTime('now'));
+        $actividad->setNombre($nombre);
+        $actividad->setDescripcion($descripcion);
+        $actividad->setFechaHoraInicio(Herramientas::fechaHoraADatetime($fechaInicio, $horaInicio));
+        $actividad->setFechaHoraFin(Herramientas::fechaHoraADatetime($fechaFin, $horaFin));
+        $actividad->setCreationTime(new \DateTime('now'));
+        $actividad->setUpdateTime(new \DateTime('now'));
+        $actividad->setUsuarioCarga($usuario);
 
-        $actividad->setUsuarioCreador($usuario);
-        if($archivo != null) {
-            $actividad->setArchivo($archivo);
+        if ($institucion != null) {
+            $actividad->setInstitucion($institucion);
+        }
+
+        if ($establecimiento != null) {
+            $actividad->setEstablecimiento($establecimiento);
+        }
+
+        if ($materia != null) {
+            $actividad->setMateria($materia);
         }
 
         $this->em->persist($actividad);
@@ -89,8 +102,8 @@ class ActividadService {
 
     private function getActividadesAdmin($user)
     {
+        // TODO ???
         $actividades = [];
-
         return $actividades;
     }
 
@@ -107,7 +120,9 @@ class ActividadService {
         $hijos = $this->getHijos($user->getEntidadAsociada());
         foreach ($hijos as $hijo) {
             $actividadesEstablecimientoHijo = $this->getActividadesEstablecimiento($hijo->getEstablecimiento());
-            $actividades = array_merge($actividadesEstablecimientoHijo, $actividades);
+            // Mergeo pero borro repetidos
+            $merge = array_merge($actividadesEstablecimientoHijo, $actividades);
+            $actividades = array_map("unserialize", array_unique(array_map("serialize", $merge)));
 
             foreach ($hijo->getMaterias() as $materia) {
                 $actividadesMateria = $this->getActividadesMateria($materia);
@@ -178,9 +193,9 @@ class ActividadService {
         $actividadesInstitucion = $this->getActividadesInstitucion($user->getInstitucion());
         $actividades = array_merge($actividadesInstitucion, $actividades);
 
-        /* NO TIENE ESTABLECIMIENTO? */
-        // $actividadesEstablecimiento = $this->getActividadesEstablecimiento($user->getEntidadAsociada()->getEstablecimiento());
-        // $actividades = array_merge($actividadesEstablecimiento, $actividades);
+        $establecimiento = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findOneBy(['usuario' => $user]);
+        $actividadesEstablecimiento = $this->getActividadesEstablecimiento($establecimiento);
+        $actividades = array_merge($actividadesEstablecimiento, $actividades);
 
         return $actividades;
     }
