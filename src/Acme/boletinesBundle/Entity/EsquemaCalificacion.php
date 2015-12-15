@@ -52,4 +52,11 @@ class EsquemaCalificacion
     {
         return $this->id;
     }
+
+    function __toString()
+    {
+        return $this->getNombre();
+    }
+
+
 }

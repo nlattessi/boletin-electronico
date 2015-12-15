@@ -62,11 +62,17 @@ class Institucion
      */
     protected $establecimientos;
 
+    /**
+     * @var boolean
+     */
+    private $activo = true;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
         $this->establecimientos = new ArrayCollection();
+        $this->usuarios = new ArrayCollection();
     }
 
     public function addEstablecimiento(Establecimiento $e)
@@ -255,6 +261,24 @@ class Institucion
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/logos';
+        return 'bundles/boletines/uploads/logos';
     }
+
+    /**
+     * @return boolean
+     */
+    public function isActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * @param boolean $activo
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    }
+
+
 }

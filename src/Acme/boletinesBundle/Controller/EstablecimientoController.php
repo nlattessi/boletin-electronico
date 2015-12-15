@@ -50,11 +50,12 @@ class EstablecimientoController extends Controller
 
             if ($establecimiento != null) {
 
-                if ($request->request->has("finalizar")){
+                if ($request->request->has("crear")){
                     return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
                 } else{
                     return new RedirectResponse($this->generateUrl('establecimiento_new_with_institucion',
-                        array('institucionId' => $institucion->getId(),
+                        array('institucion' => $institucion,
+                            'institucionId' => $institucion->getId(),
                             'css_active' => 'institucion',)));
                 }
 
@@ -66,9 +67,16 @@ class EstablecimientoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $institucion = $em->getRepository('BoletinesBundle:Institucion')->findOneBy(array('id' => $institucionId));
         }
+        $queryBuilder= $entities = $em->getRepository('BoletinesBundle:EsquemaCalificacion')->createQueryBuilder('e')
+            ->where('e.id > 1');
+        $esquemas = $queryBuilder->getQuery()->getResult();
+        //$paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
 
-        return $this->render('BoletinesBundle:Establecimiento:new.html.twig', array('institucionId' => $institucionId,
+        return $this->render('BoletinesBundle:Establecimiento:new.html.twig', array('institucion' => $institucion,
             'error' => $error,
+            'esquemas' => $esquemas,
+            'ciudades' => $ciudades,
             'css_active' => 'institucion',));
     }
 
@@ -80,8 +88,10 @@ class EstablecimientoController extends Controller
         $institucion = $establecimiento->getInstitucion();
 
         if ($establecimiento instanceof Establecimiento) {
-            $em->remove($establecimiento);
-            $em->flush();
+            $bajaAdministrativaService = $this->get('boletines.servicios.bajaAdministrativa');
+            $bajaAdministrativaService->darDeBaja($establecimiento);
+            /*$em->remove($establecimiento);
+            $em->flush();*/
         }
 
         return new RedirectResponse($this->generateUrl('institucion_show', array('id' => $institucion->getId())));
@@ -105,8 +115,16 @@ class EstablecimientoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $id));
         }
+        $queryBuilder= $entities = $em->getRepository('BoletinesBundle:EsquemaCalificacion')->createQueryBuilder('e')
+            ->where('e.id > 1');
+        $esquemas = $queryBuilder->getQuery()->getResult();
+        //$paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+        $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
 
-        return $this->render('BoletinesBundle:Establecimiento:edit.html.twig', array('establecimiento' => $establecimiento, 'error' => $error,
+        return $this->render('BoletinesBundle:Establecimiento:edit.html.twig', array('establecimiento' => $establecimiento,
+            'error' => $error,
+            'esquemas' => $esquemas,
+            'ciudades' => $ciudades,
             'css_active' => 'institucion',));
     }
 
