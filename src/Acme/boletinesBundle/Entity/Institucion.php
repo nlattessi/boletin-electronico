@@ -72,6 +72,7 @@ class Institucion
     {
         $this->creationTime = new \DateTime();
         $this->establecimientos = new ArrayCollection();
+        $this->usuarios = new ArrayCollection();
     }
 
     public function addEstablecimiento(Establecimiento $e)

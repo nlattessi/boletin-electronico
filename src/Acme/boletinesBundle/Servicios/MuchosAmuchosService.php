@@ -267,10 +267,16 @@ class MuchosAmuchosService {
     public function obtenerEstablecimientosPorUsuario($usuario){
         $establecimientos = array();
 
-        $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findBy(array('usuario' => $usuario));
-        foreach($establecimientosUsuario as $establecimientoUsuario){
-            $establecimientos[] = $establecimientoUsuario->getEstablecimiento();
+        if($usuario->getRol()->getNombre()== 'ROLE_DIRECTIVO'){
+            $establecimientos =  $this->em->getRepository('BoletinesBundle:Establecimiento')->findBy(array('institucion' => $usuario->getInstitucion()));
+        }else{
+            $establecimientosUsuario = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findBy(array('usuario' => $usuario));
+            foreach($establecimientosUsuario as $establecimientoUsuario){
+                $establecimientos[] = $establecimientoUsuario->getEstablecimiento();
+            }
         }
+
+
         return $establecimientos;
     }
     public function obtenerUsuariosPorEstablecimiento($establecimiento){
