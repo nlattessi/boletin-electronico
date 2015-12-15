@@ -108,6 +108,16 @@ class Actividad
      */
     private $archivos;
 
+    /**
+     * @var \Acme\boletinesBundle\Entity\Materia
+     *
+     * @ORM\ManyToOne(targetEntity="Acme\boletinesBundle\Entity\Materia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="materia_id", referencedColumnName="id")
+     * })
+     */
+    private $materia;
+
 
 
 
@@ -363,5 +373,28 @@ class Actividad
     public function getArchivos()
     {
         return $this->archivos;
+    }
+
+    /**
+     * Set materia
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materia
+     * @return Actividad
+     */
+    public function setMateria(\Acme\boletinesBundle\Entity\Materia $materia = null)
+    {
+        $this->materia = $materia;
+
+        return $this;
+    }
+
+    /**
+     * Get materia
+     *
+     * @return \Acme\boletinesBundle\Entity\Materia
+     */
+    public function getMateria()
+    {
+        return $this->materia;
     }
 }

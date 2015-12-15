@@ -21,9 +21,10 @@ use Acme\boletinesBundle\Entity\MensajeArchivo;
 
 class ArchivoService
 {
-    private static $allowedMimeTypes = [
-        'image/jpeg'
-    ];
+    // SETEAR SI SE QUIERE RESTRINGIR TIPOS DE ARCHIVOS A ADJUNTAR
+    // private static $allowedMimeTypes = [
+    //     'image/jpeg'
+    // ];
 
     private $filesystem;
     private $em;
@@ -56,6 +57,11 @@ class ArchivoService
 
     public function createMateriaArchivo(UploadedFile $file, $usuario, $materia)
     {
+        // SETEAR SI SE QUIERE RESTRINGIR TIPOS DE ARCHIVOS A ADJUNTAR
+        // if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
+        //     throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
+        // }
+
         $filename = $this->createFile($file, "materias");
 
         $archivo = $this->newArchivo($file, $filename, $usuario);
@@ -67,6 +73,11 @@ class ArchivoService
 
     public function createEvaluacionArchivo(UploadedFile $file, $usuario, $evaluacion)
     {
+        // SETEAR SI SE QUIERE RESTRINGIR TIPOS DE ARCHIVOS A ADJUNTAR
+        // if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
+        //     throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
+        // }
+
         $filename = $this->createFile($file, "evaluaciones");
 
         $archivo = $this->newArchivo($file, $filename, $usuario);
@@ -76,13 +87,29 @@ class ArchivoService
         return $evaluacionArchivo;
     }
 
-    public function createActividadArchivo()
+    public function createActividadArchivo(UploadedFile $file, $usuario, $actividad)
     {
-        //Todo
+        // SETEAR SI SE QUIERE RESTRINGIR TIPOS DE ARCHIVOS A ADJUNTAR
+        // if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
+        //     throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
+        // }
+
+        $filename = $this->createFile($file, "actividades");
+
+        $archivo = $this->newArchivo($file, $filename, $usuario);
+
+        $actividadArchivo = $this->newActividadArchivo($archivo, $actividad);
+
+        return $actividadArchivo;
     }
 
     public function createJustificacionArchivo(UploadedFile $file, $usuario, $justificacion)
     {
+        // SETEAR SI SE QUIERE RESTRINGIR TIPOS DE ARCHIVOS A ADJUNTAR
+        // if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
+        //     throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
+        // }
+
         $filename = $this->createFile($file, "justificaciones");
 
         $archivo = $this->newArchivo($file, $filename, $usuario);
@@ -217,5 +244,19 @@ class ArchivoService
         $this->em->flush();
 
         return $justificacionArchivo;
+    }
+
+    private function newActividadArchivo($archivo, $actividad)
+    {
+        $actividadArchivo = new ActividadArchivo();
+        $actividadArchivo->setArchivo($archivo);
+        $actividadArchivo->setActividad($actividad);
+        $actividadArchivo->setCreationTime(new \DateTime('now'));
+        $actividadArchivo->setUpdateTime(new \DateTime('now'));
+
+        $this->em->persist($actividadArchivo);
+        $this->em->flush();
+
+        return $actividadArchivo;
     }
 }

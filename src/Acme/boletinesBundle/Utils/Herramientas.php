@@ -13,6 +13,12 @@ class Herramientas {
         return $fecha;
     }
 
+    public static function fechaHoraADatetime($fecha, $hora)
+    {
+        $datetime = DateTime::createFromFormat('Y/m/d g:i a', $fecha . ' ' . $hora);
+        return $datetime;
+    }
+
     public static function formatSizeUnits($bytes)
     {
         if ($bytes >= 1073741824)

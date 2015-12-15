@@ -6,6 +6,7 @@
       <!-- <index name="FK_archivo_id" columns="archivo_id"/> -->
       <index name="FK_institucion_id" columns="institucion_id"/>
       <index name="FK_establecimiento_id" columns="establecimiento_id"/>
+      <index name="FK_materia_id" columns="materia_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
@@ -39,6 +40,11 @@
     <many-to-one field="usuarioCarga" target-entity="Usuario">
       <join-columns>
         <join-column name="usuario_carga_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="materia" target-entity="Materia">
+      <join-columns>
+        <join-column name="materia_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

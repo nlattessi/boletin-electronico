@@ -10,6 +10,10 @@ actividad_delete:
     path:     /delete/{id}
     defaults: { _controller: BoletinesBundle:Actividad:delete }
 
+actividad_get_by_user:
+    path:     /getByUser
+    defaults: { _controller: BoletinesBundle:Actividad:getActividadByUser }
+
 actividad_show:
     path:     /{id}
     defaults: { _controller: BoletinesBundle:Actividad:getOne }
