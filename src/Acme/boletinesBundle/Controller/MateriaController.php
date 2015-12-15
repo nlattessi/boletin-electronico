@@ -2,7 +2,10 @@
 
 namespace Acme\boletinesBundle\Controller;
 
+use Acme\boletinesBundle\Entity\Docente;
+use Acme\boletinesBundle\Entity\DocenteMateria;
 use Acme\boletinesBundle\Entity\Evaluacion;
+use Acme\boletinesBundle\Entity\GrupoAlumnoMateria;
 use Acme\boletinesBundle\Entity\MateriaDiaHorario;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Acme\boletinesBundle\Entity\Materia;
 use Acme\boletinesBundle\Entity\Calendario;
 use Acme\boletinesBundle\Form\MateriaType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 class MateriaController extends Controller
 {
@@ -204,8 +209,182 @@ class MateriaController extends Controller
 
             $materia->addHorarios($horario);
         }
-
         $em->persist($materia);
+
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $data->request->get('docente')));
+        $docenteMateria  = new DocenteMateria();
+        $docenteMateria->setDocente($docente);
+        $docenteMateria->setMateria($materia);
+        $em->persist($docenteMateria);
+
+        $gurpoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('docente')));
+        $gruopoMateria = new GrupoAlumnoMateria();
+        $gruopoMateria->setMateria($materia);
+        $gruopoMateria->setGrupoAlumno($gurpoAlumno);
+        $em->persist($gruopoMateria);
+
+        $em->flush();
+
+        return $materia;
+    }
+
+    private function editEntity($data, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('id' => $data->request->get('tipo_materia')));
+        $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
+        $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+        $materia->setEstablecimiento($establecimiento);
+        $materia->setNombre($data->request->get('nombre'));
+        $materia->setTipoMateria($tipoMateria);
+
+        if($data->request->get('lunes_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Lunes'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+            $horario->setDia('Lunes');
+            $horario->setHoraInicio($data->request->get('lunes_inicio'));
+            $horario->setHoraFin($data->request->get('lunes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Lunes'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        if($data->request->get('martes_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Martes'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+
+            $horario->setDia('Martes');
+            $horario->setHoraInicio($data->request->get('martes_inicio'));
+            $horario->setHoraFin($data->request->get('martes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Martes'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        if($data->request->get('miercoles_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Miercoles'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+            $horario->setDia('Miercoles');
+            $horario->setHoraInicio($data->request->get('miercoles_inicio'));
+            $horario->setHoraFin($data->request->get('miercoles_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Miercoles'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        if($data->request->get('jueves_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Jueves'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+            $horario->setDia('Jueves');
+            $horario->setHoraInicio($data->request->get('jueves_inicio'));
+            $horario->setHoraFin($data->request->get('jueves_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Jueves'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        if($data->request->get('viernes_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Viernes'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+            $horario->setDia('Viernes');
+            $horario->setHoraInicio($data->request->get('viernes_inicio'));
+            $horario->setHoraFin($data->request->get('viernes_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Viernes'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        if($data->request->get('sabado_chk') == 'on')
+        {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Sabado'));
+            if ($exists instanceof MateriaDiaHorario) {
+                $horario = $exists;
+            } else {
+                $horario = new MateriaDiaHorario();
+
+            }
+            $horario->setDia('Sabado');
+            $horario->setHoraInicio($data->request->get('sabado_inicio'));
+            $horario->setHoraFin($data->request->get('sabado_fin'));
+            $em->persist($horario);
+
+            $materia->addHorarios($horario);
+        } else {
+            $exists = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findOneBy(array('materia' => $materia, 'dia' => 'Sabado'));
+            if($exists instanceof MateriaDiaHorario) {
+                $em->remove($exists);
+                $em->flush();
+            }
+        }
+        $em->persist($materia);
+
+        $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(array('id' => $data->request->get('docente')));
+        $docenteMateria  = $em->getRepository('BoletinesBundle:DocenteMateria')->findOneBy(array('materia' => $materia));
+        $docenteMateria->setDocente($docente);
+        $em->persist($docenteMateria);
+
+        $gurpoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('grupoAlumno')));
+        $gruopoMateria = $em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findOneBy(array('materia' => $materia));
+
+        $gruopoMateria->setGrupoAlumno($gurpoAlumno);
+        $em->persist($gruopoMateria);
+
         $em->flush();
 
         return $materia;
@@ -217,38 +396,39 @@ class MateriaController extends Controller
         if ($request->getMethod() == 'POST') {
             $materia = $this->editEntity($request, $id);
             if($materia != null) {
-                return $this->render('BoletinesBundle:Materia:show.html.twig', array('materia' => $materia));
-            } else {
-                $message = "Errores";
+                return new RedirectResponse($this->generateUrl('materia'));
             }
-        } else {
-            $em = $this->getDoctrine()->getManager();
-            $entitiesRelacionadas = $em->getRepository('BoletinesBundle:TipoMateria')->findAll();
-            $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
         }
-
-        return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia,
-            'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas,
-            'css_active' => 'materia',));
-    }
-    private function editEntity($data, $id)
-    {
         $em = $this->getDoctrine()->getManager();
         $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
+        $docentes = $this->getDocentes();
+        $tipoMateria = $this->getTipoMateria();
+        $grupoAlumnos = $this->getGrupoAlumnos();
+        $establecimientos = $this->getEstablecimientos();
+        $materiaDiaHorario = $em->getRepository('BoletinesBundle:MateriaDiaHorario')->findBy(array('materia' => $materia));
 
-        $materia->setNombreMateria($data->request->get('nombreMateria'));
-
-        $idTipoMateria = $data->request->get('idTipoMateria');
-        if($idTipoMateria > 0){
-            //Selecciono otro TipoMateria, hay que buscarla y persistirla
-            $tipoMateria = $em->getRepository('BoletinesBundle:TipoMateria')->findOneBy(array('idTipoMateria' => $idTipoMateria));
-            $materia->setTipoMateria($tipoMateria);
+        $dias = array();
+        foreach($materiaDiaHorario as $materiaDia) {
+         $dias[$materiaDia->getDia()]['horaFin'] = $materiaDia->getHoraFin();
+         $dias[$materiaDia->getDia()]['horaInicio'] = $materiaDia->getHoraInicio();
         }
 
-        $em->persist($materia);
-        $em->flush();
+        $docenteSeleccionado = $em->getRepository('BoletinesBundle:DocenteMateria')->findOneBy(array('materia' => $materia));
+        $docenteSeleccionadoId = null;
+        if($docenteSeleccionado instanceof DocenteMateria) {
+            $docenteSeleccionadoId = $docenteSeleccionado->getDocente()->getId();
+        }
 
-        return $materia;
+        $grupoAlumnoMateria = $em->getRepository('BoletinesBundle:GrupoAlumnoMateria')->findOneBy(array('materia' => $materia));
+        $grupoAlumnoMateriaId = null;
+        if($grupoAlumnoMateria instanceof GrupoAlumnoMateria) {
+            $grupoAlumnoMateriaId = $grupoAlumnoMateria->getGrupoAlumno()->getId();
+        }
+        return $this->render('BoletinesBundle:Materia:edit.html.twig', array('materia' => $materia, 'docentes' => $docentes,
+            'gruposAlumnos' => $grupoAlumnos, 'tiposMateria' => $tipoMateria,
+            'establecimientos' => $establecimientos,
+            'dias' => $dias, 'docenteSeleccionadoId' => $docenteSeleccionadoId,
+            'grupoAlumnoMateriaId' => $grupoAlumnoMateriaId));
     }
 
     public function uploadAction($id, Request $request)
