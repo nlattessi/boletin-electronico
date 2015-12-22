@@ -80,7 +80,10 @@ class MateriaController extends Controller
     {
         $message = "";
         if ($request->getMethod() == 'POST') {
-            $this->createEntity($request);
+            $materia = $this->createEntity($request);
+            if($materia instanceof Materia) {
+                $this->get('session')->getFlashBag()->add('success', 'Nueva materia creada con éxito');
+            }
         }
 
         $docentes = $this->getDocentes();
