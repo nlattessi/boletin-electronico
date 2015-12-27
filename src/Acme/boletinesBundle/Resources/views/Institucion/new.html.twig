@@ -18,7 +18,7 @@
                 <label for="nombreInstitucion">Nombre de la institución</label>
             </div>
             <div class="input-field col s12 m6 l6">
-                <input id="cuit" name="cuit" type="number" class="validate" >
+                <input id="cuit" name="cuit" type="text">
                 <label for="cuit" data-error="Este campo solo acepta valores numéricos" data-success="Correcto">C.U.I.T</label>
             </div>
         </div>
@@ -137,4 +137,8 @@
             </div>
         </div>
     </form>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/cuit_institucion.js') }}"></script>
 {% endblock %}
