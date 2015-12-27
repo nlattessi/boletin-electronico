@@ -68,6 +68,8 @@ class Archivo
      */
     private $usuarioCarga;
 
+    private $fileSize;
+
 
 
     /**
@@ -216,6 +218,16 @@ class Archivo
     public function getUsuarioCarga()
     {
         return $this->usuarioCarga;
+    }
+
+    public function setFileSize($fileSize)
+    {
+        $this->fileSize = $fileSize;
+    }
+
+    public function getFileSize()
+    {
+        return $this->fileSize;
     }
 
     public function __toString(){

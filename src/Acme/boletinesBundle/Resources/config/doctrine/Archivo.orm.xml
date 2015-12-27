@@ -12,6 +12,7 @@
     <field name="path" type="string" column="path" length="75" nullable="false"/>
     <field name="fechaSubida" type="datetime" column="fecha_subida" nullable="false"/>
     <field name="fechaActualizacion" type="datetime" column="fecha_actualizacion" nullable="false"/>
+    <field name="fileSize" type="integer" column="file_size" nullable="true"/>
     <many-to-one field="usuarioCarga" target-entity="Usuario">
       <join-columns>
         <join-column name="usuario_carga_id" referenced-column-name="id"/>

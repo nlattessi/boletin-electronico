@@ -183,6 +183,7 @@ class ArchivoService
         $archivo->setUsuarioCarga($usuario);
         $archivo->setFechaActualizacion(new \DateTime('now'));
         $archivo->setFechaSubida(new \DateTime('now'));
+        $archivo->setFileSize($file->getClientSize());
 
         $this->em->persist($archivo);
         $this->em->flush();
