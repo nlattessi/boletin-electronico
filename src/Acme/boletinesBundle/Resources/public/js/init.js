@@ -127,7 +127,7 @@
     
     $('.modal-trigger').leanModal();
     $('.button-collapse').sideNav({'edge': 'left'});
-    $('.datepicker').pickadate({selectYears: 20});
+    $('.datepicker').pickadate({selectYears: 90});
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 25});
         $('.dropdown-button').dropdown({
