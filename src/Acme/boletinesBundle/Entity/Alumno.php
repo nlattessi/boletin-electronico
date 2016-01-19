@@ -246,6 +246,7 @@ class Alumno
 
     public function __construct() {
         $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
     }
 
     /**

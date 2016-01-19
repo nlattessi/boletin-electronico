@@ -12,6 +12,11 @@ class LoginController extends Controller
     {
         $request = $this->getRequest();
         $session = $request->getSession();
+        $year = date('Y'); // Get current year and subtract 1
+        $start = mktime(0, 0, 0, 1, 1, $year);
+        $end = mktime(0, 0, 0, 12, 31, $year);
+        $session->set('startYear', date('Y-m-d H:i:s', $start));
+        $session->set('endYear', date('Y-m-d H:i:s', $end));
         // obtiene el error de inicio de sesión si lo hay
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(

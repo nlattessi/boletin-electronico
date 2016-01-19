@@ -90,6 +90,7 @@ class GrupoUsuario
     public function __construct()
     {
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
     }
 
 
