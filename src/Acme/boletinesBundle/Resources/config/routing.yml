@@ -82,6 +82,10 @@ boletines_calendario:
     resource: "@BoletinesBundle/Resources/config/routing/calendario.yml"
     prefix:   /calendario
 
+boletines_historic:
+    resource: "@BoletinesBundle/Resources/config/routing/historic.yml"
+    prefix:   /historic
+
 boletines_login:
     resource: "@BoletinesBundle/Resources/config/routing/login.yml"
     prefix:   /login
