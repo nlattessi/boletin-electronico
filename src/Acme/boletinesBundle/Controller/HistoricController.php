@@ -17,7 +17,7 @@ class HistoricController extends Controller
         $session = $request->getSession();
         $session->set('historic', 'on');
 
-        return new RedirectResponse($this->generateUrl('home'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     public function offAction()
@@ -32,7 +32,7 @@ class HistoricController extends Controller
       $session->set('endYear', date('Y-m-d H:i:s', $end));
       $session->set('historic', 'off');
 
-      return new RedirectResponse($this->generateUrl('home'));
+      return new RedirectResponse($request->headers->get('referer'));
     }
 
     public function downYearAction()
@@ -46,7 +46,7 @@ class HistoricController extends Controller
         $session->set('startYear', date('Y-m-d H:i:s', $start));
         $session->set('endYear', date('Y-m-d H:i:s', $end));
 
-        return new RedirectResponse($this->generateUrl('home'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     public function upYearAction()
@@ -60,6 +60,6 @@ class HistoricController extends Controller
         $session->set('startYear', date('Y-m-d H:i:s', $start));
         $session->set('endYear', date('Y-m-d H:i:s', $end));
 
-        return new RedirectResponse($this->generateUrl('home'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }
