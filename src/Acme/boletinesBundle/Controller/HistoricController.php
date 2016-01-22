@@ -24,6 +24,12 @@ class HistoricController extends Controller
     {
       $request = $this->getRequest();
       $session = $request->getSession();
+      $year = date('Y');
+      $start = mktime(0, 0, 0, 1, 1, $year);
+      $end = mktime(0, 0, 0, 12, 31, $year);
+      $session->set('year', date('Y', $start));
+      $session->set('startYear', date('Y-m-d H:i:s', $start));
+      $session->set('endYear', date('Y-m-d H:i:s', $end));
       $session->set('historic', 'off');
 
       return new RedirectResponse($this->generateUrl('home'));
