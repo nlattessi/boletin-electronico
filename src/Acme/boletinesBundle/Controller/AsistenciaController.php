@@ -55,7 +55,7 @@ class AsistenciaController extends Controller
                 'hoy' =>$ahora ,
                 'css_active' => 'asistencia',));
         }else if($this->getUser()->getRol()->getNombre() == 'ROLE_BEDEL'){
-            $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+            $entities = [];//$em->getRepository('BoletinesBundle:Materia')->findAll();
             $ahora = new \DateTime('now');
             return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
                 'hoy' =>$ahora ,

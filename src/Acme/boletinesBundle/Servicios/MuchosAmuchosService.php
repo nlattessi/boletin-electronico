@@ -24,7 +24,8 @@ class MuchosAmuchosService {
 
     protected $em;
     private $session;
-    private $year;
+    private $endYear;
+    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;

@@ -8,13 +8,20 @@
 
 namespace Acme\boletinesBundle\Servicios;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class EvaluacionService {
     protected $em;
     const N_DEFAULT = 4;
+    private $endYear;
+    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
+        $this->session = new Session();
+        $this->endYear = $this->session->get('endYear');
+        $this->startYear = $this->session->get('startYear');
     }
 
     public function evaluacionesPorMateria($idMateria){
@@ -43,6 +50,10 @@ class EvaluacionService {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Evaluacion')->createQueryBuilder('e')
             ->where('e.docente = ?1')
             ->andWhere('e.activo = true')
+            ->andWhere('e.creationTime > :startYear')
+            ->andWhere('e.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $idDocente)
             ->orderBy('e.fecha','DESC')
         ->setMaxResults($limite);

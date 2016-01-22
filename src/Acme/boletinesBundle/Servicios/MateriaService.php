@@ -9,16 +9,22 @@
 namespace Acme\boletinesBundle\Servicios;
 use Acme\boletinesBundle\Entity\Materia;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class MateriaService {
     protected $em;
     protected $muchosService;
     protected $grupoAlumnosService;
+    private $endYear;
+    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
-         $this->muchosService = new MuchosAmuchosService($this->em);
+        $this->muchosService = new MuchosAmuchosService($this->em);
         $this->grupoAlumnosService = new GrupoAlumnoService($this->em);
+        $this->session = new Session();
+        $this->endYear = $this->session->get('endYear');
+        $this->startYear = $this->session->get('startYear');
     }
 
     public function cantidadAlumnos($idMateria){
@@ -84,7 +90,18 @@ class MateriaService {
     public function listaMateriasPorDocente($idDocente){
         $materias = array();
 
-        $materiasDocente = $this->em->getRepository('BoletinesBundle:DocenteMateria')->findBy(array('docente' => $idDocente));
+        $query = $this->em->createQueryBuilder()
+            ->select('d')
+            ->from('BoletinesBundle:DocenteMateria','d')
+            ->where('d.docente = :docente')
+            ->andWhere('d.creationTime > :startYear')
+            ->andWhere('d.creationTime < :endYear')
+            ->setParameter('docente', $idDocente)
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
+            ->getQuery();
+
+        $materiasDocente = $query->getResult();
         foreach($materiasDocente as $materiaDocente){
             $materia = $materiaDocente->getMateria();
             if($materia->isActivo()) {
