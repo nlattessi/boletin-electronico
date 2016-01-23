@@ -15,6 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ReporteController  extends Controller  {
 
+    public function testImpresion($query){
+
+        $em = $this->getDoctrine()->getManager();
+        $reporte = $em->getRepository('BoletinesBundle:Reporte')->findOneBy(array('id' => 1));
+
+        //$query->setDQL("SELECT a.id, c.nombre FROM BoletinesBundle:Alumno a INNER JOIN BoletinesBundle:Calificacion b WITH a.id = b.alumno and b.evaluacion = 5 INNER JOIN BoletinesBundle:ValorCalificacion c WITH c.id = b.valor WHERE 1=1 ORDER BY c.valor DESC");
+        $query->setDQL($reporte->getDql());
+        $result = $query->getResult();
+
+        print "123" . json_encode($result);
+        exit;
+    }
 
     public function pruebaAction(Request $request){
 
@@ -51,6 +63,11 @@ class ReporteController  extends Controller  {
              */
             $em = $this->getDoctrine()->getManager();
             $qb = $em->createQueryBuilder();
+
+            $this->testImpresion($qb->getQuery());
+
+
+
             $qb->select($select)
                 ->from($from, 'a')
             ->where("1=1");
@@ -74,6 +91,8 @@ class ReporteController  extends Controller  {
             }
             $query = $qb->getQuery();
             $query->setDQL("SELECT a.id, c.nombre FROM BoletinesBundle:Alumno a INNER JOIN BoletinesBundle:Calificacion b WITH a.id = b.alumno and b.evaluacion = 5 INNER JOIN BoletinesBundle:ValorCalificacion c WITH c.id = b.valor WHERE 1=1 ORDER BY c.valor DESC");
+
+
 
             $result = $query->getResult();
 
