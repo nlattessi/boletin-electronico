@@ -312,4 +312,47 @@ class Evaluacion
         $this->activo = $activo;
     }
 
+
+    /**
+     * Get calificada
+     *
+     * @return boolean 
+     */
+    public function getCalificada()
+    {
+        return $this->calificada;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Add archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos
+     * @return Evaluacion
+     */
+    public function addArchivo(\Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos)
+    {
+        $this->archivos[] = $archivos;
+
+        return $this;
+    }
+
+    /**
+     * Remove archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos
+     */
+    public function removeArchivo(\Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos)
+    {
+        $this->archivos->removeElement($archivos);
+    }
 }

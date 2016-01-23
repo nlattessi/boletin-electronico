@@ -90,6 +90,10 @@ boletines_home:
     resource: "@BoletinesBundle/Resources/config/routing/home.yml"
     prefix:   /home
 
+boletines_reporte:
+    resource: "@BoletinesBundle/Resources/config/routing/reporte.yml"
+    prefix:   /reporte
+
 boletines_bullying:
     resource: "@BoletinesBundle/Resources/config/routing/bullying.yml"
     prefix:   /bullying

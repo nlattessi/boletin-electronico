@@ -662,4 +662,14 @@ class Docente
 
 
 
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
 }

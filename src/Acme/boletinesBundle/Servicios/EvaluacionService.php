@@ -17,6 +17,16 @@ class EvaluacionService {
         $this->em = $entityManager;
     }
 
+    public function evaluacionesPorMateriaReporte($idMateria){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Evaluacion')->createQueryBuilder('e')
+            ->select('e.id, e.nombre')
+            ->where('e.materia = ?1')
+            ->setParameter(1, $idMateria);
+
+        $evaluaciones = $queryBuilder->getQuery()->getResult();
+        return $evaluaciones;
+    }
+
     public function evaluacionesPorMateria($idMateria){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Evaluacion')->createQueryBuilder('e')
             ->where('e.materia = ?1')

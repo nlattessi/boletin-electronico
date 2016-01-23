@@ -608,4 +608,37 @@ class Establecimiento
     }
 
 
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Add materias
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materias
+     * @return Establecimiento
+     */
+    public function addMateria(\Acme\boletinesBundle\Entity\Materia $materias)
+    {
+        $this->materias[] = $materias;
+
+        return $this;
+    }
+
+    /**
+     * Remove materias
+     *
+     * @param \Acme\boletinesBundle\Entity\Materia $materias
+     */
+    public function removeMateria(\Acme\boletinesBundle\Entity\Materia $materias)
+    {
+        $this->materias->removeElement($materias);
+    }
 }
