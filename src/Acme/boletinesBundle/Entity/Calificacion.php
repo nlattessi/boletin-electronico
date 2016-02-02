@@ -89,6 +89,9 @@ class Calificacion
      */
     private $validada;
 
+    public function __construct() {
+        $this->creationTime = new \DateTime();
+    }
 
     /**
      * Set fecha

@@ -111,6 +111,7 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
     }
 
     /**

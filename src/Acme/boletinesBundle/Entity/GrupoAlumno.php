@@ -62,6 +62,8 @@ class GrupoAlumno
     public function __construct()
     {
         $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
+
     }
 
     /**

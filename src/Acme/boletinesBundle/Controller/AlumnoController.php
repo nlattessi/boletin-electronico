@@ -31,6 +31,7 @@ class AlumnoController extends Controller
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $alumnos = $muchosAMuchos->obtenerAlumnosPorEstablecimientos($establecimientos);
 
+//        print_r($alumnos[0]);exit;
         return $this->render('BoletinesBundle:Alumno:index.html.twig', array('alumnos' => $alumnos,
             'establecimientos' => $establecimientos,
             'css_active' => 'alumno',));

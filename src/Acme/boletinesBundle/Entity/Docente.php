@@ -168,6 +168,10 @@ class Docente
      */
     private $activo = true;
 
+    public function __construct() {
+        $this->creationTime = new \DateTime();
+    }
+
     /**
      * Set nombre
      *
