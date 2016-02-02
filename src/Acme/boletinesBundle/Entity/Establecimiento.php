@@ -155,11 +155,14 @@ class Establecimiento
 
     private $materias;
 
+    private $periodos;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
-        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
+        $this->periodos = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
     }
 
     /**
@@ -605,6 +608,11 @@ class Establecimiento
     public function getMaterias()
     {
         return $this->materias;
+    }
+
+    public function getPeriodos()
+    {
+        return $this->periodos;
     }
 
 

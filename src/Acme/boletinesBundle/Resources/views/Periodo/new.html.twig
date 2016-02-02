@@ -1,0 +1,50 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+{% block page %}
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <form action="{{ path('periodo_new') }}" method="post">
+
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h4 class="header">Nuevo periodo</h4>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <input name="nombre" id="icon_prefix" type="text"
+                               class="validate">
+                        <label for="icon_prefix">Nombre</label>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <select name="establecimiento" id="establecimiento">
+                            {% for establecimiento in establecimientos %}
+                                <option value="{{ establecimiento.id }}">{{ establecimiento.nombre }} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="establecimiento">Establecimiento</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col s6 m6 l6">
+                        <i class="icon-linear-calendar-insert"></i>
+                        <label for="fecha_desde" class="">Fecha inicio</label>
+                        <input name="fecha_desde" type="date" class="datepicker">
+                    </div>
+                    <div class=" col s6 m6 l6">
+                        <i class="icon-linear-calendar-insert"></i>
+                        <label for="fecha_hasta" class="">Fecha fin</label>
+                        <input name="fecha_hasta" type="date" class="datepicker">
+                    </div>
+                </div>
+
+                <div class="col s12 center-align mar-top-soft">
+                    <button type="submit" class="btn-large waves-effect waves-light center-align mar-right">Finalizar</button>
+                </div>
+            </form>
+        </div>
+        <!--  End Tables Section  -->
+
+    </div>
+
+
+{% endblock %}

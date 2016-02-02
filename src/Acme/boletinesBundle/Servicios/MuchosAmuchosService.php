@@ -418,6 +418,30 @@ class MuchosAmuchosService {
         return $materias;
     }
 
+    public function obtenerPeriodosPorEstablecimientos($establecimientos)
+    {
+        $periodos = array();
+
+        foreach($establecimientos as $establecimiento) {
+            $query = $this->em->createQueryBuilder()
+                ->select('p')
+                ->from('BoletinesBundle:Periodo', 'p')
+                ->where('p.establecimiento = :establecimiento')
+                ->andWhere('p.creationTime > :startYear')
+                ->andWhere('p.creationTime < :endYear')
+                ->setParameter('establecimiento', $establecimiento)
+                ->setParameter('startYear', $this->startYear)
+                ->setParameter('endYear', $this->endYear)
+                ->getQuery();
+
+            $result  = $query->getResult();
+
+            $periodos = array_merge($result, $periodos);
+        }
+
+        return $periodos;
+    }
+
     public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
     {
         $repository = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento');
