@@ -21,6 +21,8 @@ class PeriodoController extends Controller
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
             $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
             $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimientos($establecimientos);
+        } else {
+            return $this->redirect($this->generateUrl('home', [], 301));
         }
 
         return $this->render('BoletinesBundle:Periodo:index.html.twig', ['periodos' => $periodos]);
@@ -102,14 +104,6 @@ class PeriodoController extends Controller
 
         $em->persist($periodo);
 
-        // $periodoEstablecimiento = new PeriodoEstablecimiento();
-        // $periodoEstablecimiento->setPeriodo($periodo);
-        // $periodoEstablecimiento->setEstablecimiento($establecimiento);
-        // $periodoEstablecimiento->setCreationTime(new \DateTime('now'));
-        // $periodoEstablecimiento->setUpdateTime(new \DateTime('now'));
-
-        // $em->persist($periodoEstablecimiento);
-
         $em->flush();
 
         return $periodo;
@@ -134,5 +128,4 @@ class PeriodoController extends Controller
 
         return $periodo;
     }
-
 }
