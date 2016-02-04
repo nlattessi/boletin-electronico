@@ -44,6 +44,15 @@ class Periodo
      */
     private $updateTime;
 
+    private $evaluaciones;
+
+
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+        $this->evaluaciones = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -191,5 +200,10 @@ class Periodo
     public function getUpdateTime()
     {
         return $this->updateTime;
+    }
+
+    public function getEvaluaciones()
+    {
+        return $this->evaluaciones;
     }
 }

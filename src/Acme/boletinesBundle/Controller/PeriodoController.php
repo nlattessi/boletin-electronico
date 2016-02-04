@@ -99,8 +99,8 @@ class PeriodoController extends Controller
         $periodo->setEstablecimiento($establecimiento);
         $periodo->setFechaDesde(Herramientas::textoADatetime($data->get('fecha_desde')));
         $periodo->setFechaHasta(Herramientas::textoADatetime($data->get('fecha_hasta')));
-        $periodo->setCreationTime(new \DateTime('now'));
-        $periodo->setUpdateTime(new \DateTime('now'));
+        //$periodo->setCreationTime(new \DateTime('now'));
+        //$periodo->setUpdateTime(new \DateTime('now'));
 
         $em->persist($periodo);
 

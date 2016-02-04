@@ -20,5 +20,7 @@
       </join-columns>
     </many-to-one>
 
+    <one-to-many field="evaluaciones" target-entity="Evaluacion" mapped-by="periodo" />
+
   </entity>
 </doctrine-mapping>

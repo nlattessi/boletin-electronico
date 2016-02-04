@@ -1,0 +1,99 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+{% block breadcrumb %}
+  <li><a href="{{ path('boletin') }}" class="">Boletin</a></li>
+  <li><i class="icon-linear-chevron-right bread-i"></i></li>
+  <li><a href="#" class="b-focus">Cargar notas</a></li>
+{% endblock %}
+
+{% block page %}
+
+<div class="row">
+  <div class="col s12 m12 l12 mar-top-soft">
+    <h4 class="header">Carga de notas al boletín</h4>
+  </div>
+</div>
+
+<div class="row mar-top-soft">
+  <div class="col s12 m12 l12"> <!-- start materia-->
+    <div class="panel-mini panel-assigment">
+      <div class="row">
+        <div class="col s6">
+          <h5 class="panel-title">{{ materia.nombre }} </h5>
+          <h4>
+            {% for grupo in materia.gruposAlumnos %}
+              {{ grupo ~ ' ' }}
+            {% endfor %}
+          </h4>
+        </div>
+        <div class="col s6 right-align">
+          <h5><i class="icon-linear-users2 d-d-i"></i> {{ materia.cantidadAlumnos }}</h5>
+          <h6>Alumnos</h6>
+        </div>
+      </div>
+    </div>
+  </div><!-- end materia-->
+</div>
+
+<div class="row mar-top-soft">
+  <div class="col s12 m12 l12"> <!-- start materia-->
+    <div class="input-field col s12 m6 l4">
+      <select>
+        <option value="" disabled>Seleccionar período</option>
+        <option value="1">Período evaluativo 1</option>
+        <option value="2" selected>Período evaluativo 2</option>
+        <option value="3">Período evaluativo 3</option>
+      </select>
+    </div>
+    <table class="striped responsive-table">
+      <thead>
+        <tr>
+          <th>Alumno</th>
+          <th>Ev. 1</th>
+          <th>Ev. 2</th>
+          <th>Ev. 3</th>
+          <th>Ev. 4</th>
+          <th>Nota sugerida</th>
+          <th>Calificación</th>
+          <th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for grupo in materia.gruposAlumnos %}
+            {% for alumno in grupo.alumnos %}
+              <tr>
+                <td><a href="usuarios-datos-alumno_directivo.html">{{ alumno }}</a></td>
+                <td>Muy bien</td>
+                <td>Muy bien</td>
+                <td>Muy bien</td>
+                <td>Muy bien</td>
+                <td>Muy bien</td>
+                <td>
+                  <div class="input-field col s12">
+                    <select>
+                      <option value="" disabled selected></option>
+                      <option value="1">Insuficiente</option>
+                      <option value="2">Regular</option>
+                      <option value="3">Bien</option>
+                      <option value="4">Muy bien</option>
+                      <option value="5">Excelente</option>
+                    </select>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field col s12">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Comentario</label>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="col s12 center-align mar-top-soft"><a href="#" class="btn-large waves-effect waves-light center-align mar-right">Guardar</a></div>
+
+{% endblock %}

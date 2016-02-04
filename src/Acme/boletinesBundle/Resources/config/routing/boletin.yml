@@ -1,0 +1,7 @@
+boletin:
+    path:     /
+    defaults: { _controller: BoletinesBundle:Boletin:index }
+
+boletin_cargar_nota:
+    path:     /cargar_nota/{id}
+    defaults: { _controller: BoletinesBundle:Boletin:cargarNota }
