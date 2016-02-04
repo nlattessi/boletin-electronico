@@ -319,7 +319,7 @@ class Evaluacion
         $this->periodo = $periodo;
     }
 
-    public function getPeriodo($periodo)
+    public function getPeriodo()
     {
         return $this->periodo;
     }

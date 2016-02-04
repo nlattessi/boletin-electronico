@@ -37,10 +37,14 @@ class BoletinController extends Controller
             $materia = $materiaService->materiaLoad($materia);
         }
 
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimiento = $this->getRequest()->getSession()->get('establecimientoActivo');
+        $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimiento($establecimiento);
 
         return $this->render('BoletinesBundle:Boletin:cargar_notas.html.twig', [
             'css_active' => 'boletin',
-            'materia' => $materia
+            'materia' => $materia,
+            'periodos' => $periodos
         ]);
     }
 }

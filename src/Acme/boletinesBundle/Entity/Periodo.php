@@ -50,7 +50,8 @@ class Periodo
     public function __construct()
     {
         $this->creationTime = new \DateTime();
-        $this->evaluaciones = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
+        $this->updateTime = new \DateTime();
+        $this->evaluaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -205,5 +206,9 @@ class Periodo
     public function getEvaluaciones()
     {
         return $this->evaluaciones;
+    }
+
+    public function __toString(){
+        return $this->getNombre();
     }
 }

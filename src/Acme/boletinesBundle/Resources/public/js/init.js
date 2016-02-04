@@ -124,10 +124,10 @@
 
 
     // Plugin initialization
-    
+
     $('.modal-trigger').leanModal();
     $('.button-collapse').sideNav({'edge': 'left'});
-    $('.datepicker').pickadate({selectYears: 90});
+    $('.datepicker').pickadate({selectYears: 90, format: 'dd/m/yyyy', formatSubmit:'dd/m/yyyy'});
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 25});
         $('.dropdown-button').dropdown({
@@ -143,7 +143,7 @@
     $(document).ready(function(){
     $('ul.tabs').tabs();
   });
-    
+
 
 
   }); // end of document ready

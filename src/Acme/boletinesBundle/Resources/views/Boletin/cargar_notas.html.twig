@@ -38,13 +38,64 @@
 <div class="row mar-top-soft">
   <div class="col s12 m12 l12"> <!-- start materia-->
     <div class="input-field col s12 m6 l4">
-      <select>
-        <option value="" disabled>Seleccionar período</option>
-        <option value="1">Período evaluativo 1</option>
-        <option value="2" selected>Período evaluativo 2</option>
-        <option value="3">Período evaluativo 3</option>
+      <select value="periodo" id="periodo" onchange="toggle();">
+        <option value="0" disabled selected>Seleccionar período</option>
+        {% for periodo in periodos %}
+            <option value="{{ periodo.id}}">{{ periodo.nombre }}</option>
+        {% endfor %}
       </select>
     </div>
+
+    {% for periodo in periodos %}
+      <table class="striped responsive-table" id="{{ periodo.id }}">
+        <thead>
+          <tr>
+            <th>Alumno</th>
+            {% for evaluacion in materia.evaluaciones %}
+              {% if evaluacion.activo and evaluacion.periodo == periodo %}
+                <th>{{ evaluacion.nombre }}</th>
+              {% endif %}
+            {% endfor %}
+            <th>Nota sugerida</th>
+            <th>Calificación</th>
+            <th>Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for grupo in materia.gruposAlumnos %}
+              {% for alumno in grupo.alumnos %}
+                <tr>
+                  <td><a href="usuarios-datos-alumno_directivo.html">{{ alumno }}</a></td>
+                  <td>Muy bien</td>
+                  <td>Muy bien</td>
+                  <td>Muy bien</td>
+                  <td>Muy bien</td>
+                  <td>Muy bien</td>
+                  <td>
+                    <div class="input-field col s12">
+                      <select>
+                        <option value="" disabled selected></option>
+                        <option value="1">Insuficiente</option>
+                        <option value="2">Regular</option>
+                        <option value="3">Bien</option>
+                        <option value="4">Muy bien</option>
+                        <option value="5">Excelente</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-field col s12">
+                      <input id="last_name" type="text" class="validate">
+                      <label for="last_name">Comentario</label>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+
     <table class="striped responsive-table">
       <thead>
         <tr>
@@ -95,5 +146,20 @@
 </div>
 
 <div class="col s12 center-align mar-top-soft"><a href="#" class="btn-large waves-effect waves-light center-align mar-right">Guardar</a></div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function toggle() {
+    $('.responsive-table').hide();
+    var periodoId = $('#periodo').val();
+    $('#' + periodoId).show();
+  }
+
+  (function(window, document, $) {
+    $('.responsive-table').hide();
+  })(window, document, jQuery);
+</script>
 
 {% endblock %}
