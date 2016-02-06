@@ -34,23 +34,21 @@ class LoginController extends Controller
     public function redirectAction()
     {
         $sessionService =  $this->get('boletines.servicios.sesion');
+        $session = $this->getRequest()->getSession();
         if ($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE'  ) {
             $padreService =  $this->get('boletines.servicios.padre');
-            $session = $this->getRequest()->getSession();
             $sessionService->setearAlumnoSesionPadre($session, $this->getUser()->getIdEntidadAsociada());
             $hijos = $padreService->obtenerHijos($this->getUser()->getIdEntidadAsociada());
             $session->set('hijos',  $hijos);
         }
         else if( $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO')
         {
-            $session = $this->getRequest()->getSession();
             $sessionService->cambiarAlumnoSesion($session, $this->getUser()->getIdEntidadAsociada());
         }  else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
             //return $this->redirect($this->generateUrl('director'));
         }
         else if( $this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
         {
-            $session = $this->getRequest()->getSession();
             $sessionService->setearDocenteSesion($session, $this->getUser()->getIdEntidadAsociada());
         }
 

@@ -117,4 +117,14 @@ class MateriaService {
         return $materia;
     }
 
+    public function materiasPorEstablecimientoReporte($establecimientoId){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Materia')->createQueryBuilder('m')
+            ->select('m.id, m.nombre')
+            ->where('m.establecimiento = ?1')
+            ->setParameter(1, $establecimientoId);
+
+        $materias = $queryBuilder->getQuery()->getResult();
+        return $materias;
+    }
+
 }

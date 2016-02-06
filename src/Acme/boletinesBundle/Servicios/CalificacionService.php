@@ -63,5 +63,16 @@ class CalificacionService {
         $valores = $queryBuilder->getQuery()->getResult();
         return $valores;
     }
+    public function valoresAceptadosReporte($establecimiento){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:ValorCalificacion')->createQueryBuilder('c')
+            ->select('c.id, c.nombre')
+            ->where('c.esquemaCalificacion = ?1')
+            ->orWhere('c.esquemaCalificacion = ?2')
+            ->setParameter(1, $establecimiento->getEsquemaCalificacion()->getId())
+            ->setParameter(2, self::ESQUEMA_GENERAL_ID);
+
+        $valores = $queryBuilder->getQuery()->getResult();
+        return $valores;
+    }
 
 }

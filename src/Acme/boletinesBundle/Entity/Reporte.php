@@ -44,6 +44,14 @@ class Reporte
      */
     private $institucion;
 
+    function __construct($nombre, $dql, $rol, $institucion)
+    {
+        $this->setNombre($nombre);
+        $this->setDql($dql);
+        $this->setRol($rol);
+        $this->setInstitucion($institucion);
+    }
+
 
     /**
      * Set nombre

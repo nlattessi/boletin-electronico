@@ -7,6 +7,8 @@
  */
 
 namespace Acme\boletinesBundle\Controller;
+use Acme\boletinesBundle\Entity\Reporte;
+use Acme\boletinesBundle\Utils\Herramientas;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,21 +30,217 @@ class ReporteController  extends Controller  {
         exit;
     }
 
+    public function guardarReporte($nombre,$dql, $rol, $institucion){
+        $em = $this->getDoctrine()->getManager();
+        $reporte = new Reporte($nombre, $dql, $rol,$institucion);
+        $em->persist($reporte);
+        $em->flush();
+    }
+
+    public function cargarMaterias($establecimientoId){
+        $materiaService =  $this->get('boletines.servicios.materia');
+        $materias = $materiaService->materiasPorEstablecimientoReporte($establecimientoId);
+        $response = new JsonResponse();
+        $response->setData($materias);
+        return $response;
+    }
+
+    public function cargarEvauaciones($materiaId){
+        $evaluacionService =  $this->get('boletines.servicios.evaluacion');
+        $evaluaciones = $evaluacionService->evaluacionesPorMateriaReporte($materiaId);
+        $response = new JsonResponse();
+        $response->setData($evaluaciones);
+        return $response;
+    }
+    public function cargarCalificaciones($establecimiento){
+        $calificacionService =  $this->get('boletines.servicios.calificacion');
+        $valoresCalificacion = $calificacionService->valoresAceptadosReporte($establecimiento);
+        $response = new JsonResponse();
+        $response->setData($valoresCalificacion);
+        return $response;
+    }
+
+    public function cargarIdAsistenciaPorFecha($fecha, $materia){
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('a.id')
+            ->from('BoletinesBundle:Asistencia', 'a')
+            ->where('1=1');
+        if($fecha){
+            $qb->andWhere("a.fecha = '" . $fecha . "'");
+        }
+        if($materia){
+            $qb->andWhere("a.materia = " . $materia );
+        }
+
+        $resultado = $qb->getQuery()->getResult();
+        $response = new JsonResponse();
+        $response->setData($resultado);
+        return $response;
+    }
+
+    public function newAction(Request $request){
+
+        /**
+         * @var $em EntityManager
+         */
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->get('busqmat')){
+            return $this->cargarMaterias($request->get('festablecimiento'));
+        }
+        if($request->get('busqeval')){
+            return $this->cargarEvauaciones($request->get('fmateria'));
+        }
+        if($request->get('busqcal')){
+            $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' =>  $request->get('festablecimiento')));
+            return $this->cargarCalificaciones($establecimiento);
+        }
+        if($request->get('busqasis')){
+            $fecha = $request->get('fechaasistencia');
+            $materia = $request->get('materiaasistencia');
+
+            return $this->cargarIdAsistenciaPorFecha($fecha, $materia);
+        }
+
+
+
+        $user = $this->getUser();
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+
+        if($request->getMethod() == 'POST') {
+            $qb = $em->createQueryBuilder();
+
+            //SELECT
+            $count = $request->get('count');
+            if($count == 'si'){
+                $select = "count(a.id)";
+            }else{
+                $select = "a.id";
+                $campos = $request->get('campo');
+                if($campos){
+                    foreach ($campos as $campo) {
+                        $select .= ", a." . $campo;
+                    }
+                }
+            }
+            //FROM
+            $from = "BoletinesBundle:";
+            $from .= $request->get('from');
+
+            $qb->select($select)
+                ->from($from, 'a')
+                ->where("1=1");
+
+            //WHERE
+            $where = $request->get('where');
+            if($where){
+                $qb->andWhere( $where );
+            }
+
+            //JOINS
+
+            $joinT = $request->get('joinTB');
+            $joinW = $request->get('joinWB');
+            $joinS = $request->get('joinSB');
+            if($joinT){
+                // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
+                //Join sin relación explicita
+                $qb->join('BoletinesBundle:' .$joinT , 'b', 'WITH','a.id = ' . $joinW );
+                //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
+                if($joinS){
+                    $qb->addSelect($joinS);
+                }
+
+                //Join con relación explicita
+                /* $qb->innerJoin('a.grupos', 'b')
+                 ->andWhere('b.id = 5');*/
+            }
+            $joinT = $request->get('joinTC');
+            $joinW = $request->get('joinWC');
+            $joinS = $request->get('joinSC');
+            if($joinT){
+                // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
+                //Join sin relación explicita
+                $qb->join('BoletinesBundle:' .$joinT , 'c', 'WITH','a.id = ' . $joinW );
+                //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
+                if($joinS){
+                    $qb->addSelect($joinS);
+                }
+
+                //Join con relación explicita
+                /* $qb->innerJoin('a.grupos', 'b')
+                 ->andWhere('b.id = 5');*/
+            }
+
+            $joinT = $request->get('joinTD');
+            $joinW = $request->get('joinWD');
+            $joinS = $request->get('joinSD');
+            if($joinT){
+                // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
+                //Join sin relación explicita
+                $qb->join('BoletinesBundle:' .$joinT , 'd', 'WITH','a.id = ' . $joinW );
+                //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
+                if($joinS){
+                    $qb->addSelect($joinS);
+                }
+
+                //Join con relación explicita
+                /* $qb->innerJoin('a.grupos', 'b')
+                 ->andWhere('b.id = 5');*/
+            }
+
+            $joinT = $request->get('joinTE');
+            $joinW = $request->get('joinWE');
+            $joinS = $request->get('joinSE');
+            if($joinT){
+                $qb->join('BoletinesBundle:' .$joinT , 'd', 'WITH', $joinW );
+                if($joinS){
+                    $qb->addSelect($joinS);
+                }
+            }
+
+            $query = $qb->getQuery();
+
+            //PERSISTENCIA
+            //$nombre = $request->get('nombre');
+            $nombre = "HARD-TEST";
+            $this->guardarReporte($nombre,$query->getDQL(), null, $user->getInstitucion());
+
+            $result = $query->getResult();
+
+            print json_encode($result);
+            exit;
+
+        }
+
+
+
+        return $this->render(
+            'BoletinesBundle:Reporte:new.html.twig',
+            array(
+                'establecimientos' => $establecimientos,
+            )
+        );
+    }
+
+
     public function pruebaAction(Request $request){
 
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
         $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
         $materias = $muchosAMuchos->obtenerMateriasPorEstablecimientos($establecimientos);
         if($request->get('busqeval')){
-            $evaluacionService =  $this->get('boletines.servicios.evaluacion');
-            $evaluaciones = $evaluacionService->evaluacionesPorMateriaReporte($request->get('fmateria'));
-            $response = new JsonResponse();
-            $response->setData($evaluaciones);
-            return $response;
+            return $this->cargarEvauaciones($request->get('fmateria'));
         }
 
         if($request->getMethod() == 'POST') {
+
+            //$nombre = $request->get('nombre');
+            $nombre = "HARD-TEST";
             $campos = $request->get('campo');
             $count = $request->get('count');
             if($count == 'si'){
@@ -63,10 +261,6 @@ class ReporteController  extends Controller  {
              */
             $em = $this->getDoctrine()->getManager();
             $qb = $em->createQueryBuilder();
-
-            $this->testImpresion($qb->getQuery());
-
-
 
             $qb->select($select)
                 ->from($from, 'a')
@@ -90,14 +284,12 @@ class ReporteController  extends Controller  {
                 ->andWhere('b.id = 5');*/
             }
             $query = $qb->getQuery();
-            $query->setDQL("SELECT a.id, c.nombre FROM BoletinesBundle:Alumno a INNER JOIN BoletinesBundle:Calificacion b WITH a.id = b.alumno and b.evaluacion = 5 INNER JOIN BoletinesBundle:ValorCalificacion c WITH c.id = b.valor WHERE 1=1 ORDER BY c.valor DESC");
 
+            $this->guardarReporte($nombre,$query->getDQL(), null, $user->getInstitucion());
 
 
             $result = $query->getResult();
 
-            print json_encode($result);
-            exit;
 
         }
 

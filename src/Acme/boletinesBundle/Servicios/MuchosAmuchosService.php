@@ -356,13 +356,13 @@ class MuchosAmuchosService {
 
     public function obtenerMateriasPorEstablecimientos($establecimientos)
     {
-        $docentes = array();
+        $resultado = array();
         foreach($establecimientos as $establecimiento) {
-            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
-            $docentes = array_merge($docenteEstablecimientos, $docentes);
+            $materias = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
+            $resultado = array_merge($materias, $resultado);
         }
 
-        return $docentes;
+        return $resultado;
     }
 
     public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
