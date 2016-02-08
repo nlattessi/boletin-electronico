@@ -46,6 +46,7 @@ class Periodo
 
     private $evaluaciones;
 
+    private $anioLectivo;
 
     public function __construct()
     {
@@ -206,6 +207,18 @@ class Periodo
     public function getEvaluaciones()
     {
         return $this->evaluaciones;
+    }
+
+    public function setAnioLectivo($anioLectivo)
+    {
+        $this->anioLectivo = $anioLectivo;
+
+        return $this;
+    }
+
+    public function getAnioLectivo()
+    {
+        return $this->anioLectivo;
     }
 
     public function __toString(){

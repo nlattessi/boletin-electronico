@@ -13,6 +13,7 @@
     <field name="fechaHasta" type="datetime" column="fecha_hasta" nullable="false"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
     <field name="updateTime" type="datetime" column="update_time" nullable="false"/>
+    <field name="anioLectivo" type="integer" column="anio_lectivo" nullable="false"/>
 
     <many-to-one field="establecimiento" target-entity="Establecimiento" inversed-by="periodos">
       <join-columns>

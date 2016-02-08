@@ -3,5 +3,5 @@ boletin:
     defaults: { _controller: BoletinesBundle:Boletin:index }
 
 boletin_cargar_nota:
-    path:     /cargar_nota/{id}
+    path:     /cargar_nota/{materiaId}/{periodoId}
     defaults: { _controller: BoletinesBundle:Boletin:cargarNota }

@@ -13,6 +13,16 @@
 </div>
 
 <div class="row mar-top-soft">
+
+  <div class="col s12 m12 l12">
+    <select value="periodo" id="periodo" onchange="toggle();">
+      <option value="0" disabled selected>Seleccionar período</option>
+      {% for periodo in periodos %}
+          <option value="{{ periodo.id}}">{{ periodo.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
   {% for materia in materias %}
     <div class="col s12 m12 l12"> <!-- start materia-->
       <div class="panel-mini panel-assigment">
@@ -26,7 +36,7 @@
             </h4>
           </div>
           <div class="col s6 m3 l3 right-align">
-            <a href="{{ path('boletin_cargar_nota', {'id':materia.id }) }}" class="btn-large waves-effect waves-light center-align mar-right">Cargar notas</a>
+            <button id="link" type="button" name="button" class="btn-large waves-effect waves-light center-align mar-right" disabled data-href="{{ path('boletin_cargar_nota', {'materiaId':materia.id, 'periodoId':'periodoId' }) }}">Cargar notas</button>
           </div>
         </div>
       </div>
@@ -34,4 +44,24 @@
   {% endfor %}
 </div>
 
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function toggle() {
+    $('#link').prop('disabled',false);
+  };
+
+  (function(window, document, $) {
+    if ($('#periodo').val() != null) {
+      $('#link').prop('disabled',false);
+    };
+    $('#link').click( function(e) {
+      e.preventDefault();
+      var url = $(this).data("href");
+      url = url.replace('periodoId', $('#periodo').val());
+      document.location.href = url;
+    });
+  })(window, document, jQuery);
+</script>
 {% endblock %}

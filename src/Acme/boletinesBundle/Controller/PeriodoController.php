@@ -97,10 +97,9 @@ class PeriodoController extends Controller
         $periodo = new Periodo();
         $periodo->setNombre($data->get('nombre'));
         $periodo->setEstablecimiento($establecimiento);
+        $periodo->setAnioLectivo($data->get('anio_lectivo'));
         $periodo->setFechaDesde(Herramientas::textoADatetime($data->get('fecha_desde')));
         $periodo->setFechaHasta(Herramientas::textoADatetime($data->get('fecha_hasta')));
-        //$periodo->setCreationTime(new \DateTime('now'));
-        //$periodo->setUpdateTime(new \DateTime('now'));
 
         $em->persist($periodo);
 
@@ -118,6 +117,7 @@ class PeriodoController extends Controller
 
         $periodo->setNombre($data->get('nombre'));
         $periodo->setEstablecimiento($establecimiento);
+        $periodo->setAnioLectivo($data->get('anio_lectivo'));
         $periodo->setFechaDesde(Herramientas::textoADatetime($data->get('fecha_desde')));
         $periodo->setFechaHasta(Herramientas::textoADatetime($data->get('fecha_hasta')));
         $periodo->setUpdateTime(new \DateTime('now'));
