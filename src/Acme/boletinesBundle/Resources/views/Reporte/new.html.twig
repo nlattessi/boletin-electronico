@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="input-field col s12 m4 l4 mar-top-soft">
                                         <select id="fmateriaAA" name="materiaasistencia">
-                                            <option value="">Seleccione una materia</option>
+                                            <option value="">Seleccione un establecimiento</option>
                                         </select>
                                         <label>Materias</label>
                                     </div>
@@ -229,19 +229,19 @@
                                     </div>
                                     <div class="input-field col s12 m6 l5 mar-top-soft">
                                         <select id="fmateriaAE" name="fmateria">
-                                            <option value="">Seleccione una materia</option>
+                                            <option value="">Seleccione un establecimiento</option>
                                         </select>
                                         <label>Materias</label>
                                     </div>
                                     <div class="input-field col s12 m6 l5 mar-top-soft">
                                         <select id="fevaluacion" name="fevaluacion">
-                                            <option value="">Seleccione una evaluacion</option>
+                                            <option value="">Seleccione una materia</option>
                                         </select>
                                         <label>Evaluación</label>
                                     </div>
                                     <div class="input-field col s12 m4 l2 mar-top-soft">
                                         <select class="initialized" id="fcalificacion" name="fcalificacion">
-                                            <option value="">Seleccione un valor</option>
+                                            <option value="">Seleccione una evaluación</option>
                                         </select>
                                         <label for="valor">Valor</label>
                                     </div>
@@ -261,54 +261,44 @@
                     <div class="collapsible-body"> <!--  start evaluacion  -->
                         <div class="row">
                             <div class="col l12 pad-all-collapsible">
+                                <form id="formularioEv" class="well" action="{{ path('reporte_new') }}" method="post">
+                                    <input  type="hidden" id="fromEv" name="from" value="Evaluacion"/>
+                                    <input  type="hidden" id="countEv" name="count" value="Alumno"/>
+                                    <input  type="hidden" id="whereEv" name="where"/>
+                                    <input  type="hidden" id="joinTBEv" name="joinTB"/>
+                                    <input  type="hidden" id="joinSBEv" name="joinSB"/>
+                                    <input  type="hidden" id="joinWBEv" name="joinWB"/>
+                                    <input  type="hidden" id="joinTCEv" name="joinTC"/>
+                                    <input  type="hidden" id="joinSCEv" name="joinSC"/>
+                                    <input  type="hidden" id="joinWCEv" name="joinWC"/>
+                                    <input  type="hidden" id="joinTDEv" name="joinTD"/>
+                                    <input  type="hidden" id="joinWDEv" name="joinWD"/>
+                                    <input  type="hidden" id="asistenciaAId" value="" name="asistenciaAid"/>
+
                                 <div class="row">
                                     <h6 class="header mar-left">¿Qué datos queres ver en el reporte?</h6>
-                                    <div class="col s3 m3 l3">
-                                        <div>
-                                            <p>
-                                                <input type="checkbox" id="test6" class="filled-in"/>
-                                                <label for="test6">Materia</label>
-                                            </p>
-                                        </div>
-                                    </div>
 
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test7" class="filled-in"/>
-                                                <label for="test7">Nombre de evaluac.</label>
+                                                <input type="checkbox" id="nombreEv" name="campo[]" value="nombre" class="filled-in"/>
+                                                <label for="nombreEv">Nombre de evaluac.</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test8">Docente</label>
+                                                <input type="checkbox" id="calificadaEv" name="campo[]" value="calificada" class="filled-in"/>
+                                                <label for="calificadaEv">Calificada</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Calificado</label>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col s3 m3 l3">
-                                        <div>
-                                            <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">No calificado</label>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col s3 m3 l3">
-                                        <div>
-                                            <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Fecha</label>
+                                                <input type="checkbox" id="fechaEv" name="campo[]" value="fecha" class="filled-in"/>
+                                                <label for="fechaEv">Fecha</label>
                                             </p>
                                         </div>
                                     </div>
@@ -318,50 +308,44 @@
                                 <div class="row mar-top-soft">
                                     <div class=" col s12 m6 l6">
                                         <i class="icon-linear-calendar-full"></i>
-                                        <label for="birthdate" class="">Fecha desde</label>
-                                        <input type="date" class="datepicker">
+                                        <label for="fechaDesdeEv" class="">Fecha desde</label>
+                                        <input type="date" name="fechaDesdeEv" id="fechaDesdeEv" class="datepicker campoEv" campo="fecha" operador=">">
                                     </div>
                                     <div class=" col s12 m6 l6">
                                         <i class="icon-linear-calendar-full"></i>
-                                        <label for="birthdate" class="">Fecha hasta</label>
-                                        <input type="date" class="datepicker">
+                                        <label for="fechaHastaEv" class="">Fecha hasta</label>
+                                        <input type="date" name="fechaHastaEv" id="fechaHastaEv" class="datepicker campoEv" campo="fecha" operador=">">
+                                    </div>
+                                    <div class="input-field col s12 m4 l4 mar-top-soft">
+                                        <select id="festablecimientoEv" name="festablecimiento">
+                                            <option value="">Seleccione un establecimiento</option>
+                                            {% for establecimiento in establecimientos %}
+                                                <option value="{{ establecimiento.id }}">{{ establecimiento }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Establecimientos</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar materia</option>
-                                            <option value="1">materia 1</option>
-                                            <option value="2">materia 2</option>
-                                            <option value="3">materia 3</option>
-                                            <option value="4">materia 4</option>
+                                        <select id="fmateriaEv">
+                                            <option  name="fmateria" value="" disabled selected>Seleccione un establecimiento</option>
                                         </select>
                                         <label>Materias</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar Docente</option>
-                                            <option value="1">docente 1</option>
-                                            <option value="2">docente 2</option>
-                                            <option value="3">docente 3</option>
-                                            <option value="4">docente 4</option>
+                                        <select id="fdocenteEv">
+                                            <option  name="fdocente" value="" disabled selected>Seleccione un establecimiento</option>
                                         </select>
                                         <label>Docente</label>
                                     </div>
-                                    <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">nombre 1</option>
-                                            <option value="2">nombre 2</option>
-                                            <option value="3">nombre 3</option>
-                                            <option value="4">nombre 4</option>
-                                        </select>
-                                        <label>Nombre evaluación</label>
+
+                                </div>
+
+
+                                    <div class="col s12 m12 l12 left mar-top-soft">
+                                        <a onclick="generarReporteEvaluacion()" href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a>
                                     </div>
 
-                                </div>
-
-                                <div class="col s12 m12 l12 left mar-top-soft">
-                                    <a href="#" class="btn-xsmall btn-xsmall-fix mistake waves-effect waves-light">Limpiar</a> <a href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a>
-                                </div>
+                                </form>
                             </div>
                         </div> <!--  end evaluac  -->
                     </div>     <!--  end evaluac  -->
@@ -612,6 +596,8 @@
         </div>
         <!--  termina desplegables  -->
     </div><!--  End row  -->
+<form id="formajax" class="well" action="{{ path('reporte_ajax') }}" method="post" hidden="true">
+    </form>
 {% endblock %}
 
 {% block javascript %}

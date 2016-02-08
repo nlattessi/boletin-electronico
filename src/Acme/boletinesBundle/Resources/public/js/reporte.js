@@ -9,9 +9,9 @@ function generarReporteAlumno(){
         $('#joinTBAl').val('Calificacion');
         var calificacionElegida = $('#fcalificacion').val();
         if(calificacionElegida != ""){
-            $('#joinWBAl').val("b.alumno and b.evaluacion = " + evalElegida + " and b.valor =" + calificacionElegida);
+            $('#joinWBAl').val("a.id = b.alumno and b.evaluacion = " + evalElegida + " and b.valor =" + calificacionElegida);
         }else {
-            $('#joinWBAl').val("b.alumno and b.evaluacion = " + evalElegida);
+            $('#joinWBAl').val("a.id = b.alumno and b.evaluacion = " + evalElegida);
         }
     }
     /*---EVALUACION FIN----*/
@@ -22,7 +22,7 @@ function generarReporteAlumno(){
     if(fechaConvivencia != "" || valorConvivencia != ""){
         //Seleccionó evaluación
         $('#joinTCAl').val('Convivencia');
-        $('#joinWCAl').val("c.alumno");
+        $('#joinWCAl').val("a.id = c.alumno");
         if(fechaConvivencia != ""){
             fechaConvivencia += ' 00:00:00';
             $('#joinWCAl').val($('#joinWCAl').val() + " and c.fechaSuceso = '" + fechaConvivencia +"'");
@@ -38,7 +38,7 @@ function generarReporteAlumno(){
     var asistenciaId = $('#asistenciaAId').val();
     if(asistenciaId != ""){
         $('#joinTDAl').val('AlumnoAsistencia');
-        $('#joinWDAl').val("d.alumno and d.asistencia in (" + asistenciaId + ")");
+        $('#joinWDAl').val("a.id = d.alumno and d.asistencia in (" + asistenciaId + ")");
         if(valorAsistencia != ""){
             $('#joinWDAl').val($('#joinWDAl').val() + "and d.valor ='" + valorAsistencia +"'");
         }
@@ -46,6 +46,49 @@ function generarReporteAlumno(){
     /*---ASISTENCIA FIN----*/
 
     enviarConsulta("#formularioAl");
+}
+
+function generarReporteEvaluacion(){
+    $('#countEv').val($(".count:checked").val());
+
+    var fechaHasta = $('input[name=fechaHastaEv]').val();
+    var fechaDesde = $('input[name=fechaDesdeEv]').val();
+    var where = "";
+
+    if (fechaHasta != ""){
+        where += "a.fecha < '" + fechaHasta + ' 00:00:00' + "'";
+    }
+    if (fechaDesde != ""){
+        if(where != ""){
+            where += " and "
+        }
+        where += "a.fecha > '" + fechaDesde + ' 00:00:00'+ "'";
+    }
+
+    $("#whereEv").val(where);
+
+
+    /*JOINS*/
+
+    var materiaElegida = $('#fmateriaEv').val();
+    if(materiaElegida != ""){
+        //Seleccionó evaluación
+        $('#joinTBEv').val('Materia');
+
+        $('#joinWBEv').val("a.materia = b.id and a.materia = " + materiaElegida );
+        $('#joinSBEv').val('b.nombre');
+    }
+    var docenteElegido = $('#fdocenteEv').val();
+    if(docenteElegido != ""){
+        //Seleccionó evaluación
+        $('#joinTCEv').val('Docente');
+
+        $('#joinWCEv').val("a.docente = c.id and a.docente = " + docenteElegido );
+        $('#joinSCEv').val(' c.nombre, c.apellido');
+    }
+
+
+    enviarConsulta("#formularioEv");
 }
 
 function armarWhere(whereID, sufijo){
@@ -63,6 +106,8 @@ function armarWhere(whereID, sufijo){
     where = where.substring(0, where.length - 5);
     $(whereID).val(where);
 }
+
+
 function armarJoin(tabla, where){
     var where = "";
     /*$('#joinT').val('AlumnoAsistencia');
@@ -86,8 +131,8 @@ function joinT(tabla){
 
 (function(window, document, $) {
     var $establecimientoAE = $('#festablecimientoAE');
-    $establecimientoAE.change(function() {
-        var $form = $(this).closest('form');
+    $establecimientoAE.change(function() {formajax
+        var $form = $('#formajax');
         var data = {};
         data[$establecimientoAE.attr('name')] = $establecimientoAE.val();
         data['busqmat'] = true;
@@ -112,10 +157,62 @@ function joinT(tabla){
         });
     });
 
+    var $establecimientoEV = $('#festablecimientoEv');
+    $establecimientoEV.change(function() {
+        var $form = $('#formajax');
+        var data = {};
+        data[$establecimientoEV.attr('name')] = $establecimientoEV.val();
+        data['busqmat'] = true;
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            dataType: 'json',
+            success : function(res) {
+                var $materia = $('#fmateriaEv');
+                $materia.empty();
+                $materia.append('<option value="">Seleccione una materia </option>');
+                //var $newEvaluacionData = $(html).find('#fevaluacion option');
+                res.forEach(function(item){
+                    $materia.append('<option value="' + item.id + '">' + item.nombre + '</option>');
+                });
+                $('#fmateriaEv').material_select();
+                /*$.each(response, function(idx, eval) {
+                 $evaluacion.append('<option value="' + eval.id + '">' + eval.nombre + '</option>');
+                 });*/
+
+            }
+        });
+        /*DOCENTES*/
+        var data2 = {};
+        data2[$establecimientoEV.attr('name')] = $establecimientoEV.val();
+        data2['busqdoc'] = true;
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data2,
+            dataType: 'json',
+            success : function(res) {
+                var $materia = $('#fdocenteEv');
+                $materia.empty();
+                $materia.append('<option value="">Seleccione un docente </option>');
+                //var $newEvaluacionData = $(html).find('#fevaluacion option');
+                res.forEach(function(item){
+                    $materia.append('<option value="' + item.id + '">' + item.apellido + ', ' + item.nombre + '</option>');
+                });
+                $('#fdocenteEv').material_select();
+                /*$.each(response, function(idx, eval) {
+                 $evaluacion.append('<option value="' + eval.id + '">' + eval.nombre + '</option>');
+                 });*/
+            }
+        });
+
+    });
+
     function actualizarAsistenciaID(){
         var valorFechaAsistencia = $('input[name=fechaasistencia]').val();
         if(valorFechaAsistencia != "") {
-            var $form = $('#formularioAl');
+            var $form = $('#formajax');
             var data = {};
             data[$('input[name=fechaasistencia]').attr('name')] = $('input[name=fechaasistencia]').val();
             data[$materiaAA.attr('name')] = $materiaAA.val();
@@ -138,10 +235,11 @@ function joinT(tabla){
             });
         }
     }
+
     $materiaAA=$('#fmateriaAA');
 
     $materiaAA.change(function() {
-        var $form = $(this).closest('form');
+        var $form = $('#formajax');
         var data = {};
         data['fechaasistencia'] = $('input[name=fechaasistencia]').val();
         data[$materiaAA.attr('name')] = $materiaAA.val();
@@ -166,7 +264,7 @@ function joinT(tabla){
 
     $establecimientoAA = $('#festablecimientoAA');
     $establecimientoAA.change(function() {
-        var $form = $(this).closest('form');
+        var $form = $('#formajax');
         var data = {};
         data[$establecimientoAA.attr('name')] = $establecimientoAA.val();
         data['busqmat'] = true;
@@ -193,7 +291,7 @@ function joinT(tabla){
 
     var $materia = $('#fmateriaAE');
     $materia.change(function() {
-        var $form = $(this).closest('form');
+        var $form = $('#formajax');
         var data = {};
         data[$materia.attr('name')] = $materia.val();
         data['busqeval'] = true;
@@ -220,7 +318,7 @@ function joinT(tabla){
 
     var $evaluacion = $('#fevaluacion');
     $evaluacion.change(function() {
-        var $form = $(this).closest('form');
+        var $form = $('#formajax');
         var data = {};
         data[$establecimientoAE.attr('name')] = $establecimientoAE.val();
         data['busqcal'] = true;

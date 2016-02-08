@@ -4,3 +4,6 @@ reporte:
 reporte_new:
     path:     /new
     defaults: { _controller: BoletinesBundle:Reporte:new }
+reporte_ajax:
+    path:     /ajaxreporte
+    defaults: { _controller: BoletinesBundle:Reporte:busquedaAjax }

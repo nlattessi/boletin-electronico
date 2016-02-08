@@ -45,6 +45,14 @@ class ReporteController  extends Controller  {
         return $response;
     }
 
+    public function cargarDocentes($establecimientoId){
+        $docenteService =  $this->get('boletines.servicios.docente');
+        $docentes = $docenteService->docentesPorEstablecimientoReporte($establecimientoId);
+        $response = new JsonResponse();
+        $response->setData($docentes);
+        return $response;
+    }
+
     public function cargarEvauaciones($materiaId){
         $evaluacionService =  $this->get('boletines.servicios.evaluacion');
         $evaluaciones = $evaluacionService->evaluacionesPorMateriaReporte($materiaId);
@@ -78,21 +86,18 @@ class ReporteController  extends Controller  {
         $response->setData($resultado);
         return $response;
     }
-
-    public function newAction(Request $request){
-
-        /**
-         * @var $em EntityManager
-         */
-        $em = $this->getDoctrine()->getManager();
-
+    public function busquedaAjaxAction(Request $request){
         if($request->get('busqmat')){
             return $this->cargarMaterias($request->get('festablecimiento'));
+        }
+        if($request->get('busqdoc')){
+            return $this->cargarDocentes($request->get('festablecimiento'));
         }
         if($request->get('busqeval')){
             return $this->cargarEvauaciones($request->get('fmateria'));
         }
         if($request->get('busqcal')){
+            $em = $this->getDoctrine()->getManager();
             $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' =>  $request->get('festablecimiento')));
             return $this->cargarCalificaciones($establecimiento);
         }
@@ -102,8 +107,15 @@ class ReporteController  extends Controller  {
 
             return $this->cargarIdAsistenciaPorFecha($fecha, $materia);
         }
+    }
 
 
+    public function newAction(Request $request){
+
+        /**
+         * @var $em EntityManager
+         */
+        $em = $this->getDoctrine()->getManager();
 
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
@@ -147,7 +159,7 @@ class ReporteController  extends Controller  {
             if($joinT){
                 // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
                 //Join sin relación explicita
-                $qb->join('BoletinesBundle:' .$joinT , 'b', 'WITH','a.id = ' . $joinW );
+                $qb->join('BoletinesBundle:' .$joinT , 'b', 'WITH', $joinW );
                 //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
                 if($joinS){
                     $qb->addSelect($joinS);
@@ -163,7 +175,7 @@ class ReporteController  extends Controller  {
             if($joinT){
                 // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
                 //Join sin relación explicita
-                $qb->join('BoletinesBundle:' .$joinT , 'c', 'WITH','a.id = ' . $joinW );
+                $qb->join('BoletinesBundle:' .$joinT , 'c', 'WITH', $joinW );
                 //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
                 if($joinS){
                     $qb->addSelect($joinS);
@@ -180,7 +192,7 @@ class ReporteController  extends Controller  {
             if($joinT){
                 // $qb->leftJoin($joinT, 'a', 'WITH',$joinW, 'a.id' );
                 //Join sin relación explicita
-                $qb->join('BoletinesBundle:' .$joinT , 'd', 'WITH','a.id = ' . $joinW );
+                $qb->join('BoletinesBundle:' .$joinT , 'd', 'WITH', $joinW );
                 //$qb->join('BoletinesBundle:ValorCalificacion'  , 'c', 'WITH','c.id = b.valor  '  );
                 if($joinS){
                     $qb->addSelect($joinS);
@@ -195,7 +207,7 @@ class ReporteController  extends Controller  {
             $joinW = $request->get('joinWE');
             $joinS = $request->get('joinSE');
             if($joinT){
-                $qb->join('BoletinesBundle:' .$joinT , 'd', 'WITH', $joinW );
+                $qb->join('BoletinesBundle:' .$joinT , 'e', 'WITH', $joinW );
                 if($joinS){
                     $qb->addSelect($joinS);
                 }
