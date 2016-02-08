@@ -91,6 +91,26 @@ function generarReporteEvaluacion(){
     enviarConsulta("#formularioEv");
 }
 
+function generarReporteCalificacion(){
+    $('#countCa').val($(".count:checked").val());
+    armarWhere("#whereCa", "Ca");
+    //no tiene where sobre la misma tabla
+
+    /*---EVALUACION----*/
+    var evaluacionId = $('#evaluacionCId').val();
+    var valorCalificacion = $('#valorcalificacionC').val();
+    if(evaluacionId != ""){
+        $('#joinTBAl').val('Evaluacion');
+        $('#joinWBAl').val("a.evaluacion = b.id and a.evaluacion in (" + evaluacionId + ")");
+    }
+
+    /*---EVALUACION FIN----*/
+
+
+    enviarConsulta("#formularioCa");
+}
+
+
 function armarWhere(whereID, sufijo){
     var where = "";
     $('.campo' + sufijo).each(function(index){
@@ -207,6 +227,133 @@ function joinT(tabla){
             }
         });
 
+    });
+
+    var $establecimientoCA = $('#festablecimientoCa');
+    $establecimientoCA.change(function() {
+        var $form = $('#formajax');
+        var data = {};
+        data[$establecimientoCA.attr('name')] = $establecimientoCA.val();
+        data['busqmat'] = true;
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            dataType: 'json',
+            success : function(res) {
+                var $materia = $('#fmateriaCa');
+                $materia.empty();
+                $materia.append('<option value="">Seleccione una materia </option>');
+                //var $newEvaluacionData = $(html).find('#fevaluacion option');
+                res.forEach(function(item){
+                    $materia.append('<option value="' + item.id + '">' + item.nombre + '</option>');
+                });
+                $('#fmateriaCa').material_select();
+                /*$.each(response, function(idx, eval) {
+                 $evaluacion.append('<option value="' + eval.id + '">' + eval.nombre + '</option>');
+                 });*/
+
+            }
+        });
+        /*DOCENTES*/
+        var data2 = {};
+        data2[$establecimientoCA.attr('name')] = $establecimientoCA.val();
+        data2['busqdoc'] = true;
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data2,
+            dataType: 'json',
+            success : function(res) {
+                var $materia = $('#fdocenteCa');
+                $materia.empty();
+                $materia.append('<option value="">Seleccione un docente </option>');
+                //var $newEvaluacionData = $(html).find('#fevaluacion option');
+                res.forEach(function(item){
+                    $materia.append('<option value="' + item.id + '">' + item.apellido + ', ' + item.nombre + '</option>');
+                });
+                $('#fdocenteCa').material_select();
+                /*$.each(response, function(idx, eval) {
+                 $evaluacion.append('<option value="' + eval.id + '">' + eval.nombre + '</option>');
+                 });*/
+            }
+        });
+
+        /*VALORES CALIFICACION*/
+
+        var data3 = {};
+        data3[$establecimientoCA.attr('name')] = $establecimientoCA.val();
+        data3['busqcal'] = true;
+        $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data3,
+            dataType: 'json',
+            success : function(res) {
+                var $calificaciones = $('#valorcalificacionC');
+                $calificaciones.empty();
+                $calificaciones.append('<option value="">Seleccione un valor </option>');
+                //var $newEvaluacionData = $(html).find('#fevaluacion option');
+                res.forEach(function(item){
+                    $calificaciones.append('<option value="' + item.id + '">' +  item.nombre + '</option>');
+                });
+                $('#valorcalificacionC').material_select();
+                /*$.each(response, function(idx, eval) {
+                 $evaluacion.append('<option value="' + eval.id + '">' + eval.nombre + '</option>');
+                 });*/
+            }
+        });
+
+    });
+
+
+    var $fmateriaCA = $('#fmateriaCa');
+    var $fdocenteCA = $('#fdocenteCa');
+    $fmateriaCA.change(function() {
+        var $form = $('#formajax');
+        var data = {};
+        data[$fdocenteCA.attr('name')] = $fdocenteCA.val();
+        data[$fmateriaCA.attr('name')] = $fmateriaCA.val();
+        data['busqevalmatdoc'] = true;
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                var $evaluacionIDs = $('#evaluacionCId');
+                $evaluacionIDs.val("");
+                var ids = "";
+                res.forEach(function (item) {
+                    ids += item.id + ",";
+                });
+                ids = ids.substring(0, ids.length - 1);
+                $evaluacionIDs.val(ids);
+            }
+        });
+    });
+    $fdocenteCA.change(function() {
+        var $form = $('#formajax');
+        var data = {};
+        data[$fdocenteCA.attr('name')] = $fdocenteCA.val();
+        data[$fmateriaCA.attr('name')] = $fmateriaCA.val();
+        data['busqevalmatdoc'] = true;
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                var $evaluacionIDs = $('#evaluacionCId');
+                $evaluacionIDs.val("");
+                var ids = "";
+                res.forEach(function (item) {
+                    ids += item.id + ",";
+                });
+                ids = ids.substring(0, ids.length - 1);
+                $evaluacionIDs.val(ids);
+            }
+        });
     });
 
     function actualizarAsistenciaID(){

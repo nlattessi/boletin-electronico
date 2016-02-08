@@ -60,6 +60,13 @@ class ReporteController  extends Controller  {
         $response->setData($evaluaciones);
         return $response;
     }
+    public function cargarEvauacionesMateriaDocente($materiaId, $docenteId){
+        $evaluacionService =  $this->get('boletines.servicios.evaluacion');
+        $evaluaciones = $evaluacionService->evaluacionesPorMateriaDocenteReporte($materiaId, $docenteId);
+        $response = new JsonResponse();
+        $response->setData($evaluaciones);
+        return $response;
+    }
     public function cargarCalificaciones($establecimiento){
         $calificacionService =  $this->get('boletines.servicios.calificacion');
         $valoresCalificacion = $calificacionService->valoresAceptadosReporte($establecimiento);
@@ -107,6 +114,10 @@ class ReporteController  extends Controller  {
 
             return $this->cargarIdAsistenciaPorFecha($fecha, $materia);
         }
+        if($request->get('busqevalmatdoc')){
+            return $this->cargarEvauacionesMateriaDocente($request->get('fmateria'),$request->get('fdocente'));
+        }
+
     }
 
 
