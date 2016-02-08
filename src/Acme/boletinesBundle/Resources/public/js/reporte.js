@@ -94,7 +94,6 @@ function generarReporteEvaluacion(){
 function generarReporteCalificacion(){
     $('#countCa').val($(".count:checked").val());
     armarWhere("#whereCa", "Ca");
-    //no tiene where sobre la misma tabla
 
     /*---EVALUACION----*/
     var evaluacionId = $('#evaluacionCId').val();
@@ -110,6 +109,49 @@ function generarReporteCalificacion(){
     enviarConsulta("#formularioCa");
 }
 
+function generarReporteDocente() {
+    $('#countDo').val($(".count:checked").val());
+    armarWhere("#whereDo", "Do");
+    var fechaHasta = $('input[name=fechaHastaDo]').val();
+    var fechaDesde = $('input[name=fechaDesdeDo]').val();
+    var where = "";
+
+    if (fechaHasta != ""){
+        where += "a.fechaIngreso < '" + fechaHasta + "'";
+    }
+    if (fechaDesde != ""){
+        if(where != ""){
+            where += " and "
+        }
+        where += "a.fechaIngreso > '" + fechaDesde + "'" ;
+    }
+
+    var wherev = $('#whereDo').val();
+    if(wherev != "" ){
+        if(where != ""){
+            where += " and " + wherev;
+        }else{
+            where = wherev   ;
+        }
+
+    }
+
+    $('#whereDo').val(where);
+
+
+    /*---EVALUACION----*/
+    var evaluacionId = $('#evaluacionCId').val();
+    var valorCalificacion = $('#valorcalificacionC').val();
+    if (evaluacionId != "") {
+        $('#joinTBAl').val('Evaluacion');
+        $('#joinWBAl').val("a.evaluacion = b.id and a.evaluacion in (" + evaluacionId + ")");
+    }
+
+    /*---EVALUACION FIN----*/
+
+
+    enviarConsulta("#formularioDo");
+}
 
 function armarWhere(whereID, sufijo){
     var where = "";

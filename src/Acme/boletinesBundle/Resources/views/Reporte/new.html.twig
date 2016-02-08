@@ -247,7 +247,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col s12 m12 l12 left mar-top-soft"> <a onclick="generarReporteAlumno()" href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a></div>
+                                <div class="col s12 m12 l12 left mar-top-soft">
+                                    <a onclick="generarReporteAlumno()" href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a>
+                                </div>
                                 </form>
                             </div>
 
@@ -433,13 +435,23 @@
                     <div class="collapsible-body"> <!--  start docentes  -->
                         <div class="row">
                             <div class="col l12 pad-all-collapsible">
+                                <form id="formularioDo" class="well" action="{{ path('reporte_new') }}" method="post">
+                                    <input  type="hidden" id="fromDo" name="from" value="Docente"/>
+                                    <input  type="hidden" id="countDo" name="count" value="docente"/>
+                                    <input  type="hidden" id="whereDo" name="where"/>
+                                    <input  type="hidden" id="joinTBDo" name="joinTB"/>
+                                    <input  type="hidden" id="joinWBDo" name="joinWB"/>
+                                    <input  type="hidden" id="joinTCDo" name="joinTC"/>
+                                    <input  type="hidden" id="joinWCDo" name="joinWC"/>
+                                    <input  type="hidden" id="joinTDDo" name="joinTD"/>
+                                    <input  type="hidden" id="joinWDDo" name="joinWD"/>
                                 <div class="row">
                                     <h6 class="header mar-left">¿Qué datos queres ver en el reporte?</h6>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test6" class="filled-in"/>
-                                                <label for="test6">Nombre</label>
+                                                <input type="checkbox" id="nombreD" name="campo[]" value="nombre" class="filled-in"/>
+                                                <label for="nombreD">Nombre</label>
                                             </p>
                                         </div>
                                     </div>
@@ -447,116 +459,100 @@
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test7" class="filled-in"/>
-                                                <label for="test7">Apellido</label>
+                                                <input type="checkbox" id="apellidoD" name="campo[]" value="apellido" class="filled-in"/>
+                                                <label for="apellidoD">Apellido</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test8">DNI</label>
+                                                <input type="checkbox" id="dniD" name="campo[]" value="dni" class="filled-in"/>
+                                                <label for="dniD">DNI</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Fecha ingreso</label>
+                                                <input type="checkbox" id="telefonoD" name="campo[]" value="telefono" class="filled-in"/>
+                                                <label for="telefonoD">Telefono</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Fecha nacimiento.</label>
+                                                <input type="checkbox" id="fechaNacimientoD" name="campo[]" value="fechaNacimiento" class="filled-in"/>
+                                                <label for="fechaNacimientoD">Fecha nacimiento</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Materia</label>
+                                                <input type="checkbox" id="fechaIngresoD" name="campo[]" value="fechaIngreso" class="filled-in"/>
+                                                <label for="fechaIngresoD">Fecha Ingreso</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9">Convivencia</label>
+                                                <input type="checkbox" id="tituloD" name="campo[]" value="titulo" class="filled-in"/>
+                                                <label for="tituloD">Titulo</label>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col s3 m3 l3">
                                         <div>
                                             <p>
-                                                <input type="checkbox" id="test8" class="filled-in"/>
-                                                <label for="test9"></label>
+                                                <input type="checkbox" id="observaciones" name="campo[]" value="observaciones" class="filled-in"/>
+                                                <label for="observaciones">Observaciones</label>
                                             </p>
                                         </div>
                                     </div>
+
                                     <div class="col s12 divider"></div>
                                 </div><!--  End row  -->
-
-                                <div class="row mar-top-soft">
-                                    <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">nombre 1</option>
-                                            <option value="2">nombre 2</option>
-                                            <option value="3">nombre 3</option>
-                                            <option value="4">nombre 4</option>
-                                        </select>
-                                        <label>Nombre evaluación</label>
+                                    <div class="row mar-top-soft">
+                                        <h6 class="header mar-left">¿Qué filtros quiere aplicar?</h6>
+                                        <div class="input-field col s12 m4 l4">
+                                            <input id="nombrefd" type="text" name="" class="validate campoDo" campo="nombre" operador="like">
+                                            <label for="nombrefd">Nombre</label>
+                                        </div>
+                                        <div class="input-field col s12 m4 l4">
+                                            <input id="apellidofd" type="text" name="" class="validate campoDo" campo="apellido" operador="like">
+                                            <label for="apellidofd">Apellido</label>
+                                        </div>
+                                        <div class="input-field col s12 m4 l4">
+                                            <input id="dnifD" type="text" name="" class="validate campoDo" campo="dni" operador="like">
+                                            <label for="dnifD">DNI</label>
+                                        </div>
+                                        <div class="input-field col s12 m4 l4">
+                                            <input id="titulofd" type="text" name="" class="validate campoDo" campo="titulo" operador="like">
+                                            <label for="titulofd">Titulo</label>
+                                        </div>
+                                        <div class="input-field col s12 m4 l4">
+                                            <input id="observacionesfD" type="text" name="" class="validate campoDo" campo="observaciones" operador="like">
+                                            <label for="observacionesfD">Observaciones</label>
+                                        </div>
+                                        <div class=" col s12 m6 l6">
+                                            <i class="icon-linear-calendar-full"></i>
+                                            <label for="fechaDesdeDo" class="">Fecha ingreso desde</label>
+                                            <input type="date" name="fechaDesdeDo" id="fechaDesdeDo" class="datepicker" campo="fechaIngreso" operador=">">
+                                        </div>
+                                        <div class=" col s12 m6 l6">
+                                            <i class="icon-linear-calendar-full"></i>
+                                            <label for="fechaHastaDo" class="">Fecha ingreso hasta</label>
+                                            <input type="date" name="fechaHastaDo" id="fechaHastaDo" class="datepicker" campo="fechaIngreso" operador=">">
+                                        </div>
+                                        <div class="col s12 divider"></div>
                                     </div>
-                                    <div class="input-field col s12 m3 l3 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">Mayor que</option>
-                                            <option value="2">Menor que</option>
-                                        </select>
-                                        <label>Mayor o menor</label>
+                                    <div class="col s12 m12 l12 left mar-top-soft">
+                                        <a onclick="generarReporteDocente()" href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a>
                                     </div>
-                                    <div class="input-field col s12 m3 l3 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">I</option>
-                                            <option value="2">R</option>
-                                            <option value="3">B</option>
-                                            <option value="4">MB</option>
-                                        </select>
-                                        <label>Valor</label>
-                                    </div>
-                                    <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                        <label>Docente</label>
-                                    </div>
-                                    <div class="input-field col s12 m6 l6 mar-top-soft">
-                                        <select>
-                                            <option value="" disabled selected>Seleccionar</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                        <label>Alumno</label>
-                                    </div>
-                                </div>
-
-                                <div class="col s12 m12 l12 left mar-top-soft">
-                                    <a href="#" class="btn-xsmall btn-xsmall-fix mistake waves-effect waves-light">Limpiar</a> <a href="#" class="btn-xsmall btn-xsmall-fix waves-effect waves-light">Generar reporte</a>
-                                </div>
+                            </form>
                             </div>
                         </div> <!--  end docentes  -->
                     </div>     <!--  end docentes  -->
