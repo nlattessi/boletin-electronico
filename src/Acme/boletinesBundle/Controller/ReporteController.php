@@ -127,6 +127,7 @@ class ReporteController  extends Controller  {
          * @var $em EntityManager
          */
         $em = $this->getDoctrine()->getManager();
+        $columnas = array();
 
         $user = $this->getUser();
         $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
@@ -139,12 +140,15 @@ class ReporteController  extends Controller  {
             $count = $request->get('count');
             if($count == 'si'){
                 $select = "count(a.id)";
+                array_push($columnas, 'total');
             }else{
                 $select = "a.id";
+                array_push($columnas, array ('data' =>'id'));
                 $campos = $request->get('campo');
                 if($campos){
                     foreach ($campos as $campo) {
                         $select .= ", a." . $campo;
+                        array_push($columnas, array ('data' =>$campo));
                     }
                 }
             }
@@ -233,9 +237,11 @@ class ReporteController  extends Controller  {
 
             $result = $query->getResult();
 
-            print json_encode($result);
-            exit;
-
+            /*print json_encode(array('data' => $result, 'columns' => $columnas));
+            exit;*/
+            return $this->render('BoletinesBundle:Reporte:resultado.html.twig', array('columnas' => $columnas,
+                'datos' => $result,
+                'css_active' => 'reporte',));
         }
 
 
