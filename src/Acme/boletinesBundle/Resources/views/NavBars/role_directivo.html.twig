@@ -27,6 +27,8 @@
 
     <li class="main-nav-pad"><a href="{{ path('periodo') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Periodos</span></a></li>
 
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'boletin' %} active{% endif %}{% endif %}"><a href="{{ path('boletin_index_directivo') }}"><i class="icon-linear-license2 icon-nav-size"></i> <span class="span-va">Boletín</span></a></li>
+
 <!--    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'boletin' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}"><i class="icon-linear-license2 icon-nav-size"></i> <span class="span-va">Boletín</span></a></li>
 
     <li class="no-padding main-nav-pad ">

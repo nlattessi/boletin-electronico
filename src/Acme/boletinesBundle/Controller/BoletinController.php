@@ -31,6 +31,37 @@ class BoletinController extends Controller
         ]);
     }
 
+    public function indexDirectivoAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
+            $user = $this->getUser();
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+            $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimientos($establecimientos);
+            $materias = $muchosAMuchos->obtenerMateriasPorEstablecimientos($establecimientos);
+        } else {
+            return $this->redirect($this->generateUrl('home', [], 301));
+        }
+
+        return $this->render('BoletinesBundle:Boletin:index_directivo.html.twig', [
+            'css_active' => 'boletin',
+            'materias' => $materias,
+            'periodos' => $periodos
+        ]);
+    }
+
+    public function indexPadreAction()
+    {
+        $alumno = $this->getRequest()->getSession()->get('alumnoActivo');
+
+        return $this->render('BoletinesBundle:Boletin:index_padre.html.twig', [
+            'css_active' => 'boletin',
+            'alumno' => $alumno
+        ]);
+    }
+
     public function cargarNotaAction($materiaId, $periodoId, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -101,6 +132,11 @@ class BoletinController extends Controller
                   $notaPeriodo->setMateria($materia);
                   $notaPeriodo->setPeriodo($periodo);
                   $notaPeriodo->setAlumno($alumno);
+
+                  $docente = $this->getRequest()->getSession()->get('docenteActivo');
+                  $docente = $em->getRepository('BoletinesBundle:Docente')->findOneBy(['id' => $docente->getId()]);
+                  $notaPeriodo->setDocente($docente);
+
                   $em->persist($notaPeriodo);
                 }
 
@@ -146,4 +182,49 @@ class BoletinController extends Controller
             'notasSugeridas' => $notasSugeridas
         ]);
     }
+
+    public function validarNotaAction($materiaId, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod() == 'POST') {
+            $materia = $em->getRepository('BoletinesBundle:Materia')->find($materiaId);
+            $notasPeriodo = $em->getRepository('BoletinesBundle:NotaPeriodo')->findBy([
+                'materia' => $materia,
+            ]);
+
+            foreach ($notasPeriodo as $notaPeriodo) {
+                $comentario = $request->request->get($notaPeriodo->getId() . 'comentario');
+                $notaPeriodo->setComentario($comentario);
+                if ($request->request->get($notaPeriodo->getId() . 'chk') == 'on') {
+                    $notaPeriodo->setValidada(true);
+                } else {
+                    $notaPeriodo->setValidada(false);
+                }
+                $em->persist($notaPeriodo);
+            }
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Se validaron las notas con éxito');
+            return $this->redirect($this->generateUrl('boletin_validar_notas', ['materiaId' => $materiaId]), 301);
+        }
+
+        $materia = $em->getRepository('BoletinesBundle:Materia')->find($materiaId);
+
+        if ($materia) {
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $materia = $materiaService->materiaLoad($materia);
+        }
+
+        $notasPeriodos = $em->getRepository('BoletinesBundle:NotaPeriodo')->findBy([
+            'materia' => $materia
+        ], ['alumno' => 'ASC']);
+
+        return $this->render('BoletinesBundle:Boletin:validar_notas.html.twig', [
+              'css_active' => 'boletin',
+              'materia' => $materia,
+              'notasPeriodos' => $notasPeriodos
+        ]);
+    }
+
 }

@@ -12,6 +12,7 @@ class NotaPeriodo
     private $materia;
     private $alumno;
     private $nota;
+    private $docente;
     private $comentario;
     private $validada = false;
     private $creationTime;
@@ -75,6 +76,18 @@ class NotaPeriodo
     public function getNota()
     {
         return $this->nota;
+    }
+
+    public function setDocente(Docente $docente)
+    {
+        $this->docente = $docente;
+
+        return $this;
+    }
+
+    public function getDocente()
+    {
+        return $this->docente;
     }
 
     public function setComentario($comentario)

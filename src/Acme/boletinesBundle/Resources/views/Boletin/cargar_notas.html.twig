@@ -40,9 +40,10 @@
   </div><!-- end materia-->
 </div>
 
+<form action="{{ path('boletin_cargar_nota', {'materiaId': materia.id, 'periodoId': periodo.id }) }}" method="post">
+
 <div class="row">
   <div class="col s12 m12 l12 mar-top-soft">
-    <form action="{{ path('boletin_cargar_nota', {'materiaId': materia.id, 'periodoId': periodo.id }) }}" method="post">
     <table class="striped responsive-table">
       <thead>
         <tr>
@@ -58,7 +59,7 @@
       <tbody>
         {% for notaPeriodo in notasPeriodo %}
           <tr>
-            <td><a href="#">{{notaPeriodo.alumno}}</a></td>
+            <td><a href="{{ path('alumno_show', {'id': notaPeriodo.alumno.id}) }}">{{notaPeriodo.alumno}}</a></td>
             {% for ep in evaluacionesPeriodo %}
               {% set indexEp = loop.index0 %}
               {% for key, value in calificaciones %}
@@ -104,7 +105,6 @@
 <div class="col s12 center-align mar-top-soft">
   <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
 </div>
-
 
 </form>
 
