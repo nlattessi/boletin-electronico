@@ -1,0 +1,79 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li><a href="#" class="b-focus">Boletin</a></li>
+{% endblock %}
+
+{% block page %}
+
+<div class="row center-on-small-only">
+        <div class="col s12 m6 l6 ">
+          <h3 class="header">Boletín</h3>
+        </div>
+        <div class="col s12 m6 l6 mar-top-soft hide-on-small-only">
+             <p class="right-ch"><i class="icon-linear-download2"></i> <a href="#">Descargar como pdf</a></p>
+        </div>
+  </div>
+    <div class="row mar-top-soft center-on-small-only">
+        <div class="col s12 m2 l2">
+          <img src="images/school-blank.png" alt="colegio logo" class="inst-thumb-boletin">
+        </div>
+        <div class="col s12 m5 l6">
+          <h5 class="mar-top-soft"><strong>Nombre del colegio</strong></h5>
+        </div>
+        <div class="col s12 m5 l4">
+          <p class=""><img src="images/user-blank.png" alt="as" class="avatar-boletin circle"> {{alumno}}</p>
+          <p class="">Año: <span><STRONG>{{ "now"|date("Y") }}</STRONG></span></p>
+          <p class="">Curso: <span><strong>1 A</span></STRONG></p>
+        </div>
+    </div>
+          <div class="row">
+            <div class="col s12 m12 l12">
+              <table class="boletin centered  mar-top-soft">
+                <thead>
+                  <tr>
+                    <th>Asignaturas</th>
+                      {% for periodo in periodos %}
+                          <th>{{ periodo.nombre }}</th>
+
+                      {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                {% for materia in materias %}
+                    <tr>
+                        <td>{{ materia.nombre }}</td>
+                    {% for periodo in periodos %}
+                        {% if arrayOrdenado[materia.id][periodo.id].nota.nombre is defined %}
+                            <td>{{ arrayOrdenado[materia.id][periodo.id].nota.nombre }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+              <table class="boletin centered responsive-table mar-top-soft">
+                <thead>
+                  <tr>
+                      <th>Observaciones</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sin observaciones</td>
+
+                  </tr>
+
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+{% endblock %}

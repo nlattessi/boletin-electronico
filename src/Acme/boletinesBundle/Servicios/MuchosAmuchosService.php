@@ -460,6 +460,26 @@ class MuchosAmuchosService {
         return $periodos;
     }
 
+    public function obtenerNotasAlumno($periodos, $alumno)
+    {
+        $notas = array();
+        foreach($periodos as $periodo) {
+            $query = $this->em->createQueryBuilder()
+                ->select('np')
+                ->from('BoletinesBundle:NotaPeriodo', 'np')
+                ->where('np.periodo = :periodo')
+                ->andWhere('np.alumno = :alumno')
+                ->setParameter('periodo', $periodo->getId())
+                ->setParameter('alumno', $alumno->getId())
+                ->getQuery();
+
+            $result  = $query->getResult();
+            $notas = array_merge($result, $notas);
+        }
+
+        return $notas;
+    }
+
     public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
     {
         $repository = $this->em->getRepository('BoletinesBundle:UsuarioEstablecimiento');

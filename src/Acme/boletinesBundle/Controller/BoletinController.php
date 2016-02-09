@@ -52,13 +52,33 @@ class BoletinController extends Controller
         ]);
     }
 
-    public function indexPadreAction()
+    public function showAction()
     {
         $alumno = $this->getRequest()->getSession()->get('alumnoActivo');
+        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+        $establecimiento = $this->getRequest()->getSession()->get('establecimientoActivo');
+        $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimiento($establecimiento);
+        $notasAlumno = $muchosAMuchos->obtenerNotasAlumno($periodos, $alumno);
+        $materias = [];
+        $arrayOrdenado = [];
+        foreach ($notasAlumno as $notaAlumno) {
 
-        return $this->render('BoletinesBundle:Boletin:index_padre.html.twig', [
+            $arrayOrdenado
+            [$notaAlumno->getMateria()->getId()]
+            [$notaAlumno->getPeriodo()->getId()] = $notaAlumno;
+
+            if( ! in_array($notaAlumno->getMateria(), $materias)) {
+                $materias[] = $notaAlumno->getMateria();
+            }
+        }
+
+        return $this->render('BoletinesBundle:Boletin:show.html.twig', [
             'css_active' => 'boletin',
-            'alumno' => $alumno
+            'alumno' => $alumno,
+            'notas' => $notasAlumno,
+            'periodos' => $periodos,
+            'materias' => $materias,
+            'arrayOrdenado' => $arrayOrdenado,
         ]);
     }
 
