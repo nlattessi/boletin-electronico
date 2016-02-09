@@ -92,6 +92,8 @@ class Evaluacion
      */
     private $activo = true;
 
+    private $periodo;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -312,4 +314,13 @@ class Evaluacion
         $this->activo = $activo;
     }
 
+    public function setPeriodo($periodo)
+    {
+        $this->periodo = $periodo;
+    }
+
+    public function getPeriodo()
+    {
+        return $this->periodo;
+    }
 }

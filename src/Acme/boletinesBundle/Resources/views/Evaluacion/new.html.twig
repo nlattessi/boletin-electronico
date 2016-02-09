@@ -35,6 +35,20 @@
                 <input type="date" class="datepicker" name="fecha" id="fecha">
             </div>
 
+            <!-- <div class="row"> -->
+            <div class="input-field col s12 m6 l6">
+              <select name="periodo">
+                <option value="" selected disabled>Seleccionar período</option>
+                {% for periodo in periodos %}
+                    <option value="{{ periodo.id }}">{{ periodo.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <!-- </div> -->
+          </div>
+
+          <div class="col s12 m12 l12">
+
             <div class="col s12 m6 l6">
               <div class="file-field input-field">
                 <input class="file-path validate" type="text"/>
