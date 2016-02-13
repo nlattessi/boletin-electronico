@@ -250,6 +250,7 @@ class ReporteController  extends Controller  {
             'BoletinesBundle:Reporte:new.html.twig',
             array(
                 'establecimientos' => $establecimientos,
+                'css_active' => 'reporte',
             )
         );
     }

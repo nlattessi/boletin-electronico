@@ -1,6 +1,6 @@
 reporte:
     path:     /
-    defaults: { _controller: BoletinesBundle:Reporte:prueba }
+    defaults: { _controller: BoletinesBundle:Reporte:new }
 reporte_new:
     path:     /new
     defaults: { _controller: BoletinesBundle:Reporte:new }
