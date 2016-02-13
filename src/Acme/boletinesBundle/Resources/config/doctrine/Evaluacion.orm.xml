@@ -35,8 +35,5 @@
         <order-by-field name="updateTime" direction="DESC" />
       </order-by>
     </one-to-many>
-    <many-to-one field="periodo" target-entity="Periodo" inversed-by="evaluaciones">
-        <join-column name="periodo_id" referenced-column-name="id" />
-    </many-to-one>
   </entity>
 </doctrine-mapping>

@@ -13,25 +13,6 @@
   </div>
   <form action="{{ path('institucion_edit', {'id': institucion.id}) }}" method="post" enctype="multipart/form-data">
   <div class="row">
-    <div class="col s12 m6 l6 center-align">
-       <img src="{% if institucion.logo %}{{ asset('') }}{{ institucion.webPath }}{% else %}{{ asset('bundles/boletines/images/school-blank.png') }}{% endif %}" alt="" class="inst-thumb mar-top-soft">
-    </div>
-
-    <div class="col s12 m6 l6">
-            <div class="file-field input-field">
-              <input name="logo" class="file-path validate" type="text"/>
-              <label for="logo_img">Cambiar logotipo de la institución</label>
-              <div class="btn-large">
-                <span onclick="clickElegirArchivo()">Elegir imagen</span>
-                <input id="elegirArchivo" type="file" name="logoInstitucion" value="{{ institucion.logo }}"/>
-              </div>
-           </div>
-        {# </form> #}
-    </div>
-
-</div>
-<div class="row mar-top-soft">
-
         <div class="input-field col s12 m6 l6">
             <input id="nombre_inst" type="text" class="validate" value="{{ institucion.nombre }}" name="nombreInstitucion">
             <label for="nombre_inst">Nombre de la institución</label>
@@ -40,6 +21,19 @@
           <input id="cuit" name="cuit" type="text" class="" value="{{ institucion.cuit }}">
           <label for="cuit" data-error="Este campo solo acepta valores numéricos" data-success="Correcto">C.U.I.T</label>
       </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6 l6">
+            <div class="file-field input-field">
+              <input name="logo" class="file-path validate" type="text"/>
+              <label for="logo_img">Logotipo de la institución</label>
+              <div class="btn-large">
+                <span>Elegir archivo</span>
+                <input type="file" name="logoInstitucion" value="{{ institucion.logo }}"/>
+              </div>
+           </div>
+        {# </form> #}
+    </div>
   </div>
       <br/>
   <div class="row">

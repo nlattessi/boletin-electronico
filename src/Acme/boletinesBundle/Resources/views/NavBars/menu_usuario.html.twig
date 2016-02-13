@@ -45,16 +45,9 @@
       {% endif %}
       <li class="notifii"><h6><a href="{{ path('mensaje') }}">Ver todos</a></h6></li>
     </ul>
-
-      {% if app.session.get('historic') == 'on' %}
-        <nav class="bg-historico">
-      {% else %}
-        <nav>
-      {% endif %}
+    <nav>
         <div class="nav-wrapper">
-            <div class="">
-
-              <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
+            <div class=""><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="icon-linear-menu"></i></a>
 
                 <ul class="breadcrumb left hide-on-small-only">
 
@@ -82,16 +75,6 @@
 
                     <li><a class="dropdown-button ic" href="#!" data-activates="dropdown1">{{ app.user.nombre }}<i class="icon-linear-chevron-down right"></i></a></li>
                 </ul>
-                {% if app.session.get('historic') == 'on' %}
-
-                  <ul class="right fix">
-                    <li><a href="{{ path('historic_down') }}" class=""><i class="icon-linear-chevron-left icon-mailbox-size"></i></a></li>
-                    <li>{{ app.session.get('year') }}</li>
-                    <li><a href="{{ path('historic_up') }}" class=""><i class="icon-linear-chevron-right icon-mailbox-size"></i></a></li>
-                    <li><a class="ic tooltipped" data-position="bot" data-delay="25" data-tooltip="Salir de modo histórico" href="{{ path('historic_off') }}"><i class="icon-linear-exit-left"></i></a></li>
-
-                  </ul>
-                  {% endif %}
             </div>
         </div>
     </nav>
