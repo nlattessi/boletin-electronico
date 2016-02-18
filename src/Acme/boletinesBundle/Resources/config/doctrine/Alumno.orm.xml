@@ -69,6 +69,7 @@
         <order-by-field name="updateTime" direction="DESC" />
       </order-by>
     </one-to-many>
+<!--
     <many-to-many field="grupos" target-entity="GrupoAlumno">
       <join-table name="alumno_grupo_alumno">
           <join-columns>
@@ -79,5 +80,6 @@
           </inverse-join-columns>
       </join-table>
     </many-to-many>
+-->
   </entity>
 </doctrine-mapping>
