@@ -14,7 +14,7 @@
     <field name="validado" type="boolean" column="validado" nullable="true"/>
     <field name="valor" type="boolean" column="valor" nullable="true"/>
     <field name="activo" type="boolean" column="activo" nullable="true"/>
-    <field name="creationTime" type="datetime" column="creation_time" nullable="false"/>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="false"/>
     <field name="fechaActualizacion" type="datetime" column="fecha_actualizacion" nullable="true"/>
     <many-to-one field="alumno" target-entity="Alumno">
       <join-columns>

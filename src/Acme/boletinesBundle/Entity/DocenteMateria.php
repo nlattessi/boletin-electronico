@@ -56,11 +56,6 @@ class DocenteMateria
     private $docente;
 
 
-    public function __construct()
-    {
-        $this->creationTime = new \DateTime();
-    }
-
 
     /**
      * Set creationTime
@@ -78,7 +73,7 @@ class DocenteMateria
     /**
      * Get creationTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreationTime()
     {
@@ -101,7 +96,7 @@ class DocenteMateria
     /**
      * Get updateTime
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdateTime()
     {
@@ -111,7 +106,7 @@ class DocenteMateria
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -134,7 +129,7 @@ class DocenteMateria
     /**
      * Get materia
      *
-     * @return \Acme\boletinesBundle\Entity\Materia
+     * @return \Acme\boletinesBundle\Entity\Materia 
      */
     public function getMateria()
     {
@@ -157,7 +152,7 @@ class DocenteMateria
     /**
      * Get docente
      *
-     * @return \Acme\boletinesBundle\Entity\Docente
+     * @return \Acme\boletinesBundle\Entity\Docente 
      */
     public function getDocente()
     {

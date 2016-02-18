@@ -31,27 +31,25 @@
                     </div>
                 </div>
                 <div class="divider mar-bot-top col s12 m12 l12"></div>
-                  <div class="row">
-                    <div class="col s10 m10 l10">
-                      <h5 class="header">Datos adicionales</h5>
-                    </div>
-                  </div>
                 <div class="row">
-                    <div class="col s12 m6 l6 center-align">
-                      <img src="{% if alumno.foto %}{{ asset('') }}{{ alumno.fotoWebPath }}{% else %}{{ asset('bundles/boletines/images/user-blank.png') }}{% endif %}" alt="" class="circle inst-thumb mar-top-soft">
-                    </div>
                     <div class="col s12 m6 l6">
                         <div class="file-field input-field">
-                            <input name="foto" class="file-path validate" type="text"/>
+                            <input name="foto" class="file-path validate" type="text" value="{{ alumno.foto }}"/>
                             <label for="logo_img">Foto del Alumno</label>
                             <div class="btn-large">
-                                <span onclick="clickElegirArchivo()">Elegir foto</span>
-                                <input id="elegirArchivo" type="file" name="fotoAlumno" value="{{ alumno.foto }}"/>
+                                <span>Elegir archivo</span>
+                                <input type="file" name="fotoAlumno" />
                             </div>
                         </div>
                         {# </form> #}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col s10 m10 l10">
+                        <h5 class="header">Datos adicionales</h5>
+                    </div>
+                </div>
+
                 <div class="row mar-bot">
                     <div class=" col s12 m6 l6">
                         <h6 class="header">Género</h6>

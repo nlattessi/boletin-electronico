@@ -40,12 +40,5 @@
       </join-columns>
     </many-to-one>
     <one-to-many field="materias" mapped-by="establecimiento" target-entity="Materia"/>
-
-    <one-to-many field="periodos" target-entity="Periodo" mapped-by="establecimiento">
-      <order-by>
-        <order-by-field name="nombre" direction="DESC" />
-      </order-by>
-    </one-to-many>
-
   </entity>
 </doctrine-mapping>

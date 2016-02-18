@@ -397,4 +397,27 @@ class Actividad
     {
         return $this->materia;
     }
+
+    /**
+     * Add archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\ActividadArchivo $archivos
+     * @return Actividad
+     */
+    public function addArchivo(\Acme\boletinesBundle\Entity\ActividadArchivo $archivos)
+    {
+        $this->archivos[] = $archivos;
+
+        return $this;
+    }
+
+    /**
+     * Remove archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\ActividadArchivo $archivos
+     */
+    public function removeArchivo(\Acme\boletinesBundle\Entity\ActividadArchivo $archivos)
+    {
+        $this->archivos->removeElement($archivos);
+    }
 }

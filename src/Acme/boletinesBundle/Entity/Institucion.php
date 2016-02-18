@@ -281,4 +281,34 @@ class Institucion
     }
 
 
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Remove usuarios
+     *
+     * @param \Acme\boletinesBundle\Entity\Usuario $usuarios
+     */
+    public function removeUsuario(\Acme\boletinesBundle\Entity\Usuario $usuarios)
+    {
+        $this->usuarios->removeElement($usuarios);
+    }
+
+    /**
+     * Remove establecimientos
+     *
+     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimientos
+     */
+    public function removeEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimientos)
+    {
+        $this->establecimientos->removeElement($establecimientos);
+    }
 }
