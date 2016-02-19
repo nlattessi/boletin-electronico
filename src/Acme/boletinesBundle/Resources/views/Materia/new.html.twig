@@ -55,12 +55,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="lunes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="lunes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="lunes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="lunes_fin">Hora fin</label>
                             </div>
 
@@ -85,12 +85,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="martes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="martes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="martes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="martes_fin">Hora fin</label>
                             </div>
 
@@ -115,12 +115,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="miercoles_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="miercoles_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="miercoles_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="miercoles_fin">Hora fin</label>
                             </div>
 
@@ -145,12 +145,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="jueves_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="jueves_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="jueves_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="jueves_fin">Hora fin</label>
                             </div>
 
@@ -175,12 +175,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="viernes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="viernes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input name="viernes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="number" class="validate">
                                 <label for="viernes_fin">Hora fin</label>
                             </div>
 
@@ -252,4 +252,13 @@
     </div>
 
 
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+$('.timepicker').pickatime({
+  clear: 'Limpiar'
+});
+</script>
 {% endblock %}

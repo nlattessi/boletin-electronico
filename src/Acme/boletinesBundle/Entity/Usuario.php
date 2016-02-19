@@ -111,6 +111,7 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->actividades = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mensajes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
     }
 
     /**
@@ -443,74 +444,5 @@ class Usuario implements UserInterface, \Serializable
     public function setEntidadAsociada($entidad)
     {
         $this->entidadAsociada = $entidad;
-    }
-
-    /**
-     * Add mensajes
-     *
-     * @param \Acme\boletinesBundle\Entity\MensajeUsuario $mensajes
-     * @return Usuario
-     */
-    public function addMensaje(\Acme\boletinesBundle\Entity\MensajeUsuario $mensajes)
-    {
-        $this->mensajes[] = $mensajes;
-
-        return $this;
-    }
-
-    /**
-     * Remove mensajes
-     *
-     * @param \Acme\boletinesBundle\Entity\MensajeUsuario $mensajes
-     */
-    public function removeMensaje(\Acme\boletinesBundle\Entity\MensajeUsuario $mensajes)
-    {
-        $this->mensajes->removeElement($mensajes);
-    }
-
-    /**
-     * Add notificaciones
-     *
-     * @param \Acme\boletinesBundle\Entity\NotificacionUsuario $notificaciones
-     * @return Usuario
-     */
-    public function addNotificacione(\Acme\boletinesBundle\Entity\NotificacionUsuario $notificaciones)
-    {
-        $this->notificaciones[] = $notificaciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove notificaciones
-     *
-     * @param \Acme\boletinesBundle\Entity\NotificacionUsuario $notificaciones
-     */
-    public function removeNotificacione(\Acme\boletinesBundle\Entity\NotificacionUsuario $notificaciones)
-    {
-        $this->notificaciones->removeElement($notificaciones);
-    }
-
-    /**
-     * Add actividades
-     *
-     * @param \Acme\boletinesBundle\Entity\Actividad $actividades
-     * @return Usuario
-     */
-    public function addActividade(\Acme\boletinesBundle\Entity\Actividad $actividades)
-    {
-        $this->actividades[] = $actividades;
-
-        return $this;
-    }
-
-    /**
-     * Remove actividades
-     *
-     * @param \Acme\boletinesBundle\Entity\Actividad $actividades
-     */
-    public function removeActividade(\Acme\boletinesBundle\Entity\Actividad $actividades)
-    {
-        $this->actividades->removeElement($actividades);
     }
 }

@@ -90,6 +90,7 @@ class GrupoUsuario
     public function __construct()
     {
         $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
     }
 
 
@@ -290,24 +291,4 @@ class GrupoUsuario
     }
 
 
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-    /**
-     * Remove usuarios
-     *
-     * @param \Acme\boletinesBundle\Entity\Usuario $usuarios
-     */
-    public function removeUsuario(\Acme\boletinesBundle\Entity\Usuario $usuarios)
-    {
-        $this->usuarios->removeElement($usuarios);
-    }
 }

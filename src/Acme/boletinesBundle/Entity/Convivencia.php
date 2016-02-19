@@ -52,7 +52,7 @@ class Convivencia
      *
      * @ORM\Column(name="fecha_creacion", type="datetime", nullable=false)
      */
-    private $fechaCreacion;
+    private $creationTime;
 
     /**
      * @var \DateTime
@@ -96,6 +96,10 @@ class Convivencia
      */
     private $activo = true;
 
+
+    public function __construct() {
+        $this->creationTime = new \DateTime();
+    }
 
     /**
      * Set comentario
@@ -213,26 +217,26 @@ class Convivencia
     }
 
     /**
-     * Set fechaCreacion
+     * Set creationTime
      *
-     * @param \DateTime $fechaCreacion
+     * @param \DateTime $creationTime
      * @return Convivencia
      */
-    public function setFechaCreacion($fechaCreacion)
+    public function setCreationTime($creationTime)
     {
-        $this->fechaCreacion = $fechaCreacion;
+        $this->creationTime = $creationTime;
 
         return $this;
     }
 
     /**
-     * Get fechaCreacion
+     * Get creationTime
      *
      * @return \DateTime 
      */
-    public function getFechaCreacion()
+    public function getCreationTime()
     {
-        return $this->fechaCreacion;
+        return $this->creationTime;
     }
 
     /**
@@ -331,14 +335,4 @@ class Convivencia
     }
 
 
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
 }

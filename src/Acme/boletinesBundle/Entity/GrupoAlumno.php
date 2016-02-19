@@ -62,6 +62,8 @@ class GrupoAlumno
     public function __construct()
     {
         $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationTime = new \DateTime();
+
     }
 
     /**
@@ -220,25 +222,5 @@ class GrupoAlumno
 
     public function __toString(){
         return $this->getNombre();
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-    /**
-     * Remove alumnos
-     *
-     * @param \Acme\boletinesBundle\Entity\Alumno $alumnos
-     */
-    public function removeAlumno(\Acme\boletinesBundle\Entity\Alumno $alumnos)
-    {
-        $this->alumnos->removeElement($alumnos);
     }
 }

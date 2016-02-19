@@ -56,6 +56,11 @@ class GrupoAlumnoMateria
     private $grupoAlumno;
 
 
+    public function __construct()
+    {
+        $this->creationTime = new \DateTime();
+    }
+
 
     /**
      * Set creationTime
@@ -73,7 +78,7 @@ class GrupoAlumnoMateria
     /**
      * Get creationTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationTime()
     {
@@ -96,7 +101,7 @@ class GrupoAlumnoMateria
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -106,7 +111,7 @@ class GrupoAlumnoMateria
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -129,7 +134,7 @@ class GrupoAlumnoMateria
     /**
      * Get materia
      *
-     * @return \Acme\boletinesBundle\Entity\Materia 
+     * @return \Acme\boletinesBundle\Entity\Materia
      */
     public function getMateria()
     {
@@ -152,7 +157,7 @@ class GrupoAlumnoMateria
     /**
      * Get grupoAlumno
      *
-     * @return \Acme\boletinesBundle\Entity\GrupoAlumno 
+     * @return \Acme\boletinesBundle\Entity\GrupoAlumno
      */
     public function getGrupoAlumno()
     {

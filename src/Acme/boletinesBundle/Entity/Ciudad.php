@@ -107,37 +107,4 @@ class Ciudad
     {
         return $this->provincia;
     }
-
-    /**
-     * Add establecimientos
-     *
-     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimientos
-     * @return Ciudad
-     */
-    public function addEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimientos)
-    {
-        $this->establecimientos[] = $establecimientos;
-
-        return $this;
-    }
-
-    /**
-     * Remove establecimientos
-     *
-     * @param \Acme\boletinesBundle\Entity\Establecimiento $establecimientos
-     */
-    public function removeEstablecimiento(\Acme\boletinesBundle\Entity\Establecimiento $establecimientos)
-    {
-        $this->establecimientos->removeElement($establecimientos);
-    }
-
-    /**
-     * Get establecimientos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEstablecimientos()
-    {
-        return $this->establecimientos;
-    }
 }

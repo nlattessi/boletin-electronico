@@ -1,0 +1,90 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+
+{% block breadcrumb %}
+  <li><a href="{{ path('boletin') }}" class="">Boletin</a></li>
+  <li><i class="icon-linear-chevron-right bread-i"></i></li>
+  <li><a href="#" class="b-focus">Validar notas</a></li>
+{% endblock %}
+
+{% block page %}
+
+  <div class="row">
+    {% for type, flashMessages in app.session.flashbag.all() %}
+      {% for flashMessage in flashMessages %}
+        <div class="{{ type  }}-msg center-align fadeInDown animated"><i class="icon-linear-check msg-i"></i>{{ flashMessage }}</div>
+      {% endfor %}
+    {% endfor %}
+    <div class="col s12 m12 l12 mar-top-soft">
+      <h4 class="header">Validar notas</h4>
+    </div>
+  </div>
+
+  <div class="row mar-top-soft">
+    <div class="col s12 m12 l12"> <!-- start materia-->
+      <div class="panel-mini panel-assigment">
+        <div class="row">
+          <div class="col s6">
+            <h5 class="panel-title">{{ materia.nombre }} </h5>
+            <h4>
+              {% for grupo in materia.gruposAlumnos %}
+                {{ grupo ~ ' ' }}
+              {% endfor %}
+            </h4>
+          </div>
+          <div class="col s6 right-align">
+            <h5><i class="icon-linear-users2 d-d-i"></i> {{ materia.cantidadAlumnos }}</h5>
+            <h6>Alumnos</h6>
+          </div>
+        </div>
+      </div>
+    </div><!-- end materia-->
+  </div>
+
+  <form action="{{ path('boletin_validar_notas', {'materiaId': materia.id }) }}" method="post">
+
+  <div class="row">
+    <div class="col s12 m12 l12 mar-top-soft">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Alumno</th>
+              <th>Docente</th>
+              <th>Período</th>
+              <th>Calificación</th>
+              <th>Comentario</th>
+              <th>Validar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for notaPeriodo in notasPeriodos %}
+              <tr>
+                <td><a href="{{ path('alumno_show', {'id': notaPeriodo.alumno.id}) }}">{{notaPeriodo.alumno}}</a></td>
+                <td><a href="{{ path('docente_show', {'id': notaPeriodo.docente.id}) }}">{{notaPeriodo.docente}}</a></td>
+                <td>{{notaPeriodo.periodo}}</td>
+                <td>{{notaPeriodo.nota}}</td>
+                <td>
+                  <div class="input-field col s12">
+                    <input id="last_name" type="text" class="validate" name="{{notaPeriodo.id}}comentario" value="{{notaPeriodo.comentario}}">
+                    <label for="last_name">Comentario</label>
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    <input type="checkbox" id="{{notaPeriodo.id}}chk" name="{{notaPeriodo.id}}chk" class="filled-in" {% if notaPeriodo.validada %} checked{% endif %}>
+                    <label for="{{notaPeriodo.id}}chk"></label>
+                  </p>
+                </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div><!--  End Tables Section  -->
+
+<div class="col s12 center-align mar-top-soft">
+  <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">Guardar</button>
+</div>
+
+</form>
+
+{% endblock %}
