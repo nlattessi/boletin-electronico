@@ -244,9 +244,10 @@ class Alumno
      **/
     private $materias;
 
+    private $grupos;
+
     public function __construct() {
         $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->creationTime = new \DateTime();
     }
 
     /**
@@ -915,6 +916,24 @@ class Alumno
         return $this->usuario;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getGrupos()
+    {
+        return $this->grupos;
+    }
+
+    /**
+     * @param mixed $grupos
+     */
+    public function setGrupos($grupos)
+    {
+        $this->grupos = $grupos;
+    }
+
+
+
     public function __toString()
     {
         return $this->getApellido() .', '. $this->getNombre();
@@ -943,5 +962,51 @@ class Alumno
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
         return 'bundles/boletines/uploads/portraits/alumnos';
+    }
+
+    /**
+     * Add materias
+     *
+     * @param \Acme\boletinesBundle\Entity\AlumnoMateria $materias
+     * @return Alumno
+     */
+    public function addMateria(\Acme\boletinesBundle\Entity\AlumnoMateria $materias)
+    {
+        $this->materias[] = $materias;
+
+        return $this;
+    }
+
+    /**
+     * Remove materias
+     *
+     * @param \Acme\boletinesBundle\Entity\AlumnoMateria $materias
+     */
+    public function removeMateria(\Acme\boletinesBundle\Entity\AlumnoMateria $materias)
+    {
+        $this->materias->removeElement($materias);
+    }
+
+    /**
+     * Add grupos
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoAlumno $grupos
+     * @return Alumno
+     */
+    public function addGrupo(\Acme\boletinesBundle\Entity\GrupoAlumno $grupos)
+    {
+        $this->grupos[] = $grupos;
+
+        return $this;
+    }
+
+    /**
+     * Remove grupos
+     *
+     * @param \Acme\boletinesBundle\Entity\GrupoAlumno $grupos
+     */
+    public function removeGrupo(\Acme\boletinesBundle\Entity\GrupoAlumno $grupos)
+    {
+        $this->grupos->removeElement($grupos);
     }
 }

@@ -14,6 +14,6 @@ boletin_validar_notas:
     path:     /validar_notas/{materiaId}
     defaults: { _controller: BoletinesBundle:Boletin:validarNota }
 
-boletin_index_padre:
-    path:     /padre
-    defaults: { _controller: BoletinesBundle:Boletin:indexPadre }
+boletin_show:
+    path:     /show
+    defaults: { _controller: BoletinesBundle:Boletin:show }

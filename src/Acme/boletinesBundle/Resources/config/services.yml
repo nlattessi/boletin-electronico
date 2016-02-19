@@ -79,3 +79,7 @@ services:
           class: Acme\boletinesBundle\Servicios\BajaAdministrativaService
           arguments:
               entityManager: @doctrine.orm.entity_manager
+      boletines.servicios.docente:
+          class: Acme\boletinesBundle\Servicios\DocenteService
+          arguments:
+              entityManager: @doctrine.orm.entity_manager

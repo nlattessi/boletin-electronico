@@ -1440,11 +1440,11 @@ jQuery.extend( jQuery.fn.pickadate.defaults, {
     close: 'cerrar',
     firstDay: 1,
     format: 'dddd d !de mmmm !de yyyy',
-    formatSubmit: 'yyyy/mm/dd'
+    formatSubmit: 'dd/mm/yyyy',
+    hiddenSuffix:'__convertible',
+    hiddenName: true
 });
 
-jQuery.extend( jQuery.fn.pickatime.defaults, {
-    clear: 'borrar'
-});
+
 
 

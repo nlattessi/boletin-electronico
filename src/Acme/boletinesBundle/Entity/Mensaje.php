@@ -201,4 +201,27 @@ class Mensaje
     {
         return $this->archivos;
     }
+
+    /**
+     * Add archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\MensajeArchivo $archivos
+     * @return Mensaje
+     */
+    public function addArchivo(\Acme\boletinesBundle\Entity\MensajeArchivo $archivos)
+    {
+        $this->archivos[] = $archivos;
+
+        return $this;
+    }
+
+    /**
+     * Remove archivos
+     *
+     * @param \Acme\boletinesBundle\Entity\MensajeArchivo $archivos
+     */
+    public function removeArchivo(\Acme\boletinesBundle\Entity\MensajeArchivo $archivos)
+    {
+        $this->archivos->removeElement($archivos);
+    }
 }

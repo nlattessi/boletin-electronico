@@ -18,20 +18,13 @@ use Acme\boletinesBundle\Entity\MateriaArchivo;
 use Acme\boletinesBundle\Entity\UsuarioEstablecimiento;
 use Acme\boletinesBundle\Entity\UsuarioGrupoUsuario;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class MuchosAmuchosService {
 
     protected $em;
-    private $session;
-    private $endYear;
-    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
-        $this->session = new Session();
-        $this->endYear = $this->session->get('endYear');
-        $this->startYear = $this->session->get('startYear');
     }
 
     public function asociarAlumnoMateria($alumno, $materia){
@@ -331,20 +324,8 @@ class MuchosAmuchosService {
     {
 
         $alumnos = array();
-
         foreach($establecimientos as $establecimiento) {
-            $query = $this->em->createQueryBuilder()
-                ->select('a')
-                ->from('BoletinesBundle:Alumno','a')
-                ->where('a.establecimiento = :establecimiento')
-                ->andWhere('a.creationTime > :startYear')
-                ->andWhere('a.creationTime < :endYear')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $alumnosEstablecimientos = $query->getResult();
+            $alumnosEstablecimientos = $this->em->getRepository('BoletinesBundle:Alumno')->findBy(array('establecimiento' => $establecimiento));
             $alumnos = array_merge($alumnosEstablecimientos, $alumnos);
         }
 
@@ -355,18 +336,7 @@ class MuchosAmuchosService {
     {
         $padres = array();
         foreach($establecimientos as $establecimiento) {
-            $query = $this->em->createQueryBuilder()
-                ->select('p')
-                ->from('BoletinesBundle:Padre','p')
-                ->where('p.establecimiento = :establecimiento')
-                ->andWhere('p.creationTime > :startYear')
-                ->andWhere('p.creationTime < :endYear')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $padresEstablecimientos  = $query->getResult();
+            $padresEstablecimientos = $this->em->getRepository('BoletinesBundle:Padre')->findBy(array('establecimiento' => $establecimiento));
             $padres = array_merge($padresEstablecimientos, $padres);
         }
 
@@ -377,18 +347,7 @@ class MuchosAmuchosService {
     {
         $docentes = array();
         foreach($establecimientos as $establecimiento) {
-            $query = $this->em->createQueryBuilder()
-                ->select('d')
-                ->from('BoletinesBundle:Docente', 'd')
-                ->where('d.establecimiento = :establecimiento')
-                //->andWhere('d.creationTime > :startYear')
-                //->andWhere('d.creationTime < :endYear')
-                ->setParameter('establecimiento', $establecimiento)
-                //->setParameter('startYear', $this->startYear)
-                //->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $docenteEstablecimientos  = $query->getResult();
+            $docenteEstablecimientos = $this->em->getRepository('BoletinesBundle:Docente')->findBy(array('establecimiento' => $establecimiento));
             $docentes = array_merge($docenteEstablecimientos, $docentes);
         }
 
@@ -397,67 +356,33 @@ class MuchosAmuchosService {
 
     public function obtenerMateriasPorEstablecimientos($establecimientos)
     {
-        $materias = array();
+        $resultado = array();
         foreach($establecimientos as $establecimiento) {
-            $query = $this->em->createQueryBuilder()
-                ->select('m')
-                ->from('BoletinesBundle:Materia', 'm')
-                ->where('m.establecimiento = :establecimiento')
-                ->andWhere('m.creationTime > :startYear')
-                ->andWhere('m.creationTime < :endYear')
-                ->andWhere('m.activo = true')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $materiaEstablecimientos  = $query->getResult();
-            $materias = array_merge($materiaEstablecimientos, $materias);
+            $materias = $this->em->getRepository('BoletinesBundle:Materia')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
+            $resultado = array_merge($materias, $resultado);
         }
 
-        return $materias;
+        return $resultado;
     }
 
-    public function obtenerPeriodosPorEstablecimiento($establecimiento)
+    public function obtenerNotasAlumno($periodos, $alumno)
     {
-        $query = $this->em->createQueryBuilder()
-            ->select('p')
-            ->from('BoletinesBundle:Periodo', 'p')
-            ->where('p.establecimiento = :establecimiento')
-            ->andWhere('p.creationTime > :startYear')
-            ->andWhere('p.creationTime < :endYear')
-            ->setParameter('establecimiento', $establecimiento)
-            ->setParameter('startYear', $this->startYear)
-            ->setParameter('endYear', $this->endYear)
-            ->getQuery();
-
-        $periodo  = $query->getResult();
-
-        return $periodo;
-    }
-
-    public function obtenerPeriodosPorEstablecimientos($establecimientos)
-    {
-        $periodos = array();
-
-        foreach($establecimientos as $establecimiento) {
+        $notas = array();
+        foreach($periodos as $periodo) {
             $query = $this->em->createQueryBuilder()
-                ->select('p')
-                ->from('BoletinesBundle:Periodo', 'p')
-                ->where('p.establecimiento = :establecimiento')
-                ->andWhere('p.creationTime > :startYear')
-                ->andWhere('p.creationTime < :endYear')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
+                ->select('np')
+                ->from('BoletinesBundle:NotaPeriodo', 'np')
+                ->where('np.periodo = :periodo')
+                ->andWhere('np.alumno = :alumno')
+                ->setParameter('periodo', $periodo->getId())
+                ->setParameter('alumno', $alumno->getId())
                 ->getQuery();
 
             $result  = $query->getResult();
-
-            $periodos = array_merge($result, $periodos);
+            $notas = array_merge($result, $notas);
         }
 
-        return $periodos;
+        return $notas;
     }
 
     public function obtenerUsuariosPorRolPorEstablecimientos($establecimientos, $rol)
@@ -472,12 +397,8 @@ class MuchosAmuchosService {
                 ->innerJoin('BoletinesBundle:Rol', 'r', 'WITH', 'r.id = u.rol')
                 ->where('ue.establecimiento = :establecimiento')
                 ->andWhere('r.nombre = :rol')
-                ->andWhere('u.creationTime > :startYear')
-                ->andWhere('u.creationTime < :endYear')
                 ->setParameter('establecimiento', $establecimiento)
                 ->setParameter('rol', $rol)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
                 ->getQuery();
             $bedeles = array_merge($query->getResult(), $bedeles);
         }
@@ -511,20 +432,7 @@ class MuchosAmuchosService {
     {
         $grupos = array();
         foreach($establecimientos as $establecimiento) {
-
-            $query = $this->em->createQueryBuilder()
-                ->select('gu')
-                ->from('BoletinesBundle:GrupoUsuario', 'gu')
-                ->where('gu.establecimiento = :establecimiento')
-                ->andWhere('gu.creationTime > :startYear')
-                ->andWhere('gu.creationTime < :endYear')
-                ->andWhere('gu.activo = true')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $gruposEstablecimientos  = $query->getResult();
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoUsuario')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
             $grupos = array_merge($gruposEstablecimientos, $grupos);
         }
 
@@ -546,19 +454,7 @@ class MuchosAmuchosService {
     {
         $grupos = array();
         foreach($establecimientos as $establecimiento) {
-            $query = $this->em->createQueryBuilder()
-                ->select('ga')
-                ->from('BoletinesBundle:GrupoAlumno', 'ga')
-                ->where('ga.establecimiento = :establecimiento')
-                ->andWhere('ga.creationTime > :startYear')
-                ->andWhere('ga.creationTime < :endYear')
-                ->andWhere('ga.activo = true')
-                ->setParameter('establecimiento', $establecimiento)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
-                ->getQuery();
-
-            $gruposEstablecimientos  = $query->getResult();
+            $gruposEstablecimientos = $this->em->getRepository('BoletinesBundle:GrupoAlumno')->findBy(array('establecimiento' => $establecimiento, 'activo' => true));
             $grupos = array_merge($gruposEstablecimientos, $grupos);
         }
 
@@ -575,13 +471,9 @@ class MuchosAmuchosService {
                 ->select('c')
                 ->innerJoin('BoletinesBundle:Alumno', 'a' , 'WITH', 'a.id = c.alumno')
                 ->where('a.establecimiento = :establecimiento')
-                ->andWhere('c.creationTime > :startYear')
-                ->andWhere('c.creationTime < :endYear')
                 ->setParameter('establecimiento', $establecimiento)
                 ->andWhere('c.validado = :boolValue')
                 ->setParameter('boolValue', false)
-                ->setParameter('startYear', $this->startYear)
-                ->setParameter('endYear', $this->endYear)
                 ->getQuery();
 
             $convivencia = array_merge($query->getResult(), $convivencia);
