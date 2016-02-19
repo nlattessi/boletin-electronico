@@ -1,0 +1,58 @@
+{% extends 'BoletinesBundle:Layout:layout.html.twig' %}
+{% block breadcrumb %}
+    <li><a href="#" class="b-focus">Generar Reportes</a></li>
+{% endblock %}
+{% block page %}
+<table class="display" id="table_id">
+    <thead>
+    {% for columna in columnas %}
+        <th> {{ columna.data }}</th>
+    {% endfor %}
+    </thead>
+</table>
+{% endblock %}
+
+
+{% block javascript %}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.1.0/css/select.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.1.1/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.1.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.1.1/js/buttons.print.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.1.0/js/dataTables.select.min.js"></script>
+
+    <script type="text/javascript">
+      var columnas  = {{ columnas|json_encode|raw }};
+      var datos =  {{ datos|json_encode|raw }};
+        (function(window, document, $) {
+            $('#table_id').DataTable({
+                ordering: false,
+                searching: false,
+                select: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print', {
+                        extend: 'pdf',
+                        text: 'Exportar seleccionados a PDF',
+                        exportOptions: {
+                            modifier: {
+                                selected: true
+                            }
+                        }
+                    }
+                ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json'
+                },
+                columns: columnas,
+                data: datos
+            });
+        })(window, document, jQuery);
+    </script>
+{% endblock %}
