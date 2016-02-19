@@ -132,4 +132,4 @@ boletines_periodo:
 boletines_boletin:
     resource: "@BoletinesBundle/Resources/config/routing/boletin.yml"
     prefix:   /boletin
-View
+
