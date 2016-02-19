@@ -171,6 +171,10 @@ class Padre
 
     private $hijos;
 
+    public function __construct() {
+        $this->creationTime = new \DateTime();
+    }
+
 
     /**
      * Set nombre

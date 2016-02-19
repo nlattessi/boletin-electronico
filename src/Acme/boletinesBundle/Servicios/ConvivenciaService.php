@@ -10,13 +10,19 @@ namespace Acme\boletinesBundle\Servicios;
 
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConvivenciaService {
     protected $em;
     const VALOR_POSITIVO = 1;
+    private $endYear;
+    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
+        $this->session = new Session();
+        $this->endYear = $this->session->get('endYear');
+        $this->startYear = $this->session->get('startYear');
     }
 
     public function obtenerConvivenciaAlumno($alumnoId){
@@ -37,6 +43,10 @@ class ConvivenciaService {
             //->andWhere('c.validado = true')
             ->andWhere('c.valor = true')
             ->andWhere('c.activo = true')
+            ->andWhere('c.creationTime > :startYear')
+            ->andWhere('c.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
@@ -50,6 +60,10 @@ class ConvivenciaService {
             //->andWhere('c.validado = true')
             ->andWhere('c.valor = false')
             ->andWhere('c.activo = true')
+            ->andWhere('c.creationTime > :startYear')
+            ->andWhere('c.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $alumnoId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
@@ -61,6 +75,10 @@ class ConvivenciaService {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.usuarioCarga = ?1')
             ->andWhere('c.activo = true')
+            ->andWhere('c.creationTime > :startYear')
+            ->andWhere('c.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $usuarioId)
             ->addOrderBy('c.fechaSuceso','DESC');
 

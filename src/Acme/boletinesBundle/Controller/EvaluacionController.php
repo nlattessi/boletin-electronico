@@ -56,10 +56,17 @@ class EvaluacionController extends Controller
             $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $id));
             $materiaService =  $this->get('boletines.servicios.materia');
             $materia->setGruposAlumnos($materiaService->listaGruposAlumnoPorMateria($id));
+
+            $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+            $establecimiento = $this->getRequest()->getSession()->get('establecimientoActivo');
+            $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimiento($establecimiento);
         }
 
-        return $this->render('BoletinesBundle:Evaluacion:new.html.twig', array('materia' => $materia,
-            'css_active' => 'materia',));
+        return $this->render('BoletinesBundle:Evaluacion:new.html.twig', [
+            'materia' => $materia,
+            'css_active' => 'materia',
+            'periodos' => $periodos
+        ]);
     }
     private function createEntity($data)
     {
@@ -109,6 +116,11 @@ class EvaluacionController extends Controller
             null, // establlecimiento
             $materia
         );
+
+        $periodo = $em->getRepository('BoletinesBundle:Periodo')->find($data->request->get('periodo'));
+        if ($periodo) {
+            $evaluacion->setPeriodo($periodo);
+        }
 
         $em->persist($evaluacion);
         $em->flush();
@@ -171,11 +183,18 @@ class EvaluacionController extends Controller
            // $materiaService =  $this->get('boletines.servicios.materia');
            // $evaluacion->getMateria()->setAlumnos($materiaService->listaAlumnos($evaluacion->getMateria()->getId()));
 
+           $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+           $establecimiento = $this->getRequest()->getSession()->get('establecimientoActivo');
+           $periodos = $muchosAMuchos->obtenerPeriodosPorEstablecimiento($establecimiento);
+
         }
 
-        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', array('evaluacion' => $evaluacion,
+        return $this->render('BoletinesBundle:Evaluacion:edit.html.twig', [
+            'evaluacion' => $evaluacion,
             'mensaje' => $message,
-            'css_active' => 'materia',));
+            'css_active' => 'materia',
+            'periodos' => $periodos
+          ]);
     }
 
     public function calificarAction($id = null, Request $request = null){
@@ -306,6 +325,11 @@ class EvaluacionController extends Controller
             //Selecciono otra Materia, hay que buscarla y persistirla
             $materia = $em->getRepository('BoletinesBundle:Materia')->findOneBy(array('id' => $idMateria));
             $evaluacion->setMateria($materia);
+        }
+
+        $periodo = $em->getRepository('BoletinesBundle:Periodo')->find($data->request->get('periodo'));
+        if ($periodo) {
+            $evaluacion->setPeriodo($periodo);
         }
 
         $em->persist($evaluacion);
