@@ -9,16 +9,21 @@
 namespace Acme\boletinesBundle\Servicios;
 
 use Doctrine\ORM\EntityManager;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AsistenciaService {
 
     protected $em;
     const VALOR_INASISTENCIA = 'A';
     const VALOR_TARDE = 'T';
+    private $endYear;
+    private $startYear;
 
     public function __construct(EntityManager $entityManager){
         $this->em = $entityManager;
+        $this->session = new Session();
+        $this->endYear = $this->session->get('endYear');
+        $this->startYear = $this->session->get('startYear');
     }
 
     /**
@@ -35,6 +40,10 @@ class AsistenciaService {
         $asistenciaes = array();
         $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
             ->where('d.alumno = ?1')
+            ->andWhere('d.creationTime > :startYear')
+            ->andWhere('d.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $alumno);
         if($limite){
             $queryBuilder->setMaxResults($limite);
@@ -58,6 +67,10 @@ class AsistenciaService {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
             ->where('d.alumno = ?1')
             ->andWhere('d.valor = ?2')
+            ->andWhere('d.creationTime > :startYear')
+            ->andWhere('d.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $alumno)
             ->setParameter(2, self::VALOR_INASISTENCIA);
 
@@ -76,6 +89,10 @@ class AsistenciaService {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
             ->where('d.alumno = ?1')
             ->andWhere('d.valor = ?2')
+            ->andWhere('d.creationTime > :startYear')
+            ->andWhere('d.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
             ->setParameter(1, $alumno)
             ->setParameter(2, self::VALOR_TARDE);
 

@@ -82,6 +82,10 @@ boletines_calendario:
     resource: "@BoletinesBundle/Resources/config/routing/calendario.yml"
     prefix:   /calendario
 
+boletines_historic:
+    resource: "@BoletinesBundle/Resources/config/routing/historic.yml"
+    prefix:   /historic
+
 boletines_login:
     resource: "@BoletinesBundle/Resources/config/routing/login.yml"
     prefix:   /login
@@ -89,10 +93,6 @@ boletines_login:
 boletines_home:
     resource: "@BoletinesBundle/Resources/config/routing/home.yml"
     prefix:   /home
-
-boletines_reporte:
-    resource: "@BoletinesBundle/Resources/config/routing/reporte.yml"
-    prefix:   /reporte
 
 boletines_bullying:
     resource: "@BoletinesBundle/Resources/config/routing/bullying.yml"
@@ -124,3 +124,16 @@ boletines_archivo_downloadZip:
 en_construccion:
     path:     /en_construccion
     defaults: { _controller: BoletinesBundle:Default:enConstruccion }
+
+boletines_periodo:
+    resource: "@BoletinesBundle/Resources/config/routing/periodo.yml"
+    prefix:   /periodo
+
+boletines_boletin:
+    resource: "@BoletinesBundle/Resources/config/routing/boletin.yml"
+    prefix:   /boletin
+ 
+boletines_reporte:
+    resource: "@BoletinesBundle/Resources/config/routing/reporte.yml"
+    prefix:   /reporte
+

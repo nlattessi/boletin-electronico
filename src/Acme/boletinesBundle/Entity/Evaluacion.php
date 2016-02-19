@@ -92,6 +92,8 @@ class Evaluacion
      */
     private $activo = true;
 
+    private $periodo;
+
 
     /* CONSTRUCT */
     public function __construct()
@@ -312,47 +314,13 @@ class Evaluacion
         $this->activo = $activo;
     }
 
-
-    /**
-     * Get calificada
-     *
-     * @return boolean 
-     */
-    public function getCalificada()
+    public function setPeriodo($periodo)
     {
-        return $this->calificada;
+        $this->periodo = $periodo;
     }
 
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
+    public function getPeriodo()
     {
-        return $this->activo;
-    }
-
-    /**
-     * Add archivos
-     *
-     * @param \Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos
-     * @return Evaluacion
-     */
-    public function addArchivo(\Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos)
-    {
-        $this->archivos[] = $archivos;
-
-        return $this;
-    }
-
-    /**
-     * Remove archivos
-     *
-     * @param \Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos
-     */
-    public function removeArchivo(\Acme\boletinesBundle\Entity\EvaluacionArchivo $archivos)
-    {
-        $this->archivos->removeElement($archivos);
+        return $this->periodo;
     }
 }

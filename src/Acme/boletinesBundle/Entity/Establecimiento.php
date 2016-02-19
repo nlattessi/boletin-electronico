@@ -155,11 +155,14 @@ class Establecimiento
 
     private $materias;
 
+    private $periodos;
+
 
     public function __construct()
     {
         $this->creationTime = new \DateTime();
-        $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->materias = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
+        $this->periodos = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
     }
 
     /**
@@ -607,38 +610,10 @@ class Establecimiento
         return $this->materias;
     }
 
-
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
+    public function getPeriodos()
     {
-        return $this->activo;
+        return $this->periodos;
     }
 
-    /**
-     * Add materias
-     *
-     * @param \Acme\boletinesBundle\Entity\Materia $materias
-     * @return Establecimiento
-     */
-    public function addMateria(\Acme\boletinesBundle\Entity\Materia $materias)
-    {
-        $this->materias[] = $materias;
 
-        return $this;
-    }
-
-    /**
-     * Remove materias
-     *
-     * @param \Acme\boletinesBundle\Entity\Materia $materias
-     */
-    public function removeMateria(\Acme\boletinesBundle\Entity\Materia $materias)
-    {
-        $this->materias->removeElement($materias);
-    }
 }

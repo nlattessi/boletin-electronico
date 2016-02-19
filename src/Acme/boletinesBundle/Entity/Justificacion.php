@@ -237,27 +237,4 @@ class Justificacion
     {
         return $this->archivos;
     }
-
-    /**
-     * Add archivos
-     *
-     * @param \Acme\boletinesBundle\Entity\JustificacionArchivo $archivos
-     * @return Justificacion
-     */
-    public function addArchivo(\Acme\boletinesBundle\Entity\JustificacionArchivo $archivos)
-    {
-        $this->archivos[] = $archivos;
-
-        return $this;
-    }
-
-    /**
-     * Remove archivos
-     *
-     * @param \Acme\boletinesBundle\Entity\JustificacionArchivo $archivos
-     */
-    public function removeArchivo(\Acme\boletinesBundle\Entity\JustificacionArchivo $archivos)
-    {
-        $this->archivos->removeElement($archivos);
-    }
 }

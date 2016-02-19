@@ -34,6 +34,14 @@
                 <input type="date" class="datepicker" name="fecha" id="fecha" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
             </div>
         </div>
+        <div class="input-field col s12 m6 l6">
+          <select name="periodo">
+            <option value="" selected disabled>Seleccionar período</option>
+            {% for periodo in periodos %}
+                <option value="{{ periodo.id }}"{% if evaluacion.periodo == periodo %} selected{% endif %}>{{ periodo.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
         <div class="col s12 m6 l6">
           <h5 class="panel-title">Archivos asociados</h5>
           <div class="mail-attachments">
