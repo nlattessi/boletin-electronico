@@ -124,3 +124,12 @@ boletines_archivo_downloadZip:
 en_construccion:
     path:     /en_construccion
     defaults: { _controller: BoletinesBundle:Default:enConstruccion }
+
+boletines_periodo:
+    resource: "@BoletinesBundle/Resources/config/routing/periodo.yml"
+    prefix:   /periodo
+
+boletines_boletin:
+    resource: "@BoletinesBundle/Resources/config/routing/boletin.yml"
+    prefix:   /boletin
+View
