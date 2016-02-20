@@ -2,6 +2,7 @@
 
 namespace Acme\boletinesBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -161,8 +162,8 @@ class Establecimiento
     public function __construct()
     {
         $this->creationTime = new \DateTime();
-        $this->materias = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
-        $this->periodos = new \Doctrine\Common\Collections\ArrayCollectionArrayCollection();
+        $this->materias = new ArrayCollection();
+        $this->periodos = new ArrayCollection();
     }
 
     /**

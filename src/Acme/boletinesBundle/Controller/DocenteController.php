@@ -86,11 +86,12 @@ class DocenteController extends Controller
         $docente->setApellido($data->request->get('apellido'));
         $docente->setDni($data->request->get('dni'));
 //        $docente->set($data->request->get('sexo'));
+
         $docente->setFechaNacimiento(
-            new \DateTime($data->request->get('bdate'))
+            Herramientas::textoADatetime($data->request->get('bdate'))
         );
         $docente->setFechaIngreso(
-            new \DateTime($data->request->get('ingresodate'))
+            Herramientas::textoADatetime($data->request->get('ingresodate'))
         );
         $docente->setDireccion($data->request->get('direccion'));
         $docente->setCodigoPostal($data->request->get('postal'));
@@ -109,7 +110,7 @@ class DocenteController extends Controller
         $docente->setUpdateTime(new \DateTime() );
         $docente->setEstablecimiento($establecimiento);
 
-        $fotoFile = $request->files->get('fotoDocente');
+        $fotoFile = $data->files->get('fotoDocente');
         if ($fotoFile) {
             $this->crearYSetearFileFoto($fotoFile, $docente);
         }
