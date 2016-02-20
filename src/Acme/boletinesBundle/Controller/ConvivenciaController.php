@@ -101,7 +101,7 @@ class ConvivenciaController extends Controller
                 $convivencia = new Convivencia();
                 $convivencia->setComentario($data->request->get('comentario'));
                 $convivencia->setUsuarioCarga($usuario);
-                $convivencia->setFechaCreacion(new \DateTime('now'));
+                $convivencia->setCreationTime(new \DateTime('now'));
                 $convivencia->setValidado(false);
                 $fecha = $data->request->get('fechaSuceso');
                 $fecha = Herramientas::textoADatetime($fecha);
