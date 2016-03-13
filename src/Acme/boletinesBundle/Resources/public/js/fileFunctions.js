@@ -22,26 +22,12 @@ function downloadAll(path) {
     });
 
     // Para la pantalla de /asistencias, usado para cargar justificaciones
-    $('.cargaJustificacion').on('click', function() {
-      var id = $(this).attr('data-id');
-      $('#justificacionFile' + id).trigger('click');
+    $('.inputJustificacion').on('click', function() {
+      $(this).val("");
     });
-
-    // Para la pantalla de /asistencias, usado para cargar justificaciones
     $('.inputJustificacion').on('change', function() {
       var id = $(this).attr('data-id');
-      var url = $(this).attr('data-url');
-
-      var form = document.createElement("form");
-      form.setAttribute('method', 'post');
-      form.setAttribute('action', url);
-      form.setAttribute('enctype', 'multipart/form-data');
-
-      $(this).clone().appendTo(form);
-      $('<input/>').attr({ type: 'text', id: 'asistenciaId', name: 'asistenciaId', value: id}).appendTo(form);
-
-      document.body.appendChild(form);
-      form.submit();
+      $('#justificacionForm_' + id).submit();
     });
 
   });

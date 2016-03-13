@@ -85,8 +85,13 @@
                             {% if app.user.rol == 'ROLE_PADRE' %}
                                 <td>
                                     {% if(asistencia.valor != 'P') %}
-                                        <a data-id="{{ asistencia.id }}" data-position="top" data-delay="25" data-tooltip="Cargar justificación" class="cargaJustificacion tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-paperclip"></i></a>
-                                        <input data-url="{{ path('justificacion_upload') }}" data-id="{{ asistencia.id }}" id="justificacionFile{{ asistencia.id }}" type="file" name="justificacionFile" class="inputJustificacion" style="display: none;" />
+                                    <form id="justificacionForm_{{asistencia.asistencia.id}}" action="{{ path('justificacion_upload') }}" method="post" enctype="multipart/form-data">
+                                      <label for="justificacionFile_{{asistencia.asistencia.id}}" data-position="top" data-delay="25" data-tooltip="Cargar justificación" class="tooltipped btn-small btn waves-effect waves-light">
+                                        <i class="icon-linear-paperclip"></i>
+                                      </label>
+                                      <input id="justificacionFile_{{asistencia.asistencia.id}}" name="justificacionFile" data-id="{{asistencia.asistencia.id}}" class="inputJustificacion" type="file" style="display:none" />
+                                      <input type="text" name="asistenciaId" value="{{asistencia.asistencia.id}}" style="display:none" />
+                                    </form>
                                     {% endif %}
                                 </td>
                             {% endif %}

@@ -39,7 +39,7 @@
 
 {% macro show_chip(usuario) %}
 <div class="chip">
-  {% if usuario.entidadAsociada and usuario.entidadAsociada.foto %}
+  {% if usuario.entidadAsociada and usuario.entidadAsociada.foto is defined %}
     <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="">
   {% endif %}
   <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ usuario.id}}">
@@ -49,7 +49,7 @@
 {% endmacro %}
 
 {% macro show_foto_mensaje(usuario) %}
-  {% if usuario.entidadAsociada %}
+  {% if usuario.entidadAsociada and usuario.entidadAsociada.foto is defined %}
     {% if usuario.entidadAsociada.foto %}
       <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="" class="avatar-mb circle mb-a-pad">
     {% endif %}

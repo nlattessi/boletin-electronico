@@ -69,11 +69,12 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# Gaufrette Configuration
 knp_gaufrette:
     adapters:
         archivos:
             local:
-                directory: %kernel.root_dir%/../web/bundles/boletines/uploads/archivos
+                directory: %kernel.root_dir%/data/bundles/boletines/uploads/archivos
     filesystems:
         archivos:
             adapter: archivos

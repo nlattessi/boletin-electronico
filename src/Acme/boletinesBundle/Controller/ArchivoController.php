@@ -75,7 +75,7 @@ class ArchivoController extends Controller
 
     private function getZipDir()
     {
-        return $this->get('kernel')->getRootDir() . '/../web/uploads/tmp/';
+        return $this->get('kernel')->getRootDir() . '/data/bundles/boletines/tmp/';
     }
 
 
