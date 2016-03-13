@@ -187,8 +187,10 @@ class MensajeController extends Controller
 
           if (!empty($data->files->get('archivos'))) {
               foreach ($data->files->get('archivos') as $archivo) {
-                  $archivoService =  $this->get('boletines.servicios.archivo');
-                  $archivoService->createMensajeArchivo($archivo, $usuario, $mensaje);
+                  if ($archivo !== null) {
+                    $archivoService =  $this->get('boletines.servicios.archivo');
+                    $archivoService->createMensajeArchivo($archivo, $usuario, $mensaje);
+                  }
               }
           }
 

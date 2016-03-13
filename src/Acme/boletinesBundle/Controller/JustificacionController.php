@@ -68,7 +68,7 @@ class JustificacionController extends Controller
         // }
         if ($data->request->get('asistenciaId')) {
             $asistencia = $em->getRepository('BoletinesBundle:Asistencia')->find(
-                $data->request->get('asistenciaId')
+                (int) $data->request->get('asistenciaId')
             );
             $justificacion->setAsistencia($asistencia);
         }

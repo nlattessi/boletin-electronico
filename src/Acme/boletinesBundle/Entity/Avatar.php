@@ -109,7 +109,7 @@ class Avatar
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../app/data/' . $this->getUploadDir();
     }
     private function getUploadDir()
     {
