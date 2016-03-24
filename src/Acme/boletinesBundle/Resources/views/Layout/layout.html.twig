@@ -85,11 +85,15 @@
     <script src="{{ asset('bundles/boletines/js/es.js') }}"></script>
     <script src="{{ asset('bundles/boletines/js/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('bundles/boletines/js/toPdf.js') }}"></script>
+    <script src="{{ asset('bundles/boletines/js/jquery-prevent-double-submit.js') }}"></script>
 
     <script>
       function clickElegirArchivo(){
           document.getElementById("elegirArchivo").click();
-      }
+      };
+      $(document).ready(function() {
+        $('form').preventDoubleSubmit();
+      });
     </script>
 
     <!-- /JS -->

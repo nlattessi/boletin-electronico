@@ -41,5 +41,27 @@
 {% endblock %}
 
 {% block javascript %}
-  <script src="{{ asset('bundles/boletines/js/calendario.js') }}"></script>
+  <script>
+  $('#calendar').fullCalendar({
+
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'agendaWeek,agendaDay'
+    },
+
+    defaultView: 'agendaWeek',
+
+    eventSources: [
+      {
+        url: '{{ path('actividad_get_by_user') }}',
+        type: 'GET',
+        error: function() {
+          console.log("ERROR :: No puedo obtener actividades");
+        },
+      }
+    ],
+
+  });
+  </script>
 {% endblock %}
