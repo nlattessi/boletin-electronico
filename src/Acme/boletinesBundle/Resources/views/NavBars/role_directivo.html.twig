@@ -25,7 +25,8 @@
     <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'bullying' %} active{% endif %}{% endif %}"><a href="{{ path('bullying') }}"><i class="icon-linear-notification icon-nav-size"></i> <span class="span-va">Bullying</span></a></li>
 
 
-<li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'reporte' %} active{% endif %}{% endif %}"><a href="{{ path('reporte') }}"><i class="icon-linear-graph icon-nav-size"></i> <span class="span-va">Reportes</span></a></li>
+
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'reporte' %} active{% endif %}{% endif %}"><a href="{{ path('reporte') }}"><i class="icon-linear-graph icon-nav-size"></i> <span class="span-va">Reportes</span></a></li>
 
     <li class="main-nav-pad"><a href="{{ path('periodo') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Periodos</span></a></li>
 
@@ -46,4 +47,5 @@
             </li>
         </ul>
     </li> -->
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'bullying' %} active{% endif %}{% endif %}"><a href="{{ path('establecimiento_edit_director') }}"><i class="icon-linear-cog icon-nav-size"></i> <span class="span-va">Establecimiento</span></a></li>
 </ul>

@@ -18,6 +18,10 @@ establecimiento_edit:
     path:     /edit/{id}
     defaults: { _controller: BoletinesBundle:Establecimiento:edit }
 
+establecimiento_edit_director:
+    path:     /director/edit
+    defaults: { _controller: BoletinesBundle:Establecimiento:editDirecotor}
+
 establecimiento_add_especialidad:
     path:     /{id}/add_especialidad
     defaults: { _controller: BoletinesBundle:Establecimiento:addEspecialidad }

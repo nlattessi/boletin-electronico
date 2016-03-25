@@ -66,48 +66,57 @@
                     <input name="fechaInauguracion" value="{{ establecimiento.fechaInauguracion|date('d/m/Y') }}" type="date" class="datepicker">
                 </div>
                 <div class="divider mar-bot-top col s12 m12 l12"></div>
-                <div class="col s10 m10 l10">
-                    <h4 class="header">Configuración del establecimiento</h4>
-                </div>
-                <div class="col s12 m12 l12">
-                    <h5 class="header">Esquema de calificación</h5>
-                    <p class="header"> <strong>Este esquema definirá la forma de mostrar y promediar las calificaciones.</strong></p>
-                    <div class="input-field col s12 m6 l6 mar-top-soft">
-                        <select name="esquema">
-                            <option value="" disabled selected>Esquema</option>
-                            {% for esquema in esquemas %}
-                                {% if establecimiento.esquemaCalificacion != null and esquema.id == establecimiento.esquemaCalificacion.id %}
-                                    <option selected value="{{ esquema.id }}" >{{ esquema.nombre }} </option>
-                                {% else %}
-                                    <option value="{{ esquema.id }}" >{{ esquema.nombre }} </option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <label>Esquema de calificación</label>
+            {% if not establecimiento.maximoFaltas %}
+                    <div class="col s10 m10 l10">
+                        <h4 class="header">Configuración del establecimiento</h4>
                     </div>
-                </div>
-                <div class="col s12 m12 l12">
-                    <h5 class="header">Esquema de asistencia</h5>
-                    <p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
-                    <div class="input-field col s12 m6 l6">
-                        <input  name="maximoFaltas" value="{{ establecimiento.maximoFaltas }}" id="maximoFaltas" type="number" class="validate">
-                        <label for="maximoFaltas" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
+                    <div class="col s12 m12 l12">
+                        <h5 class="header">Esquema de calificación</h5>
+                        <p class="header"> <strong>Este esquema definirá la forma de mostrar y promediar las calificaciones.</strong></p>
+                        <div class="input-field col s12 m6 l6 mar-top-soft">
+                            <select name="esquema">
+                                <option value="" disabled selected>Esquema</option>
+                                {% for esquema in esquemas %}
+                                    {% if establecimiento.esquemaCalificacion != null and esquema.id == establecimiento.esquemaCalificacion.id %}
+                                        <option selected value="{{ esquema.id }}" >{{ esquema.nombre }} </option>
+                                    {% else %}
+                                        <option value="{{ esquema.id }}" >{{ esquema.nombre }} </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label>Esquema de calificación</label>
+                        </div>
                     </div>
-                    <div class="input-field col s12 m6 l6">
-                        <input  name="tardesFaltas" value="{{ establecimiento.tardesFaltas }}" id="tardesFaltas" type="number" class="validate">
-                        <label for="tardesFaltas" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
+                    <div class="col s12 m12 l12">
+                        <h5 class="header">Esquema de asistencia</h5>
+                        <p class="header">Se deben completar correctamente la <strong>totalidad de faltas  para que un alumno se quede libre </strong> y la cantidad de <strong>llegadas tarde que equivalen a una falta.</strong></p>
+                        <div class="input-field col s12 m6 l6">
+                            <input  name="maximoFaltas" value="{{ establecimiento.maximoFaltas }}" id="maximoFaltas" type="number" class="validate">
+                            <label for="maximoFaltas" data-error="Incorrecto" data-success="Correcto">Total de faltas</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <input  name="tardesFaltas" value="{{ establecimiento.tardesFaltas }}" id="tardesFaltas" type="number" class="validate">
+                            <label for="tardesFaltas" data-error="Incorrecto" data-success="Correcto">Cantidad de llegadas tarde que equivalen una falta</label>
+                        </div>
+                        <div class="input-field col s12 mar-top-soft">
+                            <textarea name="observaciones" value="{{ establecimiento.observaciones }}" id="observaciones" class="materialize-textarea"></textarea>
+                            <label for="observaciones">Observaciones</label>
+                        </div>
                     </div>
-                    <div class="input-field col s12 mar-top-soft">
-                        <textarea name="observaciones" value="{{ establecimiento.observaciones }}" id="observaciones" class="materialize-textarea"></textarea>
-                        <label for="observaciones">Observaciones</label>
+                    <div class="row">
+                        <div class="col s12 center-align mar-top-soft">
+                            <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crear" >Finalizar</button>
+                            <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crearYNuevo" />Agregar otro establecimiento</button>
+                        </div>
                     </div>
-                </div>
+            {% else %}
                 <div class="row">
                     <div class="col s12 center-align mar-top-soft">
                         <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crear" >Finalizar</button>
-                        <button class="btn-large waves-effect waves-light center-align mar-right" type="submit" name="crearYNuevo" />Agregar otro establecimiento</button>
                     </div>
                 </div>
+            {% endif %}
+
         </div>
     </form>
 {% endblock %}
