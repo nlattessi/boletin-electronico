@@ -13,9 +13,13 @@
     <h3 class="header">{{ institucion.nombre }}</h3>
     </div>
     <div class="col s12 m4 l4 center-align">
-        {% if institucion.logo %}
-            <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb mar-top-soft">
+      {% set assetPath = school_blank %}
+      {% if institucion.logo %}
+        {% if file_exists(institucion.webPath) %}
+          {% set assetPath = institucion.webPath %}
         {% endif %}
+      {% endif %}
+      <img src="{{ asset(assetPath) }}" alt="as" class="inst-thumb mar-top-soft">
     </div><!--  End Tables Section  -->
 
 </div>

@@ -1,7 +1,19 @@
+parameters:
+  app.file.twig.extension.class: Acme\boletinesBundle\Twig\Extension\FileExtension
+  app.get.class.twig.extension.class: Acme\boletinesBundle\Twig\Extension\GetClassExtension
+
 services:
 #    boletines.example:
 #        class: Acme\boletinesBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+      app.file.twig.extension:
+          class: %app.file.twig.extension.class%
+          tags:
+              - { name: twig.extension }
+      app.class.twig.extension:
+          class: %app.get.class.twig.extension.class%
+          tags:
+              - { name: twig.extension }
       boletines.servicios.actividad:
           class: Acme\boletinesBundle\Servicios\ActividadService
           arguments:

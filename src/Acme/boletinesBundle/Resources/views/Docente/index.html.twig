@@ -44,7 +44,13 @@
                             {% for docente in docentes %}
                                 <li class="collection-item avatar">
                                     <a href="{{path('docente_show', {'id' : docente.id})}}" class="collection-a">
-                                      {% if docente.foto %}<img src="{{ asset('') }}{{ docente.fotoWebPath }}" alt="" class="circle" />{% endif %}
+                                      {% set assetPath = user_blank %}
+                                      {% if docente.foto %}
+                                        {% if file_exists(docente.fotoWebPath) %}
+                                          {% set assetPath = docente.fotoWebPath %}
+                                        {% endif %}
+                                      {% endif %}
+                                      <img src="{{ asset(assetPath) }}" alt="" class="circle" />
                                       <span class="title truncate">{{ docente.nombre }} {{ docente.apellido }}</span>
                                     </a>
                                     <p>DNI: {{ docente.dni }}</p>

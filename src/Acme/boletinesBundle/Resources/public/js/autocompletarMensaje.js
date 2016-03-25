@@ -55,12 +55,12 @@
         });
         if(!exists) {
 
-          var img = (item.fotoWebPath) ?  '<img src="/' + item.fotoWebPath + '" alt="">' : '';
+          var assetPath = (item.fotoWebPath) ? item.fotoWebPath : "bundles/boletines/images/user-blank.png";
 
           $('#destinatarios').append(
               '<div class="chip">'
-              + img
-              +'<input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
+              + '<img src="/' + assetPath + '" alt="">'
+              + '<input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="' + item.id + '"/>'
               + item.nombre
               + ' <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>'
               + '</div>'
