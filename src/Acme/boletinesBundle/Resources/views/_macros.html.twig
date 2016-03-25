@@ -7,41 +7,74 @@
 {% endmacro %}
 
 {% macro show_alumno_activo(alumno) %}
+  {% set assetPath = user_blank %}
+  {% if alumno.avatar %}
+    {% if file_exists(alumno.avatar.webPath) %}
+      {% set assetPath = alumno.avatar.webPath %}
+    {% endif %}
+  {% endif %}
   <h5 class="right-ch">
-    <img src="{% if alumno.avatar %}{{ asset('') }}{{ alumno.avatar.webPath }}{% endif %}" alt="" class="avatar-main circle1">
+    <img src="{{ asset(assetPath) }}" alt="" class="avatar-main circle1">
     {{ alumno }}
   </h5>
 {% endmacro %}
 
 {% macro show_img_menu_bar(path) %}
-  <li><img src="{{ asset('') }}{{ path }}" alt="" class="avatar-nav-top circle"></li>
+  {% set assetPath = user_blank %}
+  {% if path %}
+    {% if file_exists(path) %}
+      {% set assetPath = path %}
+    {% endif %}
+  {% endif %}
+  <li><img src="{{ asset(assetPath) }}" alt="" class="avatar-nav-top circle"></li>
 {% endmacro %}
 
 {% macro show_institucion_logo_nombre(institucion) %}
   <div class="col s12 sch-mb">
       <div class="panel-default">
           <div class="panel-body-school normalh center-align">
+            {% set assetPath = school_blank %}
             {% if institucion.logo %}
-              <img src="{{ asset('') }}{{ institucion.webPath }}" alt="as" class="inst-thumb">
+              {% if file_exists(institucion.webPath) %}
+                {% set assetPath = institucion.webPath %}
+              {% endif %}
             {% endif %}
-              <h6 class="school-style ">{{ institucion.nombre }}</h6>
-              <div class="col s4">
-              </div>
+            <img src="{{ asset(assetPath) }}" alt="as" class="inst-thumb">
+            <h6 class="school-style ">{{ institucion.nombre }}</h6>
+            <div class="col s4">
+            </div>
           </div>
       </div>
   </div>
 {% endmacro %}
 
 {% macro show_entidad_con_foto(entidad) %}
-  <a href="#" class="collection-a"><img src="{% if entidad.foto %}{{ asset('') }}{{ entidad.fotoWebPath }}{% endif %}" alt="" class="circle avatar-table">
-        <span class="title truncate table-img-mar">{{ entidad }}</span></a>
+  {% set assetPath = user_blank %}
+  {% if entidad.foto %}
+    {% if file_exists(entidad.fotoWebPath) %}
+      {% set assetPath = entidad.fotoWebPath %}
+    {% endif %}
+  {% endif %}
+  {% set linkPath = '#' %}
+  {% if get_class(entidad) == 'Alumno' %}
+    {% set linkPath = path('alumno_show', {'id': entidad.id}) %}
+  {% elseif get_class(entidad) == 'Docente' %}
+    {% set linkPath = path('docente_show', {'id': entidad.id}) %}
+  {% endif %}
+  <a href="{{ linkPath}}" class="collection-a"><img src="{{ asset(assetPath) }}" alt="" class="circle avatar-table">
+    <span class="title truncate table-img-mar">{{ entidad }}</span>
+  </a>
 {% endmacro %}
 
 {% macro show_chip(usuario) %}
 <div class="chip">
+  {% set assetPath = user_blank %}
   {% if usuario.entidadAsociada and usuario.entidadAsociada.foto is defined %}
-    <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="">
+    {% if file_exists(usuario.entidadAsociada.fotoWebPath) %}
+      {% set assetPath = usuario.entidadAsociada.fotoWebPath %}
+    {% endif %}
   {% endif %}
+  <img src="{{ asset(assetPath) }}" alt="">
   <input type="hidden" class="destinatarios" name="idUsuarioRecibe[]" value="{{ usuario.id}}">
   {{ usuario.getNombreCompleto }}
   <a class="chipclose noAgregar"><i class="icon-linear-cross"></i></a>
@@ -49,11 +82,15 @@
 {% endmacro %}
 
 {% macro show_foto_mensaje(usuario) %}
+  {% set assetPath = user_blank %}
   {% if usuario.entidadAsociada and usuario.entidadAsociada.foto is defined %}
     {% if usuario.entidadAsociada.foto %}
-      <img src="{{ asset('') }}{{ usuario.entidadAsociada.fotoWebPath }}" alt="" class="avatar-mb circle mb-a-pad">
+      {% if file_exists(usuario.entidadAsociada.fotoWebPath) %}
+        {% set assetPath = usuario.entidadAsociada.fotoWebPath %}
+      {% endif %}
     {% endif %}
   {% endif %}
+  <img src="{{ asset(assetPath) }}" alt="" class="avatar-mb circle mb-a-pad">
 {% endmacro %}
 
 {% macro show_item_entityFile(entityFile) %}
@@ -66,13 +103,21 @@
 {% endmacro %}
 
 {% macro ficha_foto_entity(entity) %}
+  {% set assetPath = user_blank %}
   {% if entity.foto %}
-    <img src="{{ asset('') }}{{ entity.fotoWebPath }}" alt="" class="circle-child circle inst-thumb mar-top-soft">
+    {% if file_exists(entity.fotoWebPath) %}
+      {% set assetPath = entity.fotoWebPath %}
+    {% endif %}
   {% endif %}
+  <img src="{{ asset(assetPath) }}" alt="" class="circle-child circle inst-thumb mar-top-soft">
 {% endmacro %}
 
 {% macro ficha_logo_institucion(entity) %}
+  {% set assetPath = school_blank %}
   {% if entity.usuario.institucion.logo  %}
-    <img src="{{ asset('') }}{{ entity.usuario.institucion.webPath }}" alt="" class="inst-thumb mar-top-soft">
+    {% if file_exists(entity.usuario.institucion.webPath) %}
+      {% set assetPath = entity.usuario.institucion.webPath %}
+    {% endif %}
   {% endif %}
+  <img src="{{ asset(assetPath) }}" alt="" class="inst-thumb mar-top-soft">
 {% endmacro %}

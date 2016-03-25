@@ -6,10 +6,14 @@
             {% for hijo in app.session.get('hijos')  %}
         <li>
             <a href="{{ path('cambiar_hijo', { 'id': hijo.id }) }}" class="t-s duactive">
+              {% set assetPath = user_blank %}
               {% if hijo.avatar %}
-                <img src="{{ asset('') }}{{ hijo.avatar.webPath }}" alt="as" class="avatar-nav-drop circle1">
+                {% if file_exists(hijo.avatar.webPath) %}
+                  {% set assetPath = hijo.avatar.webPath %}
+                {% endif %}
               {% endif %}
-                {{ hijo }}
+              <img src="{{ asset(assetPath) }}" alt="as" class="avatar-nav-drop circle1">
+              {{ hijo }}
             </a>
         </li>
         <li class="divider"></li>

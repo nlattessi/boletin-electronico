@@ -22,10 +22,18 @@ framework:
     fragments:       ~
     http_method_override: true
 
+# Parameters
+parameters:
+    user_blank: "bundles/boletines/images/user-blank.png"
+    school_blank: "bundles/boletines/images/school-blank.png"
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        user_blank: "%user_blank%"
+        school_blank: "%school_blank%"
 
 # Assetic Configuration
 assetic:

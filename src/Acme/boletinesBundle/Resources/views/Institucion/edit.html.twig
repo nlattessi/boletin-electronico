@@ -14,7 +14,13 @@
   <form action="{{ path('institucion_edit', {'id': institucion.id}) }}" method="post" enctype="multipart/form-data">
   <div class="row">
     <div class="col s12 m6 l6 center-align">
-       <img src="{% if institucion.logo %}{{ asset('') }}{{ institucion.webPath }}{% else %}{{ asset('bundles/boletines/images/school-blank.png') }}{% endif %}" alt="" class="inst-thumb mar-top-soft">
+      {% set assetPath = school_blank %}
+      {% if institucion.logo %}
+        {% if file_exists(institucion.webPath) %}
+          {% set assetPath = institucion.webPath %}
+        {% endif %}
+      {% endif %}
+      <img src="{{ asset(assetPath) }}" alt="" class="inst-thumb mar-top-soft">
     </div>
 
     <div class="col s12 m6 l6">

@@ -38,7 +38,13 @@
                   </div>
                 <div class="row">
                     <div class="col s12 m6 l6 center-align">
-                      <img src="{% if alumno.foto %}{{ asset('') }}{{ alumno.fotoWebPath }}{% else %}{{ asset('bundles/boletines/images/user-blank.png') }}{% endif %}" alt="" class="circle inst-thumb mar-top-soft">
+                      {% set assetPath = user_blank %}
+                      {% if alumno.foto %}
+                        {% if file_exists(alumno.fotoWebPath) %}
+                          {% set assetPath = alumno.fotoWebPath %}
+                        {% endif %}
+                      {% endif %}
+                      <img src="{{ asset(assetPath) }}" alt="" class="circle inst-thumb mar-top-soft">
                     </div>
                     <div class="col s12 m6 l6">
                         <div class="file-field input-field">
