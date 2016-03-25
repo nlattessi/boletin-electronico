@@ -128,6 +128,18 @@ class EstablecimientoController extends Controller
             'css_active' => 'institucion',));
     }
 
+    public function  editDirecotorAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $establecimiento = $em->getRepository('BoletinesBundle:UsuarioEstablecimiento')->findOneBy(array('usuario' => $user));
+
+        return new RedirectResponse($this->generateUrl('establecimiento_edit', array('id' => $establecimiento->getEstablecimiento()->getId())));
+    }
+
+
+
+
     public function addEspecialidadAction($id, Request $request)
     {
         $error = "";

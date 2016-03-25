@@ -28,7 +28,7 @@ class DirectorController extends Controller
           'bedeles' => $cantidadBedeles,
           'directivos' => $cantidadDirectivos,
           'admins' => $cantidadAdmins,
-            'bullying' => $cantidadBullying
+          'bullying' => $cantidadBullying
         );
 
         return $this->render('BoletinesBundle:Director:role_directivo.html.twig', array('roles' => $roles));
