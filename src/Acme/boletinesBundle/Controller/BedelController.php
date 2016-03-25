@@ -36,6 +36,8 @@ class BedelController extends Controller
         $user->setEmail($data->request->get('email'));
         $user->setNombre($data->request->get('user'));
         $user->setPassword($data->request->get('password'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
         $user->setApellido($data->request->get('apellido'));
         $rolBedel = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_BEDEL'));
         $user->setRol($rolBedel);
@@ -83,6 +85,8 @@ class BedelController extends Controller
         $bedel->setApellido($data['apellido']);
         $bedel->setEmail($data['email']);
         $bedel->setPassword($data['password']);
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($bedel);
+        $bedel->setPassword($encoder->encodePassword($bedel->getPassword(), $bedel->getSalt()));
 
         $em->persist($bedel);
         $em->flush();

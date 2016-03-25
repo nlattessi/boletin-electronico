@@ -10,7 +10,7 @@
     </id>
     <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
     <field name="apellido" type="string" column="apellido" length="45" nullable="false"/>
-    <field name="password" type="string" column="password" length="45" nullable="false"/>
+    <field name="password" type="string" column="password" length="60" nullable="false"/>
     <field name="idEntidadAsociada" type="integer" column="id_entidad_asociada" nullable="true"/>
     <field name="email" type="string" column="email" length="65" nullable="true"/>
     <field name="creationTime" type="datetime" column="creation_time" nullable="true"/>

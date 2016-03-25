@@ -79,6 +79,8 @@ class AlumnoController extends Controller
         $usuario->setNombre($request->request->get('nombre'));
         $usuario->setApellido($request->request->get('apellido'));
         $usuario->setPassword($request->request->get('apellido'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+        $usuario->setPassword($encoder->encodePassword($usuario->getPassword(), $usuario->getSalt()));
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_ALUMNO'));
         $usuario->setRol($rol);
         $usuario->setInstitucion($this->getUser()->getInstitucion());

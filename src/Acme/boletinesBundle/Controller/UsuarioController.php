@@ -233,6 +233,8 @@ class UsuarioController extends Controller
         if($tokenEntity instanceof Token) {
             $user = $tokenEntity->getUsuario();
             $user->setPassword($pass);
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+            $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
             $tokenEntity->setToken(null);
             $tokenEntity->setUsuario(null);
             $em->persist($user);
@@ -304,7 +306,7 @@ class UsuarioController extends Controller
 
             if($request->request->has("borrar")){
                 $this->deleteAction($request->request->get('id'));
-            }else{
+            } else {
                 $entity = $this->editEntity($request, $request->request->get('id'));
                 if($entity == null) {
                     $message = "Errores";
@@ -337,6 +339,8 @@ class UsuarioController extends Controller
         $usuario->setNombre($data->request->get('nombre'));
         $usuario->setEmail($data->request->get('email'));
         $usuario->setPassword($data->request->get('password'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+        $usuario->setPassword($encoder->encodePassword($usuario->getPassword(), $usuario->getSalt()));
         $idRol = $data->request->get('idRol');
 
         if($idRol != null && $idRol != '') {
