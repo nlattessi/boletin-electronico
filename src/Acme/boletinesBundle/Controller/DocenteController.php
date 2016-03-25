@@ -71,6 +71,8 @@ class DocenteController extends Controller
         $user = new Usuario();
         $user->setNombre($data->request->get('user'));
         $user->setPassword($data->request->get('password'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
         $user->setEmail($data->request->get('email'));
         $rolBedel = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DOCENTE'));
         $user->setRol($rolBedel);

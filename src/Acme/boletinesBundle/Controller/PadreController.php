@@ -74,6 +74,8 @@ class PadreController extends Controller
         $user = new Usuario();
         $user->setNombre($data->request->get('nombre'));
         $user->setPassword($data->request->get('password'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
         $user->setEmail($data->request->get('email'));
         $rolPadre = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_PADRE'));
         $user->setRol($rolPadre);
@@ -177,6 +179,8 @@ class PadreController extends Controller
         $user = $padre->getUsuario();
         $user->setNombre($data->request->get('nombre'));
         $user->setPassword($data->request->get('password'));
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+        $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
         $user->setEmail($data->request->get('email'));
 
         $user->setApellido($data->request->get('apellido'));
