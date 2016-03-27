@@ -6,6 +6,10 @@ grupoUsuario_autocompletar:
     path:     /autocompletar
     defaults: { _controller: BoletinesBundle:Usuario:autocompletar }
 
+grupoUsuario_edit_autocompletar:
+    path:     /edit/autocompletar
+    defaults: { _controller: BoletinesBundle:Usuario:autocompletar }
+
 grupoUsuario:
     path:     /
     defaults: { _controller: BoletinesBundle:GrupoUsuario:index }

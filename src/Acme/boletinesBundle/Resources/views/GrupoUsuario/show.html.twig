@@ -34,9 +34,7 @@
                     <ul class="collection">
                         {% for usuario in grupo.usuarios %}
                             <li class="collection-item">
-                                <a href="grupos-fichausuario_directivo.html">
-                                    <span>{{ usuario }}</span>
-                                </a>
+                                {{ usuario }}
                             </li>
                         {% endfor %}
                     </ul>
