@@ -133,12 +133,23 @@ class GrupoAlumnoController extends Controller
         $grupoAlumno->setEstablecimiento($establecimiento);
 
         $grupoAlumno->setNombre($data->request->get('nombre'));
+        $usersIds = $data->request->get('idMiembro');
+        if(!$usersIds){
+            //por si no se agregan usuarios
+            $usersIds = new ArrayCollection();
+        }
 
+        $grupoAlumno->borrarAlumnos();
+        foreach ($usersIds as $userId) {
+            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            //$alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
+            $alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userMiemb->getIdEntidadAsociada()));
+            $grupoAlumno->addAlumno($alumnoMiembro);
+        }
 
         $em->persist($grupoAlumno);
         $em->flush();
 
-        //TODO Facu: persistir los cambios en la lista de alumnos
 
         return $grupoAlumno;
     }
