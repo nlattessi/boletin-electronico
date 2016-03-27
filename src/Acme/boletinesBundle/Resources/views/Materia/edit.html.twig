@@ -28,7 +28,7 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <label for="tipo_materia">Tipo materia</label>
+                        <label for="tipo_materia">Departamento o Área</label>
                     </div>
                     <div class="input-field col s12 m6 l6">
                         <select name="establecimiento" id="establecimiento">
@@ -257,6 +257,7 @@
                 <div class="input-field col s6">
                     <select name="docente">
                         {% for docente in docentes %}
+                            <option value="" disabled>Seleccione un Docente</option>
                             <option value="{{ docente.id }}"
                                     {% if docente.id == docenteSeleccionadoId %}
                                         selected="selected"
@@ -268,6 +269,7 @@
                 </div>
                 <div class="input-field col s6">
                     <select name="grupoAlumno" id="grupoAlumno" >
+                        <option value="" disabled >Seleccione un Grupo de Alumnos</option>
                         {% for grupoAlumno in gruposAlumnos %}
                             <option value="{{ grupoAlumno.id }}"
                                     {% if grupoAlumno.id == grupoAlumnoMateriaId %}

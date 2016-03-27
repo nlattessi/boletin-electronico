@@ -3,6 +3,12 @@
     <li><a href="#" class="b-focus">Materias</a></li>
 {% endblock %}
 {% block page %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="{{ type  }}-msg center-align fadeInDown animated"><i class="icon-linear-check msg-i"></i>{{ flashMessage }}</div>
+        {% endfor %}
+    {% endfor %}
+
     {% if app.user.rol == 'ROLE_DOCENTE' %}
     <div class="row">
         <div class="col s12 m12 l12 mar-top-soft">
@@ -84,7 +90,9 @@
                         <tbody>
                         {% for materia in entities %}
                             <tr>
-                                <td>{{materia.nombre}}</td>
+                                <td><a href="{{ path('materia_show', {'id':materia.id }) }}">
+                                        {{ materia.__toString() }}
+                                    </a></td>
                                 <td>{{materia.tipoMateria}}</td>
                                 <td>{{materia.establecimiento}}</td>
                                 <td>
