@@ -6,6 +6,10 @@ grupoAlumno_autocompletar:
     path:     /autocompletar
     defaults: { _controller: BoletinesBundle:Alumno:autocompletar }
 
+grupoAlumno_edit_autocompletar:
+    path:     /edit/autocompletar
+    defaults: { _controller: BoletinesBundle:Alumno:autocompletar }
+
 grupoAlumno_new:
     path:    /new
     defaults: { _controller: BoletinesBundle:GrupoAlumno:new }

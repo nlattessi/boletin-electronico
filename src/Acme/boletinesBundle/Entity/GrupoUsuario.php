@@ -102,6 +102,10 @@ class GrupoUsuario
         return $this->usuarios;
     }
 
+    public function borrarUsuarios(){
+        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * @param \Acme\boletinesBundle\Entity\Usuario $usuario
      */

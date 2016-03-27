@@ -54,6 +54,7 @@
                                       <span class="title truncate">{{ docente.nombre }} {{ docente.apellido }}</span>
                                     </a>
                                     <p>DNI: {{ docente.dni }}</p>
+                                    <p>Establecimiento: <a href="{{ path('establecimiento_show', {'id': docente.establecimiento.id}) }}" class="casual">{{ docente.establecimiento.nombre }}</a></p>
                                     {#<p>Matemática - Física</p>#}
                                     {#<p>7A - 7B - 1 año A - 1 año B </p>#}
                                     <a href="{{path('docente_edit', {'id' : docente.id})}}" data-position="left" data-delay="25" data-tooltip="Editar" class="secondary-content tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>

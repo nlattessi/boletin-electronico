@@ -74,6 +74,10 @@ class GrupoAlumno
         return $this->alumnos;
     }
 
+    public function borrarAlumnos(){
+        $this->alumnos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * @param Alumno $alumno
      */

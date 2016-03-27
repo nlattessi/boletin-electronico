@@ -34,9 +34,7 @@
                     <ul class="collection">
                         {% for alumno in grupo.alumnos %}
                             <li class="collection-item">
-                                <a href="grupos-fichaalumno_directivo.html">
-                                    <span>{{ alumno }}</span>
-                                </a>
+                                {{ macros.show_entidad_con_foto(alumno) }}
                             </li>
                         {% endfor %}
                     </ul>

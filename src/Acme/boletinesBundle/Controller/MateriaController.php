@@ -84,6 +84,7 @@ class MateriaController extends Controller
             if($materia instanceof Materia) {
                 $this->get('session')->getFlashBag()->add('success', 'Nueva materia creada con éxito');
             }
+            return $this->indexAction();
         }
 
         $docentes = $this->getDocentes();

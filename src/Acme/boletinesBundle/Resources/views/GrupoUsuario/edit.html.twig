@@ -34,7 +34,7 @@
                         </div>
                         <div class="input-field col s12 m6 l12">
                             <input id="typeahead" type="text" class="validate" data-provide="typeahead">
-                            <label for="nombre_inst" class="">Nombre de usuario</label>
+                            <label for="typeahead" class="">Nombre de usuario</label>
                         </div>
                     </div>
 
@@ -42,28 +42,39 @@
                         <div class="panel panel-grupos center-align">
                             <h5>Grupo: <span><strong>{{ grupo.nombre }}</strong></span></h5>
                             <h6>Usuarios: <span><strong>{{  grupo.usuarios|length }}</strong></span> </h6>
-                            <button type="submit" name="submit" class="btn-flat waves-effect waves-light">Guardar</button>
+                            <button type="submit" class="btn-flat waves-effect waves-light">Guardar</button>
                         </div>
                     </div>
 
 
                 </div>
 
-
                 <div class="row">
                     <div class="col s12 mar-top-soft">
                         <ul id="miembros" class="collection">
-                                {% for usuario in grupo.usuarios %}
+                            {% if miembros is defined %}
+                                {% for usuario in miembros %}
                                     <li class="collection-item">
                                         <input type="hidden" class="miembros" name="idMiembro[]" value="{{ usuario.id}}">
-                                        <span> {{ usuario }}</span>
+                                        <span> {{ usuario.getNombreCompleto }}</span>
                                         <a href="#" data-position="left" data-delay="25" data-tooltip="Eliminar" class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light noAgregar"><i class="icon-linear-trash"></i></a>
                                     </li>
                                 {% endfor %}
+                            {% endif %}
+                            {% for usuario in grupo.usuarios %}
+                                <li class="collection-item">
+                                    <input type="hidden" class="miembros" name="idMiembro[]" value="{{ usuario.id}}">
+                                    <span> {{ usuario }}</span>
+                                    <a href="#" data-position="left" data-delay="25" data-tooltip="Eliminar" class="coll-btn-fix secondary-content tooltipped btn-small btn waves-effect waves-light noAgregar"><i class="icon-linear-trash"></i></a>
+                                </li>
+                            {% endfor %}
+
+
                         </ul>
 
                     </div>
                 </div>
+
             </form>
         </div><!--  End Tables Section  -->
 

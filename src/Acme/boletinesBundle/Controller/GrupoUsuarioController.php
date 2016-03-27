@@ -158,11 +158,19 @@ class GrupoUsuarioController extends Controller
 
         $grupoUsuario->setNombre($data->request->get('nombre'));
 
+        $usersIds = $data->request->get('idMiembro');
+        if(!$usersIds){
+            //por si no se agregan usuarios
+            $usersIds = new ArrayCollection();
+        }
+        $grupoUsuario->borrarUsuarios();
+        foreach ($usersIds as $userId) {
+            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
+            $grupoUsuario->addUsuario($userMiemb);
+        }
+
         $em->persist($grupoUsuario);
         $em->flush();
-
-        //TODO Facu: persistir los cambios en la lista de usuarios
-
 
         return $grupoUsuario;
     }
