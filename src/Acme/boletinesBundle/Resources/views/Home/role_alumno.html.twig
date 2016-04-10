@@ -92,14 +92,10 @@
 
                             <div class="panel-body normalh">
                                 <div class="col s12">
-                                    <h6><span class="widget-events-date">11 Jun</span> Reunion de padres</h6>
+                                  {% for actividad in actividades|slice(0, maxProxActividades) %}
+                                    <h6><span class="widget-events-date">{{ actividad.fechaHoraInicio|localizeddate('none', 'none', app.request.locale, null, "d MMM") }}</span> {{ actividad.nombre }}</h6>
                                     <div class="divider"></div>
-                                    <h6><span class="widget-events-date">04 Jul</span>  Examen de Geografía</h6>
-                                    <div class="divider"></div>
-                                    <h6><span class="widget-events-date">29 Jul</span>  Examen de Matemática</h6>
-                                    <div class="divider"></div>
-                                    <h6><span class="widget-events-date">9 ago</span>  Examen de Inglés</h6>
-
+                                  {% endfor %}
                                 </div>
                             </div>
                         </div>

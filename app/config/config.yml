@@ -36,6 +36,7 @@ twig:
         school_blank: "%school_blank%"
         maxMensajes: 4
         maxNotificaciones: 4
+        maxProxActividades: 4
 
 # Assetic Configuration
 assetic:

@@ -14,8 +14,6 @@ class CalendarioController extends Controller
 
     public function indexAction()
     {
-
-
         return $this->render('BoletinesBundle:Calendario:index.html.twig', array('css_active' => 'calendario',));
     }
 
@@ -47,6 +45,7 @@ class CalendarioController extends Controller
 
         return $this->render('BoletinesBundle:Calendario:new.html.twig', array('entitiesRelacionadas' => $entitiesRelacionadas));
     }
+
     private function createEntity($data)
     {
         $em = $this->getDoctrine()->getManager();
@@ -66,8 +65,6 @@ class CalendarioController extends Controller
         return $calendario;
     }
 
-
-
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -79,7 +76,6 @@ class CalendarioController extends Controller
         }
         return $this->indexAction();
     }
-
 
     public function editAction($id = null, Request $request = null)
     {
@@ -99,6 +95,7 @@ class CalendarioController extends Controller
 
         return $this->render('BoletinesBundle:Calendario:edit.html.twig', array('calendario' => $calendario, 'mensaje' => $message,'entitiesRelacionadas' => $entitiesRelacionadas));
     }
+
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -119,4 +116,3 @@ class CalendarioController extends Controller
         return $calendario;
     }
 }
-

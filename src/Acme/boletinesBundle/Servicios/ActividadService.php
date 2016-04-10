@@ -1,8 +1,12 @@
 <?php
 
 namespace Acme\boletinesBundle\Servicios;
-use Acme\boletinesBundle\Entity\Actividad;
+
 use Doctrine\ORM\EntityManager;
+
+use Acme\boletinesBundle\Entity\Actividad;
+use Acme\boletinesBundle\Entity\Alumno;
+use Acme\boletinesBundle\Entity\Usuario;
 use Acme\boletinesBundle\Utils\Herramientas;
 
 class ActividadService {
@@ -73,10 +77,31 @@ class ActividadService {
         return $actividades;
     }
 
+    public function getProximasActividadesByAlumnoId($id)
+    {
+        $proxActividades = [];
+        $alumno = $this->getAlumnoById($id);
+
+        if ($alumno instanceof Alumno) {
+            $user = $alumno->getUsuario();
+
+            if ($user instanceof Usuario) {
+                $actividades = $this->getActividadesAlumno($alumno->getUsuario());
+                $hoy = new \DateTime();
+                $proxActividades = array_filter($actividades, function($actividad) use ($hoy) {
+                    return $actividad->getFechaHoraInicio() > $hoy;
+                });
+            }
+        }
+
+        return $proxActividades;
+    }
+
     private function getActividadesInstitucion($institucion)
     {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Actividad')->createQueryBuilder('a')
             ->where('a.institucion = ?1')
+            ->orderBy('a.fechaHoraInicio', 'ASC')
             ->setParameter(1, $institucion);
 
         return $queryBuilder->getQuery()->getResult();
@@ -86,6 +111,7 @@ class ActividadService {
     {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Actividad')->createQueryBuilder('a')
             ->where('a.establecimiento = ?1')
+            ->orderBy('a.fechaHoraInicio', 'ASC')
             ->setParameter(1, $establecimiento);
 
         return $queryBuilder->getQuery()->getResult();
@@ -95,6 +121,7 @@ class ActividadService {
     {
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Actividad')->createQueryBuilder('a')
             ->where('a.materia = ?1')
+            ->orderBy('a.fechaHoraInicio', 'ASC')
             ->setParameter(1, $materia);
 
         return $queryBuilder->getQuery()->getResult();
@@ -224,4 +251,10 @@ class ActividadService {
 
         return $materias;
     }
+
+    private function getAlumnoById($id)
+    {
+        return $this->em->getRepository('BoletinesBundle:Alumno')->find($id);
+    }
+
 }

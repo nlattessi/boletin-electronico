@@ -25,6 +25,7 @@ class HomeController extends Controller
             $asistenciaService =  $this->get('boletines.servicios.asistencia');
             $calificacionesService =  $this->get('boletines.servicios.calificacion');
             $convivenciaService =  $this->get('boletines.servicios.convivencia');
+            $actividadService = $this->get('boletines.servicios.actividad');
 
             $alumno = $session->get('alumnoActivo');
             $establecimiento = $session->get('establecimientoActivo');
@@ -38,12 +39,17 @@ class HomeController extends Controller
             $convivenciaPositiva = $convivenciaService->obtenerConvivenciaPositivaAlumno($alumno->getId());
             $convivenciaNegativa = $convivenciaService->obtenerConvivenciaNegativaAlumno($alumno->getId());
 
-            return $this->render('BoletinesBundle:Default:home.html.twig', array('tardes' => count($tardes),
+            // Actividades
+            $actividades = $actividadService->getProximasActividadesByAlumnoId($alumno->getId());
+
+            return $this->render('BoletinesBundle:Default:home.html.twig', [
+                'tardes' => count($tardes),
                 'faltas' => $faltas,
                 'calificaciones' => $ultimasCalificaciones,
                 'conPos' => count($convivenciaPositiva),
                 'conNeg' => count($convivenciaNegativa),
-                'css_active' => 'home',));
+                'actividades' => $actividades,
+                'css_active' => 'home']);
 
         }
         else if ($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
