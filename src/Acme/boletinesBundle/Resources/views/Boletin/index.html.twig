@@ -36,7 +36,7 @@
             </h4>
           </div>
           <div class="col s6 m3 l3 right-align">
-            <button id="link" type="button" name="button" class="btn-large waves-effect waves-light center-align mar-right" disabled data-href="{{ path('boletin_cargar_nota', {'materiaId':materia.id, 'periodoId':'periodoId' }) }}">Cargar notas</button>
+            <button id="link" type="button" name="button" class="btn-large waves-effect waves-light center-align mar-right linkMateria" disabled data-href="{{ path('boletin_cargar_nota', {'materiaId':materia.id, 'periodoId':'periodoId' }) }}">Cargar notas</button>
           </div>
         </div>
       </div>
@@ -49,14 +49,14 @@
 {% block javascript %}
 <script>
   function toggle() {
-    $('#link').prop('disabled',false);
+    $('.linkMateria').prop('disabled',false);
   };
 
   (function(window, document, $) {
     if ($('#periodo').val() != null) {
-      $('#link').prop('disabled',false);
+      $('.linkMateria').prop('disabled',false);
     };
-    $('#link').click( function(e) {
+    $('.linkMateria').click( function(e) {
       e.preventDefault();
       var url = $(this).data("href");
       url = url.replace('periodoId', $('#periodo').val());

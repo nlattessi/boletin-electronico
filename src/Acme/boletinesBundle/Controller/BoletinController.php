@@ -176,7 +176,7 @@ class BoletinController extends Controller
                 foreach ($calificacionesAlumno as $calificacionAlumno) {
                     $notaSugerida += $calificacionAlumno->getValor();
                 }
-                $notaSugerida = $notaSugerida / sizeof($calificacionesAlumno);
+                $notaSugerida = empty($calificacionesAlumno) ? $notaSugerida : $notaSugerida / sizeof($calificacionesAlumno);
                 $valorCalificacion = $em->getRepository('BoletinesBundle:ValorCalificacion')->findOneBy([
                     'esquemaCalificacion' => $esquemaCalificacion,
                     'valor' => $notaSugerida
