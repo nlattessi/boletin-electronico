@@ -39,7 +39,7 @@
             </form>
           </div>
           <div class="col s2 l1">
-            <a onclick="deleteMensajes('{{ path('mensaje_delete_checked') }}');" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
+            <a onclick="executePost('{{ path('mensaje_delete_checked') }}', 'idMensajeBorrar[]');" data-position="top" data-delay="25" data-tooltip="Eliminar" class="tooltipped  btn-small btn waves-effect waves-light"><i class="icon-linear-trash2"></i></a>
           </div>
           <div class="col s2 l5">
             <a href="{{ path('mensaje_new') }}" class="btn-large waves-effect waves-light center-align mar-right">REDACTAR</a>
@@ -141,52 +141,5 @@
   {% endblock %}
 
 {% block javascript %}
-
-<script type="text/javascript">
-  function post(path, params, method) {
-    method = method || 'post';
-
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    params.forEach(function(m) {
-      var hiddenField = document.createElement("input");
-      hiddenField.setAttribute("type", "hidden");
-      hiddenField.setAttribute("name", "idMensajeBorrar[]");
-      hiddenField.setAttribute("value", m);
-
-      form.appendChild(hiddenField);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-  };
-
-  function deleteMensajes(path) {
-    var mensajesABorrar = [];
-
-    $("input:checkbox:checked").each(function(){
-      mensajesABorrar.push($(this).attr('id'));
-    });
-
-    post(path, mensajesABorrar);
-  };
-
-  // Listen for click on toggle checkbox
-  $('#select-all').click(function(event) {
-    if(this.checked) {
-      // Iterate each checkbox
-      $(':checkbox').each(function() {
-          this.checked = true;
-      });
-    } else {
-      // Iterate each checkbox
-      $(':checkbox').each(function() {
-          this.checked = false;
-      });
-    }
-  });
-</script>
-
+<script src="{{ asset('bundles/boletines/js/selectAll.js') }}"></script>
 {% endblock %}
