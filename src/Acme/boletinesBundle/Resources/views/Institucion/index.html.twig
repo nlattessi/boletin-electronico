@@ -27,6 +27,7 @@
                 <tr>
                     <th data-field="id">Nombre</th>
                     <th data-field="name">Establecimientos</th>
+                    <th data-field="name">Usuarios</th>
                     <th data-field="price">Creación</th>
                     <th data-field="price">Acciones</th>
                 </tr>
@@ -35,7 +36,8 @@
                 {% for entity in entities %}
                     <tr>
                         <td><a href="{{ path('institucion_show', {'id': entity.id}) }}" class="casual">{{ entity.nombre }}</a></td>
-                        <td><span class="badge">{{ entity.establecimientos|length }}</span></td>
+                        <td>{{ entity.establecimientos|length }}</td>
+                        <td>{{ entity.usuarios|length }}</td>
                         <td>{{ entity.creationTime | date('d/m/Y') }}</td>
                         <td>
                             <a href="{{ path('institucion_edit', {'id': entity.id}) }}" data-position="top" data-delay="25" data-tooltip="Editar" class="tooltipped btn-small btn waves-effect waves-light"><i class="icon-linear-pencil"></i></a>

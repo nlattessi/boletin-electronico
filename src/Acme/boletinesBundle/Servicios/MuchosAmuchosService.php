@@ -138,8 +138,6 @@ class MuchosAmuchosService {
         return $asistenciaes;
     }
 
-
-
     public function obtenerAlumnosPorAsistencia($asistencia){
         $alumnos = array();
 
@@ -196,6 +194,7 @@ class MuchosAmuchosService {
         }
         return $archivos;
     }
+
     public function obtenerExamenesPorArchivo($archivo){
         $examenes = array();
 
@@ -224,6 +223,7 @@ class MuchosAmuchosService {
         }
         return $materias;
     }
+
     public function obtenerGrupoAlumnosPorMateria($idMateria){
         $grupoAlumnos = array();
 
@@ -253,6 +253,7 @@ class MuchosAmuchosService {
         }
         return $archivos;
     }
+
     public function obtenerMateriasPorArchivo($archivo){
         $materias = array();
 
@@ -317,6 +318,7 @@ class MuchosAmuchosService {
         }
         return $grupoUsuarios;
     }
+
     public function obtenerUsuariosPorGrupoUsuario($grupoUsuario){
         $usuarios = array();
 
@@ -635,6 +637,7 @@ class MuchosAmuchosService {
         return $data;
     }
 
+    /** DEPRECADA **/
     public function obtenerUsuariosPorInstitucion($institucion)
     {
         return $this->em->getRepository('BoletinesBundle:Usuario')->findBy(['institucion' => $institucion]);
