@@ -32,7 +32,9 @@
             <li class="divider"></li>
           {% endfor %}
         {% else %}
-          <li class="divider"></li>
+          <li>
+            <a href="#!" class="t-s center-align"><i class="icon-linear-alarm-snooze "></i>Nada por notificar...<br></a>
+          </li>
         {% endif %}
         <li class="notifii"><h6><a href="{{ path('notificacion') }}">Ver todas</a></h6></li>
     </ul>
@@ -45,7 +47,9 @@
           <li class="divider"></li>
         {% endfor %}
       {% else %}
-        <li class="divider"></li>
+        <li>
+          <a href="#!" class="t-s center-align"><i class="icon-linear-inbox"></i> No tienes mensajes nuevos<br></a>
+        </li>
       {% endif %}
       <li class="notifii"><h6><a href="{{ path('mensaje') }}">Ver todos</a></h6></li>
     </ul>
