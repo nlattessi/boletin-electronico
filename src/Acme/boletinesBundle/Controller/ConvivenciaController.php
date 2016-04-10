@@ -213,8 +213,10 @@ class ConvivenciaController extends Controller
         $convivenciasIds = $request->request->get('convivencia');
         foreach ($convivenciasIds as $convivenciaId) {
             $convivencia = $em->getRepository('BoletinesBundle:Convivencia')->findOneBy(array('id' => $convivenciaId));
-            $convivencia->setValidado(true);
-            $em->persist($convivencia);
+            if ($convivencia instanceof Convivencia) {
+              $convivencia->setValidado(true);
+              $em->persist($convivencia);
+            }
         }
         $em->flush();
 

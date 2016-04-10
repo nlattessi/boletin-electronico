@@ -40,6 +40,15 @@
     </div><!-- end materia-->
   </div>
 
+  <div class="row">
+    <div class="col s12 right-align">
+      <p>
+        <input type="checkbox" id="select-all" class="filled-in">
+        <label for="select-all"></label>
+      </p>
+    </div>
+  </div>
+
   <form action="{{ path('boletin_validar_notas', {'materiaId': materia.id }) }}" method="post">
 
   <div class="row">
@@ -87,4 +96,8 @@
 
 </form>
 
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ asset('bundles/boletines/js/selectAll.js') }}"></script>
 {% endblock %}
