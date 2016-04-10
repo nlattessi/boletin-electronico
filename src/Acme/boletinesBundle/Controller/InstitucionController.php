@@ -23,10 +23,12 @@ class InstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BoletinesBundle:Institucion')->findBy(array('activo' => true));
+        $entities = $em->getRepository('BoletinesBundle:Institucion')->findBy(['activo' => true]);
 
-        return $this->render('BoletinesBundle:Institucion:index.html.twig', array('entities' => $entities,
-            'css_active' => 'institucion',));
+        return $this->render('BoletinesBundle:Institucion:index.html.twig', [
+            'entities' => $entities,
+            'css_active' => 'institucion'
+        ]);
     }
 
     public function getOneAction($id)
