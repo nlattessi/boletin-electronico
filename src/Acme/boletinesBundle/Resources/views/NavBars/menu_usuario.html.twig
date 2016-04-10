@@ -27,7 +27,7 @@
         <span class="circle dot"></span>
         <li class="notifi"><h6>Notificaciones</h6></li>
         {% if app.user.getNotificacionesNoVistas|length > 0 %}
-          {% for notificacion in app.user.getNotificacionesNoVistas %}
+          {% for notificacion in app.user.getNotificacionesNoVistas|slice(0, maxNotificaciones) %}
             {{ macros.show_notificacion_usuario(notificacion) }}
             <li class="divider"></li>
           {% endfor %}
@@ -42,7 +42,7 @@
       <span class="circle dot"></span>
       <li class="notifi"><h6>Mensajes</h6></li>
       {% if app.user.getMensajesNoLeidos|length > 0 %}
-        {% for mensaje in app.user.getMensajesNoLeidos %}
+        {% for mensaje in app.user.getMensajesNoLeidos|slice(0, maxMensajes) %}
           <li><a href="{{ path('mensaje_show', {'id': mensaje.mensaje.id}) }}" class="t-s"><b>{{ mensaje.mensaje.usuario.nombre }}</b> te ha enviado un mensaje<br><span class="ts-s">{{ mensaje.mensaje.fechaEnvio|ago }}</span></a></li>
           <li class="divider"></li>
         {% endfor %}
