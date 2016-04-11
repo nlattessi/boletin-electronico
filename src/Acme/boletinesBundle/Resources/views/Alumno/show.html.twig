@@ -25,9 +25,11 @@
                 <div class="col s10 m10 l10">
                     <h4 class="header">Datos del alumno</h4>
                 </div>
-                <div class="col s2 m2 l2">
-                    <a href="{{path('alumno_edit', {'id' : alumno.id})}}" data-position="left" data-delay="25" data-tooltip="Editar alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
-                </div>
+                {% if app.user.rol == 'ROLE_DIRECTIVO' %}
+                  <div class="col s2 m2 l2">
+                      <a href="{{path('alumno_edit', {'id' : alumno.id})}}" data-position="left" data-delay="25" data-tooltip="Editar alumno" class="tooltipped btn-floating btn-large waves-effect waves-light new-btn-marg"><i class="icon-linear-pencil"></i></a>
+                  </div>
+                {% endif %}
             </div>
             <div class="row">
                 <div class="col s12 m6 l6">
@@ -44,7 +46,7 @@
                     </h5>
                     <h5 class="header">Código postal: <span class="span-s"> {{ alumno.codigoPostal }}</span></h5>
                     <h5 class="header">Teléfono de emergencia: <span class="span-s"> {{ alumno.telefonoEmergencia }}</span></h5>
-                    <h5 class="header">Email: <span class="span-s"> {{ alumno.usuario.email }}</span></h5>
+                    <h5 class="header">Email: <span class="span-s"> {{ alumno.usuario.email|default('') }}</span></h5>
                     <h5 class="header">Establecimiento:
                      <span class="span-s">
                             {% if alumno.establecimiento.nombre is defined %}

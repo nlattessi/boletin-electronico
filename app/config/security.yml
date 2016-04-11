@@ -10,6 +10,10 @@ security:
                 property: nombre
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
         defualt:
             anonymous: ~
             http_basic: ~
@@ -22,4 +26,46 @@ security:
                 target: /login/login
 
     access_control:
-        - { path: ^/institucion, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROL_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/institucion, roles: [ROLE_ADMIN] }
+        - { path: ^/establecimiento, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/tipomateria, roles: [ROLE_ADMIN] }
+        - { path: ^/docente, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE] }
+        - { path: ^/director, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/bedel, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/actividad, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO] }
+        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/usuario, roles: [ROLE_ADMIN] }
+        - { path: ^/evaluacion, roles: [ROLE_ADMIN, ROLE_DOCENTE] }
+        - { path: ^/alumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE] }
+        - { path: ^/padre, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/calificacion, roles: [ROLE_ADMIN, ROLE_PADRE, ROLE_ALUMNO] }
+        - { path: ^/convivencia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/asistencia, roles: [ROLE_ADMIN, ROLE_DOCENTE, , ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/grupoAlumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/materia, roles: [ROLE_ADMIN] }
+        - { path: ^/grupoUsuario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/justificacion, roles: [ROLE_ADMIN, ROLE_PADRE] }
+        - { path: ^/calendario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/historic, roles: [ROLE_ADMIN, ROLE_PADRE] }
+        - { path: ^/bullying, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/antibullyng, roles: [ROLE_ADMIN, ROLE_ALUMNO] }
+        - { path: ^/archivo, roles: [ROLE_ADMIN] }
+        - { path: ^/archivoZip, roles: [ROLE_ADMIN, ROLE_DOCENTE] }
+        - { path: ^/periodo, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/boletin, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO] }
+        - { path: ^/reporte, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+
+        - { path: ^/home, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/mensaje, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/notificacion, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/redirect, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/en_construccion, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/cambiar_password, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/logout, roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/(.+), roles: ROLE_ADMIN }
+
+    access_denied_url: /unauthorized
