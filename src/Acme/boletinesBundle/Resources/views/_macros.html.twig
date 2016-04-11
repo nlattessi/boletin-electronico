@@ -114,7 +114,7 @@
 
 {% macro ficha_logo_institucion(entity) %}
   {% set assetPath = school_blank %}
-  {% if entity.usuario.institucion.logo  %}
+  {% if entity.usuario.institucion is defined and entity.usuario.institucion.logo  %}
     {% if file_exists(entity.usuario.institucion.webPath) %}
       {% set assetPath = entity.usuario.institucion.webPath %}
     {% endif %}

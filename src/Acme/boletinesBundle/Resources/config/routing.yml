@@ -132,8 +132,11 @@ boletines_periodo:
 boletines_boletin:
     resource: "@BoletinesBundle/Resources/config/routing/boletin.yml"
     prefix:   /boletin
- 
+
 boletines_reporte:
     resource: "@BoletinesBundle/Resources/config/routing/reporte.yml"
     prefix:   /reporte
 
+unauthorized:
+    path:     /unauthorized
+    defaults: { _controller: BoletinesBundle:Default:unauthorized }

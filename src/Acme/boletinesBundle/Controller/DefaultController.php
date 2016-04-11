@@ -14,4 +14,9 @@ class DefaultController extends Controller
     {
         return $this->render('BoletinesBundle:Default:en_construccion.html.twig');
     }
+
+    public function unauthorizedAction()
+    {
+        return $this->render('BoletinesBundle:Default:unauthorized.html.twig');
+    }
 }
