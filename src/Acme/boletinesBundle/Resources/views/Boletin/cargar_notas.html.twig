@@ -80,19 +80,29 @@
             {% endfor %}
             <td>
               <div class="input-field col s12">
-                <select class="initialized" name="{{notaPeriodo.id}}nota">
-                  {% for valorC in valoresCalificacion %}
-                    <option value="{{valorC.id}}"{% if valorC == notaPeriodo.nota %} selected{% endif %}>
-                      {{valorC}}
-                    </option>
-                  {% endfor %}
-                </select>
+                {% if notaPeriodo.validada %}
+                  <div class="initialized">
+                    {{ notaPeriodo.nota }}
+                  </div>
+                {% else %}
+                  <select class="initialized" name="{{notaPeriodo.id}}nota">
+                    {% for valorC in valoresCalificacion %}
+                      <option value="{{valorC.id}}"{% if valorC == notaPeriodo.nota %} selected{% endif %}>
+                        {{valorC}}
+                      </option>
+                    {% endfor %}
+                  </select>
+                {% endif %}
               </div>
             </td>
             <td>
               <div class="input-field col s12">
-                <input id="last_name" type="text" class="validate" name="{{notaPeriodo.id}}comentario" value="{{notaPeriodo.comentario}}">
-                <label for="last_name">Comentario</label>
+                {% if notaPeriodo.validada %}
+                  <div>{{notaPeriodo.comentario}}</div>
+                {% else %}
+                  <input id="last_name" type="text" class="validate" name="{{notaPeriodo.id}}comentario" value="{{notaPeriodo.comentario}}">
+                  <label for="last_name">Comentario</label>
+                {% endif %}
               </div>
             </td>
           </tr>
