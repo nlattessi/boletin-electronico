@@ -40,7 +40,11 @@
         <div class="col s12 m6 l6">
           <h5 class="panel-title">Archivos asociados</h5>
           <div class="mail-attachments">
+              {% if evaluacion.archivos|length > 0 %}
             <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+              {% else %}
+                  <i>No hay archivos asociados a esta evaluación</i>
+              {% endif %}
             <ul class="list-group">
               {% for evaluacionArchivo in evaluacion.archivos %}
                 {{ macros.show_item_entityFile(evaluacionArchivo) }}

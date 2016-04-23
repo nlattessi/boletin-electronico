@@ -256,20 +256,20 @@
 
                 <div class="input-field col s6">
                     <select name="docente">
+                        <option value="" >Seleccione un Docente</option>
                         {% for docente in docentes %}
-                            <option value="" disabled>Seleccione un Docente</option>
                             <option value="{{ docente.id }}"
                                     {% if docente.id == docenteSeleccionadoId %}
                                         selected="selected"
                                     {% endif %}
-                                    >{{ docente.nombre }} </option>
+                                    >{{ docente }} </option>
                         {% endfor %}
                     </select>
                     <label>Docente</label>
                 </div>
                 <div class="input-field col s6">
                     <select name="grupoAlumno" id="grupoAlumno" >
-                        <option value="" disabled >Seleccione un Grupo de Alumnos</option>
+                        <option value=""  >Seleccione un Grupo de Alumnos</option>
                         {% for grupoAlumno in gruposAlumnos %}
                             <option value="{{ grupoAlumno.id }}"
                                     {% if grupoAlumno.id == grupoAlumnoMateriaId %}

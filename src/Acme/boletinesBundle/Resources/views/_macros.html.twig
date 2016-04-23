@@ -50,7 +50,7 @@
 
 {% macro show_entidad_con_foto(entidad) %}
   {% set assetPath = user_blank %}
-  {% if entidad.foto %}
+  {% if entidad and entidad.foto %}
     {% if file_exists(entidad.fotoWebPath) %}
       {% set assetPath = entidad.fotoWebPath %}
     {% endif %}

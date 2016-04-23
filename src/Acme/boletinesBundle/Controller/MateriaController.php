@@ -58,7 +58,6 @@ class MateriaController extends Controller
            $materia = $materiaService->materiaLoad($materia);
         }
 
-
         return $this->render('BoletinesBundle:Materia:home.html.twig', array('materia' => $materia,
             'css_active' => 'materia',));
     }
@@ -434,7 +433,7 @@ class MateriaController extends Controller
 
         $docenteSeleccionado = $em->getRepository('BoletinesBundle:DocenteMateria')->findOneBy(array('materia' => $materia));
         $docenteSeleccionadoId = null;
-        if($docenteSeleccionado instanceof DocenteMateria) {
+        if($docenteSeleccionado instanceof DocenteMateria and $docenteSeleccionado->getDocente() != null) {
             $docenteSeleccionadoId = $docenteSeleccionado->getDocente()->getId();
         }
 
