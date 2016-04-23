@@ -66,12 +66,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Lunes'] is defined %}{{ dias['Lunes']['horaInicio'] }}{% endif %}" name="lunes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="lunes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input  value="{% if dias['Lunes'] is defined %}{{ dias['Lunes']['horaFin'] }}{% endif %}" name="lunes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                        type="time" class="timepicker">
                                 <label for="lunes_fin">Hora fin</label>
                             </div>
 
@@ -101,12 +101,12 @@
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Martes'] is defined %}{{ dias['Martes']['horaInicio'] }}{% endif %}"
                                        name="martes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="martes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Martes'] is defined %}{{ dias['Martes']['horaFin'] }}{% endif %}" name="martes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="martes_fin">Hora fin</label>
                             </div>
 
@@ -135,12 +135,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Miercoles'] is defined %}{{ dias['Miercoles']['horaInicio'] }}{% endif %}" name="miercoles_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="miercoles_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Miercoles'] is defined %}{{ dias['Miercoles']['horaFin'] }}{% endif %}" name="miercoles_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="miercoles_fin">Hora fin</label>
                             </div>
 
@@ -169,12 +169,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input  value="{% if dias['Jueves'] is defined %}{{ dias['Jueves']['horaInicio'] }}{% endif %}" name="jueves_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                        type="time" class="timepicker">
                                 <label for="jueves_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input  value="{% if dias['Jueves'] is defined %}{{ dias['Jueves']['horaFin'] }}{% endif %}"  name="jueves_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                        type="time" class="timepicker">
                                 <label for="jueves_fin">Hora fin</label>
                             </div>
 
@@ -203,12 +203,12 @@
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Viernes'] is defined %}{{ dias['Viernes']['horaInicio'] }}{% endif %}" name="viernes_inicio" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="viernes_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Viernes'] is defined %}{{ dias['Viernes']['horaFin'] }}{% endif %}" name="viernes_fin" id="icon_prefix"
-                                       type="text" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="viernes_fin">Hora fin</label>
                             </div>
 
@@ -238,12 +238,12 @@
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Sabado'] is defined %}{{ dias['Sabado']['horaInicio'] }}{% endif %}"
                                        name="sabado_inicio" id="icon_prefix"
-                                       type="number" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="sabado_inicio">Hora inicio</label>
                             </div>
                             <div class="input-field col s3 ">
                                 <input value="{% if dias['Sabado'] is defined %}{{ dias['Sabado']['horaFin'] }}{% endif %}" name="sabado_fin" id="icon_prefix"
-                                       type="number" class="validate">
+                                       type="time" class="timepicker">
                                 <label for="sabado_fin">Hora fin</label>
                             </div>
 
@@ -292,4 +292,11 @@
     </div>
 
 
+{% endblock %}
+{% block javascript %}
+    <script>
+        $('.timepicker').pickatime({
+            clear: 'Limpiar'
+        });
+    </script>
 {% endblock %}
