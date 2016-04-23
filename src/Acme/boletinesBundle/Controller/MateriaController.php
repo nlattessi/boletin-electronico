@@ -221,7 +221,7 @@ class MateriaController extends Controller
             $docenteMateria->setMateria($materia);
             $em->persist($docenteMateria);
         }
-        $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('docente')));
+        $grupoAlumno = $em->getRepository('BoletinesBundle:GrupoAlumno')->findOneBy(array('id' => $data->request->get('grupoAlumno')));
         if($grupoAlumno) {
             $grupoMateria = new GrupoAlumnoMateria();
             $grupoMateria->setMateria($materia);
