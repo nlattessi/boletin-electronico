@@ -224,9 +224,9 @@
                 <div class="input-field col s6">
                     <select name="docente">
                         {% for docente in docentes %}
-                            <option value="{{ docente.id }}">{{ docente.nombre }} </option>
+                            <option value="{{ docente.id }}">{{ docente }} </option>
                         {% endfor %}
-                        <option value="" disabled selected>Docente</option>
+                        <option value="" disabled selected>Seleccione un Docente</option>
                     </select>
                     <label>Docente</label>
                 </div>
@@ -235,7 +235,7 @@
                         {% for grupoAlumno in gruposAlumnos %}
                             <option value="{{ grupoAlumno.id }}">{{ grupoAlumno.nombre }} </option>
                         {% endfor %}
-                        <option value="" disabled selected>Grupo de Alumnos</option>
+                        <option value="" disabled selected>Seleccione un Grupo de Alumnos</option>
                     </select>
 
                     <label>Grupo de alumnos</label>

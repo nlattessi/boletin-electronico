@@ -17,7 +17,8 @@ class BedelController extends Controller
         if ($request->getMethod() == 'POST') {
             $bedel = $this->createBedel($request);
             if($bedel instanceof Usuario) {
-                return $this->redirect($this->generateUrl('bedel_edit', array('id' => $bedel->getId())));
+                $this->get('session')->getFlashBag()->add('success', 'Bedel creado con éxito');
+                return $this->redirect($this->generateUrl('bedel_add', array()));
             }
         }
 

@@ -84,7 +84,9 @@
             <div class="col s12 m6 l4 mar-top-soft">
                 <h5 class="panel-title">Archivos</h5>
                 <div class="mail-attachments">
+                    {% if materia.archivos|length > 0 %}
                     <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+                    {% endif %}
                     <ul class="list-group">
                         {% for materiaArchivo in materia.archivos %}
                           {{ macros.show_item_entityFile(materiaArchivo) }}
@@ -106,9 +108,11 @@
                 <h5 class="panel-title mar-top">Docentes</h5>
                 <ul class="collection">
                   {% for docente in materia.docentes %}
+                      {% if docente %}
                     <li class="collection-item avatar student-list">
                       {{ macros.show_entidad_con_foto(docente) }}
                     </li>
+                    {% endif %}
                   {% endfor %}
                 </ul>
             </div>
