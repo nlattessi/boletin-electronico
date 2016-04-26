@@ -78,7 +78,9 @@ class EvaluacionController extends Controller
         $evaluacion->setNombre($data->request->get('nombre'));
 
         $fecha = $data->request->get('fecha');
-        $fecha = Herramientas::textoADatetime($fecha);
+        $hora = $data->request->get('hora');
+        $fecha = Herramientas::fechaHoraADatetime($fecha, $hora);
+
 
         $evaluacion->setFecha($fecha);
 
@@ -316,8 +318,8 @@ class EvaluacionController extends Controller
         $evaluacion->setNombre($data->request->get('nombre'));
         $fecha = $data->request->get('fecha');
 
-        $fecha = Herramientas::textoADatetime($fecha);
-        //hasta que no tengamos el controller de fechas no vale la pena formatear el string
+        $hora = $data->request->get('hora');
+        $fecha = Herramientas::fechaHoraADatetime($fecha, $hora);
         $evaluacion->setFecha($fecha);
 
         $idMateria = $data->request->get('idMateria');

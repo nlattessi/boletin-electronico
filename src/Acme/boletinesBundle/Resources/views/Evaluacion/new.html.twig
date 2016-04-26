@@ -34,6 +34,11 @@
                 <label for="fecha" class="">Fecha</label>
                 <input type="date" class="datepicker" name="fecha" id="fecha">
             </div>
+            <div class=" col s12 m6 l6">
+                <input name="hora" id="icon_prefix"
+                       type="time" class="timepicker">
+                <label for="hora">Hora inicio</label>
+            </div>
 
             <!-- <div class="row"> -->
             <div class="input-field col s12 m6 l6">
@@ -45,7 +50,6 @@
               </select>
             </div>
             <!-- </div> -->
-          </div>
 
           <div class="col s12 m12 l12">
 
@@ -63,7 +67,16 @@
             <div class="col s12 center-align mar-top-soft">
                 <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">Crear Evaluación</button>
             </div>
+          </div>
         </form>
     </div>
 </div>
 {% endblock %}
+{% block javascript %}
+<script>
+    $('.timepicker').pickatime({
+        clear: 'Limpiar'
+    });
+</script>
+{% endblock %}
+
