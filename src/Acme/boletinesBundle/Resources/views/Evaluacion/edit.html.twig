@@ -25,8 +25,9 @@
         <form action="{{ path('evaluacion_edit', { 'id': evaluacion.id }) }}" method="post" enctype="multipart/form-data">
         <div class="col s12 m12 l12">
             <div class="input-field col s12 m6 l6 mar-top-input-fix">
+                <label for="nombre" class="active">Nombre de la instancia</label>
                 <input name="nombre" id="nombre_inst" type="text" class="validate" value="{{ evaluacion.nombre }}"/>
-                <label for="nombre" class="">Nombre de la instancia</label>
+
             </div>
             <div class=" col s12 m6 l6">
                 <i class="icon-linear-calendar-insert"></i>
@@ -34,26 +35,23 @@
                 <input type="date" class="datepicker" name="fecha" id="fecha" value="{{ evaluacion.fecha|date('d/m/Y') }}"/>
             </div>
         </div>
-        <div class="input-field col s12 m6 l6">
-          <select name="periodo">
-            <option value="" selected disabled>Seleccionar período</option>
-            {% for periodo in periodos %}
-                <option value="{{ periodo.id }}"{% if evaluacion.periodo == periodo %} selected{% endif %}>{{ periodo.nombre }}</option>
-            {% endfor %}
-          </select>
+        <div class="col s12 m12 l12">
+            <div class=" col s12 m6 l6">
+                <label for="hora">Hora inicio</label>
+                <input name="hora" id="icon_prefix"
+                       type="time" class="timepicker" value="{{ evaluacion.fecha|date('h:i a') }}">
+            </div>
+            <div class="input-field col s12 m6 l6">
+                <label for="periodo" class="active">Período</label>
+              <select name="periodo">
+                <option value="" selected disabled>Seleccionar período</option>
+                {% for periodo in periodos %}
+                    <option value="{{ periodo.id }}"{% if evaluacion.periodo == periodo %} selected{% endif %}>{{ periodo.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
         </div>
-        <div class="col s12 m6 l6">
-          <h5 class="panel-title">Archivos asociados</h5>
-          <div class="mail-attachments">
-            <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
-            <ul class="list-group">
-              {% for evaluacionArchivo in evaluacion.archivos %}
-                {{ macros.show_item_entityFile(evaluacionArchivo) }}
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <div class="col s12 m6 l6">
+        <div class="col s12 m12 l12">
           <div class="file-field input-field">
             <input class="file-path validate" type="text"/>
             <label for="logo_img">Subir archivos para la evaluación</label>
@@ -63,6 +61,22 @@
             </div>
          </div>
         </div>
+
+            <div class="col s12 m6 l6">
+                <h5 class="panel-title">Archivos asociados</h5>
+                <div class="mail-attachments">
+                    {% if evaluacion.archivos|length > 0 %}
+                    <p><i class="icon-linear-paperclip"></i> <a id="downloadAll" href="{{ path('boletines_archivo_downloadZip') }}">Descargar todos</a></p>
+                    <ul class="list-group">
+                        {% for evaluacionArchivo in evaluacion.archivos %}
+                            {{ macros.show_item_entityFile(evaluacionArchivo) }}
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <em>Sin archivos asociados</em>
+                    {% endif %}
+                </div>
+            </div>
         <div class="col s12 center-align mar-top-soft">
             <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
                 Guardar cambios</button>
@@ -73,4 +87,10 @@
 
 {% block javascript %}
   <script src="{{ asset('bundles/boletines/js/fileFunctions.js') }}"></script>
+    <script>
+        $('.timepicker').pickatime({
+            clear: 'Limpiar'
+        });
+    </script>
 {% endblock %}
+
