@@ -4,6 +4,7 @@ namespace Acme\boletinesBundle\Controller;
 
 //use Proxies\__CG__\Acme\boletinesBundle\Entity\Usuario;
 use Acme\boletinesBundle\Entity\Usuario;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -179,25 +180,45 @@ class AlumnoController extends Controller
         $message = "";
         if ($request->getMethod() == 'POST') {
             $this->editEntity($request, $id);
-        } else {
-
+        } else if($request->get('query')){
+            return $this->cargarPadre($id, $request->get('query'));
         }
         $em = $this->getDoctrine()->getManager();
 
-        $user = $this->getUser();
-        $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
-        $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
-        $paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
+       // $user = $this->getUser();
+       // $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
+       // $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);
+        //$paises = $em->getRepository('BoletinesBundle:Pais')->findAll();
         $ciudades = $em->getRepository('BoletinesBundle:Ciudad')->findAll();
         $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
 
         return $this->render('BoletinesBundle:Alumno:edit.html.twig', array('alumno' => $alumno, 'ciudades' => $ciudades));
     }
+
+    private function cargarPadre($idAlumno, $strBusqueda){
+        $em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $idAlumno));
+
+        $query = $em->createQueryBuilder()
+            ->select('u.id,u.nombre, u.apellido')
+            ->from('BoletinesBundle:Padre', 'u')
+            ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
+            ->andWhere('u.establecimiento = :establecimiento')
+            ->setParameter('query', '%'.$strBusqueda.'%')
+            ->setParameter('establecimiento', $alumno->getEstablecimiento())
+            ->getQuery();
+        $entities = $query->getResult();
+        $response = new JsonResponse();
+        $response->setData($entities);
+        return $response;
+    }
+
     private function editEntity($request, $id)
     {
         $data = $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
+        /* @var $alumno Alumno*/
         $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $id));
         $alumno->setNombre($data['nombre']);
         $alumno->setApellido($data['apellido']);
@@ -227,6 +248,29 @@ class AlumnoController extends Controller
             //$this->borrarFileFoto($alumno);
             $this->crearYSetearFileFoto($fotoFile, $alumno);
         }
+
+
+        /*Vinculación con padre*/
+
+        $idPadre1 = $request->request->get('padre1');
+
+        if($idPadre1){
+            $padre1 = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $idPadre1));
+            if($padre1){
+                $alumno->setPadre1($padre1);
+            }
+        }
+        $idPadre2 = $request->request->get('padre2');
+
+        if($idPadre2){
+            $padre2 = $em->getRepository('BoletinesBundle:Padre')->findOneBy(array('id' => $idPadre2));
+            if($padre1){
+                $alumno->setPadre2($padre2);
+            }
+        }
+
+        /* FIN vinculación padre*/
+
         $em->persist($alumno);
         $em->flush();
 
