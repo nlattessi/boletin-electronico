@@ -132,7 +132,7 @@
     $(document).ready(function() {
 
       var rol = '{{ app.user.rol }}';
-      if (rol == 'ROLE_DIRECTIVO') {
+      if (rol == 'ROLE_DIRECTIVO'  || rol =='ROLE_ADMINISTRATIVO') {
         $('#div_checkboxs').show();
       } else if (rol == 'ROLE_DOCENTE') {
         $('#div_materias').show();

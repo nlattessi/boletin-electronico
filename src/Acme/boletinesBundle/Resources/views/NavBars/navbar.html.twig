@@ -5,6 +5,9 @@
     {% if app.user.rol == 'ROLE_DIRECTIVO' %}
         {{ include('BoletinesBundle:NavBars:role_directivo.html.twig') }}
     {% endif %}
+    {% if app.user.rol == 'ROLE_ADMINISTRATIVO' %}
+        {{ include('BoletinesBundle:NavBars:role_administrativo.html.twig') }}
+    {% endif %}
     {% if app.user.rol == 'ROLE_DOCENTE' %}
         {{ include('BoletinesBundle:NavBars:role_docente.html.twig') }}
     {% endif %}

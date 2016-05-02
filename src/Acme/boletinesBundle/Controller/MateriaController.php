@@ -31,7 +31,7 @@ class MateriaController extends Controller
             $session = $request->getSession();
             $docente = $session->get('docenteActivo');
             $entities = $materiaService->listaMateriasPorDocente($docente->getId());
-        }elseif($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO'){
+        }elseif($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO' or $this->getUser()->getRol()->getNombre() == 'ROLE_ADMINISTRATIVO'){
             $user = $this->getUser();
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
             $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);

@@ -8,7 +8,7 @@
         {% if app.user.rol == 'ROLE_ADMIN' %}
             {{ include('BoletinesBundle:Home:role_admin.html.twig') }}
         {% endif %}
-        {% if app.user.rol == 'ROLE_DIRECTIVO' %}
+        {% if app.user.rol == 'ROLE_DIRECTIVO' or app.user.rol == 'ROLE_ADMINISTRATIVO'%}
             {{ include('BoletinesBundle:Home:role_directivo.html.twig') }}
         {% endif %}
         {% if app.user.rol == 'ROLE_DOCENTE' %}

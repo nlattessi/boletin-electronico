@@ -28,33 +28,33 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROL_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE, ROL_ALUMNO, ROLE_BEDEL] }
         - { path: ^/institucion, roles: [ROLE_ADMIN] }
-        - { path: ^/establecimiento, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/establecimiento, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/tipomateria, roles: [ROLE_ADMIN] }
-        - { path: ^/docente, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE] }
-        - { path: ^/director, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
-        - { path: ^/bedel, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
-        - { path: ^/actividad, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO] }
-        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/docente, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE] }
+        - { path: ^/director, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
+        - { path: ^/bedel, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
+        - { path: ^/actividad, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO] }
+        - { path: ^/materia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/usuario, roles: [ROLE_ADMIN] }
         - { path: ^/evaluacion, roles: [ROLE_ADMIN, ROLE_DOCENTE] }
-        - { path: ^/alumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE] }
-        - { path: ^/padre, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/alumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE] }
+        - { path: ^/padre, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/calificacion, roles: [ROLE_ADMIN, ROLE_PADRE, ROLE_ALUMNO] }
-        - { path: ^/convivencia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/convivencia, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
         - { path: ^/asistencia, roles: [ROLE_ADMIN, ROLE_DOCENTE, , ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
-        - { path: ^/grupoAlumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/grupoAlumno, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/materia, roles: [ROLE_ADMIN] }
-        - { path: ^/grupoUsuario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/grupoUsuario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/justificacion, roles: [ROLE_ADMIN, ROLE_PADRE] }
-        - { path: ^/calendario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
+        - { path: ^/calendario, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO, ROLE_BEDEL] }
         - { path: ^/historic, roles: [ROLE_ADMIN, ROLE_PADRE] }
-        - { path: ^/bullying, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/bullying, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/antibullyng, roles: [ROLE_ADMIN, ROLE_ALUMNO] }
         - { path: ^/archivo, roles: [ROLE_ADMIN] }
         - { path: ^/archivoZip, roles: [ROLE_ADMIN, ROLE_DOCENTE] }
-        - { path: ^/periodo, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
+        - { path: ^/periodo, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_ADMINISTRATIVO] }
         - { path: ^/boletin, roles: [ROLE_ADMIN, ROLE_DIRECTIVO, ROLE_DOCENTE, ROLE_PADRE, ROLE_ALUMNO] }
         - { path: ^/reporte, roles: [ROLE_ADMIN, ROLE_DIRECTIVO] }
 

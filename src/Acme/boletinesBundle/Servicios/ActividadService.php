@@ -66,6 +66,9 @@ class ActividadService {
             case 'ROLE_DIRECTIVO':
                 $actividades = $this->getActividadesDirectivo($user);
                 break;
+            case 'ROLE_ADMINISTRATIVO':
+                $actividades = $this->getActividadesDirectivo($user);
+                break;
             case 'ROLE_BEDEL':
                 $actividades = $this->getActividadesBedel($user);
                 break;
