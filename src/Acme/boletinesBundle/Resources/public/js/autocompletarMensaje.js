@@ -42,7 +42,7 @@
       highlighter: function (obj) {
         var item = JSON.parse(obj);
         var regex = new RegExp( '(' + this.query + ')', 'gi' );
-        return item.query.replace( regex, "<strong>$1</strong>" );
+        return item.query.replace( regex, "<span style='font-weight: bold'>$1</span>" );
       },
       updater: function (obj) {
         var item = JSON.parse(obj);
