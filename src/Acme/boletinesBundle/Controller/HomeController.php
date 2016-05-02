@@ -74,7 +74,7 @@ class HomeController extends Controller
                 'alumnos' => $alumnos,
                 'css_active' => 'home',
             ));
-        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO'){
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO' or $this->getUser()->getRol()->getNombre() == 'ROLE_ADMINISTRATIVO'){
             $user = $this->getUser();
 
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
@@ -84,6 +84,7 @@ class HomeController extends Controller
             $cantidadDocentes = count($muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos));
             $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
             $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
+            $cantidadAdministrativos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMINISTRATIVO'));
             $cantidadAdmins = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMIN'));
             $cantidadBullying = count($muchosAMuchos->obtenerBullyingPorInstitucion($user->getInstitucion()));
 
@@ -93,6 +94,7 @@ class HomeController extends Controller
                 'docentes' => $cantidadDocentes,
                 'bedeles' => $cantidadBedeles,
                 'directivos' => $cantidadDirectivos,
+                'administrativos' => $cantidadAdministrativos,
                 'admins' => $cantidadAdmins,
                 'bullying' => $cantidadBullying
             );

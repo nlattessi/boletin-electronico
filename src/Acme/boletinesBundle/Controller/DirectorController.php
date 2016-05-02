@@ -18,6 +18,7 @@ class DirectorController extends Controller
         $cantidadDocentes = count($muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos));
         $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
         $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
+        $cantidadAdministrativos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMINISTRATIVO'));
         $cantidadAdmins = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMIN'));
         $cantidadBullying = count($muchosAMuchos->obtenerBullyingPorInstitucion($user->getInstitucion()));
 
@@ -27,6 +28,7 @@ class DirectorController extends Controller
           'docentes' => $cantidadDocentes,
           'bedeles' => $cantidadBedeles,
           'directivos' => $cantidadDirectivos,
+            'administrativos' => $cantidadAdministrativos,
           'admins' => $cantidadAdmins,
           'bullying' => $cantidadBullying
         );

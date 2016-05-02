@@ -28,7 +28,7 @@
     <div class="row mar-top-soft">
 
     <div class="col s12 m8 l12">
-    <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario Directivo</h3>
+    <h3 class="h-h3"><i class="icon-linear-plus"></i> Nuevo Usuario Directivo/Administrativo</h3>
     <h5 class="header">Todos los campos son obligatorios</h5>
     </div>
     <form action="{{ path('usuario_new_institucion',  {'institucionId': institucion.id }) }}" method="post">
@@ -51,7 +51,8 @@
           </div>
   </div>
         <div class="row">
-            <button type="submit" class="btn-large waves-effect waves-light center-align">Crear Usuario</button>
+            <button name="directivo" type="submit" class="btn-large waves-effect waves-light center-align">Crear Usuario Directivo</button>
+            <button name="administrativo" type="submit" class="btn-large waves-effect waves-light center-align">Crear Usuario Administrativo</button>
         </div>
     </form>
 

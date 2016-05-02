@@ -43,6 +43,7 @@ class InstitucionController extends Controller
         $cantidadDocentes = count($muchosAMuchos->obtenerDocentesPorEstablecimientos($establecimientos));
         $cantidadBedeles = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_BEDEL'));
         $cantidadDirectivos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_DIRECTIVO'));
+        $cantidadAdministrativos = count($muchosAMuchos->obtenerUsuariosPorRolPorEstablecimientos($establecimientos, 'ROLE_ADMINISTRATIVO'));
 
 
         return $this->render('BoletinesBundle:Institucion:show.html.twig', array('institucion' => $institucion,
@@ -51,6 +52,7 @@ class InstitucionController extends Controller
             'cantidadDocentes' => $cantidadDocentes,
             'cantidadBedeles' => $cantidadBedeles,
             'cantidadDirectivos' => $cantidadDirectivos,
+            'cantidadAdministrativos' => $cantidadAdministrativos,
             'css_active' => 'institucion',));
     }
 

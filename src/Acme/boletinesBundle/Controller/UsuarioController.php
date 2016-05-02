@@ -128,25 +128,39 @@ class UsuarioController extends Controller
 
 
         $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('idRol' => $data->request->get('idRol')));
+        $usuario = new Usuario();
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+        $password = $encoder->encodePassword($data->request->get('password'), $usuario->getSalt());
         $creacionService =  $this->get('boletines.servicios.creacion');
         $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
             $data->request->get('email'),
-            $data->request->get('password'),
+            $password,
             $rol,
             null);
 
         return $usuario;
     }
-    private function createEntityConInstitucion($institucion, $data)
+    private function createEntityConInstitucion($institucion,Request $data)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => 'ROLE_DIRECTIVO'));
+        if($data->get('directivo')){
+            $tipoUsuario = 'ROLE_DIRECTIVO';
+        }else{
+            $tipoUsuario = 'ROLE_ADMINISTRATIVO';
+        }
+
+
+        $rol = $em->getRepository('BoletinesBundle:Rol')->findOneBy(array('nombre' => $tipoUsuario));
+        $usuario = new Usuario();
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+        $password = $encoder->encodePassword($data->request->get('password'), $usuario->getSalt());
+
         $creacionService =  $this->get('boletines.servicios.creacion');
         $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
             $data->request->get('apellido'),
             $data->request->get('email'),
-            $data->request->get('password'),
+            $password,
             $rol,
             $institucion);
 

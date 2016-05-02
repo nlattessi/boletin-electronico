@@ -109,8 +109,7 @@ class CreacionService {
         $usuario->setApellido($apellido);
         $usuario->setEmail($email);
         $usuario->setPassword($password);
-        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
-        $usuario->setPassword($encoder->encodePassword($usuario->getPassword(), $usuario->getSalt()));
+
 
         $usuario->setRol($rol);
         $usuario->setInstitucion($institucion);

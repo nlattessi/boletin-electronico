@@ -51,7 +51,7 @@
         </div><!-- end materia-->
        {% endfor %}
     </div>
-{% elseif app.user.rol == 'ROLE_DIRECTIVO' %}
+{% elseif app.user.rol == 'ROLE_DIRECTIVO'  or app.user.rol == 'ROLE_ADMINISTRATIVO'%}
     <div class="row">
 
         <div class="col s12 m12 l12">

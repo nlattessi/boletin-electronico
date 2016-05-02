@@ -35,7 +35,7 @@ class BoletinController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO') {
+        if ($this->getUser()->getRol()->getNombre() == 'ROLE_DIRECTIVO' or $this->getUser()->getRol()->getNombre() == 'ROLE_ADMINISTRATIVO') {
             $user = $this->getUser();
             $muchosAMuchos =  $this->get('boletines.servicios.muchosamuchos');
             $establecimientos = $muchosAMuchos->obtenerEstablecimientosPorUsuario($user);

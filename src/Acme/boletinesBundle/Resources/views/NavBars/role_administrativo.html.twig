@@ -1,0 +1,47 @@
+<ul id="nav-mobile" class="side-nav fixed">
+    <li class="logo"><a href="{{ path('home') }}" class="brand-logo"><img class="responsive-img logo" src="{{ asset('bundles/boletines/images/communitas-isologotipo.png')}}"></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'home' %} active{% endif %}{% endif %}"><a href="{{ path('home') }}"><i class="icon-linear-history icon-nav-size"></i> <span class="span-va">Inicio</span></a></li>
+    <li class="no-padding main-nav-pad ">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header {% if css_active is defined %}{% if css_active == 'alumno' or css_active == 'docente' or css_active == 'padre' or css_active == 'bedel'  %} active{% endif %}{% endif %}"><i class="icon-linear-users-plus icon-nav-size"></i> <span class="span-va">Usuarios</span></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'alumno' %} active{% endif %}{% endif %}"><a href="{{ path('alumno') }}">Alumnos</a></li>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'docente' %} active{% endif %}{% endif %}"><a href="{{ path('docente') }}">Docentes</a></li>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'padre' %} active{% endif %}{% endif %}"><a href="{{ path('padre') }}">Padres</a></li>
+                        <li class=" {% if css_active is defined %}{% if css_active == 'bedel' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_bedeles') }}">Bedeles</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'grupoUsuario' %} active{% endif %}{% endif %}"><a href="{{ path('grupoUsuario') }}"><i class="icon-linear-group-work icon-nav-size"></i> <span class="span-va">Grupos</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'grupoAlumno' %} active{% endif %}{% endif %}"><a href="{{ path('grupoAlumno') }}"><i class="icon-linear-users icon-nav-size"></i> <span class="span-va">Grupos de alumnos</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'materia' %} active{% endif %}{% endif %}"><a href="{{ path('materia') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Materias</span></a></li>
+    {#<li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calificacion' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_calificaciones') }}"><i class="icon-linear-list3 icon-nav-size"></i> <span class="span-va">Calificaciones</span></a></li>#}
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'convivencia' %} active{% endif %}{% endif %}"><a href="{{ path('directivo_convivencia') }}"><i class="icon-linear-calendar-user icon-nav-size"></i> <span class="span-va">Convivencia</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'calendario' %} active{% endif %}{% endif %}"><a href="{{ path('calendario') }}"><i class="icon-linear-calendar-full icon-nav-size"></i> <span class="span-va">Calendario</span></a></li>
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'bullying' %} active{% endif %}{% endif %}"><a href="{{ path('bullying') }}"><i class="icon-linear-notification icon-nav-size"></i> <span class="span-va">Bullying</span></a></li>
+
+
+    <li class="main-nav-pad"><a href="{{ path('periodo') }}"><i class="icon-linear-book2 icon-nav-size"></i> <span class="span-va">Periodos</span></a></li>
+
+
+    <!--    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'boletin' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}"><i class="icon-linear-license2 icon-nav-size"></i> <span class="span-va">Boletín</span></a></li>
+
+    <li class="no-padding main-nav-pad ">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-headerv {% if css_active is defined %}{% if css_active == 'reporteGenerar' or css_active == 'reporteConfigurar'%} active{% endif %}{% endif %}"><i class="icon-linear-graph icon-nav-size"></i> <span class="span-va">Reportes</span></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class="{% if css_active is defined %}{% if css_active == 'reporteGenerar' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}">Generar</a></li>
+                        <li class="{% if css_active is defined %}{% if css_active == 'reporteConfigurar' %} active{% endif %}{% endif %}"><a href="{{ path('en_construccion') }}">Configurar</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li> -->
+    <li class="main-nav-pad {% if css_active is defined %}{% if css_active == 'bullying' %} active{% endif %}{% endif %}"><a href="{{ path('establecimiento_edit_director') }}"><i class="icon-linear-cog icon-nav-size"></i> <span class="span-va">Establecimiento</span></a></li>
+</ul>
