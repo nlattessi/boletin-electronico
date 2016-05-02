@@ -16,13 +16,15 @@
         </div>
         <div class="row mar-top-soft center-on-small-only">
             <div class="col s12 m2 l2">
-                <img src="images/school-blank.png" alt="colegio logo" class="inst-thumb-boletin">
+                {{ macros.show_institucion_logo_nombre(app.user.institucion) }}
             </div>
             <div class="col s12 m5 l6">
-                <h5 class="mar-top-soft"><strong>Nombre del colegio</strong></h5>
+                <h5 class="mar-top-soft"><strong>{{ alumno.establecimiento }}</strong></h5>
             </div>
             <div class="col s12 m5 l4">
-                <p class=""><img src="images/user-blank.png" alt="as" class="avatar-boletin circle"> {{ alumno }}</p>
+                <p class="">
+                    {{ macros.ficha_foto_entity(alumno) }}
+                    {{ alumno }}</p>
                 <p class="">Año: <span><STRONG>{{ "now"|date("Y") }}</STRONG></span></p>
                 <p class="">Curso: <span><strong>1 A</span></STRONG></p>
             </div>
