@@ -176,6 +176,12 @@ class ConvivenciaController extends Controller
 
         if($usuario->getRol()->getNombre() == "ROLE_ALUMNO") {
             $convivencia->setDescargo($data->request->get('descargo'));
+            $notificacionService->newConvivenciaNotificacion(
+                $convivencia->getAlumno(),
+                'Se cargó el descargo de la convivencia correctamente',
+                'Se cargó el descargo de la convivencia correctamente',
+                $this->generateUrl('convivencia_show', ['id' => $convivencia->getId()])
+            );
         }else{
             //Director, Bedel o Docente, lo mismo da
             $convivencia->setComentario($data->request->get('comentario'));
@@ -190,18 +196,17 @@ class ConvivenciaController extends Controller
             }else{
                 $convivencia->setValor(false);
             }
+            $notificacionService->newConvivenciaNotificacion(
+                $convivencia->getAlumno(),
+                'Se modificó una convivencia',
+                'Se modificó una convivencia, ahora es ' . ($valor ? 'positiva' : 'negativa'),
+                $this->generateUrl('convivencia_show', ['id' => $convivencia->getId()])
+            );
 
         }
 
         $em->persist($convivencia);
         $em->flush();
-
-        $notificacionService->newConvivenciaNotificacion(
-            $convivencia->getAlumno(),
-            'Se modificó una convivencia',
-            'Se modificó una convivencia, ahora es ' . ($valor ? 'positiva' : 'negativa'),
-            $this->generateUrl('convivencia_show', ['id' => $convivencia->getId()])
-        );
 
         return $convivencia;
     }
