@@ -7,7 +7,7 @@ security:
         our_db_provider:
             entity:
                 class: BoletinesBundle:Usuario
-                property: nombre
+                property: dni
 
     firewalls:
         dev:
