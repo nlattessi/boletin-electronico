@@ -36,6 +36,7 @@ class BedelController extends Controller
         $user = new Usuario();
         $user->setEmail($data->request->get('email'));
         $user->setNombre($data->request->get('user'));
+        $user->setDni($data->request->get('dni'));
         $user->setPassword($data->request->get('password'));
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
