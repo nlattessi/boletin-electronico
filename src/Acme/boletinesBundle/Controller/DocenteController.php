@@ -71,7 +71,7 @@ class DocenteController extends Controller
         $user = new Usuario();
         $user->setNombre($data->request->get('user'));
         $user->setDni($data->request->get('dni'));
-        $user->setPassword($data->request->get('password'));
+        $user->setPassword($data->request->get('dni'));
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
         $user->setEmail($data->request->get('email'));
