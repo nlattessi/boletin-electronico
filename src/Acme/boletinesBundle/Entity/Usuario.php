@@ -23,6 +23,13 @@ class Usuario implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @ORM\Column(name="dni", type="string", length=12, nullable=false)
+     */
+    private $dni;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=45, nullable=false)
      */
     private $password;
@@ -445,4 +452,22 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->entidadAsociada = $entidad;
     }
+
+    /**
+     * @return string
+     */
+    public function getDni()
+    {
+        return $this->dni;
+    }
+
+    /**
+     * @param string $dni
+     */
+    public function setDni($dni)
+    {
+        $this->dni = $dni;
+    }
+
+
 }

@@ -70,6 +70,7 @@ class DocenteController extends Controller
         $establecimiento = $em->getRepository('BoletinesBundle:Establecimiento')->findOneBy(array('id' => $data->request->get('establecimiento')));
         $user = new Usuario();
         $user->setNombre($data->request->get('user'));
+        $user->setDni($data->request->get('dni'));
         $user->setPassword($data->request->get('password'));
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));

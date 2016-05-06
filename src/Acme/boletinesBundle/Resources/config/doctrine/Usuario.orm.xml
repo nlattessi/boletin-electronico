@@ -8,6 +8,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="dni" type="string" column="dni" length="12" nullable="false"/>
     <field name="nombre" type="string" column="nombre" length="45" nullable="false"/>
     <field name="apellido" type="string" column="apellido" length="45" nullable="false"/>
     <field name="password" type="string" column="password" length="60" nullable="false"/>
