@@ -145,10 +145,18 @@ class ReporteController  extends Controller  {
                 $select = "a.id";
                 array_push($columnas, array ('data' =>'id'));
                 $campos = $request->get('campo');
+                $camposEspeciales = $request->get('campoEspecial');
                 if($campos){
                     foreach ($campos as $campo) {
                         $select .= ", a." . $campo;
-                        array_push($columnas, array ('data' =>$campo));
+                        array_push($columnas, array ('data' => $campo));
+                    }
+                }
+                if($camposEspeciales){
+                    foreach ($camposEspeciales as $campoEs) {
+                        $select .= ", " . $campoEs;
+                        $pos = strpos($campoEs, " as ");
+                        array_push($columnas, array ('data' =>substr($campoEs,$pos+4)));
                     }
                 }
             }

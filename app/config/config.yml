@@ -73,7 +73,7 @@ doctrine:
         auto_mapping: true
         dql:
             datetime_functions:
-                DATE_FORMAT: BoletinesBundle\DQL\DateFormat
+                DATE_FORMAT: Acme\boletinesBundle\DQL\DateFormat
 
 # Swiftmailer Configuration
 swiftmailer:

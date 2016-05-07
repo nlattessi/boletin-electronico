@@ -1,6 +1,6 @@
 <?php
 
-namespace ContadoresBundle\DQL;
+namespace Acme\boletinesBundle\DQL;
 
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
