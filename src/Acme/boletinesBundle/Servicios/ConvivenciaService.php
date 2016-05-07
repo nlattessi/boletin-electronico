@@ -37,6 +37,33 @@ class ConvivenciaService {
         return $convivencia;
     }
 
+    public function obtenerConvivenciaAlumnoConFiltros($alumnoId,$fechaDesde, $fechaHasta, $convivencia){
+
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
+            ->where('c.alumno = ?1')
+            //->andWhere('c.validado = true')
+            ->andWhere('c.activo = true')
+            ->setParameter(1, $alumnoId)
+            ->addOrderBy('c.fechaSuceso','DESC');
+        if($fechaDesde){
+            $queryBuilder->andWhere('c.fechaSuceso > :fd')
+                ->setParameter('fd',$fechaDesde);
+        }
+        if($fechaHasta){
+            $queryBuilder->andWhere('c.fechaSuceso < :fh')
+                ->setParameter('fh',$fechaHasta);
+        }
+        if($convivencia != ""){
+            if($convivencia == 1){
+                $queryBuilder->andWhere('c.valor = true');
+            }else{
+                $queryBuilder->andWhere('c.valor = false');
+            }
+        }
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
+    }
+
     public function obtenerConvivenciaPositivaAlumno($alumnoId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
             ->where('c.alumno = ?1')
@@ -82,6 +109,39 @@ class ConvivenciaService {
             ->setParameter(1, $usuarioId)
             ->addOrderBy('c.fechaSuceso','DESC');
 
+        $convivencia = $queryBuilder->getQuery()->getResult();
+        return $convivencia;
+    }
+    public function obtenerConvivenciaPorUsuarioConFiltros($usuarioId,$fechaDesde, $fechaHasta, $convivencia){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Convivencia')->createQueryBuilder('c')
+            ->where('c.activo = true')
+            ->andWhere('c.creationTime > :startYear')
+            ->andWhere('c.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
+            ->addOrderBy('c.fechaSuceso','DESC');
+
+        if($usuarioId){
+            $queryBuilder->andWhere('c.usuarioCarga = :us')
+                ->setParameter('us', $usuarioId);
+        }
+
+        if($fechaDesde){
+            $queryBuilder->andWhere('c.fechaSuceso > :fd')
+                ->setParameter('fd',$fechaDesde);
+        }
+        if($fechaHasta){
+            $queryBuilder->andWhere('c.fechaSuceso < :fh')
+                ->setParameter('fh',$fechaHasta);
+        }
+        if($convivencia){
+            $queryBuilder->andWhere('c.valor = :va');
+            if($convivencia == 1){
+                $queryBuilder->setParameter('va',true);
+            }else{
+                $queryBuilder->setParameter('va',false);
+            }
+        }
         $convivencia = $queryBuilder->getQuery()->getResult();
         return $convivencia;
     }

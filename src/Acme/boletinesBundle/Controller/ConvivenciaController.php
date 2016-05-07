@@ -49,6 +49,58 @@ class ConvivenciaController extends Controller
             'css_active' => 'convivencia',));
     }
 
+    public function filtrarAction(Request $data)
+    {
+        $fechaDesde = $data->request->get('fechaDesde');
+        if($fechaDesde){
+            $fechaDesde  = Herramientas::textoADatetime($fechaDesde);
+        }
+        $fechaHasta =  $data->request->get('fechaHasta');
+        if($fechaHasta){
+            $fechaHasta  = Herramientas::textoADatetime($fechaHasta);
+        }
+
+        $convivencia =  $data->request->get('convivencia');
+
+        $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
+            if($alumno){
+                $convivenciaService =  $this->get('boletines.servicios.convivencia');
+                $entities = $convivenciaService->obtenerConvivenciaAlumnoConFiltros($alumno->getId(),$fechaDesde, $fechaHasta, $convivencia);
+
+                return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+                    'css_active' => 'convivencia',
+                    'fechaDesde' => $fechaDesde,
+                    'fechaHasta' => $fechaHasta,
+                    'convivencia' => $convivencia,));
+            }else{
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'convivencia',));
+            }
+        }
+        else if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE')
+        {
+            $convivenciaService =  $this->get('boletines.servicios.convivencia');
+            $entities = $convivenciaService->obtenerConvivenciaPorUsuarioConFiltros($this->getUser()->getId(),$fechaDesde, $fechaHasta, $convivencia);
+            return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+                'css_active' => 'convivencia',));
+        }
+        else{
+            $convivenciaService =  $this->get('boletines.servicios.convivencia');
+            $entities = $convivenciaService->obtenerConvivenciasPorUsuarioConFiltros(null,$fechaDesde, $fechaHasta, $convivencia);
+
+        }
+
+
+        return $this->render('BoletinesBundle:Convivencia:index.html.twig', array('entities' => $entities,
+            'css_active' => 'convivencia',));
+    }
+
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();
