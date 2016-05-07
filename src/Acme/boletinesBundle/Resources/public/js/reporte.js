@@ -71,7 +71,7 @@ function generarReporteEvaluacion(){
     /*JOINS*/
 
     var materiaElegida = $('#fmateriaEv').val();
-    if(materiaElegida != ""){
+    if(materiaElegida != null && materiaElegida != ""){
         //Seleccionó evaluación
         $('#joinTBEv').val('Materia');
 
@@ -79,7 +79,7 @@ function generarReporteEvaluacion(){
         $('#joinSBEv').val('b.nombre');
     }
     var docenteElegido = $('#fdocenteEv').val();
-    if(docenteElegido != ""){
+    if(docenteElegido != null && docenteElegido != ""){
         //Seleccionó evaluación
         $('#joinTCEv').val('Docente');
 
