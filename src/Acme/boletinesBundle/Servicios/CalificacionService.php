@@ -43,6 +43,31 @@ class CalificacionService {
     return $calificaciones;
 }
 
+    public function obtenerCalificacionesFiltrada($alumnoId, $materia, $periodo){
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
+            ->join('BoletinesBundle:Evaluacion'  , 'd', 'WITH','d.id = c.evaluacion  '  )
+            ->where('c.alumno = ?1')
+            ->andWhere('c.fechaCreacion > :startYear')
+            ->andWhere('c.fechaCreacion < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
+            ->setParameter(1, $alumnoId)
+            ->addOrderBy('c.fecha','DESC');
+
+
+        if($materia != ""){
+            $queryBuilder->andWhere('d.materia = :mat')
+                ->setParameter('mat',$materia);
+        }
+        if($periodo != ""){
+            $queryBuilder->andWhere('d.periodo = :per')
+                ->setParameter('per',$periodo);
+        }
+
+        $calificaciones = $queryBuilder->getQuery()->getResult();
+        return $calificaciones;
+    }
+
     public function obtenerCalificacionesPorEvaluacion($evaluacionId){
         $queryBuilder = $this->em->getRepository('BoletinesBundle:Calificacion')->createQueryBuilder('c')
             ->where('c.evaluacion = ?1')

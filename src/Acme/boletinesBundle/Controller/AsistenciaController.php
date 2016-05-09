@@ -70,6 +70,72 @@ class AsistenciaController extends Controller
             'css_active' => 'asistencia',));
     }
 
+    public function filtrarAction(Request $data)
+    {
+        $fechaDesde = $data->request->get('fechaDesde');
+        if($fechaDesde){
+            $fechaDesde  = Herramientas::textoADatetime($fechaDesde);
+        }
+        $fechaHasta =  $data->request->get('fechaHasta');
+        if($fechaHasta){
+            $fechaHasta  = Herramientas::textoADatetime($fechaHasta);
+        }
+
+        $asistencia =  $data->request->get('asistencia');
+        $em = $this->getDoctrine()->getManager();
+        $tardes = [];
+        $ausentes = [];
+
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
+            $establecimiento = $session->get('establecimientoActivo');
+
+            if($alumno){
+                $asistenciaService =  $this->get('boletines.servicios.asistencia');
+                $entities = $asistenciaService->obtenerAsistenciaAlumnoFiltrada($alumno->getId(),$fechaDesde, $fechaHasta, $asistencia);
+                $tardes = $asistenciaService->obtenerTardesPorAlumno($alumno->getId());
+                $faltas = $asistenciaService->obtenerFaltasTotales($alumno->getId(),$establecimiento->getTardesFaltas());
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,
+                    'tardes' => count($tardes),
+                    'faltas' => $faltas,
+                    'fechaDesde' => $fechaDesde,
+                    'fechaHasta' => $fechaHasta,
+                    'convivencia' => $asistencia,
+                    'css_active' => 'asistencia',));
+            }else{
+                return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'asistencia',));
+            }
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_DOCENTE'){
+            $materiaService =  $this->get('boletines.servicios.materia');
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $docente = $session->get('docenteActivo');
+            $entities = $materiaService->listaMateriasPorDocente($docente->getId());
+            $ahora = new \DateTime('now');
+            return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
+                'hoy' =>$ahora ,
+                'css_active' => 'asistencia',));
+        }else if($this->getUser()->getRol()->getNombre() == 'ROLE_BEDEL'){
+            $entities = $em->getRepository('BoletinesBundle:Materia')->findAll();
+            $ahora = new \DateTime('now');
+            return $this->render('BoletinesBundle:Asistencia:elegir.html.twig', array('entities' => $entities,
+                'hoy' =>$ahora ,
+                'css_active' => 'asistencia',));
+        }
+
+        else{
+            $entities = $em->getRepository('BoletinesBundle:Asistencia')->findAll();
+        }
+
+        return $this->render('BoletinesBundle:Asistencia:index.html.twig', array('entities' => $entities,
+            'css_active' => 'asistencia',));
+    }
+
     public function getOneAction($id)
     {
         $em = $this->getDoctrine()->getManager();

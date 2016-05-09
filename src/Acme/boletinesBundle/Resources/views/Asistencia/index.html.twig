@@ -49,6 +49,59 @@
                 </div>
             </div>
         </div><!-- endWidget 2-->
+<br><br>
+        <div class="col s12 m12 l12 panel-mini panel-assigment " style="margin-top: 20px; ">
+            <form action="{{ path('asistencia_filtrar') }}" method="post">
+                <div class=" col s12 m6 l6">
+                    <i class="icon-linear-calendar-insert"></i>
+                    <label for="fechaDesde" class="">Fecha Desde</label>
+                    <input type="date" class="datepicker" name="fechaDesde" id="fechaDesde" {% if fechaDesde is defined %}value="{{ fechaDesde|date('d/m/Y') }}" {% endif %} >
+                </div>
+                <div class=" col s12 m6 l6">
+                    <i class="icon-linear-calendar-insert"></i>
+                    <label for="fechaHasta" class="">Fecha Hasta</label>
+                    <input type="date" class="datepicker" name="fechaHasta" id="fechaHasta" {% if fechaHasta is defined %}value="{{ fechaHasta|date('d/m/Y') }}" {% endif %} >
+                </div>
+                <div class="col s3 m3 l3">
+                    <div>
+                        <p>
+                            <input name="asistencia" type="radio" id="presente" value="P" class="convivencia" {% if asistencia is defined and asistencia == 'P' %}checked {% endif %} />
+                            <label for="presente"><i class="icon-linear-checkmark-circle"></i></label>
+                        </p>
+                    </div>
+                </div>
+                <div class="col s3 m3 l3">
+                    <div>
+                        <p>
+                            <input name="asistencia" type="radio" id="tarde" value="T" class="convivencia" {% if asistencia is defined and asistencia == 'T' %}checked {% endif %} />
+                            <label for="tarde"><i class="icon-linear-percent-circle"></i></label>
+                        </p>
+                    </div>
+                </div>
+                <div class="col s3 m3 l3">
+                    <div>
+                        <p>
+                            <input name="asistencia" type="radio" id="ausente" value="A" class="convivencia" {% if asistencia is defined and asistencia == 'A' %}checked {% endif %} />
+                            <label for="ausente"><i class="icon-linear-cross-circle"></i></label>
+                        </p>
+                    </div>
+                </div>
+                <div class="col s3 m3 l3">
+                    <div>
+                        <p>
+                            <input name="asistencia" type="radio" id="convivenciaIndistin" value="" class="convivencia" {% if asistencia is not defined or (asistencia is defined and asistencia == "") %}checked {% endif %}/>
+                            <label for="convivenciaIndistin">Indistinto</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col s12 center-align mar-top-soft">
+                    <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
+                        Filtrar</button>
+                </div>
+            </form>
+        </div>
+
 
         <div class="col s12 m12 l12 mar-bot-top"> <!-- start table 2-->
             <div class="row">
