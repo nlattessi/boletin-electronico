@@ -24,7 +24,49 @@
         {% endif %}
 
     </div>
+    <div class="row panel-mini panel-assigment">
+        <form action="{{ path('convivencia_filtrar') }}" method="post">
+        <div class=" col s12 m6 l6">
+                <i class="icon-linear-calendar-insert"></i>
+                <label for="fechaDesde" class="">Fecha Desde</label>
+                <input type="date" class="datepicker" name="fechaDesde" id="fechaDesde" {% if fechaDesde is defined %}value="{{ fechaDesde|date('d/m/Y') }}" {% endif %} >
+        </div>
+        <div class=" col s12 m6 l6">
+            <i class="icon-linear-calendar-insert"></i>
+            <label for="fechaHasta" class="">Fecha Hasta</label>
+            <input type="date" class="datepicker" name="fechaHasta" id="fechaHasta" {% if fechaHasta is defined %}value="{{ fechaHasta|date('d/m/Y') }}" {% endif %} >
+        </div>
+        <div class="col s3 m3 l3">
+            <div>
+                <p>
+                     <input name="convivencia" type="radio" id="positiva" value="1" class="convivencia" {% if convivencia is defined and convivencia == 1 %}checked {% endif %} />
+                    <label for="positiva"><i class="icon-linear-wink news-i-g conv-i"></i></label>
+                </p>
+            </div>
+        </div>
+        <div class="col s3 m3 l3">
+            <div>
+                <p>
+                    <input name="convivencia" type="radio" id="negativa" value="0" class="convivencia" {% if convivencia is defined and convivencia == 0 %}checked {% endif %} />
+                    <label for="negativa"><i class="icon-linear-mad news-i-b conv-i"></i></label>
+                </p>
+            </div>
+        </div>
+        <div class="col s3 m3 l3">
+            <div>
+                <p>
+                    <input name="convivencia" type="radio" id="convivenciaIndistin" value="" class="convivencia" {% if convivencia is not defined or (convivencia is defined and convivencia == "") %}checked {% endif %}/>
+                    <label for="convivenciaIndistin">Indistinto</label>
+                </p>
+            </div>
+        </div>
 
+        <div class="col s12 center-align mar-top-soft">
+            <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
+                Filtrar</button>
+        </div>
+        </form>
+    </div>
 
     <div class="row">
 

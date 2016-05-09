@@ -6,6 +6,9 @@ calificacion:
     path:     /
     defaults: { _controller: BoletinesBundle:Calificacion:index }
 
+calificacion_filtrar:
+    path:     /filtrado
+    defaults: { _controller: BoletinesBundle:Calificacion:filtrar }
 calificacion_new:
     path:    /new/{id}
     defaults: { _controller: BoletinesBundle:Calificacion:new }

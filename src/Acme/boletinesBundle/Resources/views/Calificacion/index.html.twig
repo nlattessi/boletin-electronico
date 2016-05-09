@@ -14,7 +14,32 @@
         {% endif %}
 
     </div>
-
+    <div class="row panel-mini panel-assigment">
+        <form action="{{ path('calificacion_filtrar') }}" method="post">
+            <div class="input-field col s12 m6 l5 mar-top-soft">
+                <select id="materia" name="materia">
+                    <option value="">Seleccione una materia</option>
+                    {% for materia in materias %}
+                        <option value="{{ materia.id }}" {% if materiaf is defined and materiaf ==  materia.id %} selected {% endif %}>{{ materia }}</option>
+                    {% endfor %}
+                </select>
+                <label>Materias</label>
+            </div>
+            <div class="input-field col s12 m4 l4 mar-top-soft">
+                <select id="periodo" name="periodo">
+                    <option value="">Seleccione un período</option>
+                    {% for periodo in periodos %}
+                        <option value="{{ periodo.id }}" {% if periodof is defined and periodof ==  periodo.id %} selected {% endif %}>{{ periodo }}</option>
+                    {% endfor %}
+                </select>
+                <label>Períodos</label>
+            </div>
+            <div class="col s12 center-align mar-top-soft">
+                <button type="submit" name="submit" class="btn-large waves-effect waves-light center-align mar-right">
+                    Filtrar</button>
+            </div>
+        </form>
+    </div>
 
     <div class="row ">
 

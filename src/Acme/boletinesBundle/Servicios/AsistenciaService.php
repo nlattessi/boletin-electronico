@@ -37,7 +37,6 @@ class AsistenciaService {
 
     public function obtenerAsistenciaAlumnoLimite($alumno, $limite){
 
-        $asistenciaes = array();
         $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
             ->where('d.alumno = ?1')
             ->andWhere('d.creationTime > :startYear')
@@ -56,6 +55,35 @@ class AsistenciaService {
         return $asistenciasAlumno;
     }
 
+    public function obtenerAsistenciaAlumnoFiltrada($alumno,$fechaDesde, $fechaHasta, $asistencia){
+
+        $queryBuilder = $this->em->getRepository('BoletinesBundle:AlumnoAsistencia')->createQueryBuilder('d')
+            ->where('d.alumno = ?1')
+            ->join('BoletinesBundle:Asistencia'  , 'c', 'WITH','c.id = d.asistencia  '  )
+            ->andWhere('d.creationTime > :startYear')
+            ->andWhere('d.creationTime < :endYear')
+            ->setParameter('startYear', $this->startYear)
+            ->setParameter('endYear', $this->endYear)
+            ->setParameter(1, $alumno);
+        if($fechaDesde){
+            $queryBuilder->andWhere('c.fecha > :fd')
+                ->setParameter('fd',$fechaDesde);
+        }
+        if($fechaHasta){
+            $queryBuilder->andWhere('c.fecha < :fh')
+                ->setParameter('fh',$fechaHasta);
+        }
+        if($asistencia != ""){
+           $queryBuilder->andWhere('d.valor = :val')
+               ->setParameter('val',$asistencia);
+        }
+        $asistenciasAlumno = $queryBuilder->getQuery()->getResult();
+        /*
+                foreach($asistenciasAlumno as $asistenciaAlumno){
+                   array_push($asistenciaes,$asistenciaAlumno->getAsistencia() ) ;
+                }*/
+        return $asistenciasAlumno;
+    }
 
     /**
      * @param $alumno

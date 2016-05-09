@@ -19,6 +19,8 @@ class CalificacionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $materias = array();
+        $periodos = array();
         if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
             $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
             $request = $this->getRequest();
@@ -28,6 +30,11 @@ class CalificacionController extends Controller
             if($alumno){
                 $calificacionService =  $this->get('boletines.servicios.calificacion');
                 $entities = $calificacionService->obtenerCalificaciones($alumno->getId());
+                $materiaService =  $this->get('boletines.servicios.materia');
+                //$materias = $materiaService->listaMateriasPorAlumno($alumno->getId());
+                $muchosAMuchosService =  $this->get('boletines.servicios.muchosamuchos');
+                $establecimiento = $session->get('establecimientoActivo');
+                $periodos = $muchosAMuchosService->obtenerPeriodosPorEstablecimiento($establecimiento);
             }else{
                 return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => null,
                     'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
@@ -39,6 +46,48 @@ class CalificacionController extends Controller
 
 
         return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => $entities,
+            'materias' => $materias,
+            'periodos' => $periodos,
+            'css_active' => 'calificacion',));
+    }
+
+    public function filtrarAction(Request $data)
+    {
+        $materia =  $data->request->get('materia');
+        $periodo =  $data->request->get('periodo');
+        $materias = array();
+        $periodos = array();
+        $em = $this->getDoctrine()->getManager();
+        if($this->getUser()->getRol()->getNombre() == 'ROLE_PADRE' ||
+            $this->getUser()->getRol()->getNombre() == 'ROLE_ALUMNO'){
+            $request = $this->getRequest();
+            $session = $request->getSession();
+            $alumno = $session->get('alumnoActivo');
+
+            if($alumno){
+                $calificacionService =  $this->get('boletines.servicios.calificacion');
+                $entities = $calificacionService->obtenerCalificacionesFiltrada($alumno->getId(), $materia, $periodo);
+
+                $materiaService =  $this->get('boletines.servicios.materia');
+               // $materias = $materiaService->listaMateriasPorAlumno($alumno->getId());
+                $muchosAMuchosService =  $this->get('boletines.servicios.muchosamuchos');
+                $establecimiento = $session->get('establecimientoActivo');
+                $periodos = $muchosAMuchosService->obtenerPeriodosPorEstablecimiento($establecimiento);
+            }else{
+                return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => null,
+                    'mensaje' => "Usted no tiene hijos asociados, consulte con el administrador",
+                    'css_active' => 'calificacion',));
+            }
+        }else{
+            $entities = $em->getRepository('BoletinesBundle:Calificacion')->findAll();
+        }
+
+
+        return $this->render('BoletinesBundle:Calificacion:index.html.twig', array('entities' => $entities,
+            'materias' => $materias,
+            'periodos' => $periodos,
+            'materiaf' => $materia,
+            'periodof' => $periodo,
             'css_active' => 'calificacion',));
     }
 

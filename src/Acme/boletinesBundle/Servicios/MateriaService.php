@@ -113,6 +113,27 @@ class MateriaService {
         return $materias;
     }
 
+    public function listaMateriasPorAlumno($idAlumno){
+        $materias = array();
+
+        $query = $this->em->createQueryBuilder()
+            ->select('c')
+            ->from('BoletinesBundle:Alumno','d')
+            ->join('BoletinesBundle:GrupoAlumnoMateria'  , 'c', 'WITH','c.grupoAlumno in d.gruposAlumno  '  )
+            ->where('d.alumno = :alumno')
+            ->setParameter('alumno', $idAlumno)
+            ->getQuery();
+
+        $materiasAlumno = $query->getResult();
+        foreach($materiasAlumno as $materiaAlumno){
+            $materia = $materiaAlumno->getMateria();
+            if($materia->isActivo()) {
+                array_push($materias, $materia);
+            }
+        }
+        return $materias;
+    }
+
     public function listaDocentesPorMateria($idMateria){
         $docentes = $this->muchosService->obtenerDocentesPorMateria($idMateria);
 
