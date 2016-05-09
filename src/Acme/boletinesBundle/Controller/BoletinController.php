@@ -176,7 +176,8 @@ class BoletinController extends Controller
                 foreach ($calificacionesAlumno as $calificacionAlumno) {
                     $notaSugerida += $calificacionAlumno->getValor();
                 }
-                $notaSugerida = empty($calificacionesAlumno) ? $notaSugerida : $notaSugerida / sizeof($calificacionesAlumno);
+                $notaSugerida = ceil(empty($calificacionesAlumno) ? $notaSugerida : $notaSugerida / sizeof($calificacionesAlumno));
+               
                 $valorCalificacion = $em->getRepository('BoletinesBundle:ValorCalificacion')->findOneBy([
                     'esquemaCalificacion' => $esquemaCalificacion,
                     'valor' => $notaSugerida
@@ -185,7 +186,6 @@ class BoletinController extends Controller
             }
         }
         $em->flush();
-
         $notasPeriodo = $em->getRepository('BoletinesBundle:NotaPeriodo')->findBy([
             'materia' => $materia,
             'periodo' => $periodo
