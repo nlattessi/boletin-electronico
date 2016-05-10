@@ -136,15 +136,14 @@ class GrupoAlumnoController extends Controller
         $usersIds = $data->request->get('idMiembro');
         if(!$usersIds){
             //por si no se agregan usuarios
-            $usersIds = new ArrayCollection();
+            $usersIds = new \Doctrine\Common\Collections\ArrayCollection();
         }
 
         $grupoAlumno->borrarAlumnos();
         foreach ($usersIds as $userId) {
-            $userMiemb = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $userId));
-            //$alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
-            $alumnoMiembro = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userMiemb->getIdEntidadAsociada()));
-            $grupoAlumno->addAlumno($alumnoMiembro);
+            $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $userId));
+
+            $grupoAlumno->addAlumno($alumno);
         }
 
         $em->persist($grupoAlumno);

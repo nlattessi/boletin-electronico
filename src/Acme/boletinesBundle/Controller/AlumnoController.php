@@ -324,7 +324,7 @@ class AlumnoController extends Controller
          * */
 
         $query = $em->createQueryBuilder()
-            ->select('u.nombre', 'u.apellido', 'u.id')
+            ->select('u.nombre', 'u.apellido', 'u.idEntidadAsociada as id')
             ->from('BoletinesBundle:Usuario', 'u')
             ->where('LOWER(u.nombre) LIKE LOWER(:query) OR LOWER(u.apellido) LIKE LOWER(:query)')
             ->andWhere('u.institucion = :institucion')
