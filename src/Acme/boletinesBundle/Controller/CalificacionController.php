@@ -31,7 +31,10 @@ class CalificacionController extends Controller
                 $calificacionService =  $this->get('boletines.servicios.calificacion');
                 $entities = $calificacionService->obtenerCalificaciones($alumno->getId());
                 $materiaService =  $this->get('boletines.servicios.materia');
-                //$materias = $materiaService->listaMateriasPorAlumno($alumno->getId());
+                //Por lazy, sino no trae los grupos
+                $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $alumno->getId()));
+
+                $materias = $materiaService->listaMateriasPorAlumno($alumno);
                 $muchosAMuchosService =  $this->get('boletines.servicios.muchosamuchos');
                 $establecimiento = $session->get('establecimientoActivo');
                 $periodos = $muchosAMuchosService->obtenerPeriodosPorEstablecimiento($establecimiento);
@@ -69,7 +72,10 @@ class CalificacionController extends Controller
                 $entities = $calificacionService->obtenerCalificacionesFiltrada($alumno->getId(), $materia, $periodo);
 
                 $materiaService =  $this->get('boletines.servicios.materia');
-               // $materias = $materiaService->listaMateriasPorAlumno($alumno->getId());
+
+                //Por lazy, sino no trae los grupos
+                $alumno = $em->getRepository('BoletinesBundle:Alumno')->findOneBy(array('id' => $alumno->getId()));
+                $materias = $materiaService->listaMateriasPorAlumno($alumno);
                 $muchosAMuchosService =  $this->get('boletines.servicios.muchosamuchos');
                 $establecimiento = $session->get('establecimientoActivo');
                 $periodos = $muchosAMuchosService->obtenerPeriodosPorEstablecimiento($establecimiento);
