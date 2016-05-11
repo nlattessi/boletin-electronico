@@ -74,20 +74,37 @@
 
     </div>
 <script>
+
+    function limpiarClases($, id){
+        $('#' + id + 'A').removeClass('activo');
+        $('#' + id + 'P').removeClass('activo');
+        $('#' + id + 'T').removeClass('activo');
+        $('#' + id + 'A').removeClass('disabled');
+        $('#' + id + 'P').removeClass('disabled');
+        $('#' + id + 'T').removeClass('disabled');
+    }
+
     function ausente($, id){
         $('#' + id).val('A');
-        $('#' + id + 'P').hide();
-        $('#' + id + 'T').hide();
+        limpiarClases($, id);
+        $('#' + id + 'A').addClass('activo');
+        $('#' + id + 'P').addClass('disabled');
+        $('#' + id + 'T').addClass('disabled');
+
     }
     function tarde($, id){
         $('#' + id).val('T');
-        $('#' + id + 'P').hide();
-        $('#' + id + 'A').hide();
+        limpiarClases($, id);
+        $('#' + id + 'T').addClass('activo');
+        $('#' + id + 'P').addClass('disabled');
+        $('#' + id + 'A').addClass('disabled');
     }
     function presente($, id){
         $('#' + id).val('P');
-        $('#' + id + 'A').hide();
-        $('#' + id + 'T').hide();
+        limpiarClases($, id);
+        $('#' + id + 'P').addClass('activo');
+        $('#' + id + 'A').addClass('disabled');
+        $('#' + id + 'T').addClass('disabled');
     }
 
 </script>
