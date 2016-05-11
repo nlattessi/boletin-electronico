@@ -244,8 +244,11 @@ class Alumno
      **/
     private $materias;
 
+    private $gruposAlumnos;
+
     public function __construct() {
         $this->materias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gruposAlumnos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creationTime = new \DateTime();
     }
 
@@ -263,6 +266,18 @@ class Alumno
     public function setMaterias($materias)
     {
         $this->materias = $materias;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGruposAlumnos()
+    {
+        return $this->gruposAlumnos;
+    }
+
+    public function borrarGruposAlumnos(){
+        $this->gruposAlumnos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

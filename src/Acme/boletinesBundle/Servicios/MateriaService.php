@@ -7,6 +7,7 @@
  */
 
 namespace Acme\boletinesBundle\Servicios;
+use Acme\boletinesBundle\Entity\Alumno;
 use Acme\boletinesBundle\Entity\Materia;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -113,24 +114,22 @@ class MateriaService {
         return $materias;
     }
 
-    public function listaMateriasPorAlumno($idAlumno){
-        $materias = array();
+    public function listaMateriasPorAlumno(Alumno $alumno){
+        $grupoAlIds = array();
+        foreach($alumno->getGruposAlumnos() as $grupoa){
 
+            array_push($grupoAlIds, $grupoa->getId());
+        }
         $query = $this->em->createQueryBuilder()
-            ->select('c')
-            ->from('BoletinesBundle:Alumno','d')
-            ->join('BoletinesBundle:GrupoAlumnoMateria'  , 'c', 'WITH','c.grupoAlumno in d.gruposAlumno  '  )
-            ->where('d.alumno = :alumno')
-            ->setParameter('alumno', $idAlumno)
+            ->select('m')
+            ->from('BoletinesBundle:Materia','m')
+            ->join('BoletinesBundle:GrupoAlumnoMateria'  , 'c', 'WITH','c.materia = m.id  '  )
+            ->where('c.grupoAlumno in (:grupos)')
+            ->setParameter('grupos',$grupoAlIds)
             ->getQuery();
 
-        $materiasAlumno = $query->getResult();
-        foreach($materiasAlumno as $materiaAlumno){
-            $materia = $materiaAlumno->getMateria();
-            if($materia->isActivo()) {
-                array_push($materias, $materia);
-            }
-        }
+        $materias = $query->getResult();
+
         return $materias;
     }
 

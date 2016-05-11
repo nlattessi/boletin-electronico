@@ -172,12 +172,13 @@ class ActividadService {
 
         $actividadesEstablecimiento = $this->getActividadesEstablecimiento($user->getEntidadAsociada()->getEstablecimiento());
         $actividades = array_merge($actividadesEstablecimiento, $actividades);
-
+/*Obtener de otra forma las materias del usuario
+ *
         foreach ($user->getEntidadAsociada()->getMaterias() as $materia) {
             $actividadesMateria = $this->getActividadesMateria($materia);
             $actividades = array_merge($actividadesMateria, $actividades);
         }
-
+*/
         return $actividades;
     }
 
