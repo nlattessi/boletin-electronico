@@ -118,7 +118,7 @@
         function guardarPdfLibreriaExterna(){
             convertirImagenes();
            $('#creadoPor').show();
-            var resultado = xepOnline.Formatter.Format('printCompleto',{render: 'download', embedLocalImages : true});
+            var resultado = xepOnline.Formatter.Format('printCompleto',{render: 'download', filename: 'Boletin', pageWidth:'11in', pageHeight:'8.5in'});
             //var resultado = xepOnline.Formatter.Format('imprimible',{render: 'download', embedLocalImages : true});
             $('#creadoPor').hide();
             return resultado;
