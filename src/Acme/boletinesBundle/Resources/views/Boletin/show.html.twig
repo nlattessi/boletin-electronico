@@ -11,26 +11,16 @@
         </div>
     </div>
     <div id="printCompleto">
-        <div class="row center-on-small-only">
-            <div class="col s12 m6 l6 ">
-                <h3 class="header">Boletín</h3>
-            </div>
-        </div>
         <div class="row mar-top-soft center-on-small-only">
-            <div id="institucion">
-                <div class="col s12 m2 l2" >
-                    {{ macros.show_institucion_logo_nombre(app.user.institucion) }}
-                </div>
-                <div class="col s12 m5 l6" id="establecimiento">
-                    <h5 class="mar-top-soft"><strong>{{ alumno.establecimiento }}</strong></h5>
-                </div>
+            <div class="col s12 m2 l2">
+                {{ macros.show_institucion_logo_nombre(app.user.institucion) }}
             </div>
-            <div class="col s12 m5 l4">
-                <p class="">
-                    {{ macros.ficha_foto_entity(alumno) }}
-                    {{ alumno }}</p>
-                <p id="anio" class="">Año: <span><STRONG>{{ "now"|date("Y") }}</STRONG></span></p>
-                <p id="curso" class="">Curso: <span><strong>1 A</span></STRONG></p>
+            <div class="col s12 m5 l6" >
+                <h5 class="mar-top-soft"><strong>{{ alumno.establecimiento }}</strong></h5>
+            </div>
+            <div class="col s12 m5 l4" style="float: right;">
+                <p class="">{{ macros.ficha_foto_entity(alumno) }} {{ alumno }}</p>
+                <p class="">Año: <span><strong>{{ "now"|date("Y") }}</strong></span></p>
             </div>
         </div>
         <div class="row" id="toPrint">
@@ -77,11 +67,21 @@
                 </table>
             </div>
         </div>
-        <div id="creadoPor" style="display: none">
-            <p>Creado por Communitas 2016</p>
+        <div class="row center-on-small-only mar-bot-top" id="creadoPor" style="display: none">
+            <div class="col s12 m4 l4 ">
+                <p class="">Firma directivo: </p>
+            </div>
+            <div class="col s12 m4 l4 ">
+                <p class="">Firma tutor: </p>
+            </div>
+            <div class="col s12 m4 l4 " style="float:right;" >
+                <img src="{{ asset('bundles/boletines/images/communitas-isologotipo.png')}}" alt="as" class="logo-boletin">
+            </div>
         </div>
     </div>
 
+
+    
 {% endblock %}
 {% block javascript %}
    <!-- <script src="{{ asset('bundles/boletines/js/jspdf.debug.js') }}"></script>
@@ -91,6 +91,8 @@
 
         function convertirImagenes(){
             $('#printCompleto  img').each(function() {
+                $(this).css('min-height',$(this).height() +'px');
+                $(this).css('min-width',($(this).width() < 56 ? 56 : $(this).width() ) + 'px');
             convertFileToDataURLviaFileReader($(this), function(base64Img){
 
             });
@@ -104,6 +106,7 @@
                 var reader  = new FileReader();
                 reader.onloadend = function () {
                     imagen.attr('src',reader.result);
+
                     callback(reader.result);
                 }
                 reader.readAsDataURL(xhr.response);
@@ -115,7 +118,8 @@
         function guardarPdfLibreriaExterna(){
             convertirImagenes();
            $('#creadoPor').show();
-            var resultado = xepOnline.Formatter.Format('printCompleto',{render: 'download', embedLocalImages : true});
+            var resultado = xepOnline.Formatter.Format('printCompleto',{render: 'download', filename: 'Boletin', pageWidth:'11in', pageHeight:'8.5in'});
+            //var resultado = xepOnline.Formatter.Format('imprimible',{render: 'download', embedLocalImages : true});
             $('#creadoPor').hide();
             return resultado;
         }
