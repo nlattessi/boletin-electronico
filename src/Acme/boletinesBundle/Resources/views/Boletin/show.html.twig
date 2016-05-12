@@ -15,10 +15,10 @@
             <div class="col s12 m2 l2">
                 {{ macros.show_institucion_logo_nombre(app.user.institucion) }}
             </div>
-            <div class="col s12 m5 l6">
+            <div class="col s12 m5 l6" >
                 <h5 class="mar-top-soft"><strong>{{ alumno.establecimiento }}</strong></h5>
             </div>
-            <div class="col s12 m5 l4">
+            <div class="col s12 m5 l4" style="float: right;">
                 <p class="">{{ macros.ficha_foto_entity(alumno) }} {{ alumno }}</p>
                 <p class="">Año: <span><strong>{{ "now"|date("Y") }}</strong></span></p>
             </div>
