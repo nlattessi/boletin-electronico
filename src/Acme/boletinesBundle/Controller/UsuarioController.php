@@ -132,7 +132,8 @@ class UsuarioController extends Controller
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
         $password = $encoder->encodePassword($data->request->get('password'), $usuario->getSalt());
         $creacionService =  $this->get('boletines.servicios.creacion');
-        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+        $usuario = $creacionService->crearUsuario($data->request->get('dni'),
+            $data->request->get('nombre'),
             $data->request->get('email'),
             $password,
             $rol,
@@ -144,10 +145,10 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if($data->get('directivo')){
+        if($data->request->has('directivo')){
             $tipoUsuario = 'ROLE_DIRECTIVO';
         }else{
-            $tipoUsuario = 'ROLE_ADMINISTRATIVO';
+            $tipoUsuario = 'ROLE_ADMINISTRA';
         }
 
 
@@ -157,7 +158,8 @@ class UsuarioController extends Controller
         $password = $encoder->encodePassword($data->request->get('password'), $usuario->getSalt());
 
         $creacionService =  $this->get('boletines.servicios.creacion');
-        $usuario = $creacionService->crearUsuario($data->request->get('nombre'),
+        $usuario = $creacionService->crearUsuario($data->request->get('dni'),
+            $data->request->get('nombre'),
             $data->request->get('apellido'),
             $data->request->get('email'),
             $password,
@@ -348,13 +350,22 @@ class UsuarioController extends Controller
     private function editEntity($data, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /**
+        @var Usuario
+         */
         $usuario = $em->getRepository('BoletinesBundle:Usuario')->findOneBy(array('id' => $id));
 
+        $usuario->setDni($data->request->get('dni'));
         $usuario->setNombre($data->request->get('nombre'));
         $usuario->setEmail($data->request->get('email'));
-        $usuario->setPassword($data->request->get('password'));
-        $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
-        $usuario->setPassword($encoder->encodePassword($usuario->getPassword(), $usuario->getSalt()));
+        $nuevoPass = $data->request->get('password');
+        if($nuevoPass){
+            $usuario->setPassword();
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+            $usuario->setPassword($encoder->encodePassword($usuario->getPassword(), $usuario->getSalt()));
+        }
+
+        //queda armado pero no es posible cambiar el rol todavía
         $idRol = $data->request->get('idRol');
 
         if($idRol != null && $idRol != '') {
